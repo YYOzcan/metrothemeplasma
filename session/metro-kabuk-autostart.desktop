@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Metro Kabuğu
+Exec=@BIN@/metro-kabuk --giris
+NoDisplay=true
+OnlyShowIn=KDE;
+X-KDE-autostart-phase=1
+X-KDE-AutostartScript=false

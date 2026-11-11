@@ -72,17 +72,18 @@ void Sistem::kilitle()
 
 void Sistem::oturumuKapat()
 {
-    cagir(QStringLiteral("org.kde.Shutdown"), QStringLiteral("/Shutdown"), QStringLiteral("org.kde.Shutdown"), QStringLiteral("logout"));
+    // karşılayıcı Windows 8 "Oturum kapatılıyor" ekranını gösterip onaysız kapatır (kabuk logout/)
+    cagir(QStringLiteral("org.kde.LogoutPrompt"), QStringLiteral("/LogoutPrompt"), QStringLiteral("org.kde.LogoutPrompt"), QStringLiteral("promptLogout"));
 }
 
 void Sistem::kapat()
 {
-    cagir(QStringLiteral("org.kde.Shutdown"), QStringLiteral("/Shutdown"), QStringLiteral("org.kde.Shutdown"), QStringLiteral("logoutAndShutdown"));
+    cagir(QStringLiteral("org.kde.LogoutPrompt"), QStringLiteral("/LogoutPrompt"), QStringLiteral("org.kde.LogoutPrompt"), QStringLiteral("promptShutDown"));
 }
 
 void Sistem::yenidenBaslat()
 {
-    cagir(QStringLiteral("org.kde.Shutdown"), QStringLiteral("/Shutdown"), QStringLiteral("org.kde.Shutdown"), QStringLiteral("logoutAndReboot"));
+    cagir(QStringLiteral("org.kde.LogoutPrompt"), QStringLiteral("/LogoutPrompt"), QStringLiteral("org.kde.LogoutPrompt"), QStringLiteral("promptReboot"));
 }
 
 void Sistem::uyku()

@@ -1,0 +1,27 @@
+[kdeglobals][KDE]
+widgetStyle=kvantum
+
+[kdeglobals][General]
+ColorScheme=Metro
+
+[kdeglobals][Icons]
+Theme=Windows 8.1
+
+[plasmarc][Theme]
+name=Metro
+
+[kcminputrc][Mouse]
+cursorTheme=Windows 8.1 Aero
+
+[kwinrc][org.kde.kdecoration2]
+library=org.kde.kwin.aurorae
+theme=__aurorae__svg__Metro
+
+[kwinrc][WindowSwitcher]
+LayoutName=metro_alttab
+
+[KSplash]
+Theme=io.github.yyozcan.metro
+
+[Wallpaper]
+Image=Metro-Windows

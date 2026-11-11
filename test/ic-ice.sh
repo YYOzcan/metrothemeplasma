@@ -11,6 +11,12 @@ rm -rf "$XDG_RUNTIME_DIR"; mkdir -p "$XDG_RUNTIME_DIR"; chmod 700 "$XDG_RUNTIME_
 unset FONTCONFIG_FILE WAYLAND_DISPLAY DISPLAY
 export QT_FORCE_STDERR_LOGGING=1
 export FONTCONFIG_FILE="$KOK/session/metro-fonts.conf"
+# gerçek oturumun yapılandırmasına dokunma: ayrı XDG_CONFIG_HOME (metro ayarları kopyalanır)
+TCFG=/tmp/claude-$(id -u)/metro-test-cfg
+rm -rf "$TCFG"; mkdir -p "$TCFG"
+cp -r "$HOME/.config/metrothemeplasma" "$TCFG/" 2>/dev/null
+printf '[Icons]\nTheme=${METRO_SIMGE:-Windows 8.1}\n[General]\nColorScheme=Metro\n' > "$TCFG/kdeglobals"
+export XDG_CONFIG_HOME="$TCFG"
 dbus-run-session -- bash -c "
   kwin_wayland --virtual --width 1920 --height 1080 --socket mt-0 --no-lockscreen >\"$CIKTI/kwin.log\" 2>&1 &
   for i in \$(seq 50); do [ -S \"$XDG_RUNTIME_DIR/mt-0\" ] && break; sleep 0.1; done

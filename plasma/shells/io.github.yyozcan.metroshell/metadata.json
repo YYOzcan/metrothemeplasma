@@ -1,0 +1,17 @@
+{
+    "KPackageStructure": "Plasma/Shell",
+    "KPlugin": {
+        "Authors": [{ "Name": "MetroThemePlasma" }],
+        "Description": "Windows 8.1 biçemli Plasma masaüstü kabuğu (MetroThemePlasma)",
+        "Description[tr]": "Windows 8.1 biçemli Plasma masaüstü kabuğu (MetroThemePlasma)",
+        "Icon": "user-desktop",
+        "Id": "io.github.yyozcan.metroshell",
+        "License": "GPL-2.0+",
+        "Name": "Metro Kabuğu",
+        "Name[tr]": "Metro Kabuğu",
+        "Version": "1.0",
+        "Website": "https://github.com/YYOzcan/metrothemeplasma"
+    },
+    "X-KDE-ParentApp": "org.kde.plasmashell",
+    "X-Plasma-APIVersion": "2"
+}

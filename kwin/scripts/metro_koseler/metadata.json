@@ -1,0 +1,15 @@
+{
+    "KPackageStructure": "KWin/Script",
+    "KPlugin": {
+        "Authors": [{ "Name": "MetroThemePlasma" }],
+        "Description": "Windows 8.1 sıcak köşeleri: sağ köşeler tılsımlar, sol üst uygulamalar arasında geçiş",
+        "Description[tr]": "Windows 8.1 sıcak köşeleri: sağ köşeler tılsımlar, sol üst uygulamalar arasında geçiş",
+        "EnabledByDefault": false,
+        "Id": "metro_koseler",
+        "License": "GPL-3.0-or-later",
+        "Name": "Metro köşeleri",
+        "Name[tr]": "Metro köşeleri",
+        "Version": "1.0"
+    },
+    "X-Plasma-API": "javascript"
+}

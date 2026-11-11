@@ -1,0 +1,15 @@
+[SddmGreeterTheme]
+Name=MetroThemePlasma
+Name[tr]=MetroThemePlasma
+Description=Windows 8.1 style sign-in screen
+Description[tr]=Windows 8.1 biçemli oturum açma ekranı
+Author=MetroThemePlasma
+License=GPL-3.0-or-later
+Type=sddm-theme
+Version=1.0
+Website=https://github.com/YYOzcan/metrothemeplasma
+MainScript=Main.qml
+ConfigFile=theme.conf
+Theme-Id=metrothemeplasma
+Theme-API=2.0
+QtVersion=6

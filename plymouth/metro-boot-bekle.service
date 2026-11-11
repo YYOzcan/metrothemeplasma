@@ -1,0 +1,12 @@
+[Unit]
+Description=MetroThemePlasma: Windows 8.1 açılış ekranı en az 5 saniye görünsün
+DefaultDependencies=no
+After=plymouth-start.service
+Before=display-manager.service plymouth-quit.service plymouth-quit-wait.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/lib/metrothemeplasma/metro-boot-bekle 5
+
+[Install]
+WantedBy=graphical.target

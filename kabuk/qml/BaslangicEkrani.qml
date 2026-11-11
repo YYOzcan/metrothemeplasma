@@ -364,7 +364,7 @@ Window {
             anchors.fill: parent
             tema: pen.tema
             duvarKagidi: tema.renk.masaustuArkaPlani ? pen.duvarKagidi : ""
-            kayma: kaydirici.contentX / Math.max(1, kaydirici.contentWidth - kaydirici.width)
+            kaydirma: kaydirici.contentX
             dikey: pen.sayfaKonum
         }
 

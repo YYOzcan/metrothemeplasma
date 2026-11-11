@@ -1,0 +1,101 @@
+# MetroThemePlasma — Windows 8.1 açılış ve kapanış ekranları (Plymouth betik eklentisi)
+#
+# Açılış  : siyah zemin, ortada Windows logosu (bootres.dll), altında dönen beş nokta
+# Kapanış : Başlangıç zemin rengi, ortada dönen noktalar ve "Kapatılıyor" / "Yeniden başlatılıyor"
+#
+# Ekran önce simpledrm üzerinde çizilir; asıl sürücü yüklenince çözünürlük değişebilir: yerleşim her
+# karede denetlenir. (global.arka_r/g/b bu dosyanın başına kurulumda eklenir.)
+
+mod = Plymouth.GetMode();
+global.kapanis = (mod == "shutdown" || mod == "reboot");
+global.yeniden = (mod == "reboot");
+global.KARE = 110;
+global.W = 0;
+global.H = 0;
+global.sayac = 0;
+
+for (i = 0; i < global.KARE; i++) {
+    if (i < 10) ad = "halka-00" + i + ".png";
+    else if (i < 100) ad = "halka-0" + i + ".png";
+    else ad = "halka-" + i + ".png";
+    global.halka_ham[i] = Image(ad);
+}
+for (i = 1; i <= 5; i++)
+    global.logo_ham[i] = Image("logo-" + i + ".png");
+global.yazi_ham = Image("kapat-kapat.png");
+if (global.yeniden) global.yazi_ham = Image("kapat-yeniden.png");
+
+fun yerlestir() {
+    global.W = Window.GetWidth();
+    global.H = Window.GetHeight();
+    w = global.W;
+    h = global.H;
+    cap = Math.Int(h / 22);                       # halka çapı (1080p'de ~48)
+    if (cap < 28) cap = 28;
+    for (i = 0; i < global.KARE; i++)
+        global.halka[i] = global.halka_ham[i].Scale(cap, cap);
+
+    if (global.kapanis) {
+        yh = Math.Int(h / 20);                    # yazı satır yüksekliği
+        yw = Math.Int(global.yazi_ham.GetWidth() * yh / global.yazi_ham.GetHeight());
+        toplam = cap + Math.Int(cap * 0.5) + yw;
+        x0 = Math.Int((w - toplam) / 2);
+        global.h_sprite = Sprite(global.halka[0]);
+        global.h_sprite.SetX(x0);
+        global.h_sprite.SetY(Math.Int(h / 2 - cap / 2));
+        global.h_sprite.SetZ(2);
+        global.y_sprite = Sprite(global.yazi_ham.Scale(yw, yh));
+        global.y_sprite.SetX(x0 + cap + Math.Int(cap * 0.5));
+        global.y_sprite.SetY(Math.Int(h / 2 - yh * 0.42));
+        global.y_sprite.SetZ(2);
+    } else {
+        # logo: yüksekliği ekranın ~1/8.5'ini geçmeyen en büyük boy
+        sec = 1;
+        for (i = 1; i <= 5; i++)
+            if (global.logo_ham[i].GetHeight() <= h / 8.5) sec = i;
+        logo = global.logo_ham[sec];
+        global.l_sprite = Sprite(logo);
+        global.l_sprite.SetX(Math.Int((w - logo.GetWidth()) / 2));
+        global.l_sprite.SetY(Math.Int(h * 0.40 - logo.GetHeight() / 2));
+        global.l_sprite.SetZ(1);
+        global.h_sprite = Sprite(global.halka[0]);
+        global.h_sprite.SetX(Math.Int((w - cap) / 2));
+        global.h_sprite.SetY(Math.Int(h * 0.78 - cap / 2));
+        global.h_sprite.SetZ(2);
+    }
+}
+
+if (global.kapanis) {
+    Window.SetBackgroundTopColor(global.arka_r, global.arka_g, global.arka_b);
+    Window.SetBackgroundBottomColor(global.arka_r, global.arka_g, global.arka_b);
+} else {
+    Window.SetBackgroundTopColor(0, 0, 0);
+    Window.SetBackgroundBottomColor(0, 0, 0);
+}
+yerlestir();
+
+fun guncelle() {
+    if (Window.GetWidth() != global.W || Window.GetHeight() != global.H)
+        yerlestir();
+    global.sayac++;
+    # 50 Hz yenileme, 25 kare/sn
+    kare = Math.Int(global.sayac / 2) % global.KARE;
+    global.h_sprite.SetImage(global.halka[kare]);
+}
+Plymouth.SetRefreshFunction(guncelle);
+
+# ------------------------------------------------------------------ parola (şifreli disk)
+fun parola(istem, madde) {
+    yildiz = "";
+    for (j = 0; j < madde; j++) yildiz += "*";
+    global.p_sprite = Sprite(Image.Text(istem + " " + yildiz, 1, 1, 1));
+    global.p_sprite.SetX(Math.Int(Window.GetWidth() / 2 - 150));
+    global.p_sprite.SetY(Math.Int(Window.GetHeight() * 0.88));
+    global.p_sprite.SetZ(10);
+}
+Plymouth.SetDisplayPasswordFunction(parola);
+
+fun normal() {
+    global.p_sprite = NULL;
+}
+Plymouth.SetDisplayNormalFunction(normal);

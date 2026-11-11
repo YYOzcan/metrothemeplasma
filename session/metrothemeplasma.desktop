@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Exec=/usr/local/bin/startmetro-wayland
+TryExec=/usr/local/bin/startmetro-wayland
+DesktopNames=KDE
+Name=MetroThemePlasma (Wayland)
+Name[tr]=MetroThemePlasma (Wayland)
+Comment=Windows 8.1 görünümlü Plasma oturumu
+Comment[tr]=Windows 8.1 görünümlü Plasma oturumu
+X-KDE-PluginInfo-Version=6.8

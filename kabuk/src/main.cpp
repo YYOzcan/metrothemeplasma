@@ -15,6 +15,7 @@
 #include <KRunner/ResultsModel>
 #include <KRunner/RunnerManager>
 
+#include "desen.h"
 #include "dosya.h"
 #include "kabuk.h"
 #include "katman.h"
@@ -88,6 +89,7 @@ int main(int argc, char **argv)
         c->setContextProperty(QStringLiteral("KatmanYardimci"), &katman);
         c->setContextProperty(QStringLiteral("QmlDizini"), QUrl::fromLocalFile(qmlDizin + QLatin1Char('/')).toString());
         motor->addImageProvider(QStringLiteral("simge"), new SimgeSaglayici);
+        motor->addImageProvider(QStringLiteral("desen"), new DesenSaglayici);
         motor->addImportPath(qmlDizin);
         motor->load(QUrl::fromLocalFile(qmlDizin + QStringLiteral("/Ana.qml")));
     };

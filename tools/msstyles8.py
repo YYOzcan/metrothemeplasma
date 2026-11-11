@@ -187,3 +187,47 @@ if __name__ == "__main__":
             print(f"[{want} p={p} s={s}]")
             for k, v in d.items():
                 print(f"   {k} = {v}")
+
+
+# ---------------------------------------------------------------- resim yardımcıları
+def duz_alfa(im):
+    """msstyles PNG'leri ön-çarpılmış alfa ile saklanır; PIL'in beklediği düz alfaya çevir."""
+    from PIL import Image  # noqa: F401
+    im = im.convert("RGBA")
+    px = im.load()
+    for y in range(im.height):
+        for x in range(im.width):
+            r, g, b, a = px[x, y]
+            if 0 < a < 255:
+                px[x, y] = (min(255, r * 255 // a), min(255, g * 255 // a), min(255, b * 255 // a), a)
+    return im
+
+
+def resim(st, rid):
+    import io
+    from PIL import Image
+    d = st.image(rid)
+    return duz_alfa(Image.open(io.BytesIO(d))) if d else None
+
+
+def durumlar(im, n, dikey=True):
+    """IMAGECOUNT kadar durumu (üst üste dizili) ayır."""
+    if im is None:
+        return []
+    if dikey:
+        h = im.height // n
+        return [im.crop((0, i * h, im.width, (i + 1) * h)) for i in range(n)]
+    w = im.width // n
+    return [im.crop((i * w, 0, (i + 1) * w, im.height)) for i in range(n)]
+
+
+def atlas(st, cls, part, dpi_akis=1060):
+    """DWM atlası (STREAM 1060 = %100) içindeki parça + durum sayısı."""
+    import io
+    from PIL import Image
+    p = st.props(cls, part, 0)
+    r = p.get("ATLASRECT")
+    if not r:
+        return None, 0
+    a = duz_alfa(Image.open(io.BytesIO(st.res.get("STREAM", dpi_akis))))
+    return a.crop(r), p.get("IMAGECOUNT", 1)

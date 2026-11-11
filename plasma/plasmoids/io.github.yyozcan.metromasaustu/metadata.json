@@ -1,0 +1,16 @@
+{
+    "KPackageStructure": "Plasma/Applet",
+    "KPlugin": {
+        "Authors": [{ "Name": "MetroThemePlasma" }],
+        "Category": "Windows and Tasks",
+        "Description": "Görev çubuğunun sağ ucundaki ince Masaüstünü göster şeridi (Windows 8.1)",
+        "Description[tr]": "Görev çubuğunun sağ ucundaki ince Masaüstünü göster şeridi (Windows 8.1)",
+        "Icon": "user-desktop",
+        "Id": "io.github.yyozcan.metromasaustu",
+        "License": "GPL-3.0-or-later",
+        "Name": "Masaüstünü göster (Windows 8.1)",
+        "Name[tr]": "Masaüstünü göster (Windows 8.1)",
+        "Version": "1.0"
+    },
+    "X-Plasma-API-Minimum-Version": "6.0"
+}

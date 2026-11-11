@@ -1,0 +1,15 @@
+{
+    "KPackageStructure": "Plasma/LookAndFeel",
+    "KPlugin": {
+        "Authors": [{ "Name": "MetroThemePlasma" }],
+        "Description": "Windows 8.1 görünümü (MetroThemePlasma)",
+        "Description[tr]": "Windows 8.1 görünümü (MetroThemePlasma)",
+        "Id": "io.github.yyozcan.metro",
+        "License": "GPL-3.0-or-later",
+        "Name": "Windows 8.1",
+        "Name[tr]": "Windows 8.1",
+        "Version": "1.0",
+        "Website": "https://github.com/YYOzcan/metrothemeplasma"
+    },
+    "X-Plasma-MainScript": "defaults"
+}

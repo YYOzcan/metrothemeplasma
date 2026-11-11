@@ -1,0 +1,8 @@
+[Plymouth Theme]
+Name=MetroThemePlasma
+Description=Windows 8.1 açılış ekranı (kendi Windows 8.1 kopyandan)
+ModuleName=script
+
+[script]
+ImageDir=/usr/share/plymouth/themes/metrothemeplasma
+ScriptFile=/usr/share/plymouth/themes/metrothemeplasma/metrothemeplasma.script

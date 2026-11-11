@@ -581,7 +581,18 @@ Window {
                                 anchors.fill: parent
                                 onClicked: {
                                     if (modelData === -1) pen.tema.renk.masaustuArkaPlani = true
-                                    else { pen.tema.renk.masaustuArkaPlani = false; pen.tema.renk.desen = modelData }
+                                    else {
+                                        pen.tema.renk.masaustuArkaPlani = false
+                                        pen.tema.renk.desen = modelData
+                                        // Windows 8.1: desen seçilince kendi renk takımı da gelir
+                                        if (modelData > 0) {
+                                            try {
+                                                var s = JSON.parse(Dosya.oku(Dosya.veri + "/varlik/desen/" + modelData + "/sahne.json"))
+                                                if (s.arkaPlan) pen.tema.renk.arkaPlan = s.arkaPlan
+                                                if (s.vurgu) pen.tema.renk.vurgu = s.vurgu
+                                            } catch (e) {}
+                                        }
+                                    }
                                     pen.ana.renkDegisti()
                                 }
                             }

@@ -24,6 +24,7 @@ qt_add_executable(metro-kabuk
     src/dosya.cpp
     src/simgerengi.cpp
     src/medya.cpp
+    src/desen.cpp
 )
 
 # QML dosyaları ikilinin içine gömülmez: ~/.local/share/metrothemeplasma/kabuk/qml'den yüklenir

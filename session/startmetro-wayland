@@ -1,0 +1,8 @@
+#!/bin/sh
+# MetroThemePlasma Wayland oturumu (SDDM: "MetroThemePlasma (Wayland)")
+# Asıl mantık kullanıcı tarafında: ~/.local/bin/metro-oturum (güncellemeler için sudo gerekmez)
+if [ -x "$HOME/.local/bin/metro-oturum" ]; then
+    exec "$HOME/.local/bin/metro-oturum"
+fi
+export PLASMA_DEFAULT_SHELL=io.github.yyozcan.metroshell
+exec /usr/lib/plasma-dbus-run-session-if-needed /usr/bin/startplasma-wayland
