@@ -62,9 +62,40 @@ Window {
         acilis.restart()
         icerik.forceActiveFocus()
         if (SinamaDondur > 0) sinamaZamanlayici.restart()
+        if (SinamaKip !== "") sinamaKipZamanlayici.restart()
         if (SinamaUzak) Qt.callLater(function () { if (pen.sayfa === 1) uygulamalarGorunumu.uzak = true; else pen.uzaklas(true) })
     }
     Timer { id: sinamaZamanlayici; interval: SinamaDondur; onTriggered: acilis.pause() }
+    Timer { id: sinamaBirak; interval: 2500; onTriggered: pen.surukleBitir() }
+    Timer {
+        id: sinamaKipZamanlayici; interval: 1500
+        onTriggered: {
+            if (SinamaKip === "ozellestir") pen.ozellestir = true
+            else if (SinamaKip === "surukle") {
+                // ilk grubun son uygulama kutucuğunu 1. ile 2. grubun arasına sürükle; 2,5 sn sonra bırak
+                var si = -1
+                for (var q = 0; q < kutucuklar.count; q++) if (kutucuklar.get(q).grup === 0 && kutucuklar.get(q).tur === "uygulama") si = q
+                var st = kutucuklar.get(si), gg = pen.grupGenislik
+                var bas = izgara.mapToItem(null, st.x + 20, st.y + 20)
+                var hedef = izgara.mapToItem(null, gg[0].x + gg[0].w + (pen.grupAraligi + pen.aralik) / 2, st.y + 20)
+                pen.surukleBasla(si, bas.x, bas.y)
+                pen.surukle(bas.x + 30, bas.y)
+                pen.surukle(hedef.x, hedef.y)
+                sinamaBirak.restart()
+            }
+            else if (SinamaKip === "menu" || SinamaKip === "secim") {
+                var i = 0
+                for (var k = 0; k < kutucuklar.count; k++) if (kutucuklar.get(k).tur === "uygulama") { i = k; break }
+                var t = kutucuklar.get(i)
+                kutucuklar.setProperty(i, "secili", true)
+                if (SinamaKip === "secim" && i + 1 < kutucuklar.count) kutucuklar.setProperty(i + 1, "secili", true)
+                if (SinamaKip === "menu") {
+                    var p = izgara.mapToItem(icerik, t.x + t.w / 2, t.y + t.h / 2)
+                    menu.ac(p.x, p.y, pen.kutucukMenusu(i))
+                }
+            }
+        }
+    }
     // hemen: animasyonsuz kapat (uygulama açılış ekranı kendi geçişini yaptıktan sonra)
     function kapat(hemen) {
         if (!acik) return
@@ -373,34 +404,49 @@ Window {
                 return
             }
         }
-        // grupların arasındaki boşluk ya da son grubun sağı: yeni grup
+        // Windows 8.1: imleç iki grubun arasındaki boşlukta ya da son grubun hemen sağındaysa açık renkli
+        // dikey çubuk belirir; yeni grup ancak bırakınca oluşur. Grubun boş alanına gelince kutucuk o gruba katılır.
         var gg = grupGenislik
-        if (gg.length && p.x > gg[gg.length - 1].x + gg[gg.length - 1].w + 40 && kutucuklar.count > 1) {
-            var tek = true
-            for (var j = 0; j < kutucuklar.count; j++) if (j !== suruklenen && kutucuklar.get(j).grup === t.grup) tek = false
-            if (!tek) {
-                kutucuklar.setProperty(suruklenen, "grup", gg.length)
-                kutucuklar.move(suruklenen, kutucuklar.count - 1, 1)
-                suruklenen = kutucuklar.count - 1
-                grupAdlari = grupAdlari.concat([""])
-                yerlestir()
-            }
+        yeniGrupYeri = -1
+        if (!gg.length) return
+        var son = gg[gg.length - 1]
+        var tek = true
+        for (var j = 0; j < kutucuklar.count; j++) if (j !== suruklenen && kutucuklar.get(j).grup === t.grup) tek = false
+        if (p.x > son.x + son.w + 8 && p.x < son.x + son.w + grupAraligi + 2 * adim) {
+            if (!tek || t.grup !== gg.length - 1) yeniGrupYeri = gg.length - 1
             return
         }
         for (var g = 0; g + 1 < gg.length; g++) {
-            var bosBas = gg[g].x + gg[g].w + 8, bosSon = gg[g + 1].x - 8
-            if (p.x > bosBas && p.x < bosSon) {
-                // g ile g+1 arasına yeni grup
-                for (var k = 0; k < kutucuklar.count; k++) if (kutucuklar.get(k).grup > g) kutucuklar.setProperty(k, "grup", kutucuklar.get(k).grup + 1)
-                kutucuklar.setProperty(suruklenen, "grup", g + 1)
-                var adlar = grupAdlari.slice(); adlar.splice(g + 1, 0, ""); grupAdlari = adlar
+            if (p.x > gg[g].x + gg[g].w + 8 && p.x < gg[g + 1].x - 8) {
+                // kendi tekli grubunun iki yanındaki boşluk bir şey değiştirmez
+                if (!(tek && (t.grup === g || t.grup === g + 1))) yeniGrupYeri = g
+                return
+            }
+        }
+        for (var h = 0; h < gg.length; h++) {
+            if (p.x >= gg[h].x && p.x <= gg[h].x + gg[h].w && t.grup !== h) {
+                kutucuklar.setProperty(suruklenen, "grup", h)
+                var sonIndis = suruklenen
+                for (var m = 0; m < kutucuklar.count; m++) if (m !== suruklenen && kutucuklar.get(m).grup === h) sonIndis = m
+                if (sonIndis !== suruklenen) {
+                    kutucuklar.move(suruklenen, sonIndis > suruklenen ? sonIndis : sonIndis + 1, 1)
+                    suruklenen = sonIndis > suruklenen ? sonIndis : sonIndis + 1
+                }
                 gruplariSikistir()
                 yerlestir()
                 return
             }
         }
     }
+    property int yeniGrupYeri: -1     // sürüklerken: bu grubun sağına yeni grup (bırakınca)
     function surukleBitir() {
+        if (suruklenen >= 0 && yeniGrupYeri >= 0) {
+            var g = yeniGrupYeri
+            for (var k = 0; k < kutucuklar.count; k++) if (kutucuklar.get(k).grup > g) kutucuklar.setProperty(k, "grup", kutucuklar.get(k).grup + 1)
+            kutucuklar.setProperty(suruklenen, "grup", g + 1)
+            var adlar = grupAdlari.slice(); adlar.splice(g + 1, 0, ""); grupAdlari = adlar
+        }
+        yeniGrupYeri = -1
         suruklenen = -1
         gruplariSikistir()
         yerlestir()
@@ -531,16 +577,25 @@ Window {
                     // semantik yakınlaştırma: uzaklaşınca bütün gruplar küçülüp ortalanır
                     transform: Scale { origin.x: 0; origin.y: izgara.height / 2; xScale: pen.olcekDegeri; yScale: pen.olcekDegeri }
 
+                    // yeni grup göstergesi (sürüklerken iki grubun arasında açık renkli dikey çubuk)
+                    Rectangle {
+                        visible: pen.yeniGrupYeri >= 0 && pen.yeniGrupYeri < pen.grupGenislik.length
+                        readonly property var gr: visible ? pen.grupGenislik[pen.yeniGrupYeri] : ({ x: 0, w: 0 })
+                        x: gr.x + gr.w + (pen.grupAraligi + pen.aralik) / 2 - width / 2
+                        y: 0; width: 6; height: pen.satir * pen.adim - pen.aralik
+                        color: Qt.rgba(1, 1, 1, 0.3)
+                    }
                     // grup adları (özelleştir kipinde düzenlenebilir)
                     Repeater {
                         model: pen.grupGenislik.length
                         delegate: Item {
+                            id: gb
                             required property int index
                             x: pen.grupGenislik[index].x; y: -40
                             width: pen.grupGenislik[index].w; height: 34
                             readonly property real g: pen.girisDegeri(x + pen.solBosluk - kaydirici.contentX)
                             opacity: Math.min(1, g * 3)
-                            transform: Translate { x: (1 - pen.tema.pvlDeger(parent.g)) * (pen.oturumGirisi ? 420 : 140) }
+                            transform: Translate { x: (1 - pen.tema.pvlDeger(gb.g)) * (pen.oturumGirisi ? 420 : 140) }
                             visible: pen.ozellestir || (pen.grupAdlari[index] || "") !== ""
                             Text {
                                 id: grupAdi
@@ -552,6 +607,7 @@ Window {
                             Rectangle {
                                 visible: pen.ozellestir
                                 anchors.fill: parent
+                                clip: true
                                 color: girdi.activeFocus ? "white" : Qt.rgba(1, 1, 1, 0.18)
                                 TextInput {
                                     id: girdi
@@ -823,18 +879,10 @@ Window {
         }) })
         if (["hava", "takvim", "fotograflar"].indexOf(t.tur) >= 0)
             l.push({ metin: t.canli ? "Canlı kutucuğu kapat" : "Canlı kutucuğu aç", eylem: function () { kutucuklar.setProperty(i, "canli", !t.canli); pen.duzenKaydet() } })
-        if (t.tur === "uygulama") {
-            l.push({ metin: "Yeni pencere aç", eylem: function () { ana.kutucukCalistir("uygulama", t.kimlik) } })
-            var ey = Uygulamalar.eylemler(t.kimlik)
-            if (ey.length) {
-                l.push({ ayirici: true })
-                for (var e = 0; e < Math.min(ey.length, 5); e++) {
-                    (function (a) { l.push({ metin: a.metin, eylem: function () { pen.kapat(); Uygulamalar.eylemCalistir(t.kimlik, a.ad) } }) })(ey[e])
-                }
-                l.push({ ayirici: true })
-            }
+        // Windows 8.1 Update masaüstü uygulaması kutucuğu: ayır, görev çubuğu, kaldır, boyut, dosya konumu
+        // (atlama listesi ve "Yeni pencere" yalnızca görev çubuğunda)
+        if (t.tur === "uygulama")
             l.push({ metin: "Dosya konumunu aç", eylem: function () { pen.kapat(); Uygulamalar.dosyaKonumunuAc(t.kimlik) } })
-        }
         return l
     }
 

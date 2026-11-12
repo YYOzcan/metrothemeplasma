@@ -341,7 +341,6 @@ Item {
               eylem: function () { if (sabit) baslangic.ayir(baslangic.kutucukBul("uygulama", kimlik)); else baslangic.sabitle(kimlik) } },
             { metin: gorev ? "Görev çubuğundan ayır" : "Görev çubuğuna sabitle", eylem: function () { ana.gorevCubugunaSabitle(kimlik, !gorev) } },
             { metin: "Kaldır", eylem: function () { ana.kaldir(kimlik) } },
-            { metin: "Yeni pencere aç", eylem: function () { ana.kutucukCalistir("uygulama", kimlik) } },
             { metin: "Dosya konumunu aç", eylem: function () { ana.baslangicKapat(); Uygulamalar.dosyaKonumunuAc(kimlik) } }
         ]
     }
