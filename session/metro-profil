@@ -51,7 +51,7 @@ YONETILEN = {
                     "slidingpopupsEnabled": "false", "morphingpopupsEnabled": "false",
                     "windowapertureEnabled": "false", "fadedesktopEnabled": "true",
                     "slideEnabled": "false", "dimscreenEnabled": "false",
-                    "overviewEnabled": "false",
+                    "overviewEnabled": "false", "minimizeallEnabled": "true",
                     "metro_koselerEnabled": "true"},
         "TabBox": {"LayoutName": "metro_alttab", "HighlightWindows": "false", "ShowDesktopMode": "1"},
         # sıcak köşeler metro-kabuk'a ait (KWin betiği metro_koseler): KWin'in kendi köşe eylemleri kapalı
@@ -73,7 +73,11 @@ YONETILEN = {
                         "next activity": "none,none,Etkinlikler arasında gezin",
                         "activate application launcher": "none,Meta\\tAlt+F1,Uygulama Başlatıcıyı Etkinleştir"},
         "kwin": {"Overview": "none,Meta+W,Genel Görünümü Aç/Kapat",
-                 "Walk Through Windows": "Alt+Tab,Alt+Tab\\tMeta+Tab,Pencereler Arasında Gezin"},
+                 "Walk Through Windows": "Alt+Tab,Alt+Tab\\tMeta+Tab,Pencereler Arasında Gezin",
+                 # Win+Yukarı/Aşağı metro_koseler betiğinde (Windows 8 davranışı); Win+M hepsini küçült
+                 "Window Quick Tile Top": "none,Meta+Up,Tez Pencereyi Üste Döşe",
+                 "Window Quick Tile Bottom": "none,Meta+Down,Tez Pencereyi Alta Döşe",
+                 "MinimizeAll": "Meta+M,Meta+Shift+D,Tüm pencereleri simge durumuna küçült"},
         "services][org.kde.dolphin.desktop": {"_launch": "Meta+E"},
         # Ctrl+Shift+Esc: Windows 8 Görev Yöneticisi (metro-kabuk); Sistem İzleyicisi "Diğer ayrıntılar"dan açılır
         "services][org.kde.plasma-systemmonitor.desktop": {"_launch": "none"},

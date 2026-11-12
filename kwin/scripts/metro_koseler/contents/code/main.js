@@ -26,3 +26,20 @@ function calistirKonumla(w) {
     });
 }
 workspace.windowAdded.connect(calistirKonumla);
+
+// Windows 8 pencere kısayolları: Win+Yukarı ekranı kaplar; Win+Aşağı ekranı kaplıyorsa geri yükler, değilse küçültür
+function kapliyor(w) {
+    const a = workspace.clientArea(KWin.MaximizeArea, w);
+    const g = w.frameGeometry;
+    return g.width >= a.width && g.height >= a.height;
+}
+registerShortcut("MetroEkraniKapla", "Windows 8: pencere ekranı kaplasın", "Meta+Up", function () {
+    const w = workspace.activeWindow;
+    if (w && w.maximizable) w.setMaximize(true, true);
+});
+registerShortcut("MetroGeriYukleKucult", "Windows 8: geri yükle ya da simge durumuna küçült", "Meta+Down", function () {
+    const w = workspace.activeWindow;
+    if (!w) return;
+    if (w.maximizable && kapliyor(w)) w.setMaximize(false, false);
+    else if (w.minimizable) w.minimized = true;
+});
