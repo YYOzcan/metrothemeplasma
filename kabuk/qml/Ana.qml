@@ -251,6 +251,18 @@ QtObject {
         function onEkranGoruntusuIste() { ana.ekranGoruntusu() }
         function onKisisellestirIste() { ana.bolme.ac("kisisellestir", "baslangic") }
         function onBilgisayarAyarlariIste(sayfa) { ana.bilgisayarAyarlari(sayfa) }
+        function onSabitleIste(yol) {
+            // kurulu uygulamanın .desktop'ı ise kimliğiyle, değilse yoluyla (masaüstündeki bağlantılar)
+            var b = Uygulamalar.bilgi(yol)
+            if (!b.kimlik) return
+            var kimlik = b.kimlik
+            // masaüstündeki kopya (ör. ~/Masaüstü/steam.desktop): aynı adla kurulu uygulama varsa onu sabitle
+            if (kimlik.indexOf("/") >= 0) {
+                var kurulu = Uygulamalar.bul([kimlik.substring(kimlik.lastIndexOf("/") + 1)])
+                if (kurulu) kimlik = kurulu
+            }
+            ana.baslangic.sabitle(kimlik)
+        }
         function onBolmeIste(tur) {
             // aynı bölme açıkken yeniden istenirse kapat (tepsi simgesine ikinci tıklama)
             if (ana.bolme.acik && ana.bolme.tur === tur) ana.bolmeKapat()

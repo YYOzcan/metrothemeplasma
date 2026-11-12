@@ -31,6 +31,8 @@ public Q_SLOTS:
     Q_SCRIPTABLE void Kisisellestir();
     Q_SCRIPTABLE void BilgisayarAyarlari(const QString &sayfa);
     Q_SCRIPTABLE void Bolme(const QString &tur);    // aglar, ayarlar, aygitlar, paylas, yansit …
+    Q_SCRIPTABLE void BaslangicaSabitle(const QString &yol);  // .desktop yolu ya da kimliği (Dosya Gezgini menüsü)
+    Q_SCRIPTABLE bool Calisiyor() const { return true; }      // servis menüsü yalnızca Metro oturumunda görünsün
     Q_SCRIPTABLE void YenidenYukle();
     Q_SCRIPTABLE bool BaslangicAcik() const { return m_baslangicAcik; }
 
@@ -48,6 +50,7 @@ Q_SIGNALS:
     void gecisIste();
     void solUstKoseIste();
     void bolmeIste(const QString &tur);
+    void sabitleIste(const QString &yol);
     void solAltKoseIste();
     void ekranGoruntusuIste();
     void kisisellestirIste();

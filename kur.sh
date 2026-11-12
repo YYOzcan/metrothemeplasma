@@ -224,6 +224,9 @@ systemctl --user enable metro-kabuk.service 2>/dev/null || true
 APP="$MT/data/applications"
 rm -rf "$APP"; mkdir -p "$APP"
 sed "s|@BIN@|$BIN|" session/metro-kabuk.desktop > "$APP/metro-kabuk.desktop"
+# Dosya Gezgini: "Başlangıç ekranına sabitle" (bu veri dizini yalnızca Metro oturumunda XDG_DATA_DIRS'te)
+install -Dm755 session/servicemenus/metro-baslangica-sabitle.desktop "$MT/data/kio/servicemenus/metro-baslangica-sabitle.desktop"
+
 
 echo "==> Oturum yardımcıları"
 install -Dm755 session/metro-profil "$BIN/metro-profil"

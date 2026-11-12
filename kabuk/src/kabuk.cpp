@@ -64,4 +64,5 @@ void Kabuk::EkranGoruntusu() { Q_EMIT ekranGoruntusuIste(); }
 void Kabuk::Kisisellestir() { Q_EMIT kisisellestirIste(); }
 void Kabuk::BilgisayarAyarlari(const QString &sayfa) { Q_EMIT bilgisayarAyarlariIste(sayfa); }
 void Kabuk::Bolme(const QString &tur) { Q_EMIT bolmeIste(tur); }
+void Kabuk::BaslangicaSabitle(const QString &yol) { Q_EMIT sabitleIste(yol); }
 void Kabuk::YenidenYukle() { Q_EMIT yenidenYukleIste(); }
