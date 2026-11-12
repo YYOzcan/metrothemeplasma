@@ -121,7 +121,8 @@ WIN="$MT/win"
 if [[ "${1:-}" == "--kaldir" ]]; then
     [[ -x "$BIN/metro-profil" ]] && "$BIN/metro-profil" geri || true
     systemctl --user disable --now metro-kabuk.service 2>/dev/null || true
-    rm -f "$CFG/systemd/user/metro-kabuk.service" "$DATA/dbus-1/services/io.github.yyozcan.MetroKabuk.service"
+    rm -f "$CFG/systemd/user/metro-kabuk.service" "$DATA/dbus-1/services/io.github.yyozcan.MetroKabuk.service" \
+          "$CFG/systemd/user/plasma-polkit-agent.service.d/zz-metrothemeplasma.conf"
     systemctl --user daemon-reload 2>/dev/null || true
     rm -rf "$DATA/aurorae/themes/Metro" "$CFG/Kvantum/Metro" "$DATA/plasma/desktoptheme/Metro" \
            "$DATA/color-schemes/Metro.colors" "$DATA"/plasma/plasmoids/io.github.yyozcan.metro* \
@@ -275,6 +276,41 @@ if [[ -x "$BIN/linver" ]] && ! grep -q '^\[metro-linver\]' "$CFG/kwinrulesrc" 2>
     kwriteconfig6 --file kwinrulesrc --group General --key rules "${kurallar:+$kurallar,}metro-linver"
     kwriteconfig6 --file kwinrulesrc --group General --key count $((sayi + 1))
     qdbus6 org.kde.KWin /KWin reconfigure >/dev/null 2>&1 || true
+fi
+
+# KWin kuralı yaz (sabit grup adıyla, bir kez): kwin_kurali <grup> <açıklama> <anahtar=değer>...
+kwin_kurali() {
+    local grup="$1" aciklama="$2"; shift 2
+    grep -q "^\[$grup\]" "$CFG/kwinrulesrc" 2>/dev/null && return 0
+    kwriteconfig6 --file kwinrulesrc --group "$grup" --key Description "$aciklama"
+    local kv
+    for kv in "$@"; do kwriteconfig6 --file kwinrulesrc --group "$grup" --key "${kv%%=*}" "${kv#*=}"; done
+    local kurallar sayi
+    kurallar=$(kreadconfig6 --file kwinrulesrc --group General --key rules)
+    sayi=$(kreadconfig6 --file kwinrulesrc --group General --key count --default 0)
+    kwriteconfig6 --file kwinrulesrc --group General --key rules "${kurallar:+$kurallar,}$grup"
+    kwriteconfig6 --file kwinrulesrc --group General --key count $((sayi + 1))
+    qdbus6 org.kde.KWin /KWin reconfigure >/dev/null 2>&1 || true
+}
+
+echo "==> Kullanıcı Hesabı Denetimi (Windows 8.1 polkit kimlik doğrulama aracısı) derleniyor"
+# ATP'nin uac-polkit-agent çatalı; yalnızca Metro oturumunda plasma-polkit-agent.service'in yerine geçer
+# (kullanıcı drop-in'i; derlenemezse ya da ikili yoksa ATP'nin / KDE'nin aracısı çalışır)
+DROPIN="$CFG/systemd/user/plasma-polkit-agent.service.d/zz-metrothemeplasma.conf"
+if $CMAKE -S uac -B build/uac -G Ninja -DCMAKE_BUILD_TYPE=Release >/dev/null 2>&1 && ninja -C build/uac >/dev/null 2>&1; then
+    install -Dm755 build/uac/metro-uac "$MT/bin/metro-uac"
+    install -Dm644 session/metro-uac.conf "$DROPIN"
+    systemctl --user daemon-reload 2>/dev/null || true
+    kwin_kurali metro-uac "Kullanıcı Hesabı Denetimi (MetroThemePlasma)" clientmachine=localhost \
+        "wmclass=(polkit-kde-authentication-agent-1)|(metro-uac)" wmclassmatch=3 \
+        "title=Kullanıcı Hesabı Denetimi" titlematch=1 minimizerule=2 above=true aboverule=2 \
+        placement=5 placementrule=2
+    kwin_kurali metro-uac-perde "Kullanıcı Hesabı Denetimi karartması (MetroThemePlasma)" clientmachine=localhost \
+        "wmclass=(polkit-kde-authentication-agent-1)|(metro-uac)" wmclassmatch=3 \
+        title=metro-uac-perde titlematch=1 skiptaskbar=true skiptaskbarrule=2 skipswitcher=true skipswitcherrule=2 \
+        skippager=true skippagerrule=2 noborder=true noborderrule=2 minimizerule=2
+else
+    echo "   (derlenemedi: polkit-qt6 gerekli; mevcut kimlik doğrulama aracısı kullanılır)"
 fi
 
 echo "==> Windows 8 bildirimleri (Plasma uygulamacığı) derleniyor"

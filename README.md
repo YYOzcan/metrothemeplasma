@@ -33,6 +33,19 @@ Depoda hiçbir Microsoft dosyası yoktur. Bütün görseller, sesler, yazı tipl
 | Plymouth açılış ekranı: Windows logosu + dönen noktalar (WinRT ProgressRing anahtar kareleri) | bootres.dll |
 | "Windows 8.1" simge teması, "Windows 8.1 Aero" imleçleri (canlandırmalı), ses teması, duvar kağıtları, Segoe UI | imageres, shell32, pnidui, SndVolSSO, Cursors, Media, Web, Fonts |
 
+## Kullanıcı Hesabı Denetimi
+
+Yönetici izni isteyen her işlem (pkexec, Dosya Gezgini/Aygıt Yöneticisi/Sistem Ayarları'nın polkit
+istekleri) Windows 8.1 Kullanıcı Hesabı Denetimi ile sorulur: ekran kararır, yayımcıya göre mavi
+(onaylanmış) ya da sarı (bilinmeyen yayımcı) bant, program adı ve simgesi, "Ayrıntıları göster",
+kullanıcı kutucuğu ve parola kutusu, Evet/Hayır. Metinler ve kalkanlar ISO'dan (authui.dll.mui, imageres.dll).
+
+`uac/`, AeroThemePlasma'nın uac-polkit-agent'ının (KDE polkit-kde-agent-1 çatalı, GPL-2.0-or-later)
+çatalıdır. Kullanıcı drop-in'i (`~/.config/systemd/user/plasma-polkit-agent.service.d/zz-metrothemeplasma.conf`)
+onu yalnızca Metro oturumunda başlatır; diğer oturumlarda ATP'nin ya da KDE'nin aracısı çalışır, ikili
+yoksa da KDE'ninkine düşer. Yeni diyalog yüklenemezse Windows 7 diyaloğu açılır.
+Görünüm sınaması: `bash test/uac.sh <çıktı> [bilinmeyen] [ayrinti]` (polkit'e dokunmaz).
+
 ## Metro uygulamaları
 
 Windows 8.1'in Modern uygulamaları, ortak bir tam ekran ana programla (`metro-uygulama <ad>`, QML):

@@ -115,6 +115,15 @@ def metro_uygulamalari(win, cikti, liste):
         im.save(cikti / ("uygulama-%s.png" % u["ad"]))
 
 
+def uac(win, cikti):
+    """Kullanıcı Hesabı Denetimi: Windows kalkanı (imageres 78), bilinmeyen yayımcı kalkanı (107), program (15)."""
+    from ikon import at_size, icon_images
+    imgs = icon_images((win / "Windows/System32/imageres.dll").read_bytes())
+    for no, ad in ((78, "uac-kalkan"), (107, "uac-bilinmeyen"), (15, "uac-program")):
+        at_size(imgs[no], 32).save(cikti / (ad + ".png"))
+        at_size(imgs[no], 64).save(cikti / (ad + "@2.png"))
+
+
 def winver(win, cikti):
     """winver.ini + winver-marka.png (linver yaması okur): basebrd.dll BITMAP 121 ve dizeleri,
     shell32.dll.mui "Hakkında" iletişim kutusu (14352) ve sürüm biçimi (60)."""
@@ -182,6 +191,10 @@ def main(win, cikti):
         ilk_oturum(win, cikti)
     except Exception as x:  # noqa: BLE001
         print("  ilk oturum animasyonu atlandı:", x)
+    try:
+        uac(win, cikti)
+    except Exception as x:  # noqa: BLE001
+        print("  UAC simgeleri atlandı:", x)
     liste = Path(__file__).resolve().parent.parent / "session/metro-uygulamalari/uygulamalar.json"
     try:
         metro_uygulamalari(win, cikti, liste)
