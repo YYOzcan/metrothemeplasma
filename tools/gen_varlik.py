@@ -101,6 +101,20 @@ def ilk_oturum(win, cikti):
     (cikti / "ilk-oturum.json").write_text(json.dumps(veri, ensure_ascii=False, indent=1))
 
 
+def metro_uygulamalari(win, cikti, liste):
+    """Metro uygulamalarının simgeleri: kutucuk rengi kare + beyaz Segoe UI Symbol glifi (Uygulamalar görünümü,
+    görev çubuğu, Alt+Tab); kutucukta kare kutucuk rengiyle birleşir, yalnız glif görünür."""
+    import json
+    from PIL import Image, ImageDraw, ImageFont
+    yazi = ImageFont.truetype(str(win / "Windows/Fonts/seguisym.ttf"), 132)
+    for u in json.loads(Path(liste).read_text()):
+        im = Image.new("RGBA", (256, 256), u["renk"])
+        d = ImageDraw.Draw(im)
+        x0, y0, x1, y1 = d.textbbox((0, 0), u["glif"], font=yazi)
+        d.text(((256 - (x1 - x0)) / 2 - x0, (256 - (y1 - y0)) / 2 - y0), u["glif"], font=yazi, fill="white")
+        im.save(cikti / ("uygulama-%s.png" % u["ad"]))
+
+
 def winver(win, cikti):
     """winver.ini + winver-marka.png (linver yaması okur): basebrd.dll BITMAP 121 ve dizeleri,
     shell32.dll.mui "Hakkında" iletişim kutusu (14352) ve sürüm biçimi (60)."""
@@ -168,6 +182,11 @@ def main(win, cikti):
         ilk_oturum(win, cikti)
     except Exception as x:  # noqa: BLE001
         print("  ilk oturum animasyonu atlandı:", x)
+    liste = Path(__file__).resolve().parent.parent / "session/metro-uygulamalari/uygulamalar.json"
+    try:
+        metro_uygulamalari(win, cikti, liste)
+    except Exception as x:  # noqa: BLE001
+        print("  Metro uygulama simgeleri atlandı:", x)
     # Windows Hakkında (linver): marka görseli ve metinler kendi kopyandan
     try:
         winver(win, cikti)

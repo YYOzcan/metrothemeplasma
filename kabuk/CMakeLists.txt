@@ -45,3 +45,10 @@ find_package(Qt6 REQUIRED COMPONENTS Widgets)
 qt_add_executable(metro-calistir calistir/main.cpp)
 target_link_libraries(metro-calistir PRIVATE Qt6::Widgets KF6::KIOGui KF6::KIOCore KF6::Service)
 install(TARGETS metro-calistir RUNTIME DESTINATION bin)
+
+# Windows 8.1 Modern uygulamaları (Hesap Makinesi, Alarmlar, Hava Durumu, Fotoğraflar, Ses Kaydedici):
+# ortak tam ekran QML ana programı; QML ~/.local/share/metrothemeplasma/kabuk/uygulamalar'dan
+find_package(Qt6 REQUIRED COMPONENTS Network)
+qt_add_executable(metro-uygulama uygulama/main.cpp src/dosya.cpp)
+target_link_libraries(metro-uygulama PRIVATE Qt6::Core Qt6::Gui Qt6::Quick Qt6::Qml Qt6::Network)
+install(TARGETS metro-uygulama RUNTIME DESTINATION bin)

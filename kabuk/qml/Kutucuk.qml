@@ -42,6 +42,7 @@ Item {
         case "saat": return "#ac193d"
         case "masaustu": return "#2b5797"
         }
+        if (bilgi.renk) return bilgi.renk
         return SimgeRengi.renk(bilgi.simge || "", Qt.darker(tema.vurgu, 1.0))
     }
     readonly property bool kucuk: boyut === "kucuk"

@@ -129,7 +129,7 @@ if [[ "${1:-}" == "--kaldir" ]]; then
            "$DATA"/wallpapers/Metro-* "$DATA/icons/Windows 8.1" "$DATA/icons/Windows 8.1 Aero" "$DATA/sounds/Windows 8.1" \
            "$DATA/kwin/tabbox/metro_alttab" "$DATA/kwin/scripts/metro_koseler" \
            "$CFG/plasma-workspace/env/metrothemeplasma.sh" \
-           "$BIN"/metro-profil "$BIN"/metro-yukselt "$BIN"/metro-oturum "$BIN"/metro-renk "$BIN"/metro-kabuk "$BIN"/metro-calistir "$MT" \
+           "$BIN"/metro-profil "$BIN"/metro-yukselt "$BIN"/metro-oturum "$BIN"/metro-renk "$BIN"/metro-kabuk "$BIN"/metro-calistir "$BIN"/metro-uygulama "$MT" \
            "$BIN"/explorer "$BIN"/devmgmt "$BIN"/linver "$BIN"/control "$BIN"/winver "$BIN"/metro-denetim \
            "${XDG_STATE_HOME:-$HOME/.local/state}/metrothemeplasma" "${XDG_CACHE_HOME:-$HOME/.cache}/metrothemeplasma"
     echo "Kullanıcı dosyaları kaldırıldı (ayarlar: $CFG/metrothemeplasma duruyor). Sistem kısmı için:"
@@ -182,6 +182,7 @@ $CMAKE -S kabuk -B build/kabuk -G Ninja -DCMAKE_BUILD_TYPE=Release >/dev/null
 ninja -C build/kabuk | tail -1
 install -Dm755 build/kabuk/metro-kabuk "$BIN/metro-kabuk"
 install -Dm755 build/kabuk/metro-calistir "$BIN/metro-calistir"
+install -Dm755 build/kabuk/metro-uygulama "$BIN/metro-uygulama"
 
 echo "==> Windows 8.1 bildirim alanı (sistem tepsisi) derleniyor"
 if $CMAKE -S plasma/tepsi -B build/tepsi -G Ninja -DCMAKE_BUILD_TYPE=Release >/dev/null 2>&1 && ninja -C build/tepsi >/dev/null 2>&1; then
@@ -289,7 +290,7 @@ fi
 QMLLINT=/usr/lib/qt6/bin/qmllint
 if [[ -x $QMLLINT ]]; then
     hata=""
-    for d in kabuk/qml plasma/plasmoids/*/contents/ui plasma/qml/org/kde/plasma/workspace/osd; do
+    for d in kabuk/qml kabuk/uygulamalar plasma/plasmoids/*/contents/ui plasma/qml/org/kde/plasma/workspace/osd; do
         hata+=$($QMLLINT -I "$d" "$d"/*.qml 2>&1 | grep -E 'Could not find property|\[syntax\]|^Error' || true)
     done
     if [[ -n $hata ]]; then
@@ -303,6 +304,7 @@ fi
 echo "==> Kuruluyor ($DATA, $CFG)"
 kopyala build/varlik "$MT/varlik"
 kopyala kabuk/qml "$MT/kabuk/qml"
+kopyala kabuk/uygulamalar "$MT/kabuk/uygulamalar"
 kopyala plasma/qml "$MT/qml"
 kopyala build/aurorae/Metro "$DATA/aurorae/themes/Metro"
 kopyala build/kvantum/Metro "$CFG/Kvantum/Metro"
@@ -352,6 +354,22 @@ for g in session/uygulamalar/*.desktop; do
     ikili=$(sed -n 's|^Exec=@BIN@/\([^ ]*\).*|\1|p' "$g" | head -1)
     [[ -x "$BIN/$ikili" ]] && sed "s|@BIN@|$BIN|g" "$g" > "$APP/$(basename "$g")"
 done
+# Windows 8.1 Modern uygulamaları: yalnızca Metro oturumunda görünen uygulama girdileri (app_id metro-<ad>)
+$PY - "$MT" "$BIN" <<'PYEOF'
+import json, sys
+from pathlib import Path
+mt, bin_ = Path(sys.argv[1]), sys.argv[2]
+hedef = mt / "data/applications"
+hedef.mkdir(parents=True, exist_ok=True)
+for u in json.loads(Path("session/metro-uygulamalari/uygulamalar.json").read_text()):
+    (hedef / f"metro-{u['ad']}.desktop").write_text(
+        "[Desktop Entry]\nType=Application\n"
+        f"Name={u['isim']}\nComment={u['aciklama']}\n"
+        f"Exec={bin_}/metro-uygulama {u['ad']}\n"
+        f"Icon={mt}/varlik/uygulama-{u['ad']}.png\n"
+        f"Categories={u['kategori']}\nKeywords={u['anahtar']};\n"
+        f"StartupWMClass=metro-{u['ad']}\nX-Metro-Renk={u['renk']}\nX-Metro-Uygulamasi=true\n")
+PYEOF
 # Dosya Gezgini: "Başlangıç ekranına sabitle" (bu veri dizini yalnızca Metro oturumunda XDG_DATA_DIRS'te)
 install -Dm755 session/servicemenus/metro-baslangica-sabitle.desktop "$MT/data/kio/servicemenus/metro-baslangica-sabitle.desktop"
 

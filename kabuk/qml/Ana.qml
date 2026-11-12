@@ -16,6 +16,33 @@ QtObject {
     property BilgisayarAyarlari pcAyarlar: BilgisayarAyarlari { tema: ana.tema; ana: ana }
     property GorevYoneticisi gorevYoneticisi: GorevYoneticisi { ana: ana }
     property IlkOturum ilkOturum: IlkOturum { tema: ana.tema }
+    // Alarmlar uygulamasının alarmları (alarmlar.json): uygulama kapalıyken de bildirim + ses
+    property Timer alarmSaati: Timer {
+        interval: 10000; running: true; repeat: true; triggeredOnStart: true
+        property var calanlar: ({})
+        onTriggered: {
+            var yol = Dosya.yapilandirma + "/alarmlar.json"
+            if (!Dosya.var(yol)) return
+            var l = []
+            try { l = JSON.parse(Dosya.oku(yol)) || [] } catch (e) { return }
+            var s = new Date(), gun = (s.getDay() + 6) % 7, degisti = false
+            for (var i = 0; i < l.length; i++) {
+                var x = l[i]
+                if (!x.acik || x.saat !== s.getHours() || x.dakika !== s.getMinutes()) continue
+                if ((x.gunler || []).length && x.gunler.indexOf(gun) < 0) continue
+                var anahtar = s.toDateString() + i + x.saat + ":" + x.dakika
+                if (calanlar[anahtar]) continue
+                calanlar[anahtar] = true
+                var saat = (x.saat < 10 ? "0" : "") + x.saat + ":" + (x.dakika < 10 ? "0" : "") + x.dakika
+                var ses = Dosya.veri + "/win/Windows/Media/" + (x.ses || "Alarm01.wav")
+                Sistem.calistir("notify-send -a Alarmlar -i " + Dosya.veri + "/varlik/uygulama-alarmlar.png -u critical "
+                                + JSON.stringify(x.ad || "Alarm") + " " + JSON.stringify(saat))
+                Sistem.calistir("sh -c 'for i in 1 2 3 4 5; do pw-play \"" + ses + "\" || paplay \"" + ses + "\"; done'")
+                if (!(x.gunler || []).length) { x.acik = false; degisti = true }
+            }
+            if (degisti) Dosya.yaz(yol, JSON.stringify(l, null, 1))
+        }
+    }
     readonly property string ilkOturumIsareti: Dosya.yapilandirma + "/ilk-oturum-goruldu"
     function ilkOturumOynat() {
         ana.ilkOturum.oynat(function () {
@@ -104,7 +131,15 @@ QtObject {
         for (var i = 0; i < adaylar.length; i++) if (Sistem.programVar(adaylar[i].split(" ")[0])) return adaylar[i]
         return ""
     }
+    // canlı kutucuk türü ya da uygulama kimliği -> kurulu Metro uygulamasının .desktop kimliği ("" yoksa)
+    function metroUygulamasi(tur, kimlik) {
+        var k = ({ "hava": "metro-hava-durumu.desktop", "fotograflar": "metro-fotograflar.desktop", "saat": "metro-alarmlar.desktop" })[tur]
+        if (tur === "uygulama" && /^metro-.+\.desktop$/.test(kimlik || "")) k = kimlik
+        return k && Uygulamalar.var(k) ? k : ""
+    }
     function kutucukCalistir(tur, kimlik) {
+        var mu = metroUygulamasi(tur, kimlik)
+        if (mu) { Uygulamalar.baslat(mu); baslangicKapat(); return }
         switch (tur) {
         case "uygulama": Uygulamalar.baslat(kimlik); break
         case "masaustu": break

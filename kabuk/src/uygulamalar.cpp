@@ -237,7 +237,9 @@ QVariantMap Uygulamalar::bilgi(const QString &kimlik) const
     return {{QStringLiteral("kimlik"), s->storageId()}, {QStringLiteral("ad"), s->name()},
             {QStringLiteral("simge"), s->icon()}, {QStringLiteral("aciklama"), s->comment()},
             {QStringLiteral("genelAd"), s->genericName()}, {QStringLiteral("yol"), s->entryPath()},
-            {QStringLiteral("kategoriler"), s->categories()}};
+            {QStringLiteral("kategoriler"), s->categories()},
+            // Metro uygulamaları: kutucuk rengi .desktop'ta (X-Metro-Renk)
+            {QStringLiteral("renk"), s->property<QString>(QStringLiteral("X-Metro-Renk"))}};
 }
 
 void Uygulamalar::dosyaKonumunuAc(const QString &kimlik)

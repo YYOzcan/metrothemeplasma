@@ -660,6 +660,14 @@ Window {
                                                         function () { ana.bilgisayarAyarlari("", true) })
                                     return
                                 }
+                                // Metro uygulaması (Hesap Makinesi, Hava Durumu, Fotoğraflar, Alarmlar…): açılış ekranı
+                                var mu = ana.metroUygulamasi(model.tur, model.kimlik)
+                                if (mu) {
+                                    var r2 = kd.mapToItem(icerik, 0, 0, kd.width, kd.height)
+                                    acilisEkrani.baslat(r2, kd.zemin, "file://" + Dosya.veri + "/varlik/uygulama-" + mu.slice(6, -8) + ".png",
+                                                        function () { Uygulamalar.baslat(mu) }, true)
+                                    return
+                                }
                                 ana.kutucukCalistir(model.tur, model.kimlik)
                             }
                             onSagTiklandi: (gx, gy) => {
@@ -779,13 +787,16 @@ Window {
             z: 50
             property var sonra: null
             function sifirla() { buyume.stop(); visible = false; sonra = null }
-            function baslat(r, renk, simge, fn) {
+            // kare: Metro uygulaması simgesi (uygulama-<ad>.png); uygulamanın kendi açılış ekranındaki
+            // 150 px glifle aynı boyutta çizilir, süreç açılınca geçiş görünmez
+            function baslat(r, renk, simge, fn, kare) {
                 menu.kapat()
                 sonra = fn
                 color = renk
-                logo.source = simge
+                logo.source = kare ? "" : simge
+                logoKare.source = kare ? simge : ""
                 x = r.x; y = r.y; width = r.width; height = r.height
-                logo.opacity = 0
+                logo.opacity = 0; logoKare.opacity = 0
                 visible = true
                 buyume.restart()
             }
@@ -793,6 +804,13 @@ Window {
                 id: logo
                 anchors.centerIn: parent
                 width: 620; height: 300
+                scale: Math.min(1, acilisEkrani.width / pen.width * 1.6)
+            }
+            Image {
+                id: logoKare
+                anchors.centerIn: parent
+                width: 291; height: 291
+                sourceSize.width: 291
                 scale: Math.min(1, acilisEkrani.width / pen.width * 1.6)
             }
             SequentialAnimation {
@@ -804,7 +822,10 @@ Window {
                     NumberAnimation { target: acilisEkrani; property: "height"; to: pen.ekranY; duration: 400; easing.type: Easing.Bezier; easing.bezierCurve: pen.tema.pvl }
                     SequentialAnimation {
                         PauseAnimation { duration: 120 }
-                        NumberAnimation { target: logo; property: "opacity"; to: 1; duration: 167 }
+                        ParallelAnimation {
+                            NumberAnimation { target: logo; property: "opacity"; to: 1; duration: 167 }
+                            NumberAnimation { target: logoKare; property: "opacity"; to: 1; duration: 167 }
+                        }
                     }
                 }
                 ScriptAction { script: if (acilisEkrani.sonra) acilisEkrani.sonra() }

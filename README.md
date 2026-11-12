@@ -33,6 +33,19 @@ Depoda hiçbir Microsoft dosyası yoktur. Bütün görseller, sesler, yazı tipl
 | Plymouth açılış ekranı: Windows logosu + dönen noktalar (WinRT ProgressRing anahtar kareleri) | bootres.dll |
 | "Windows 8.1" simge teması, "Windows 8.1 Aero" imleçleri (canlandırmalı), ses teması, duvar kağıtları, Segoe UI | imageres, shell32, pnidui, SndVolSSO, Cursors, Media, Web, Fonts |
 
+## Metro uygulamaları
+
+Windows 8.1'in Modern uygulamaları, ortak bir tam ekran ana programla (`metro-uygulama <ad>`, QML):
+**Hesap Makinesi** (Standart/Bilimsel), **Alarmlar** (Alarm, Zamanlayıcı, Kronometre; alarmlar uygulama
+kapalıyken de metro-kabuk tarafından bildirim + Windows alarm sesiyle çalınır), **Hava Durumu** (7 günlük ve
+saatlik tahmin, open-meteo + wttr.in), **Fotoğraflar** (Resimler kitaplığı, tam ekran görüntüleyici, slayt
+gösterisi), **Ses Kaydedici** (`~/Belgeler/Ses Kayıtları`).
+
+Hepsinde Windows 8.1 davranışı: kutucuktan açılınca kutucuk büyüyüp açılış ekranına dönüşür, fare üst
+kenara gelince 8.1 Update başlık çubuğu iner, üstten aşağı sürükleyince kapanır, sağ tık uygulama çubuğunu
+açar. Kutucuk/simge renkleri ve glifler (ISO'daki Segoe UI Symbol) `session/metro-uygulamalari/uygulamalar.json`'da;
+uygulamalar yalnızca Metro oturumunda listelenir. Hava, Fotoğraflar ve saat canlı kutucukları bunları açar.
+
 ## AeroThemePlasma'dan yükseltme (Windows 7 → 8.1)
 
 AeroThemePlasma kuruluysa iki tema yan yana yaşar (SDDM'de iki ayrı oturum); MetroThemePlasma ATP'nin
