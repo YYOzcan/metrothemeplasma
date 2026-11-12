@@ -29,13 +29,36 @@ Window {
         filterNotMinimized: false
     }
 
-    function ac() {
+    // Windows 8: sol üst köşede önce yalnız önceki uygulamanın küçük resmi (ipucu) belirir; fare sol kenar
+    // boyunca inince siyah geçiş listesi açılır; fareyle açılan liste fare uzaklaşınca kapanır.
+    // Win+Tab ile açılan liste Windows tuşu bırakılınca seçileni etkinleştirir.
+    property bool ipucu: false
+    property bool fareIle: false
+    function ac(ipucuKipi) {
         if (gorevler.count === 0) return
         kapanis.stop()
+        if (acik && !ipucu && ipucuKipi) return
         secim = gorevler.count > 1 ? 1 : 0
-        if (!acik) { acik = true; visible = true; ilerleme = 0; acilis.restart() }
+        ipucu = !!ipucuKipi
+        if (!acik) { fareIle = !!ipucuKipi; acik = true; visible = true; ilerleme = 0; acilis.restart() }
+        liste.positionViewAtIndex(secim, ListView.Beginning)
+        if (!ipucu) {
+            requestActivate()
+            kok.forceActiveFocus()
+        }
+        cikis.restart()
+    }
+    function tamAc() {
+        if (!ipucu) return
+        ipucu = false
+        liste.positionViewAtBeginning()
         requestActivate()
         kok.forceActiveFocus()
+    }
+    Timer {
+        id: cikis
+        interval: 900
+        onTriggered: if ((pen.ipucu || pen.fareIle) && !izleyici.containsMouse) pen.kapat()
     }
     function ileri() { if (gorevler.count) secim = (secim + 1) % gorevler.count }
     function kapat() {
@@ -55,7 +78,7 @@ Window {
         NumberAnimation { target: pen; property: "ilerleme"; to: 0; duration: 160 }
         ScriptAction { script: pen.visible = false }
     }
-    onActiveChanged: if (!active && acik) kapat()
+    onActiveChanged: if (!active && acik && !ipucu) kapat()
 
     Item {
         id: kok
@@ -69,12 +92,22 @@ Window {
         Keys.onReturnPressed: pen.etkinlestir(pen.secim)
         Keys.onReleased: event => { if (event.key === Qt.Key_Meta || event.key === Qt.Key_Super_L) pen.etkinlestir(pen.secim) }
 
-        Rectangle { anchors.fill: parent; color: "#1d1d1d" }
+        Rectangle { anchors.fill: parent; color: "#1d1d1d"; opacity: pen.ipucu ? 0 : 1; Behavior on opacity { NumberAnimation { duration: 160 } } }
+
+        // fare izleyici (alt öğelerin üstündeyken de çalışır): ipucundan sol kenar boyunca inince tam liste;
+        // pencereden çıkınca kapan
+        HoverHandler {
+            id: izleyici
+            readonly property bool containsMouse: hovered
+            onPointChanged: if (hovered && pen.ipucu && point.position.y > 150) pen.tamAc()
+            onHoveredChanged: if (!hovered) { if (pen.ipucu) pen.kapat(); else if (pen.fareIle) cikis.restart() }
+        }
 
         ListView {
             id: liste
             anchors.fill: parent
-            anchors.topMargin: 20; anchors.bottomMargin: 20
+            anchors.topMargin: pen.ipucu ? 0 : 20; anchors.bottomMargin: pen.ipucu ? pen.height - 130 : 20
+            interactive: !pen.ipucu
             spacing: 14
             model: gorevler
             currentIndex: pen.secim

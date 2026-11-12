@@ -246,7 +246,7 @@ QtObject {
             ana.hizliMenu.ac(x, y)
         }
         function onGecisIste() { if (ana.gecis.acik) ana.gecis.ileri(); else ana.gecis.ac() }
-        function onSolUstKoseIste() { if (ana.tema.baslangic.solUstGecis) ana.gecis.ac() }
+        function onSolUstKoseIste() { if (ana.tema.baslangic.solUstGecis) ana.gecis.ac(true) }
         function onSolAltKoseIste() { ana.baslangicDegistir() }
         function onEkranGoruntusuIste() { ana.ekranGoruntusu() }
         function onKisisellestirIste() { ana.bolme.ac("kisisellestir", "baslangic") }
