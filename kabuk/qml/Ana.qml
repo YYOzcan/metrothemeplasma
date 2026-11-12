@@ -258,10 +258,22 @@ QtObject {
         }
     }
 
+    property Timer girisBekle: Timer {
+        property int sayac: 0
+        interval: 250; repeat: true
+        onTriggered: {
+            sayac++
+            var acilisVar = Sistem.komutCiktisi("pgrep", ["-u", Sistem.kullanici, "-x", "ksplashqml"], 1000).trim() !== ""
+            if (!acilisVar || sayac > 60) {
+                stop()
+                if (!ana.baslangic.acik) ana.baslangicAc(false, true)
+            }
+        }
+    }
     Component.onCompleted: {
         // oturum açılışında Başlangıç ekranı (Windows 8.1)
         // (OturumGirisi: bu oturumda ilk çalıştırma; çökme sonrası yeniden başlatmada yeniden açılmaz)
-        if (OturumGirisi && tema.baslangic.giristeBaslangic)
-            Qt.callLater(function () { ana.baslangicAc(false, true) })
+        // açılış ekranı ("Hoş geldiniz", ksplashqml) kapanana kadar bekle; yoksa animasyon arkada kalır
+        if (OturumGirisi && tema.baslangic.giristeBaslangic) girisBekle.start()
     }
 }
