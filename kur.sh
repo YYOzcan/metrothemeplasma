@@ -196,6 +196,15 @@ else
     echo "   (AeroThemePlasma'nın aeroshell.taskmanager modülü yok ya da derlenemedi; Plasma'nın görev çubuğu kullanılır)"
 fi
 
+# çatallanan ATP uygulamacıklarının çevirileri (çeviri alanı uygulamacık kimliğiyle değişti)
+for es in "seventasks:metrogorevler" "systemtray:metrotepsi" "notifications:metrobildirim"; do
+    for mo in /usr/share/locale/*/LC_MESSAGES/plasma_applet_io.gitgud.wackyideas.${es%%:*}.mo; do
+        [[ -f $mo ]] || continue
+        dil=$(basename "$(dirname "$(dirname "$mo")")")
+        install -Dm644 "$mo" "$DATA/locale/$dil/LC_MESSAGES/plasma_applet_io.github.yyozcan.${es##*:}.mo"
+    done
+done
+
 echo "==> Windows 8 bildirimleri (Plasma uygulamacığı) derleniyor"
 if $CMAKE -S plasma/bildirim -B build/bildirim -G Ninja -DCMAKE_BUILD_TYPE=Release >/dev/null 2>&1 && ninja -C build/bildirim >/dev/null 2>&1; then
     install -Dm755 build/bildirim/bin/plasma/applets/io.github.yyozcan.metrobildirim.so \
