@@ -283,6 +283,32 @@ def masaustu_menusu():
     kc.save()
 
 
+def metro_bildirim():
+    """Windows 8 bildirimleri: tepsideki Plasma bildirim uygulamacığını Metro çatalıyla değiştir
+    (io.github.yyozcan.metrobildirim; eklenti yalnızca Metro oturumunda QT_PLUGIN_PATH'te)."""
+    p = CFG / "plasma-io.github.yyozcan.metroshell-appletsrc"
+    eklenti = Path.home() / ".local/share/metrothemeplasma/eklenti/plasma/applets/io.github.yyozcan.metrobildirim.so"
+    if not p.exists() or not eklenti.exists():
+        return
+    s = p.read_text()
+    y = s.replace("plugin=org.kde.plasma.notifications\n", "plugin=io.github.yyozcan.metrobildirim\n")
+    satirlar = []
+    for satir in y.split("\n"):
+        if satir.startswith("extraItems="):
+            l = [x for x in satir[11:].split(",") if x]
+            l = ["io.github.yyozcan.metrobildirim" if x == "org.kde.plasma.notifications" else x for x in l]
+            satir = "extraItems=" + ",".join(dict.fromkeys(l))
+        elif satir.startswith("knownItems="):
+            l = [x for x in satir[11:].split(",") if x]
+            if "io.github.yyozcan.metrobildirim" not in l:
+                l.append("io.github.yyozcan.metrobildirim")
+            satir = "knownItems=" + ",".join(l)
+        satirlar.append(satir)
+    y = "\n".join(satirlar)
+    if y != s:
+        p.write_text(y)
+
+
 def main():
     cmd = sys.argv[1] if len(sys.argv) > 1 else "durum"
     STATE.mkdir(parents=True, exist_ok=True)
@@ -296,6 +322,7 @@ def main():
             target = birlestir(target, json.loads(xp.read_text()), json.loads(onceki.read_text()))
         apply(target)
         masaustu_menusu()
+        metro_bildirim()
         print("Windows 8.1 teması uygulandı.")
     elif cmd == "geri":
         if not onceki.exists():

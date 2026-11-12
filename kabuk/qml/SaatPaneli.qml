@@ -29,7 +29,7 @@ Window {
         acilis.stop()
         kapanis.restart()
     }
-    NumberAnimation { id: acilis; target: pen; property: "ilerleme"; to: 1; duration: 380; easing.type: Easing.OutQuint }
+    NumberAnimation { id: acilis; target: pen; property: "ilerleme"; to: 1; duration: 450; easing.type: Easing.Bezier; easing.bezierCurve: pen.tema.pvl }
     SequentialAnimation {
         id: kapanis
         NumberAnimation { target: pen; property: "ilerleme"; to: 0; duration: 160 }

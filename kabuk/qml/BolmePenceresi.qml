@@ -50,7 +50,7 @@ Window {
         acilis.stop()
         kapanis.restart()
     }
-    NumberAnimation { id: acilis; target: pen; property: "ilerleme"; to: 1; duration: 420; easing.type: Easing.OutQuint }
+    NumberAnimation { id: acilis; target: pen; property: "ilerleme"; to: 1; duration: 550; easing.type: Easing.Bezier; easing.bezierCurve: pen.tema.pvl }
     SequentialAnimation {
         id: kapanis
         NumberAnimation { target: pen; property: "ilerleme"; to: 0; duration: 180; easing.type: Easing.InQuad }
@@ -102,7 +102,7 @@ Window {
                                 yansit: yansitBolmesi, yazdir: mesajBolmesi, yurut: mesajBolmesi })[pen.tur] || null
             opacity: 1
             onSourceComponentChanged: girisAnim.restart()
-            NumberAnimation { id: girisAnim; target: icerik; property: "x"; from: 80; to: 40; duration: 320; easing.type: Easing.OutQuint }
+            NumberAnimation { id: girisAnim; target: icerik; property: "x"; from: 80; to: 40; duration: 550; easing.type: Easing.Bezier; easing.bezierCurve: pen.tema.pvl }
         }
 
         MetroMenu { id: altMenu }

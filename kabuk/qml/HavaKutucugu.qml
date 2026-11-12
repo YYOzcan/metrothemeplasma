@@ -27,7 +27,32 @@ Item {
 
     readonly property var simdi: veri ? veri.current_condition[0] : null
     readonly property string sehir: veri ? veri.nearest_area[0].areaName[0].value : ""
-    readonly property string durum: simdi ? (simdi.lang_tr ? simdi.lang_tr[0].value : simdi.weatherDesc[0].value) : ""
+    // WWO hava kodları -> Windows 8.1 Hava Durumu (MSN) Türkçesi; wttr.in'in çevirisi eksik
+    readonly property var kodlar: ({
+        113: "Güneşli", 116: "Parçalı Bulutlu", 119: "Bulutlu", 122: "Kapalı", 143: "Pus",
+        176: "Yer Yer Yağmurlu", 179: "Yer Yer Kar Yağışlı", 182: "Yer Yer Karla Karışık Yağmur", 185: "Yer Yer Donan Çisenti",
+        200: "Gök Gürültülü", 227: "Tipi", 230: "Kar Fırtınası", 248: "Sisli", 260: "Dondurucu Sis",
+        263: "Yer Yer Çisenti", 266: "Çisenti", 281: "Donan Çisenti", 284: "Yoğun Donan Çisenti",
+        293: "Yer Yer Hafif Yağmurlu", 296: "Hafif Yağmurlu", 299: "Zaman Zaman Yağmurlu", 302: "Yağmurlu",
+        305: "Zaman Zaman Şiddetli Yağmur", 308: "Şiddetli Yağmur", 311: "Hafif Donan Yağmur", 314: "Donan Yağmur",
+        317: "Hafif Karla Karışık Yağmur", 320: "Karla Karışık Yağmur", 323: "Yer Yer Hafif Kar", 326: "Hafif Kar Yağışlı",
+        329: "Yer Yer Kar Yağışlı", 332: "Kar Yağışlı", 335: "Yer Yer Yoğun Kar", 338: "Yoğun Kar Yağışlı", 350: "Buz Taneleri",
+        353: "Hafif Sağanak", 356: "Sağanak", 359: "Şiddetli Sağanak", 362: "Hafif Karla Karışık Sağanak",
+        365: "Karla Karışık Sağanak", 368: "Hafif Kar Sağanağı", 371: "Kar Sağanağı", 374: "Hafif Buz Taneli Sağanak",
+        377: "Buz Taneli Sağanak", 386: "Yer Yer Gök Gürültülü Yağmur", 389: "Gök Gürültülü Yağmur",
+        392: "Yer Yer Gök Gürültülü Kar", 395: "Gök Gürültülü Kar"
+    })
+    function aciklama(o) {
+        if (!o) return ""
+        var k = kodlar[parseInt(o.weatherCode)]
+        if (k) {
+            // gece açık hava
+            if (k === "Güneşli" && o.isdaytime === "no") return "Açık"
+            return k
+        }
+        return o.lang_tr ? o.lang_tr[0].value : o.weatherDesc[0].value
+    }
+    readonly property string durum: aciklama(simdi)
     function gun(i) { return veri ? veri.weather[i] : null }
     function gunAdi(t) { var d = new Date(t); return Qt.locale("tr_TR").dayName(d.getDay(), Locale.ShortFormat) }
 
@@ -35,7 +60,7 @@ Item {
         id: icerik
         width: parent.width
         y: -h.sayfa * h.height
-        Behavior on y { NumberAnimation { duration: 700; easing.type: Easing.OutQuint } }
+        Behavior on y { NumberAnimation { duration: 800; easing.type: Easing.Bezier; easing.bezierCurve: h.kutucuk.tema.pvl } }
         // 1. sayfa: şimdi
         Item {
             width: h.width; height: h.height
@@ -80,7 +105,7 @@ Item {
                         Text { text: h.gun(index) ? h.gun(index).maxtempC + "° / " + h.gun(index).mintempC + "°" : ""; color: "white"; font.family: "Segoe UI"; font.pixelSize: 14 }
                         Text {
                             visible: kutucuk.boyut === "genis"
-                            text: { var g = h.gun(index); if (!g) return ""; var hh = g.hourly[4]; return hh.lang_tr ? hh.lang_tr[0].value : hh.weatherDesc[0].value }
+                            text: { var g = h.gun(index); if (!g) return ""; return h.aciklama(g.hourly[4]) }
                             color: "white"; font.family: "Segoe UI"; font.pixelSize: 14
                         }
                     }

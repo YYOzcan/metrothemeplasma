@@ -54,8 +54,26 @@ QtObject {
         "#ff2e12", "#ff1d77", "#ff7600", "#91d100", "#e1b700", "#1faeff", "#56c5ff", "#00d8cc", "#78ba00",
         "#ff981d", "#ff76bc", "#7200ac", "#aa40ff", "#b01e00", "#c1004f", "#696969"
     ]
-    // Windows 8.1 animasyon eğrisi (hızlı başlayıp yumuşak biten)
-    readonly property int egri: Easing.OutQuint
+    // Windows 8.1 animasyon eğrisi (PVL: cubic-bezier(0.1, 0.9, 0.2, 1) — hızlı başlayıp yumuşak biten)
+    readonly property int egri: Easing.Bezier
+    readonly property var pvl: [0.1, 0.9, 0.2, 1, 1, 1]
+    // QML dışı hesaplar için aynı eğri (101 noktalı tablo, doğrusal ara değer)
+    readonly property var pvlTablo: {
+        function b(s, p1, p2) { var u = 1 - s; return 3 * u * u * s * p1 + 3 * u * s * s * p2 + s * s * s }
+        var t = []
+        for (var i = 0; i <= 100; i++) {
+            var x = i / 100, lo = 0, hi = 1
+            for (var k = 0; k < 24; k++) { var m = (lo + hi) / 2; if (b(m, 0.1, 0.2) < x) lo = m; else hi = m }
+            t.push(b((lo + hi) / 2, 0.9, 1))
+        }
+        return t
+    }
+    function pvlDeger(x) {
+        if (x <= 0) return 0
+        if (x >= 1) return 1
+        var f = x * 100, i = Math.floor(f)
+        return pvlTablo[i] + (pvlTablo[i + 1] - pvlTablo[i]) * (f - i)
+    }
     readonly property int egriKisa: 167
     readonly property int egriOrta: 333
     readonly property int egriUzun: 500

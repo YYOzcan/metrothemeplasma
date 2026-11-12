@@ -11,7 +11,10 @@ Item {
     property bool secili: false
     property bool surukleniyor: false
     property string duvarKagidi: ""
-    property real giris: 1               // açılış animasyonu (0 -> 1)
+    property real giris: 1               // açılış animasyonu: doğrusal yerel ilerleme (0 -> 1)
+    property real girisMesafe: 120       // sağdan kayma mesafesi (px)
+    property real girisAci: 0            // oturum açılışında döner kapı açısı (derece)
+    readonly property real girisE: tema.pvlDeger(giris)
     signal tiklandi()
     signal sagTiklandi(real x, real y)
     signal surukleBasla(real x, real y)
@@ -43,22 +46,28 @@ Item {
     }
     readonly property bool kucuk: boyut === "kucuk"
 
-    // açılışta kutucuklar sağdan kayarak gelir
-    opacity: giris
+    // açılışta kutucuklar sağdan kayarak gelir (saydamlık ilk üçte birde tamamlanır)
+    opacity: Math.min(1, giris * 3)
     transform: [
-        Translate { x: (1 - k.giris) * 220 },
+        Translate { x: (1 - k.girisE) * k.girisMesafe },
+        Rotation {
+            origin.x: 0; origin.y: k.height / 2
+            axis { x: 0; y: 1; z: 0 }
+            angle: (1 - k.girisE) * k.girisAci
+        },
+        // basınca eğilme (PVL pointerDown/pointerUp: 167 ms)
         Rotation {
             id: egim
             origin.x: k.width / 2; origin.y: k.height / 2
             axis { x: 0; y: 0; z: 0 }
             angle: 0
-            Behavior on angle { NumberAnimation { duration: 120; easing.type: Easing.OutQuad } }
+            Behavior on angle { NumberAnimation { duration: 167; easing.type: Easing.Bezier; easing.bezierCurve: k.tema.pvl } }
         },
         Scale {
             id: olcek
             origin.x: k.width / 2; origin.y: k.height / 2
-            xScale: 1; yScale: 1
-            Behavior on xScale { NumberAnimation { duration: 120; easing.type: Easing.OutQuad } }
+            xScale: 1; yScale: xScale
+            Behavior on xScale { NumberAnimation { duration: 167; easing.type: Easing.Bezier; easing.bezierCurve: k.tema.pvl } }
         }
     ]
 
@@ -216,7 +225,7 @@ Item {
             if (mouse.button === Qt.LeftButton) {
                 var dx = mouse.x / width - 0.5, dy = mouse.y / height - 0.5
                 if (Math.abs(dx) < 0.22 && Math.abs(dy) < 0.22) {
-                    olcek.xScale = 0.96; olcek.yScale = 0.96
+                    olcek.xScale = 0.975
                 } else {
                     egim.axis.x = -dy; egim.axis.y = dx; egim.axis.z = 0
                     egim.angle = 9 * Math.min(1, Math.max(Math.abs(dx), Math.abs(dy)) * 2)
@@ -227,7 +236,7 @@ Item {
             if (!pressed || mouse.buttons !== Qt.LeftButton) return
             if (!tasindi && (Math.abs(mouse.x - bas.x) > 8 || Math.abs(mouse.y - bas.y) > 8)) {
                 tasindi = true
-                egim.angle = 0; olcek.xScale = 1; olcek.yScale = 1
+                egim.angle = 0; olcek.xScale = 1
                 var p = mapToItem(null, mouse.x, mouse.y)
                 k.surukleBasla(p.x, p.y)
             }
@@ -237,7 +246,7 @@ Item {
             }
         }
         onReleased: mouse => {
-            egim.angle = 0; olcek.xScale = 1; olcek.yScale = 1
+            egim.angle = 0; olcek.xScale = 1
             if (tasindi) { k.surukleBitti(); tasindi = false; return }
             if (mouse.button === Qt.RightButton) {
                 var p = mapToItem(null, mouse.x, mouse.y)
@@ -246,6 +255,6 @@ Item {
                 k.tiklandi()
             }
         }
-        onCanceled: { egim.angle = 0; olcek.xScale = 1; olcek.yScale = 1 }
+        onCanceled: { egim.angle = 0; olcek.xScale = 1 }
     }
 }

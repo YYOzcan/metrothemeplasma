@@ -4,6 +4,7 @@
 #include <QDBusConnection>
 #include <QDBusMessage>
 #include <QDir>
+#include <QFile>
 #include <QGuiApplication>
 #include <QIcon>
 #include <QQmlApplicationEngine>
@@ -75,6 +76,25 @@ int main(int argc, char **argv)
     const QString qmlDizin = qEnvironmentVariable("METRO_QML",
         QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + QStringLiteral("/metrothemeplasma/kabuk/qml"));
 
+    // --giris: oturumun ilk çalıştırmasında Başlangıç ekranı açılış animasyonuyla gelir.
+    // Oturum kimliği $XDG_RUNTIME_DIR altında tutulur; systemd yeniden başlatınca tekrar açılmaz.
+    bool oturumGirisi = false;
+    if (app.arguments().contains(QStringLiteral("--giris"))) {
+        const QString kimlik = qEnvironmentVariable("XDG_SESSION_ID", QStringLiteral("?")) + QLatin1Char(':')
+                             + qEnvironmentVariable("WAYLAND_DISPLAY");
+        QFile isaret(QStandardPaths::writableLocation(QStandardPaths::RuntimeLocation) + QStringLiteral("/metro-kabuk-oturum"));
+        QString onceki;
+        if (isaret.open(QIODevice::ReadOnly)) {
+            onceki = QString::fromUtf8(isaret.readAll()).trimmed();
+            isaret.close();
+        }
+        if (onceki != kimlik) {
+            oturumGirisi = true;
+            if (isaret.open(QIODevice::WriteOnly | QIODevice::Truncate))
+                isaret.write(kimlik.toUtf8());
+        }
+    }
+
     QQmlApplicationEngine *motor = nullptr;
     auto yukle = [&] {
         delete motor;
@@ -87,6 +107,10 @@ int main(int argc, char **argv)
         c->setContextProperty(QStringLiteral("SimgeRengi"), &simgeRengi);
         c->setContextProperty(QStringLiteral("Medya"), &medya);
         c->setContextProperty(QStringLiteral("KatmanYardimci"), &katman);
+        c->setContextProperty(QStringLiteral("OturumGirisi"), oturumGirisi);
+        // sınama: animasyonları bu ms'de dondur (test/ic-ice.sh ile kare kare bakmak için)
+        c->setContextProperty(QStringLiteral("SinamaDondur"), qEnvironmentVariableIntValue("METRO_SINAMA_DONDUR"));
+        oturumGirisi = false; // yeniden yüklemede bir daha değil
         c->setContextProperty(QStringLiteral("QmlDizini"), QUrl::fromLocalFile(qmlDizin + QLatin1Char('/')).toString());
         motor->addImageProvider(QStringLiteral("simge"), new SimgeSaglayici);
         motor->addImageProvider(QStringLiteral("desen"), new DesenSaglayici);

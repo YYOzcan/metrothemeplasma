@@ -15,13 +15,13 @@ export FONTCONFIG_FILE="$KOK/session/metro-fonts.conf"
 TCFG=/tmp/claude-$(id -u)/metro-test-cfg
 rm -rf "$TCFG"; mkdir -p "$TCFG"
 cp -r "$HOME/.config/metrothemeplasma" "$TCFG/" 2>/dev/null
-printf '[Icons]\nTheme=${METRO_SIMGE:-Windows 8.1}\n[General]\nColorScheme=Metro\n' > "$TCFG/kdeglobals"
+printf '[Icons]\nTheme=%s\n[General]\nColorScheme=Metro\n' "${METRO_SIMGE:-Windows 8.1}" > "$TCFG/kdeglobals"
 export XDG_CONFIG_HOME="$TCFG"
 dbus-run-session -- bash -c "
   kwin_wayland --virtual --width 1920 --height 1080 --socket mt-0 --no-lockscreen >\"$CIKTI/kwin.log\" 2>&1 &
   for i in \$(seq 50); do [ -S \"$XDG_RUNTIME_DIR/mt-0\" ] && break; sleep 0.1; done
   export WAYLAND_DISPLAY=mt-0 QT_QPA_PLATFORM=wayland
-  METRO_QML=\"$KOK/kabuk/qml\" \"$KOK/build/kabuk/metro-kabuk\" >\"$CIKTI/kabuk.log\" 2>&1 &
+  METRO_QML=\"$KOK/kabuk/qml\" \"$KOK/build/kabuk/metro-kabuk\" ${METRO_KABUK_ARGS:-} >\"$CIKTI/kabuk.log\" 2>&1 &
   sleep 2.5
   IFS=';' read -ra K <<< \"$KOMUTLAR\"
   n=0

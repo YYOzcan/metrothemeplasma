@@ -23,6 +23,12 @@ void Katman::klavyeAyarla(QWindow *pencere, int klavye)
         LayerShellQt::Window::get(pencere)->setKeyboardInteractivity(LayerShellQt::Window::KeyboardInteractivity(klavye));
 }
 
+void Katman::katmanAyarla(QWindow *pencere, int seviye)
+{
+    if (pencere)
+        LayerShellQt::Window::get(pencere)->setLayer(LayerShellQt::Window::Layer(seviye));
+}
+
 void Katman::kenarBosluk(QWindow *pencere, int ust, int sag, int alt, int sol)
 {
     if (pencere)

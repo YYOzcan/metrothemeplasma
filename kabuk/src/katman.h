@@ -19,5 +19,7 @@ public:
     Q_INVOKABLE void ayarla(QWindow *pencere, int seviye, int kenarlar, int klavye, int dislamaAlani,
                             const QString &kapsam, int ust = 0, int sag = 0, int alt = 0, int sol = 0);
     Q_INVOKABLE void klavyeAyarla(QWindow *pencere, int klavye);
+    // görünür yüzeyin katmanını değiştirir (layer-shell set_layer)
+    Q_INVOKABLE void katmanAyarla(QWindow *pencere, int seviye);
     Q_INVOKABLE void kenarBosluk(QWindow *pencere, int ust, int sag, int alt, int sol);
 };

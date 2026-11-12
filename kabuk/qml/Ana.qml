@@ -16,13 +16,13 @@ QtObject {
     property BilgisayarAyarlari pcAyarlar: BilgisayarAyarlari { tema: ana.tema; ana: ana }
 
     // ------------------------------------------------------------------ Başlangıç
-    function baslangicAc(uygulamalar) {
+    function baslangicAc(uygulamalar, giris) {
         tilsimKapat(); bolmeKapat(); hizliMenu.kapat()
-        baslangic.ac(uygulamalar)
+        baslangic.ac(uygulamalar, giris)
         Kabuk.setBaslangicAcik(true)
     }
-    function baslangicKapat() {
-        baslangic.kapat()
+    function baslangicKapat(hemen) {
+        baslangic.kapat(hemen)
         Kabuk.setBaslangicAcik(false)
     }
     function baslangicDegistir() {
@@ -40,7 +40,7 @@ QtObject {
     function tilsimIpucu(kose) {
         if (bolme.acik || tilsimlar.acik) return
         if (!tema.baslangic.koseIpucu) return
-        tilsimlar.goster(true)
+        tilsimlar.goster(true, kose)
     }
     function tilsimKapat() {
         tilsimlar.kapat()
@@ -115,8 +115,10 @@ QtObject {
         }
         baslangicKapat()
     }
-    function bilgisayarAyarlari(sayfa) {
-        hepsiniKapat()
+    // baslangictan: Başlangıç ekranı açılış ekranı geçişini bitirince kendisi kapanır
+    function bilgisayarAyarlari(sayfa, baslangictan) {
+        if (baslangictan) { bolme.kapat(); tilsimKapat(); hizliMenu.kapat() }
+        else hepsiniKapat()
         pcAyarlar.ac(sayfa || "")
     }
     function ayarEylem(a) {
@@ -253,7 +255,8 @@ QtObject {
 
     Component.onCompleted: {
         // oturum açılışında Başlangıç ekranı (Windows 8.1)
-        if (Qt.application.arguments.indexOf("--giris") >= 0 && tema.baslangic.giristeBaslangic)
-            Qt.callLater(function () { ana.baslangicAc(false) })
+        // (OturumGirisi: bu oturumda ilk çalıştırma; çökme sonrası yeniden başlatmada yeniden açılmaz)
+        if (OturumGirisi && tema.baslangic.giristeBaslangic)
+            Qt.callLater(function () { ana.baslangicAc(false, true) })
     }
 }

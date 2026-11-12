@@ -32,56 +32,93 @@ Window {
     }
 
     // ------------------------------------------------------------------ aç / kapat
-    function ac(uygulamalar) {
+    // Windows 8.1: masaüstünden gelince zemin hızla belirir, kutucuklar sütun sütun sağdan kayarak gelir
+    // (PVL eğrisi). Oturum açılışındaki ilk gösterimde kutucuklar döner kapı gibi (turnstile) daha uzaktan gelir.
+    property bool oturumGirisi: false
+    function ac(uygulamalar, girisKipi) {
         if (acik && !kapanis.running) {
             if (uygulamalar) sayfa = 1
             return
         }
         kapanis.stop()
+        acilisEkrani.sifirla()
         duvarKagidiOku()
-        sayfa = (uygulamalar || tema.baslangic.uygulamalarOtomatik) ? 1 : 0
+        sayfaAnimasyon = false
+        sayfa = (uygulamalar || tema.baslangic.uygulamalarOtomatik) ? 1 : 0   // Behavior kapalı: hemen
+        sayfaAnimasyon = true
         uygulamalarGorunumu.sifirla()
+        gorevCubuguGoster(false)
+        oturumGirisi = !!girisKipi
         acik = true
-        icerik.opacity = 0
+        icerik.opacity = 1
         icerik.scale = 1
+        zemin.opacity = oturumGirisi ? 1 : 0
+        girisZaman = 0
         visible = true
         requestActivate()
         acilis.restart()
         icerik.forceActiveFocus()
+        if (SinamaDondur > 0) sinamaZamanlayici.restart()
     }
-    function kapat() {
+    Timer { id: sinamaZamanlayici; interval: SinamaDondur; onTriggered: acilis.pause() }
+    // hemen: animasyonsuz kapat (uygulama açılış ekranı kendi geçişini yaptıktan sonra)
+    function kapat(hemen) {
         if (!acik) return
         acik = false
         menu.kapat()
         secimiTemizle()
         ozellestir = false
         acilis.stop()
+        gorevCubuguGoster(false)
+        if (hemen) {
+            kapanis.stop()
+            visible = false
+            acilisEkrani.sifirla()
+            return
+        }
         kapanis.restart()
     }
     function degistir() { if (acik) kapat(); else ac(false) }
 
-    SequentialAnimation {
+    ParallelAnimation {
         id: acilis
-        ParallelAnimation {
-            NumberAnimation { target: icerik; property: "opacity"; from: 0; to: 1; duration: 160 }
-            NumberAnimation { target: pen; property: "girisIlerleme"; from: 0; to: 1; duration: 700; easing.type: Easing.Linear }
-        }
+        NumberAnimation { target: zemin; property: "opacity"; to: 1; duration: 167 }
+        NumberAnimation { target: pen; property: "girisZaman"; from: 0; to: pen.girisToplam; duration: pen.girisToplam; easing.type: Easing.Linear }
     }
+    // Başlangıç'tan masaüstüne: içerik küçülerek kaybolur
     SequentialAnimation {
         id: kapanis
         ParallelAnimation {
-            NumberAnimation { target: icerik; property: "opacity"; to: 0; duration: 180; easing.type: Easing.InQuad }
-            NumberAnimation { target: icerik; property: "scale"; to: 0.94; duration: 180; easing.type: Easing.InQuad }
+            NumberAnimation { target: icerik; property: "opacity"; to: 0; duration: 200; easing.type: Easing.InQuad }
+            NumberAnimation { target: icerik; property: "scale"; to: 0.92; duration: 200; easing.type: Easing.InQuad }
         }
-        ScriptAction { script: { pen.visible = false; icerik.scale = 1 } }
+        ScriptAction { script: { pen.visible = false; icerik.scale = 1; icerik.opacity = 1 } }
     }
-    // kutucuklar sütun sütun, soldan sağa gecikmeyle gelir
-    property real girisIlerleme: 1
+
+    // kutucuk girişi: her sütun (iki birim) bir öncekinden biraz sonra başlar
+    property real girisZaman: 100000                       // ms; büyük değer = bitti
+    readonly property int girisSure: oturumGirisi ? 1100 : 600
+    readonly property int girisAdim: oturumGirisi ? 70 : 35
+    readonly property int girisEnGec: oturumGirisi ? 900 : 350
+    readonly property int girisToplam: girisSure + girisEnGec
+    // x: kutucuğun ekrandaki sol kenarı; dönüş 0..1 doğrusal yerel ilerleme
     function girisDegeri(x) {
-        var gecikme = Math.min(0.45, (x / 1600) * 0.45)
-        var t = Math.max(0, Math.min(1, (girisIlerleme - gecikme) / 0.55))
-        return 1 - Math.pow(1 - t, 4)
+        var sutun = Math.max(0, Math.floor((x - solBosluk + adim / 2) / (adim * 2)))
+        var gecikme = Math.min(sutun * girisAdim, girisEnGec)
+        return Math.max(0, Math.min(1, (girisZaman - gecikme) / girisSure))
     }
+
+    // ------------------------------------------------------------------ 8.1 Update: Başlangıç'ta görev çubuğu
+    // fare ekranın alt kenarına inince görev çubuğu Başlangıç ekranının üstünde görünür
+    property bool gorevCubugu: false
+    function gorevCubuguGoster(g) {
+        if (gorevCubugu === g) return
+        gorevCubugu = g
+        // Üst katman (Top) Plasma panelinin altında kalır: panel görünür, tıklanınca etkin pencere değişir
+        KatmanYardimci.katmanAyarla(pen, g ? 2 : 3)
+        KatmanYardimci.klavyeAyarla(pen, g ? 2 : 1)
+    }
+    onActiveChanged: if (!active && acik && gorevCubugu) kapat()
 
     // ------------------------------------------------------------------ masaüstü duvar kağıdı (Masaüstü kutucuğu ve "masaüstü arka planını göster")
     function duvarKagidiOku() {
@@ -361,6 +398,7 @@ Window {
         transformOrigin: Item.Center
 
         DesenArkaPlan {
+            id: zemin
             anchors.fill: parent
             tema: pen.tema
             duvarKagidi: tema.renk.masaustuArkaPlani ? pen.duvarKagidi : ""
@@ -375,16 +413,20 @@ Window {
             y: -pen.sayfaKonum * pen.height
 
             Text {
+                id: baslikYazi
                 x: pen.solBosluk; y: 42
                 text: "Başlangıç"
                 color: "white"
                 font.family: "Segoe UI"; font.weight: 300; font.pixelSize: 56
-                opacity: pen.girisDegeri(0)
+                readonly property real g: pen.girisDegeri(pen.solBosluk)
+                opacity: Math.min(1, g * 3)
+                transform: Translate { x: (1 - pen.tema.pvlDeger(baslikYazi.g)) * (pen.oturumGirisi ? 200 : 60) }
             }
             // sağ üst: kullanıcı, güç, ara (8.1 Update)
             Row {
                 anchors.right: parent.right; anchors.rightMargin: 40
                 y: 52
+                opacity: Math.min(1, pen.girisDegeri(pen.width - 300) * 2.5)
                 spacing: 18
                 Item {
                     width: kullaniciSatir.width; height: 40
@@ -475,6 +517,9 @@ Window {
                             required property int index
                             x: pen.grupGenislik[index].x; y: -40
                             width: pen.grupGenislik[index].w; height: 34
+                            readonly property real g: pen.girisDegeri(x + pen.solBosluk - kaydirici.contentX)
+                            opacity: Math.min(1, g * 3)
+                            transform: Translate { x: (1 - pen.tema.pvlDeger(parent.g)) * (pen.oturumGirisi ? 420 : 140) }
                             visible: pen.ozellestir || (pen.grupAdlari[index] || "") !== ""
                             Text {
                                 id: grupAdi
@@ -523,12 +568,21 @@ Window {
                             x: surukleniyor ? pen.surukleKonum.x : model.x
                             y: surukleniyor ? pen.surukleKonum.y : model.y
                             width: model.w; height: model.h
-                            giris: pen.girisDegeri(model.x - kaydirici.contentX)
+                            giris: pen.girisDegeri(model.x + pen.solBosluk - kaydirici.contentX)
+                            girisMesafe: pen.oturumGirisi ? 420 : 140
+                            girisAci: pen.oturumGirisi ? -70 : 0
                             Behavior on x { enabled: !kd.surukleniyor; NumberAnimation { duration: 300; easing.type: Easing.OutQuint } }
                             Behavior on y { enabled: !kd.surukleniyor; NumberAnimation { duration: 300; easing.type: Easing.OutQuint } }
                             onTiklandi: {
                                 if (pen.ozellestir) return
                                 pen.secimiTemizle()
+                                if (model.tur === "ayarlar") {
+                                    // Windows Mağazası uygulaması: kutucuk büyüyüp açılış ekranına dönüşür
+                                    var r = kd.mapToItem(icerik, 0, 0, kd.width, kd.height)
+                                    acilisEkrani.baslat(r, kd.zemin, pen.tema.win + "ImmersiveControlPanel/images/splashscreen.scale-100.png",
+                                                        function () { ana.bilgisayarAyarlari("", true) })
+                                    return
+                                }
                                 ana.kutucukCalistir(model.tur, model.kimlik)
                             }
                             onSagTiklandi: (gx, gy) => {
@@ -581,9 +635,90 @@ Window {
             hoverEnabled: true
             acceptedButtons: Qt.NoButton
             propagateComposedEvents: true
-            onPositionChanged: fareHareket.restart()
+            onPositionChanged: mouse => {
+                fareHareket.restart()
+                // 8.1 Update: alt kenarda görev çubuğu belirir, yukarı çıkınca gizlenir
+                if (pen.acik && !kapanis.running && mouse.y >= pen.height - 2) pen.gorevCubuguGoster(true)
+                else if (pen.gorevCubugu && mouse.y < pen.height - 48) pen.gorevCubuguGoster(false)
+            }
         }
         Timer { id: fareHareket; interval: 2500 }
+
+        // yatay kaydırma çubuğu (fare kıpırdayınca belirir)
+        Item {
+            id: kaydirmaCubugu
+            readonly property real oran: kaydirici.width / Math.max(1, kaydirici.contentWidth)
+            visible: oran < 0.999 && pen.sayfaKonum < 0.5
+            x: 0; width: pen.width; height: 14
+            y: pen.height - height - 2 - pen.sayfaKonum * pen.height
+            opacity: fareHareket.running || cma.pressed ? 1 : 0
+            Behavior on opacity { NumberAnimation { duration: 250 } }
+            Rectangle { anchors.fill: parent; anchors.topMargin: 2; anchors.bottomMargin: 2; color: Qt.rgba(1, 1, 1, 0.12) }
+            Rectangle {
+                id: tutamak
+                y: 2; height: parent.height - 4
+                width: Math.max(40, parent.width * kaydirmaCubugu.oran)
+                x: (parent.width - width) * (kaydirici.contentX / Math.max(1, kaydirici.contentWidth - kaydirici.width))
+                color: cma.pressed ? Qt.rgba(1, 1, 1, 0.75) : (cma.containsMouse ? Qt.rgba(1, 1, 1, 0.6) : Qt.rgba(1, 1, 1, 0.42))
+            }
+            MouseArea {
+                id: cma
+                anchors.fill: parent
+                hoverEnabled: true
+                property real fark: 0
+                function konum(mx) {
+                    var bos = width - tutamak.width
+                    var o = Math.max(0, Math.min(1, (mx - fark) / Math.max(1, bos)))
+                    kaydirici.contentX = o * (kaydirici.contentWidth - kaydirici.width)
+                }
+                onPressed: mouse => {
+                    fark = (mouse.x >= tutamak.x && mouse.x <= tutamak.x + tutamak.width) ? mouse.x - tutamak.x : tutamak.width / 2
+                    konum(mouse.x)
+                }
+                onPositionChanged: mouse => { fareHareket.restart(); if (pressed) konum(mouse.x) }
+            }
+        }
+
+        // uygulama açılış ekranı: kutucuk tam ekrana büyür (PVL, 400 ms), uygulama arkasında açılır
+        Rectangle {
+            id: acilisEkrani
+            visible: false
+            z: 50
+            property var sonra: null
+            function sifirla() { buyume.stop(); visible = false; sonra = null }
+            function baslat(r, renk, simge, fn) {
+                menu.kapat()
+                sonra = fn
+                color = renk
+                logo.source = simge
+                x = r.x; y = r.y; width = r.width; height = r.height
+                logo.opacity = 0
+                visible = true
+                buyume.restart()
+            }
+            Image {
+                id: logo
+                anchors.centerIn: parent
+                width: 620; height: 300
+                scale: Math.min(1, acilisEkrani.width / pen.width * 1.6)
+            }
+            SequentialAnimation {
+                id: buyume
+                ParallelAnimation {
+                    NumberAnimation { target: acilisEkrani; property: "x"; to: 0; duration: 400; easing.type: Easing.Bezier; easing.bezierCurve: pen.tema.pvl }
+                    NumberAnimation { target: acilisEkrani; property: "y"; to: 0; duration: 400; easing.type: Easing.Bezier; easing.bezierCurve: pen.tema.pvl }
+                    NumberAnimation { target: acilisEkrani; property: "width"; to: pen.width; duration: 400; easing.type: Easing.Bezier; easing.bezierCurve: pen.tema.pvl }
+                    NumberAnimation { target: acilisEkrani; property: "height"; to: pen.height; duration: 400; easing.type: Easing.Bezier; easing.bezierCurve: pen.tema.pvl }
+                    SequentialAnimation {
+                        PauseAnimation { duration: 120 }
+                        NumberAnimation { target: logo; property: "opacity"; to: 1; duration: 167 }
+                    }
+                }
+                ScriptAction { script: if (acilisEkrani.sonra) acilisEkrani.sonra() }
+                PauseAnimation { duration: 450 }
+                ScriptAction { script: { ana.baslangicKapat(true) } }
+            }
+        }
 
         MetroMenu { id: menu }
 
@@ -605,8 +740,10 @@ Window {
         }
     }
 
+    // Başlangıç <-> Uygulamalar: içerik ve zemin birlikte dikey kayar (PVL eğrisi)
+    property bool sayfaAnimasyon: true
     property real sayfaKonum: sayfa
-    Behavior on sayfaKonum { NumberAnimation { duration: 450; easing.type: Easing.OutQuint } }
+    Behavior on sayfaKonum { enabled: pen.sayfaAnimasyon; NumberAnimation { duration: 600; easing.type: Easing.Bezier; easing.bezierCurve: pen.tema.pvl } }
 
     // ------------------------------------------------------------------ menüler
     function kutucukMenusu(i) {

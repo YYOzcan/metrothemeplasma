@@ -26,9 +26,12 @@ Window {
         { ad: "Ayarlar", simge: "ayarlar", eylem: "ayarlar" }
     ]
 
-    function goster(ipucuKipi) {
+    // kose: 0 Win+C (ortadan), 1 sağ üst köşe (yukarıdan), 2 sağ alt köşe (aşağıdan) — simgeler bu sırayla kayar
+    property int kose: 0
+    function goster(ipucuKipi, koseNo) {
         kapanis.stop()
         if (acik && !ipucu) return
+        if (!acik) kose = koseNo || 0
         ipucu = ipucuKipi
         if (!acik) {
             acik = true
@@ -52,7 +55,7 @@ Window {
         kapanis.restart()
         KatmanYardimci.klavyeAyarla(pen, 0)
     }
-    NumberAnimation { id: acilis; target: pen; property: "ilerleme"; to: 1; duration: 420; easing.type: Easing.OutQuint }
+    NumberAnimation { id: acilis; target: pen; property: "ilerleme"; to: 1; duration: 450; easing.type: Easing.Bezier; easing.bezierCurve: pen.tema.pvl }
     SequentialAnimation {
         id: kapanis
         NumberAnimation { target: pen; property: "ilerleme"; to: 0; duration: 180; easing.type: Easing.InQuad }
@@ -106,7 +109,8 @@ Window {
                     required property int index
                     width: sutun.width; height: 104
                     // her simge merkezden uzaklığına göre gecikmeyle kayar
-                    readonly property real gecikme: Math.abs(index - 2) * 0.12
+                    readonly property int merkez: pen.kose === 1 ? 0 : (pen.kose === 2 ? 4 : 2)
+                    readonly property real gecikme: Math.abs(index - merkez) * (pen.kose === 0 ? 0.1 : 0.06)
                     readonly property real t: Math.max(0, Math.min(1, (pen.ilerleme - gecikme) / (1 - 0.24)))
                     transform: Translate { x: (1 - og.t) * 90 }
                     opacity: og.t
@@ -127,7 +131,7 @@ Window {
                         y: pen.ipucu ? 28 : 12
                         width: 48; height: 48
                         source: pen.tema.varlik + "tilsim-" + og.modelData.simge + (pen.ipucu ? "-golge" : "") + ".png"
-                        Behavior on y { NumberAnimation { duration: 200; easing.type: Easing.OutQuint } }
+                        Behavior on y { NumberAnimation { duration: 250; easing.type: Easing.Bezier; easing.bezierCurve: pen.tema.pvl } }
                     }
                     Text {
                         visible: !pen.ipucu

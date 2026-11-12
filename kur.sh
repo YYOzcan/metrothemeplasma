@@ -110,6 +110,9 @@ WIN="$MT/win"
 
 if [[ "${1:-}" == "--kaldir" ]]; then
     [[ -x "$BIN/metro-profil" ]] && "$BIN/metro-profil" geri || true
+    systemctl --user disable --now metro-kabuk.service 2>/dev/null || true
+    rm -f "$CFG/systemd/user/metro-kabuk.service" "$DATA/dbus-1/services/io.github.yyozcan.MetroKabuk.service"
+    systemctl --user daemon-reload 2>/dev/null || true
     rm -rf "$DATA/aurorae/themes/Metro" "$CFG/Kvantum/Metro" "$DATA/plasma/desktoptheme/Metro" \
            "$DATA/color-schemes/Metro.colors" "$DATA"/plasma/plasmoids/io.github.yyozcan.metro* \
            "$DATA/plasma/shells/io.github.yyozcan.metroshell" "$DATA/plasma/look-and-feel/io.github.yyozcan.metro" \
@@ -168,10 +171,19 @@ $CMAKE -S kabuk -B build/kabuk -G Ninja -DCMAKE_BUILD_TYPE=Release >/dev/null
 ninja -C build/kabuk | tail -1
 install -Dm755 build/kabuk/metro-kabuk "$BIN/metro-kabuk"
 
+echo "==> Windows 8 bildirimleri (Plasma uygulamacığı) derleniyor"
+if $CMAKE -S plasma/bildirim -B build/bildirim -G Ninja -DCMAKE_BUILD_TYPE=Release >/dev/null 2>&1 && ninja -C build/bildirim >/dev/null 2>&1; then
+    install -Dm755 build/bildirim/bin/plasma/applets/io.github.yyozcan.metrobildirim.so \
+        "$MT/eklenti/plasma/applets/io.github.yyozcan.metrobildirim.so"
+else
+    echo "   (derlenemedi: plasma-workspace geliştirme dosyaları eksik olabilir; Plasma'nın bildirimleri kullanılır)"
+fi
+
 # ------------------------------------------------------------------ kurulum
 echo "==> Kuruluyor ($DATA, $CFG)"
 kopyala build/varlik "$MT/varlik"
 kopyala kabuk/qml "$MT/kabuk/qml"
+kopyala plasma/qml "$MT/qml"
 kopyala build/aurorae/Metro "$DATA/aurorae/themes/Metro"
 kopyala build/kvantum/Metro "$CFG/Kvantum/Metro"
 kopyala build/desktoptheme/Metro "$DATA/plasma/desktoptheme/Metro"
@@ -200,8 +212,15 @@ FONTCONFIG_FILE="$MT/fonts.conf" fc-cache -f "$MT/yazitipi" >/dev/null 2>&1 || t
 
 echo "==> Metro oturumu varsayılanları (XDG katmanı)"
 XDGK="$MT/xdg"
-rm -rf "$XDGK"; mkdir -p "$XDGK/autostart"
-sed "s|@BIN@|$BIN|" session/metro-kabuk-autostart.desktop > "$XDGK/autostart/metro-kabuk.desktop"
+rm -rf "$XDGK"; mkdir -p "$XDGK"
+# metro-kabuk: systemd kullanıcı hizmeti (plasma-workspace.target; yalnızca Metro oturumunda koşar,
+# çökerse yeniden başlar) + DBus etkinleştirme (Başlat düğmesi kabuk yoksa onu başlatır)
+mkdir -p "$CFG/systemd/user" "$DATA/dbus-1/services"
+sed "s|@BIN@|$BIN|" session/metro-kabuk.service > "$CFG/systemd/user/metro-kabuk.service"
+install -Dm644 session/io.github.yyozcan.MetroKabuk.service "$DATA/dbus-1/services/io.github.yyozcan.MetroKabuk.service"
+rm -f "$CFG/autostart/metro-kabuk.desktop"
+systemctl --user daemon-reload 2>/dev/null || true
+systemctl --user enable metro-kabuk.service 2>/dev/null || true
 APP="$MT/data/applications"
 rm -rf "$APP"; mkdir -p "$APP"
 sed "s|@BIN@|$BIN|" session/metro-kabuk.desktop > "$APP/metro-kabuk.desktop"

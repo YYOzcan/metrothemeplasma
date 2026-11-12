@@ -1,0 +1,5 @@
+# Başlat düğmesi / Win tuşu / sıcak köşeler kabuğu çağırınca çalışmıyorsa systemd üzerinden başlatılır
+[D-BUS Service]
+Name=io.github.yyozcan.MetroKabuk
+Exec=/bin/false
+SystemdService=metro-kabuk.service

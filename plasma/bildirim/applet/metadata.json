@@ -1,0 +1,28 @@
+{
+    "KPlugin": {
+        "Authors": [
+            {
+                "Name": "MetroThemePlasma (AeroThemePlasma bildirim uygulamacığından, WackyIdeas)"
+            }
+        ],
+        "BugReportUrl": "https://github.com/YYOzcan/metrothemeplasma/issues",
+        "Category": "Tasks",
+        "Description": "Windows 8.1 bildirimleri (toast)",
+        "EnabledByDefault": false,
+        "FormFactors": [
+            "desktop"
+        ],
+        "Icon": "notification-inactive",
+        "License": "GPL-2.0+",
+        "Name": "Metro Bildirimleri",
+        "Website": "https://github.com/YYOzcan/metrothemeplasma",
+        "Name[tr]": "Bildirimler",
+        "Description[tr]": "Windows 8.1 bildirimleri (toast)"
+    },
+    "X-KDE-ParentApp": "org.kde.plasmashell",
+    "X-Plasma-API-Minimum-Version": "6.0",
+    "X-Plasma-NotificationAreaCategory": "SystemServices",
+    "X-Plasma-Provides": [
+        "io.github.yyozcan.metrobildirim"
+    ]
+}
