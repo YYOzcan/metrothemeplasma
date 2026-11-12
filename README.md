@@ -11,14 +11,18 @@ Depoda hiçbir Microsoft dosyası yoktur. Bütün görseller, sesler, yazı tipl
 
 | Bileşen | Kaynak (kendi kopyandan) |
 |---|---|
-| Başlangıç ekranı: kutucuklar, gruplar, sürükle-bırak, yeniden boyutlandırma, Özelleştir, canlı kutucuklar (Masaüstü, Hava Durumu, Takvim, Fotoğraflar), kullanıcı/güç/ara düğmeleri, açılışta kutucukların uçuşması | twinui.dll, ImmersiveControlPanel |
+| Başlangıç ekranı: kutucuklar, gruplar, sürükle-bırak, yeniden boyutlandırma, Özelleştir, canlı kutucuklar (Masaüstü, Hava Durumu, Takvim, Fotoğraflar), kullanıcı/güç/ara düğmeleri, semantik yakınlaştırma (Ctrl+tekerlek), yatay kaydırma çubuğu, alt kenarda görev çubuğu (8.1 Update) | twinui.dll, ImmersiveControlPanel |
+| Windows 8.1 animasyonları (PVL eğrisi `cubic-bezier(0.1, 0.9, 0.2, 1)`): kutucuklar sütun sütun sağdan gelir, oturum açılışında döner kapı (turnstile), basınca eğilme, Uygulamalar'a dikey geçiş, kutucuktan açılış ekranına büyüme, tılsımlar/bölmeler/sayfa girişi | — |
 | 18 Başlangıç arka planı (paralaks katmanlar, dönen öğeler, vurgu rengine göre yeniden boyama) | imageres.dll RCDATA 20200–22100 (sahne biçimi `tools/gen_desen.py`'de çözüldü) |
-| Uygulamalar görünümü (ada / yükleme tarihine / kullanıma / kategoriye göre, arama, "Yeni") | — |
+| Uygulamalar görünümü (ada / yükleme tarihine / kullanıma / kategoriye göre, arama, "Yeni", harf ızgarası) | — |
+| Dosya Gezgini'nde "Başlangıç ekranına sabitle" | — |
 | Tılsımlar (Win+C, sağ köşeler), saat paneli, Ara / Paylaş / Aygıtlar / Ayarlar bölmeleri, Kişiselleştir, Kutucuklar, Ağlar, Yansıt | twinui.dll simgeleri, Segoe UI Symbol |
 | Hızlı bağlantı menüsü (Win+X) — özgün Türkçe öğeler ve kısayol harfleri | twinui.dll.mui |
 | Uygulamalar arasında geçiş (Win+Tab, sol üst köşe), Windows 8.1 Alt+Tab | — |
 | Bilgisayar ayarları (kilit ekranı resmi, hesap, köşeler ve kenarlar, Başlangıç renkleri, Renk ve görünüm, Gezinti) | Web/Screen |
-| Görev çubuğu: 8.1 Başlat düğmesi, görev düğmeleri, saat (saat/tarih), Masaüstünü göster şeridi | aero.msstyles (TaskBand2Composited8, TaskBar2Composited) |
+| Görev çubuğu: 8.1 Başlat düğmesi, görev düğmeleri, saat (saat/tarih), Masaüstünü göster şeridi; ağ simgesi Ağlar bölmesini açar, ses açılır penceresi (dikey kaydırıcı, Karıştırıcı) | aero.msstyles (TaskBand2Composited8, TaskBar2Composited, TrackBar) |
+| Toast bildirimleri (sağ üst, Başlangıç renginde, sağ altta uygulama logosu) — ATP'nin bildirim uygulamacığından çatal | — |
+| Ses/parlaklık ekran göstergesi (sol üst, vurgu renginde dikey çubuk) | — |
 | Pencere çerçevesi (Aurorae "Metro"; ortalı başlık, DWM düğme atlası), otomatik renklendirme | aero.msstyles DWMWindow atlası |
 | Kvantum teması (düğmeler, kaydırma çubukları, sekmeler, menüler …), renk şeması | aero.msstyles |
 | Kilit ekranı (perde + saat, oturum açma, "Parola yanlış. Yeniden deneyin.") | authui.dll metinleri, Web/Screen |
@@ -48,7 +52,10 @@ Win+K Aygıtlar · Win+H Paylaş · Win+X hızlı bağlantı menüsü · Win+Tab
 ## Yapı
 
 - `kabuk/` — **metro-kabuk** (C++/QML): Başlangıç ekranı, tılsımlar, bölmeler, Win+X, geçiş, Bilgisayar ayarları.
-  Pencereler wlr-layer-shell yüzeyidir; DBus `io.github.yyozcan.MetroKabuk /Kabuk`.
+  Pencereler wlr-layer-shell yüzeyidir; DBus `io.github.yyozcan.MetroKabuk /Kabuk`. systemd kullanıcı hizmeti
+  `metro-kabuk.service` (yalnızca Metro oturumunda koşar, çökerse yeniden başlar) ve DBus etkinleştirmesiyle başlar.
+- `plasma/bildirim/` — Windows 8 toast bildirimleri (derlenen Plasma uygulamacığı, yalnızca Metro oturumunda
+  `QT_PLUGIN_PATH`'te); `plasma/qml/` — ses göstergesi (`org.kde.plasma.workspace.osd` gölgelenir).
 - `plasma/` — kabuk paketi (düzen, kilit ekranı, kapatma ekranı), görünüm-ve-his (açılış), uygulamacıklar
   (Başlat, saat, Masaüstünü göster).
 - `kwin/` — sıcak köşe betiği `metro_koseler`, Alt+Tab `metro_alttab`.
