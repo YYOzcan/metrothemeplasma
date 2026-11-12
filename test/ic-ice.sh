@@ -1,7 +1,8 @@
 #!/bin/bash
 # İç içe, başsız KWin oturumunda metro-kabuk testi.
 #   bash test/ic-ice.sh <çıktı dizini> "<dbus komutları; ...>" [bekleme]
-# Örnek: bash test/ic-ice.sh /tmp/x "BaslangicAc" 
+# Örnek: bash test/ic-ice.sh /tmp/x "BaslangicAc"
+# ortam: ONCESI="<komut>" yalıtılmış yapılandırmada önce çalışır; METRO_SINAMA_KIP=ozellestir|menu|secim|surukle
 set -u
 KOK="$(cd "$(dirname "$0")/.." && pwd)"
 CIKTI="$1"; KOMUTLAR="$2"; BEKLE="${3:-2.5}"
@@ -15,6 +16,7 @@ export FONTCONFIG_FILE="$KOK/session/metro-fonts.conf"
 TCFG=/tmp/claude-$(id -u)/metro-test-cfg
 rm -rf "$TCFG"; mkdir -p "$TCFG"
 cp -r "$HOME/.config/metrothemeplasma" "$TCFG/" 2>/dev/null
+[ -n "${ONCESI:-}" ] && XDG_CONFIG_HOME="$TCFG" bash -c "$ONCESI"
 printf '[Icons]\nTheme=%s\n[General]\nColorScheme=Metro\n' "${METRO_SIMGE:-Windows 8.1}" > "$TCFG/kdeglobals"
 export XDG_CONFIG_HOME="$TCFG"
 dbus-run-session -- bash -c "
