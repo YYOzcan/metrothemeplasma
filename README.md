@@ -21,7 +21,9 @@ Depoda hiçbir Microsoft dosyası yoktur. Bütün görseller, sesler, yazı tipl
 | Çalıştır iletişim kutusu (Win+R; geçmiş, Gözat, `cmd`/`notepad`/`calc`… karşılıkları), sol altta | shell32.dll.mui |
 | Uygulamalar arasında geçiş (Win+Tab, sol üst köşe), Windows 8.1 Alt+Tab | — |
 | Bilgisayar ayarları (kilit ekranı resmi, hesap, köşeler ve kenarlar, Başlangıç renkleri, Renk ve görünüm, Gezinti) | Web/Screen |
-| Görev çubuğu: 8.1 Başlat düğmesi, görev düğmeleri, saat (saat/tarih), Masaüstünü göster şeridi; ağ simgesi Ağlar bölmesini açar, ses açılır penceresi (dikey kaydırıcı, Karıştırıcı) | aero.msstyles (TaskBand2Composited8, TaskBar2Composited, TrackBar) |
+| Görev çubuğu: 8.1 Başlat düğmesi; görev düğmeleri (ATP SevenTasks çatalı: renk izleyen parıltı, atlama listeleri, görev çubuğu renginde küçük resimler, grup yığını, ilerleme çubukları); Masaüstünü göster şeridi | aero.msstyles (TaskBand2Composited8, TaskBar2Composited) |
+| Bildirim alanı (ATP tepsi çatalı): ok solda, gizli simgeler ızgarada + Özelleştir...; ağ simgesi Ağlar bölmesini açar; ses açılır penceresi (dikey kaydırıcı, Karıştırıcı); saat açılır penceresi (ay takvimi, analog saat) | aero.msstyles (TrackBar), timedate.cpl |
+| Görev Yöneticisi "daha az ayrıntı" görünümü (Ctrl+Shift+Esc), UAC (ATP aracısı, arka plan kararır), Otomatik Kullan toast'ı | Taskmgr.exe.mui, twinui.dll.mui |
 | Toast bildirimleri (sağ üst, Başlangıç renginde, sağ altta uygulama logosu) — ATP'nin bildirim uygulamacığından çatal | — |
 | Ses/parlaklık ekran göstergesi (sol üst, vurgu renginde dikey çubuk) | — |
 | Pencere çerçevesi (Aurorae "Metro"; ortalı başlık, DWM düğme atlası), otomatik renklendirme | aero.msstyles DWMWindow atlası |
@@ -47,7 +49,7 @@ Kaldırmak: `bash kur.sh --kaldir` (yazdığı sistem komutlarını da gösterir
 ## Kısayollar
 
 Win: Başlangıç · Win+C tılsımlar · Win+Q/S ara · Win+F dosyalarda · Win+W ayarlarda · Win+I Ayarlar ·
-Win+K Aygıtlar · Win+H Paylaş · Win+X hızlı bağlantı menüsü · Win+R Çalıştır · Win+Tab geçiş · Win+PrtSc ekran görüntüsü
+Win+K Aygıtlar · Win+H Paylaş · Win+X hızlı bağlantı menüsü · Win+R Çalıştır · Win+Tab geçiş · Win+Yukarı/Aşağı ekranı kapla/geri yükle · Win+M hepsini küçült · Ctrl+Shift+Esc Görev Yöneticisi · Win+PrtSc ekran görüntüsü
 (Resimler/Ekran Görüntüleri, ekran kararır) · Win+D masaüstü · Win+E Dosya Gezgini · Ctrl+Esc Başlangıç
 
 ## Yapı
@@ -63,4 +65,7 @@ Win+K Aygıtlar · Win+H Paylaş · Win+X hızlı bağlantı menüsü · Win+R �
 - `tools/` — içe aktarıcı ve üreteçler (`msstyles8.py` Windows 8 derlenmiş msstyles okuyucusu).
 - `session/` — oturum betikleri; `metro-profil` tema anahtarlarını yalnızca Metro oturumunda değiştirir,
   `metro-renk` pencere rengini (Renk ve görünüm) uygular.
-- `test/` — iç içe, başsız KWin oturumunda ekran görüntüsüyle sınama.
+- `plasma/tepsi`, `plasma/gorevler` — ATP'nin sistem tepsisi ve SevenTasks çatalları (görev çubuğu için ATP'nin
+  `aeroshell.taskmanager` modülü gerekir; yoksa Plasma'nınkiler kullanılır).
+- `test/` — iç içe, başsız KWin oturumunda ekran görüntüsüyle sınama; `test/fare.py` gerçek oturumda uinput ile
+  fare/klavye sınaması.
