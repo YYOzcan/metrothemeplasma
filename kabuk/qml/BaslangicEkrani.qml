@@ -60,7 +60,7 @@ Window {
         acilis.restart()
         icerik.forceActiveFocus()
         if (SinamaDondur > 0) sinamaZamanlayici.restart()
-        if (SinamaUzak) Qt.callLater(function () { pen.uzaklas(true) })
+        if (SinamaUzak) Qt.callLater(function () { if (pen.sayfa === 1) uygulamalarGorunumu.uzak = true; else pen.uzaklas(true) })
     }
     Timer { id: sinamaZamanlayici; interval: SinamaDondur; onTriggered: acilis.pause() }
     // hemen: animasyonsuz kapat (uygulama açılış ekranı kendi geçişini yaptıktan sonra)
@@ -747,12 +747,14 @@ Window {
         Keys.onPressed: event => {
             if ((event.modifiers & Qt.ControlModifier) && (event.key === Qt.Key_Minus || event.key === Qt.Key_Plus || event.key === Qt.Key_Equal)) {
                 if (pen.sayfa === 0) pen.uzaklas(event.key === Qt.Key_Minus)
+                else uygulamalarGorunumu.uzak = event.key === Qt.Key_Minus && uygulamalarGorunumu.basliklar.length > 0
                 event.accepted = true
                 return
             }
             if (event.key === Qt.Key_Escape) {
                 if (menu.acik) menu.kapat()
                 else if (pen.uzak) pen.uzaklas(false)
+                else if (pen.sayfa === 1 && uygulamalarGorunumu.uzak) uygulamalarGorunumu.uzak = false
                 else if (pen.ozellestir) pen.ozellestir = false
                 else if (pen.sayfa === 1) pen.sayfa = 0
                 else ana.baslangicKapat()

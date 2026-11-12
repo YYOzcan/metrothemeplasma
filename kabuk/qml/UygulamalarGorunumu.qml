@@ -15,7 +15,22 @@ Item {
     readonly property int ust: 180
     readonly property int satirSayisi: Math.max(3, Math.floor((height - ust - 80) / ogeYukseklik))
 
+    // semantik yakınlaştırma: başlığa tıklayınca / Ctrl+tekerlekle harf (kategori) ızgarası
+    property bool uzak: false
+    property real uzakT: uzak ? 1 : 0
+    Behavior on uzakT { NumberAnimation { duration: 400; easing.type: Easing.Bezier; easing.bezierCurve: g.tema.pvl } }
+    readonly property var basliklar: {
+        var l = []
+        for (var i = 0; i < yerler.length; i++) if (yerler[i].oge.baslik !== undefined) l.push({ ad: yerler[i].oge.baslik, x: yerler[i].x })
+        return l
+    }
+    function basligaGit(x) {
+        uzak = false
+        kaydirici.contentX = Math.max(0, Math.min(kaydirici.contentWidth - kaydirici.width, x))
+    }
+
     function sifirla() {
+        uzak = false
         filtre = ""
         aramaGirdi.text = ""
         kaydirici.contentX = 0
@@ -157,6 +172,11 @@ Item {
     Flickable {
         id: kaydirici
         y: g.ust - 20
+        // uzaklaşırken liste küçülerek kaybolur
+        opacity: 1 - g.uzakT
+        visible: opacity > 0.01
+        scale: 1 - 0.3 * g.uzakT
+        transformOrigin: Item.Left
         width: g.width; height: g.height - y
         contentWidth: Math.max(width, 120 + g.genislik + 120)
         contentHeight: height
@@ -169,6 +189,7 @@ Item {
             acceptedButtons: Qt.NoButton
             onWheel: wheel => {
                 var d = wheel.angleDelta.y !== 0 ? wheel.angleDelta.y : wheel.angleDelta.x
+                if (wheel.modifiers & Qt.ControlModifier) { if (d < 0 && g.basliklar.length) g.uzak = true; return }
                 kaydirici.contentX = Math.max(0, Math.min(kaydirici.contentWidth - kaydirici.width, kaydirici.contentX - d * 1.6))
             }
         }
@@ -182,7 +203,14 @@ Item {
                     readonly property var o: modelData.oge
                     x: modelData.x; y: modelData.y
                     width: g.sutunGenislik - 14; height: g.ogeYukseklik - 6
-                    // harf / kategori başlığı
+                    // harf / kategori başlığı (tıklayınca harf ızgarası)
+                    MouseArea {
+                        anchors.fill: parent
+                        enabled: og.o.baslik !== undefined
+                        hoverEnabled: true
+                        onClicked: g.uzak = true
+                        Rectangle { anchors.fill: parent; color: Qt.rgba(1, 1, 1, 0.12); visible: parent.containsMouse }
+                    }
                     Text {
                         visible: og.o.baslik !== undefined
                         anchors.verticalCenter: parent.verticalCenter
@@ -244,6 +272,50 @@ Item {
                     }
                 }
             }
+        }
+    }
+
+    // harf / kategori ızgarası (uzaklaşmış görünüm)
+    Item {
+        id: izgara
+        x: 120; y: g.ust
+        width: g.width - 240; height: g.height - y - 90
+        opacity: g.uzakT
+        visible: opacity > 0.01
+        scale: 1.3 - 0.3 * g.uzakT
+        transformOrigin: Item.TopLeft
+        readonly property bool harfler: g.basliklar.length && g.basliklar[0].ad.length <= 2
+        readonly property int hucreG: harfler ? 96 : 260
+        readonly property int hucreY: harfler ? 96 : 64
+        Grid {
+            flow: Grid.TopToBottom
+            rows: Math.max(1, Math.floor(izgara.height / (izgara.hucreY + 10)))
+            rowSpacing: 10; columnSpacing: 10
+            Repeater {
+                model: g.basliklar
+                delegate: Rectangle {
+                    required property var modelData
+                    width: izgara.hucreG; height: izgara.hucreY
+                    color: hma.pressed ? Qt.rgba(1, 1, 1, 0.3) : (hma.containsMouse ? Qt.rgba(1, 1, 1, 0.2) : Qt.rgba(1, 1, 1, 0.08))
+                    Text {
+                        anchors.left: parent.left; anchors.leftMargin: izgara.harfler ? 0 : 14
+                        anchors.right: parent.right
+                        anchors.verticalCenter: parent.verticalCenter
+                        horizontalAlignment: izgara.harfler ? Text.AlignHCenter : Text.AlignLeft
+                        text: modelData.ad
+                        elide: Text.ElideRight
+                        color: "white"
+                        font.family: "Segoe UI"; font.weight: 300; font.pixelSize: izgara.harfler ? 44 : 22
+                    }
+                    MouseArea { id: hma; anchors.fill: parent; hoverEnabled: true; onClicked: g.basligaGit(modelData.x) }
+                }
+            }
+        }
+        MouseArea {
+            z: -1
+            anchors.fill: parent
+            onClicked: g.uzak = false
+            onWheel: wheel => { if ((wheel.modifiers & Qt.ControlModifier) && wheel.angleDelta.y > 0) g.uzak = false }
         }
     }
 
