@@ -21,6 +21,7 @@
 #include "kabuk.h"
 #include "katman.h"
 #include "medya.h"
+#include "otomatik.h"
 #include "simgerengi.h"
 #include "sistem.h"
 #include "uygulamalar.h"
@@ -72,6 +73,7 @@ int main(int argc, char **argv)
     SimgeRengi simgeRengi;
     Medya medya;
     Katman katman;
+    OtomatikKullan otomatikKullan;
 
     const QString qmlDizin = qEnvironmentVariable("METRO_QML",
         QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + QStringLiteral("/metrothemeplasma/kabuk/qml"));

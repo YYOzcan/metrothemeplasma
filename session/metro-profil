@@ -328,6 +328,14 @@ def metro_bildirim():
     y = "\n".join(satirlar)
     if y != s:
         p.write_text(y)
+    # Plasma aygıt bildiricisinin "yeni aygıt" açılır penceresi kapalı: Windows 8'de metro-kabuk
+    # Otomatik Kullan toast'ı gösterir
+    import re
+    kc = KConfig(p)
+    for m in re.finditer(r"^\[(Containments\]\[\d+\]\[Applets\]\[\d+\]\[Applets\]\[\d+)\]\nimmutability=\d+\nplugin=org\.kde\.plasma\.devicenotifier$",
+                         p.read_text(), re.M):
+        kc.set(m.group(1) + "][Configuration][General", "popupOnNewDevice", "false")
+    kc.save()
 
 
 def main():

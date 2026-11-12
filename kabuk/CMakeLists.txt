@@ -10,7 +10,7 @@ if(NOT CMAKE_BUILD_TYPE)
 endif()
 
 find_package(Qt6 REQUIRED COMPONENTS Core Gui Quick Qml DBus Network Concurrent)
-foreach(m Service KIO GlobalAccel WindowSystem Config CoreAddons Runner I18n)
+foreach(m Service KIO GlobalAccel WindowSystem Config CoreAddons Runner I18n Solid)
     find_package(KF6${m} REQUIRED)
 endforeach()
 find_package(LayerShellQt REQUIRED)
@@ -25,6 +25,7 @@ qt_add_executable(metro-kabuk
     src/simgerengi.cpp
     src/medya.cpp
     src/desen.cpp
+    src/otomatik.cpp
 )
 
 # QML dosyaları ikilinin içine gömülmez: ~/.local/share/metrothemeplasma/kabuk/qml'den yüklenir
@@ -33,7 +34,7 @@ qt_add_executable(metro-kabuk
 target_link_libraries(metro-kabuk PRIVATE
     Qt6::Core Qt6::Gui Qt6::Quick Qt6::Qml Qt6::DBus Qt6::Network Qt6::Concurrent
     KF6::Service KF6::KIOGui KF6::KIOCore KF6::GlobalAccel KF6::WindowSystem KF6::ConfigCore
-    KF6::CoreAddons KF6::Runner KF6::I18n
+    KF6::CoreAddons KF6::Runner KF6::I18n KF6::Solid
     LayerShellQt::Interface
 )
 
