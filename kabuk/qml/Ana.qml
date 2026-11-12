@@ -14,6 +14,7 @@ QtObject {
     property SolGecis gecis: SolGecis { ana: ana }
     property EkranFlasi flas: EkranFlasi {}
     property BilgisayarAyarlari pcAyarlar: BilgisayarAyarlari { tema: ana.tema; ana: ana }
+    property GorevYoneticisi gorevYoneticisi: GorevYoneticisi { ana: ana }
 
     // ------------------------------------------------------------------ Başlangıç
     function baslangicAc(uygulamalar, giris) {
@@ -146,7 +147,8 @@ QtObject {
         case "bilgisayar": Sistem.calistir(ilkProgram(["plasma-systemmonitor", "kinfocenter"])); break
         case "komut": Sistem.calistir(konsol); break
         case "komutYonetici": Sistem.calistir(konsol + " -e sudo -i"); break
-        case "gorev": Sistem.calistir(ilkProgram(["metro-gorev", "plasma-systemmonitor", "ksysguard"])); break
+        case "gorev": gorevYoneticisi.ac(); break
+        case "gorevAyrinti": Sistem.calistir(ilkProgram(["plasma-systemmonitor", "ksysguard"])); break
         case "denetim": Sistem.calistir(ilkProgram(["metro-denetim", "systemsettings"])); break
         case "gezgin": Sistem.calistir(ilkProgram(["dolphin", "nautilus", "thunar"])); break
         case "ara": aramaAc("", ""); break
@@ -252,6 +254,7 @@ QtObject {
         function onKisisellestirIste() { ana.bolme.ac("kisisellestir", "baslangic") }
         function onBilgisayarAyarlariIste(sayfa) { ana.bilgisayarAyarlari(sayfa) }
         function onCalistirIste() { ana.hizliEylem("calistir") }
+        function onGorevYoneticisiIste() { ana.hizliEylem("gorev") }
         function onSabitleIste(yol) {
             // kurulu uygulamanın .desktop'ı ise kimliğiyle, değilse yoluyla (masaüstündeki bağlantılar)
             var b = Uygulamalar.bilgi(yol)

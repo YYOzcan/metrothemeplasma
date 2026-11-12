@@ -34,6 +34,8 @@ Kabuk::Kabuk(QObject *parent)
             &QAction::triggered, this, &Kabuk::Gecis);
     connect(kisayol(QStringLiteral("calistir"), QStringLiteral("Çalıştır"), {Qt::META | Qt::Key_R}),
             &QAction::triggered, this, [this] { Q_EMIT calistirIste(); });
+    connect(kisayol(QStringLiteral("gorev-yoneticisi"), QStringLiteral("Görev Yöneticisi"), {Qt::CTRL | Qt::SHIFT | Qt::Key_Escape}),
+            &QAction::triggered, this, [this] { Q_EMIT gorevYoneticisiIste(); });
     connect(kisayol(QStringLiteral("ekran-goruntusu"), QStringLiteral("Ekran görüntüsü al ve kaydet"), {Qt::META | Qt::Key_Print}),
             &QAction::triggered, this, &Kabuk::EkranGoruntusu);
 }

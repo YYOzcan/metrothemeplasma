@@ -52,6 +52,7 @@ Q_SIGNALS:
     void bolmeIste(const QString &tur);
     void sabitleIste(const QString &yol);
     void calistirIste();
+    void gorevYoneticisiIste();
     void solAltKoseIste();
     void ekranGoruntusuIste();
     void kisisellestirIste();
