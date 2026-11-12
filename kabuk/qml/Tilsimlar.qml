@@ -17,6 +17,8 @@ Window {
     title: "Tılsımlar"
 
     Component.onCompleted: KatmanYardimci.ayarla(pen, 3, 1 | 2 | 8, 0, -1, "metro-tilsimlar")
+    // Win+C ile açılan çubuk: başka bir yere tıklanınca (odak gidince) kapanır
+    onActiveChanged: if (!active && acik && !ipucu) Qt.callLater(function () { if (!pen.active && pen.acik && !pen.ipucu) pen.ana.tilsimKapat() })
 
     readonly property var ogeler: [
         { ad: "Ara", simge: "ara", eylem: "ara" },
@@ -28,10 +30,11 @@ Window {
 
     // kose: 0 Win+C (ortadan), 1 sağ üst köşe (yukarıdan), 2 sağ alt köşe (aşağıdan) — simgeler bu sırayla kayar
     property int kose: 0
+    property bool fareIle: false     // köşeden açıldı: fare çubuktan uzaklaşınca kapanır (Win+C ile açılan kalır)
     function goster(ipucuKipi, koseNo) {
         kapanis.stop()
         if (acik && !ipucu) return
-        if (!acik) kose = koseNo || 0
+        if (!acik) { kose = koseNo || 0; fareIle = !!ipucuKipi }
         ipucu = ipucuKipi
         if (!acik) {
             acik = true
@@ -40,6 +43,8 @@ Window {
             acilis.restart()
         }
         if (!ipucu) {
+            // tam çubukla birlikte sol altta saat ve tarih (fareyle açılınca da)
+            if (pen.ana) pen.ana.saat.goster()
             KatmanYardimci.klavyeAyarla(pen, 1)
             requestActivate()
             kok.forceActiveFocus()
@@ -49,6 +54,7 @@ Window {
     function tamAc() { goster(false) }
     function kapat() {
         if (!acik) return
+        if (pen.ana) pen.ana.saat.kapat()
         acik = false
         ipucu = false
         acilis.stop()
@@ -65,7 +71,7 @@ Window {
     Timer {
         id: cikisZamanlayici
         interval: 900
-        onTriggered: if (pen.ipucu && !alan.containsMouse) pen.kapat()
+        onTriggered: if ((pen.ipucu || pen.fareIle) && !alan.containsMouse) pen.ana.tilsimKapat()
     }
 
     Item {
@@ -93,7 +99,7 @@ Window {
                 // ipucundan tam çubuğa: fare kenar boyunca orta bölgeye inince
                 if (pen.ipucu && mouse.y > pen.height * 0.25 && mouse.y < pen.height * 0.75) pen.tamAc()
             }
-            onExited: if (pen.ipucu) pen.kapat(); else cikisZamanlayici.restart()
+            onExited: if (pen.ipucu) pen.ana.tilsimKapat(); else cikisZamanlayici.restart()
         }
 
         Column {

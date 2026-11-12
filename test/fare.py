@@ -3,7 +3,7 @@
 
     python3 test/fare.py "git 1919 0; bekle 0.5; git 1919 540; bekle 1; foto /tmp/x.png; tik; tus LEFTMETA"
 
-Komutlar: git X Y | kay DX DY (yavaş hareket) | tik | sagtik | bas | birak | tekerlek N |
+Komutlar: git X Y | kay DX DY (yavaş hareket) | it DX DY [N] (göreli itme) | tik | sagtik | bas | birak | tekerlek N |
           tus AD[+AD...] (ör. LEFTMETA, LEFTMETA+C, ESC) | bekle SN | foto DOSYA
 Ekran boyutu: 1920x1080 (mutlak işaretçi aygıtı; KWin bütün ekrana eşler).
 """
@@ -21,6 +21,8 @@ yetenek = {
     e.EV_REL: [e.REL_WHEEL],
 }
 u = UInput(yetenek, name="metro-sinama-fare", version=0x3)
+# göreli fare: ekran kenarına "itmek" için (KWin sıcak köşeleri itme ister)
+r = UInput({e.EV_KEY: [e.BTN_LEFT, e.BTN_RIGHT], e.EV_REL: [e.REL_X, e.REL_Y]}, name="metro-sinama-goreli", version=0x3)
 time.sleep(0.8)
 konum = [G // 2, Y // 2]
 
@@ -49,6 +51,12 @@ for komut in sys.argv[1].split(";"):
         for i in range(1, 21):
             git(x0 + int(p[1]) * i / 20, y0 + int(p[2]) * i / 20)
             time.sleep(0.015)
+    elif k == "it":
+        # it DX DY [N]: göreli fareyle N kez (varsayılan 15) küçük adımlarla it
+        n = int(p[3]) if len(p) > 3 else 15
+        for _ in range(n):
+            r.write(e.EV_REL, e.REL_X, int(p[1])); r.write(e.EV_REL, e.REL_Y, int(p[2])); r.syn()
+            time.sleep(0.02)
     elif k in ("tik", "sagtik"):
         b = e.BTN_LEFT if k == "tik" else e.BTN_RIGHT
         dugme(b, 1); time.sleep(0.06); dugme(b, 0)
@@ -71,3 +79,4 @@ for komut in sys.argv[1].split(";"):
     time.sleep(0.05)
 time.sleep(0.2)
 u.close()
+r.close()
