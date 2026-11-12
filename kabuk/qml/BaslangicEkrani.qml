@@ -197,7 +197,7 @@ Window {
         var g1 = [
             { tur: "masaustu", boyut: "genis" },
             { tur: "takvim", boyut: "orta" },
-            u(["firefox.desktop", "google-chrome.desktop", "chromium.desktop", "org.kde.falkon.desktop"]),
+            u(["metro-internet-explorer.desktop", "firefox.desktop", "google-chrome.desktop", "chromium.desktop", "org.kde.falkon.desktop"]),
             { tur: "fotograflar", boyut: "genis" },
             { tur: "hava", boyut: "genis" },
             { tur: "ayarlar", boyut: "orta" },
