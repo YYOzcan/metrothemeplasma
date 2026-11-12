@@ -251,6 +251,11 @@ QtObject {
         function onEkranGoruntusuIste() { ana.ekranGoruntusu() }
         function onKisisellestirIste() { ana.bolme.ac("kisisellestir", "baslangic") }
         function onBilgisayarAyarlariIste(sayfa) { ana.bilgisayarAyarlari(sayfa) }
+        function onBolmeIste(tur) {
+            // aynı bölme açıkken yeniden istenirse kapat (tepsi simgesine ikinci tıklama)
+            if (ana.bolme.acik && ana.bolme.tur === tur) ana.bolmeKapat()
+            else ana.bolmeAc(tur)
+        }
     }
 
     Component.onCompleted: {

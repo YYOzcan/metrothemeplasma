@@ -1,0 +1,17 @@
+{
+    "KPackageStructure": "Plasma/Applet",
+    "KPlugin": {
+        "Authors": [{ "Name": "MetroThemePlasma" }],
+        "Category": "Online Services",
+        "Description": "Windows 8.1 ağ simgesi: tıklayınca sağdan Ağlar bölmesi açılır",
+        "Description[tr]": "Windows 8.1 ağ simgesi: tıklayınca sağdan Ağlar bölmesi açılır",
+        "Icon": "network-wireless",
+        "Id": "io.github.yyozcan.metroag",
+        "License": "GPL-3.0-or-later",
+        "Name": "Ağ (Windows 8.1)",
+        "Name[tr]": "Ağ (Windows 8.1)",
+        "Version": "1.0"
+    },
+    "X-Plasma-API-Minimum-Version": "6.0",
+    "X-Plasma-NotificationAreaCategory": "Hardware"
+}

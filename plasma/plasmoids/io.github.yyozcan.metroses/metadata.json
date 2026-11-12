@@ -1,0 +1,17 @@
+{
+    "KPackageStructure": "Plasma/Applet",
+    "KPlugin": {
+        "Authors": [{ "Name": "MetroThemePlasma" }],
+        "Category": "Multimedia",
+        "Description": "Windows 8.1 ses simgesi ve ses düzeyi açılır penceresi",
+        "Description[tr]": "Windows 8.1 ses simgesi ve ses düzeyi açılır penceresi",
+        "Icon": "audio-volume-high",
+        "Id": "io.github.yyozcan.metroses",
+        "License": "GPL-3.0-or-later",
+        "Name": "Ses (Windows 8.1)",
+        "Name[tr]": "Ses (Windows 8.1)",
+        "Version": "1.0"
+    },
+    "X-Plasma-API-Minimum-Version": "6.0",
+    "X-Plasma-NotificationAreaCategory": "Hardware"
+}

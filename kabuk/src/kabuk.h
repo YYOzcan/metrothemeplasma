@@ -30,6 +30,7 @@ public Q_SLOTS:
     Q_SCRIPTABLE void EkranGoruntusu();
     Q_SCRIPTABLE void Kisisellestir();
     Q_SCRIPTABLE void BilgisayarAyarlari(const QString &sayfa);
+    Q_SCRIPTABLE void Bolme(const QString &tur);    // aglar, ayarlar, aygitlar, paylas, yansit …
     Q_SCRIPTABLE void YenidenYukle();
     Q_SCRIPTABLE bool BaslangicAcik() const { return m_baslangicAcik; }
 
@@ -46,6 +47,7 @@ Q_SIGNALS:
     void gucMenusuIste(int x, int y);
     void gecisIste();
     void solUstKoseIste();
+    void bolmeIste(const QString &tur);
     void solAltKoseIste();
     void ekranGoruntusuIste();
     void kisisellestirIste();

@@ -30,10 +30,11 @@ tepsi.writeConfig("knownItems", ["io.gitgud.wackyideas.battery", "io.gitgud.wack
     "org.kde.plasma.mediacontroller", "org.kde.plasma.clipboard", "org.kde.plasma.bluetooth",
     "org.kde.plasma.printmanager", "org.kde.kdeconnect", "org.kde.plasma.brightness", "org.kde.kscreen",
     "org.kde.plasma.cameraindicator", "org.kde.plasma.manage-inputmethod", "org.kde.plasma.keyboardindicator",
-    "org.kde.plasma.weather", "org.kde.plasma.vault", "org.kde.plasma.dwellclicker", "io.github.yyozcan.metrobildirim"]);
+    "org.kde.plasma.weather", "org.kde.plasma.vault", "org.kde.plasma.dwellclicker", "io.github.yyozcan.metrobildirim", "io.github.yyozcan.metroag", "io.github.yyozcan.metroses"]);
 // bildirimler: Windows 8 toast'ları (io.github.yyozcan.metrobildirim); derlenmemişse Plasma'nınki
 var bildirim = knownWidgetTypes.indexOf("io.github.yyozcan.metrobildirim") >= 0 ? "io.github.yyozcan.metrobildirim" : "org.kde.plasma.notifications";
-tepsi.writeConfig("extraItems", ["org.kde.plasma.battery", "org.kde.plasma.networkmanagement", "org.kde.plasma.volume",
+// ağ simgesi: Windows 8.1'deki gibi Ağlar bölmesini açar
+tepsi.writeConfig("extraItems", ["org.kde.plasma.battery", "io.github.yyozcan.metroag", "io.github.yyozcan.metroses",
     bildirim, "org.kde.plasma.keyboardlayout", "org.kde.plasma.devicenotifier",
     "org.kde.plasma.mediacontroller", "org.kde.plasma.clipboard", "org.kde.plasma.bluetooth",
     "org.kde.plasma.printmanager", "org.kde.kdeconnect"]);

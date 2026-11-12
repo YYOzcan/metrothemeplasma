@@ -288,20 +288,26 @@ def metro_bildirim():
     (io.github.yyozcan.metrobildirim; eklenti yalnızca Metro oturumunda QT_PLUGIN_PATH'te)."""
     p = CFG / "plasma-io.github.yyozcan.metroshell-appletsrc"
     eklenti = Path.home() / ".local/share/metrothemeplasma/eklenti/plasma/applets/io.github.yyozcan.metrobildirim.so"
-    if not p.exists() or not eklenti.exists():
+    if not p.exists():
         return
     s = p.read_text()
-    y = s.replace("plugin=org.kde.plasma.notifications\n", "plugin=io.github.yyozcan.metrobildirim\n")
+    # Plasma uygulamacığı -> Metro karşılığı (ağ simgesi: tıklayınca Ağlar bölmesi, Windows 8.1)
+    degis = {"org.kde.plasma.networkmanagement": "io.github.yyozcan.metroag",
+             "org.kde.plasma.volume": "io.github.yyozcan.metroses"}
+    if eklenti.exists():
+        degis["org.kde.plasma.notifications"] = "io.github.yyozcan.metrobildirim"
+    y = s
+    for eski, yeni in degis.items():
+        y = y.replace("plugin=" + eski + "\n", "plugin=" + yeni + "\n")
     satirlar = []
     for satir in y.split("\n"):
         if satir.startswith("extraItems="):
             l = [x for x in satir[11:].split(",") if x]
-            l = ["io.github.yyozcan.metrobildirim" if x == "org.kde.plasma.notifications" else x for x in l]
+            l = [degis.get(x, x) for x in l]
             satir = "extraItems=" + ",".join(dict.fromkeys(l))
         elif satir.startswith("knownItems="):
             l = [x for x in satir[11:].split(",") if x]
-            if "io.github.yyozcan.metrobildirim" not in l:
-                l.append("io.github.yyozcan.metrobildirim")
+            l += [v for v in degis.values() if v not in l]
             satir = "knownItems=" + ",".join(l)
         satirlar.append(satir)
     y = "\n".join(satirlar)
