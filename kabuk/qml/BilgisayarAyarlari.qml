@@ -27,7 +27,14 @@ Window {
         showFullScreen()
         raise()
         requestActivate()
+        sayfaGirisi.restart()
     }
+    // Windows 8 sayfa girişi (enterPage): içerik sağdan kayarak ve belirerek gelir; gezinti listesi de
+    property real girisT: 1
+    NumberAnimation { id: sayfaGirisi; target: pen; property: "girisT"; from: 0; to: 1; duration: 700 }
+    readonly property real girisKayma: (1 - tema.pvlDeger(Math.min(1, girisT / 0.8))) * 80
+    onSayfaChanged: sayfaGirisi.restart()
+    onKategoriChanged: sayfaGirisi.restart()
 
     // [ad, kimlik, kcm (Metro sayfası değilse)]
     readonly property var kategoriler: [
@@ -73,6 +80,8 @@ Window {
         Column {
             x: 40; y: 150
             width: sol.width - 80
+            opacity: Math.min(1, pen.girisT * 4)
+            transform: Translate { x: pen.girisKayma * 0.6 }
             spacing: 4
             Repeater {
                 model: pen.kategori === "" ? pen.kategoriler : pen.kategoriNesnesi().sayfalar
@@ -113,6 +122,8 @@ Window {
     // ---------------------------------------------------------------- sağ içerik
     Flickable {
         x: sol.width + 60; y: 46
+        opacity: Math.min(1, pen.girisT * 4)
+        transform: Translate { x: pen.girisKayma }
         width: pen.width - x - 60; height: pen.height - y
         contentHeight: icerik.item ? icerik.item.height + 60 : 0
         clip: true
