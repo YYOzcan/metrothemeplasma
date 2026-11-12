@@ -20,6 +20,7 @@ public Q_SLOTS:
     Q_SCRIPTABLE void Tilsimlar();                 // Win+C
     Q_SCRIPTABLE void TilsimIpucu(int kose);       // sağ köşe: 1 üst, 2 alt
     Q_SCRIPTABLE void Ara(const QString &kapsam);  // "" her yerde, "ayarlar", "dosyalar"
+    Q_SCRIPTABLE void AraMetin(const QString &metin);  // Ara bölmesini bu metinle aç
     Q_SCRIPTABLE void Ayarlar();
     Q_SCRIPTABLE void Aygitlar();
     Q_SCRIPTABLE void Paylas();
@@ -52,6 +53,7 @@ Q_SIGNALS:
     void bolmeIste(const QString &tur);
     void sabitleIste(const QString &yol);
     void calistirIste();
+    void araMetinIste(const QString &metin);
     void gorevYoneticisiIste();
     void solAltKoseIste();
     void ekranGoruntusuIste();

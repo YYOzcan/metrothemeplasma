@@ -337,6 +337,9 @@ Window {
             Component.onCompleted: ara()
 
             property var uygulamaSonuclari: []
+            readonly property var uygulamaAdlari: uygulamaSonuclari.map(function (u) { return u.ad })
+            // Windows aramasında olmayan öneriler (Discover "Al: …") gösterilmez
+            readonly property var gizliGruplar: ["Yazılım Merkezi", "Software Center"]
             function ara() {
                 var m = pen.aramaMetni.trim()
                 uygulamaSonuclari = (m !== "" && pen.aramaKapsami === "") ? Uygulamalar.ara(m, 6) : []
@@ -399,8 +402,13 @@ Window {
                     required property int index
                     required property var model
                     readonly property bool kategori: model.kDescendantExpandable === true
+                    readonly property string grup: kategori ? (sd.model.display || "")
+                                                   : (sonuclar.data(duz.mapToSource(duz.index(index, 0)).parent, Qt.DisplayRole) || "")
+                    // uygulama sonuçlarında zaten olan ad (ör. "Denetim Masası" iki kaynaktan) yinelenmez
+                    readonly property bool gizli: arb.gizliGruplar.indexOf(grup) >= 0
+                                                  || (!kategori && arb.uygulamaAdlari.indexOf(sd.model.display) >= 0)
                     width: sonucListesi.width
-                    height: kategori ? (sd.model.display === "Uygulamalar" && arb.uygulamaSonuclari.length ? 0 : 34) : 46
+                    height: gizli ? 0 : (kategori ? (sd.model.display === "Uygulamalar" && arb.uygulamaSonuclari.length ? 0 : 34) : 46)
                     visible: height > 0
                     Text {
                         visible: sd.kategori

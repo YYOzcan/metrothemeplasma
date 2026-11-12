@@ -254,6 +254,7 @@ QtObject {
         function onKisisellestirIste() { ana.bolme.ac("kisisellestir", "baslangic") }
         function onBilgisayarAyarlariIste(sayfa) { ana.bilgisayarAyarlari(sayfa) }
         function onCalistirIste() { ana.hizliEylem("calistir") }
+        function onAraMetinIste(metin) { ana.aramaAc(metin, "") }
         function onGorevYoneticisiIste() { ana.hizliEylem("gorev") }
         function onSabitleIste(yol) {
             // kurulu uygulamanın .desktop'ı ise kimliğiyle, değilse yoluyla (masaüstündeki bağlantılar)
