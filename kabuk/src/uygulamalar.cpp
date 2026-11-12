@@ -20,8 +20,14 @@
 
 // AeroThemePlasma'nın Windows 7 adları (~/.local/share/applications, iki oturumda ortak) Metro'da
 // Windows 8.1'deki karşılıklarıyla gösterilir
-static QString windows81Adi(const QString &ad)
+static QString windows81Adi(const QString &ad, const QString &kimlik = QString())
 {
+    // aynı adlı iki girdi olmasın: Metro'nun kendi Dosya Gezgini ve Denetim Masası varken
+    // ATP'nin bu adları verdiği Dolphin ve Sistem Ayarları kendi adlarıyla
+    if (kimlik == QLatin1String("org.kde.dolphin.desktop") && !QStandardPaths::locate(QStandardPaths::ApplicationsLocation, QStringLiteral("explorer.desktop")).isEmpty())
+        return QStringLiteral("Dolphin");
+    if (kimlik == QLatin1String("systemsettings.desktop") && ad == QLatin1String("Denetim Masası"))
+        return QStringLiteral("Sistem Ayarları");
     static const QHash<QString, QString> esle{
         {QStringLiteral("Internet Explorer 8"), QStringLiteral("Internet Explorer (masaüstü)")},
         {QStringLiteral("Windows Gezgini"), QStringLiteral("Dosya Gezgini")},
@@ -93,7 +99,7 @@ void Uygulamalar::yukle()
         if (goruldu.contains(k.kimlik))
             continue;
         goruldu.insert(k.kimlik);
-        k.ad = windows81Adi(s->name());
+        k.ad = windows81Adi(s->name(), s->storageId());
         k.harf = harfBul(k.ad);
         k.kategori = kategoriBul(s);
         k.anahtar = (s->name() + QLatin1Char(' ') + s->genericName() + QLatin1Char(' ') + s->keywords().join(QLatin1Char(' '))
@@ -247,7 +253,7 @@ QVariantMap Uygulamalar::bilgi(const QString &kimlik) const
     KService::Ptr s = KService::serviceByStorageId(kimlik);
     if (!s)
         return {};
-    return {{QStringLiteral("kimlik"), s->storageId()}, {QStringLiteral("ad"), windows81Adi(s->name())},
+    return {{QStringLiteral("kimlik"), s->storageId()}, {QStringLiteral("ad"), windows81Adi(s->name(), s->storageId())},
             {QStringLiteral("simge"), s->icon()}, {QStringLiteral("aciklama"), s->comment()},
             {QStringLiteral("genelAd"), s->genericName()}, {QStringLiteral("yol"), s->entryPath()},
             {QStringLiteral("kategoriler"), s->categories()},
