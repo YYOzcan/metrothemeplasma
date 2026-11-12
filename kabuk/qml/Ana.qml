@@ -192,7 +192,7 @@ QtObject {
     function gorevCubuguBetik(govde) {
         return "var sonuc = [];" +
                "panels().forEach(function (p) { p.widgets().forEach(function (w) {" +
-               " if (w.type.indexOf('taskmanager') >= 0 || w.type.indexOf('seventasks') >= 0 || w.type.indexOf('icontasks') >= 0) {" +
+               " if (w.type.indexOf('taskmanager') >= 0 || w.type.indexOf('seventasks') >= 0 || w.type.indexOf('icontasks') >= 0 || w.type.indexOf('metrogorevler') >= 0) {" +
                "  w.currentConfigGroup = ['General']; var l = w.readConfig('launchers', ''); if (typeof l === 'string') l = l === '' ? [] : l.split(',');" +
                govde + " } }) }); print(sonuc.join('|'));"
     }

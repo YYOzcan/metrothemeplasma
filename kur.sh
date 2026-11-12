@@ -181,6 +181,20 @@ else
     echo "   (derlenemedi; Plasma'nın sistem tepsisi kullanılır)"
 fi
 
+echo "==> Windows 8.1 görev çubuğu düğmeleri (ATP SevenTasks çatalı) derleniyor"
+rm -f "$MT/eklenti/plasma/applets/io.github.yyozcan.metrogorevler.so"
+if [[ -d /usr/lib/qt6/qml/aeroshell/taskmanager ]] \
+   && $CMAKE -S plasma/gorevler -B build/gorevler -G Ninja -DCMAKE_BUILD_TYPE=Release >/dev/null 2>&1 \
+   && ninja -C build/gorevler >/dev/null 2>&1; then
+    install -Dm755 build/gorevler/bin/io.github.yyozcan.metrogorevler.so "$MT/eklenti/plasma/applets/io.github.yyozcan.metrogorevler.so"
+    $PY tools/gen_gorevler.py "$MSSTYLES" build/gorevler-svg
+    kopyala plasma/gorevler/package "$DATA/plasma/plasmoids/io.github.yyozcan.metrogorevler"
+    cp build/gorevler-svg/*.svg "$DATA/plasma/plasmoids/io.github.yyozcan.metrogorevler/contents/ui/svgs/"
+else
+    rm -rf "$DATA/plasma/plasmoids/io.github.yyozcan.metrogorevler"
+    echo "   (AeroThemePlasma'nın aeroshell.taskmanager modülü yok ya da derlenemedi; Plasma'nın görev çubuğu kullanılır)"
+fi
+
 echo "==> Windows 8 bildirimleri (Plasma uygulamacığı) derleniyor"
 if $CMAKE -S plasma/bildirim -B build/bildirim -G Ninja -DCMAKE_BUILD_TYPE=Release >/dev/null 2>&1 && ninja -C build/bildirim >/dev/null 2>&1; then
     install -Dm755 build/bildirim/bin/plasma/applets/io.github.yyozcan.metrobildirim.so \

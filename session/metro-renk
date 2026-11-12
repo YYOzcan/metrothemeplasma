@@ -50,7 +50,10 @@ def uygula(sessiz=False):
         kopyala(t / "desktoptheme/Metro", DATA / "plasma/desktoptheme/Metro")
         (DATA / "color-schemes").mkdir(parents=True, exist_ok=True)
         shutil.copy(t / "Metro.colors", DATA / "color-schemes/Metro.colors")
-    renk.yaz("Pencere", {"cerceve": cerceve})
+    # görev çubuğu rengi (#AARRGGBB): Metro görev çubuğunun küçük resim penceresi bunu kullanır
+    gc, ga = renk.gorev_cubugu(c, y)
+    gorev = "#%02x" % round(min(1, ga) * 255) + renk.rgb2hex(tuple(int(v) for v in gc))[1:]
+    renk.yaz("Pencere", {"cerceve": cerceve, "gorevCubugu": gorev})
     # Plasma'nın SVG önbelleği
     for p in Path(os.environ.get("XDG_CACHE_HOME", Path.home() / ".cache")).glob("plasma_theme_Metro*"):
         try:

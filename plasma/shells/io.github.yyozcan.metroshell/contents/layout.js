@@ -8,7 +8,8 @@ panel.alignment = "left";
 
 panel.addWidget("io.github.yyozcan.metrobaslat");
 
-var gorevler = panel.addWidget("org.kde.plasma.icontasks");
+// Windows 8.1 görev düğmeleri (renk izleyen parıltı, atlama listesi); yoksa Plasma'nın simge görev yöneticisi
+var gorevler = panel.addWidget(knownWidgetTypes.indexOf("io.github.yyozcan.metrogorevler") >= 0 ? "io.github.yyozcan.metrogorevler" : "org.kde.plasma.icontasks");
 gorevler.currentConfigGroup = ["General"];
 gorevler.writeConfig("groupingStrategy", "1");          // uygulamaya göre grupla (Windows 8)
 gorevler.writeConfig("showToolTips", "true");

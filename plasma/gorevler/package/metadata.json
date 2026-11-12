@@ -1,0 +1,26 @@
+{
+    "KPackageStructure": "Plasma/Applet",
+    "KPlugin": {
+        "Authors": [
+            {
+                "Name": "MetroThemePlasma (AeroThemePlasma SevenTasks'ten, WackyIdeas)"
+            }
+        ],
+        "Category": "Utilities",
+        "Description": "Windows 8.1 görev çubuğu düğmeleri",
+        "EnabledByDefault": true,
+        "Icon": "applications-system",
+        "Id": "io.github.yyozcan.metrogorevler",
+        "License": "LGPL-2.1+",
+        "Name": "Görev çubuğu (Windows 8.1)",
+        "KPackageStructure": "Plasma/Applet",
+        "Version": "1.0",
+        "Website": "https://github.com/YYOzcan/metrothemeplasma",
+        "Name[tr]": "Görev çubuğu (Windows 8.1)",
+        "Description[tr]": "Windows 8.1 görev çubuğu düğmeleri"
+    },
+    "X-Plasma-API-Minimum-Version": "6.0",
+    "X-Plasma-Provides": [
+        "org.kde.plasma.multitasking"
+    ]
+}
