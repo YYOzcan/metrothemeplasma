@@ -204,6 +204,21 @@ else
     echo "   (derlenemedi: plasma-workspace geliştirme dosyaları eksik olabilir; Plasma'nın bildirimleri kullanılır)"
 fi
 
+# ------------------------------------------------------------------ QML denetimi
+# Tek bir QML hatası (ör. olmayan bir özelliğe atama) metro-kabuk'un tamamını düşürür: kurmadan önce yakala
+QMLLINT=/usr/lib/qt6/bin/qmllint
+if [[ -x $QMLLINT ]]; then
+    hata=""
+    for d in kabuk/qml plasma/plasmoids/*/contents/ui plasma/qml/org/kde/plasma/workspace/osd; do
+        hata+=$($QMLLINT -I "$d" "$d"/*.qml 2>&1 | grep -E 'Could not find property|\[syntax\]|^Error' || true)
+    done
+    if [[ -n $hata ]]; then
+        echo "$hata" >&2
+        echo "QML hatası bulundu; kurulum durduruldu (kurulu sürüm değiştirilmedi)." >&2
+        exit 1
+    fi
+fi
+
 # ------------------------------------------------------------------ kurulum
 echo "==> Kuruluyor ($DATA, $CFG)"
 kopyala build/varlik "$MT/varlik"
