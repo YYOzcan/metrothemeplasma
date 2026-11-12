@@ -224,7 +224,8 @@ $PY tools/gen_ikon.py "$WIN" "build/icons/Windows 8.1" >/dev/null
 $PY tools/gen_imlec.py "$WIN" "build/icons/Windows 8.1 Aero" >/dev/null
 $PY tools/gen_ses.py "$WIN" "build/sounds/Windows 8.1" >/dev/null
 $PY tools/gen_duvar.py "$WIN" build/wallpapers >/dev/null
-arka=$(sed -n '/^\[Renk\]/,/^\[/{s/^arkaPlan="\?\(#[0-9a-fA-F]\{6\}\)"\?$/\1/p}' "$CFG/metrothemeplasma/ayarlar.ini" 2>/dev/null | head -1)
+# (ilk kurulumda ayarlar.ini yoktur: pipefail altında sed hatası kurulumu durdurmasın)
+arka=$(sed -n '/^\[Renk\]/,/^\[/{s/^arkaPlan="\?\(#[0-9a-fA-F]\{6\}\)"\?$/\1/p}' "$CFG/metrothemeplasma/ayarlar.ini" 2>/dev/null | head -1 || true)
 $PY tools/gen_plymouth.py "$WIN" build/plymouth/metrothemeplasma "${arka:-#180053}" >/dev/null
 
 # ------------------------------------------------------------------ metro-kabuk (Başlangıç ekranı, tılsımlar)
