@@ -17,6 +17,14 @@ QtObject {
         property int desen: 22000
         property bool masaustuArkaPlani: false
     }
+    // Otomatik Kullan (metro-kabuk'un C++ tarafı da aynı anahtarları okur)
+    property Settings otomatik: Settings {
+        location: "file://" + Dosya.yapilandirma + "/ayarlar.ini"
+        category: "OtomatikKullan"
+        property bool etkin: true
+        property string cikarilabilir: "sor"     // sor, klasor, fotograf, yedek, hicbir
+        property string bellekKarti: "sor"
+    }
     property Settings baslangic: Settings {
         location: "file://" + Dosya.yapilandirma + "/ayarlar.ini"
         category: "Baslangic"

@@ -16,6 +16,11 @@ QtObject {
     property BilgisayarAyarlari pcAyarlar: BilgisayarAyarlari { tema: ana.tema; ana: ana }
     property GorevYoneticisi gorevYoneticisi: GorevYoneticisi { ana: ana }
     property IlkOturum ilkOturum: IlkOturum { tema: ana.tema }
+    property OtomatikPanel otomatikPanel: OtomatikPanel { tema: ana.tema }
+    property Connections otomatikBaglanti: Connections {
+        target: OtomatikKullan
+        function onPanelIste(a) { ana.otomatikPanel.ac(a) }
+    }
     // Alarmlar uygulamasının alarmları (alarmlar.json): uygulama kapalıyken de bildirim + ses
     property Timer alarmSaati: Timer {
         interval: 10000; running: true; repeat: true; triggeredOnStart: true
@@ -300,6 +305,7 @@ QtObject {
         function onCalistirIste() { ana.hizliEylem("calistir") }
         function onGezginIste() { ana.hizliEylem("gezgin") }
         function onIlkOturumIste() { ana.ilkOturumOynat() }
+        function onOtomatikPanelSinaIste(yol) { ana.otomatikPanel.ac({ udi: "", yol: yol, ad: "USB SÜRÜCÜ", tur: "cikarilabilir", simge: "drive-removable-media-usb" }) }
         function onAraMetinIste(metin) { ana.aramaAc(metin, "") }
         function onGorevYoneticisiIste() { ana.hizliEylem("gorev") }
         function onSabitleIste(yol) {

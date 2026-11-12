@@ -42,7 +42,7 @@ Window {
             ["Kilit ekranı", "kilit"], ["Ekran", "ekran", "kcm_kscreen"], ["Bluetooth", "bluetooth", "kcm_bluetooth"],
             ["Aygıtlar", "aygitlist", "kcm_printer_manager"], ["Fare ve dokunmatik yüzey", "fare", "kcm_mouse"],
             ["Yazma", "yazma", "kcm_keyboard"], ["Köşeler ve kenarlar", "koseler"], ["Güç ve uyku", "guc", "kcm_powerdevilprofilesconfig"],
-            ["Otomatik Kullan", "otomatik", "kcm_device_automounter"], ["Bilgisayar bilgileri", "bilgi", "kcm_about-distro"] ] },
+            ["Otomatik Kullan", "otomatik"], ["Bilgisayar bilgileri", "bilgi", "kcm_about-distro"] ] },
         { ad: "Hesaplar", kimlik: "hesaplar", sayfalar: [["Hesabınız", "hesap"], ["Oturum açma seçenekleri", "oturumacma", "kcm_users"], ["Diğer hesaplar", "digerhesap", "kcm_users"]] },
         { ad: "Kişiselleştir", kimlik: "kisisel", sayfalar: [["Başlangıç", "baslangic"], ["Renk ve görünüm", "renk"], ["Gezinti", "gezinti"]] },
         { ad: "Arama ve uygulamalar", kimlik: "arama", sayfalar: [["Ara", "ara", "kcm_plasmasearch"], ["Varsayılanlar", "varsayilan", "kcm_componentchooser"], ["Bildirimler", "bildirim", "kcm_notifications"]] },
@@ -133,7 +133,7 @@ Window {
             sourceComponent: {
                 if (pen.kategori === "" && pen.sayfa === "") return girisSayfasi
                 return ({ kilit: kilitSayfasi, koseler: koselerSayfasi, hesap: hesapSayfasi, baslangic: baslangicSayfasi,
-                          renk: renkSayfasi, gezinti: gezintiSayfasi, update: guncelSayfasi })[pen.sayfa] || bosSayfa
+                          renk: renkSayfasi, gezinti: gezintiSayfasi, update: guncelSayfasi, otomatik: otomatikSayfasi })[pen.sayfa] || bosSayfa
             }
         }
     }
@@ -449,6 +449,87 @@ Window {
             MetroAnahtar { renk: "black"; vurgu: pen.tema.vurgu; acik: pen.tema.baslangic.uygulamalarOtomatik; onDegisti: d => pen.tema.baslangic.uygulamalarOtomatik = d }
             Aciklama { width: 640; text: "Uygulamalar görünümü kategoriye göre sıralandığında önce masaüstü uygulamalarını listele" }
             MetroAnahtar { renk: "black"; vurgu: pen.tema.vurgu; acik: pen.tema.baslangic.masaustuUygulamalariOnce; onDegisti: d => pen.tema.baslangic.masaustuUygulamalariOnce = d }
+        }
+    }
+
+    // ---- Otomatik Kullan (Bilgisayar ve aygıtlar > Otomatik Kullan); metinler shell32/autoplay.dll.mui
+    Component {
+        id: otomatikSayfasi
+        Column {
+            spacing: 6
+            readonly property var secenekler: {
+                var l = [["sor", "Her seferinde bana sor"], ["klasor", "Dosyaları görüntülemek için klasörü aç (Dosya Gezgini)"]]
+                if (Uygulamalar.var("metro-fotograflar.desktop")) l.push(["fotograf", "Fotoğrafları ve videoları içeri aktar (Fotoğraflar)"])
+                if (OtomatikKullan.programVar("deja-dup")) l.push(["yedek", "Bu sürücüyü yedekleme için yapılandır (Dosya Geçmişi)"])
+                l.push(["hicbir", "Eylem yok"])
+                return l
+            }
+            Baslik { text: "Otomatik Kullan" }
+            Aciklama { width: 640; text: "Tüm medya ve aygıtlar için Otomatik Kullan'ı kullan" }
+            MetroAnahtar { renk: "black"; vurgu: pen.tema.vurgu; acik: pen.tema.otomatik.etkin; onDegisti: d => pen.tema.otomatik.etkin = d }
+            Bolum { text: "Otomatik Kullan varsayılanlarını seçin" }
+            Aciklama { text: "Çıkarılabilir sürücü" }
+            Secim {
+                etkin: pen.tema.otomatik.etkin
+                secenekler: parent.secenekler; deger: pen.tema.otomatik.cikarilabilir
+                onSecildi: d => pen.tema.otomatik.cikarilabilir = d
+            }
+            Item { width: 1; height: 8 }
+            Aciklama { text: "Bellek kartı" }
+            Secim {
+                etkin: pen.tema.otomatik.etkin
+                secenekler: parent.secenekler; deger: pen.tema.otomatik.bellekKarti
+                onSecildi: d => pen.tema.otomatik.bellekKarti = d
+            }
+        }
+    }
+    // Windows 8.1 açılır liste (Modern): beyaz kutu, sağda ok; açılınca seçenekler kutunun üstünde,
+    // seçili olan vurgu renginde
+    component Secim: Item {
+        id: sc
+        property var secenekler: []
+        property string deger: ""
+        property bool etkin: true
+        signal secildi(string d)
+        width: 440; height: 32
+        z: liste.visible ? 10 : 0
+        opacity: etkin ? 1 : 0.45
+        function metin() { for (var i = 0; i < secenekler.length; i++) if (secenekler[i][0] === deger) return secenekler[i][1]; return "" }
+        Rectangle {
+            anchors.fill: parent
+            color: sm.containsMouse ? "#f4f4f4" : "white"
+            border.color: sm.containsMouse ? "#8a8a8a" : "#bababa"; border.width: 2
+            Text { x: 10; anchors.verticalCenter: parent.verticalCenter; width: parent.width - 44; elide: Text.ElideRight
+                   text: sc.metin(); color: "black"; font.family: "Segoe UI"; font.pixelSize: 15 }
+            Canvas {
+                anchors.right: parent.right; anchors.rightMargin: 12; anchors.verticalCenter: parent.verticalCenter
+                width: 12; height: 7
+                onPaint: { var c = getContext("2d"); c.reset(); c.strokeStyle = "#333"; c.lineWidth = 1.5
+                           c.beginPath(); c.moveTo(0.5, 0.5); c.lineTo(6, 6); c.lineTo(11.5, 0.5); c.stroke() }
+            }
+            MouseArea { id: sm; anchors.fill: parent; hoverEnabled: true; enabled: sc.etkin; onClicked: liste.visible = !liste.visible }
+        }
+        Rectangle {
+            id: liste
+            visible: false
+            y: parent.height
+            width: parent.width; height: sutun.height + 4
+            color: "white"; border.color: "#bababa"; border.width: 2
+            Column {
+                id: sutun
+                x: 2; y: 2; width: parent.width - 4
+                Repeater {
+                    model: sc.secenekler
+                    delegate: Rectangle {
+                        required property var modelData
+                        width: sutun.width; height: 34
+                        color: modelData[0] === sc.deger ? pen.tema.vurgu : (lm.containsMouse ? "#e5e5e5" : "white")
+                        Text { x: 10; anchors.verticalCenter: parent.verticalCenter; width: parent.width - 20; elide: Text.ElideRight
+                               text: modelData[1]; color: modelData[0] === sc.deger ? "white" : "black"; font.family: "Segoe UI"; font.pixelSize: 15 }
+                        MouseArea { id: lm; anchors.fill: parent; hoverEnabled: true; onClicked: { liste.visible = false; sc.secildi(modelData[0]) } }
+                    }
+                }
+            }
         }
     }
 

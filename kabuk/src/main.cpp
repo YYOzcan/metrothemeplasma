@@ -103,6 +103,7 @@ int main(int argc, char **argv)
         motor = new QQmlApplicationEngine;
         auto *c = motor->rootContext();
         c->setContextProperty(QStringLiteral("Kabuk"), &kabuk);
+        c->setContextProperty(QStringLiteral("OtomatikKullan"), &otomatikKullan);
         c->setContextProperty(QStringLiteral("Uygulamalar"), &uygulamalar);
         c->setContextProperty(QStringLiteral("Sistem"), &sistem);
         c->setContextProperty(QStringLiteral("Dosya"), &dosya);
