@@ -35,6 +35,7 @@ public Q_SLOTS:
     Q_SCRIPTABLE void BaslangicaSabitle(const QString &yol);  // .desktop yolu ya da kimliği (Dosya Gezgini menüsü)
     Q_SCRIPTABLE bool Calisiyor() const { return true; }      // servis menüsü yalnızca Metro oturumunda görünsün
     Q_SCRIPTABLE void YenidenYukle();
+    Q_SCRIPTABLE void IlkOturum();                 // "Merhaba" ilk oturum animasyonunu oynat
     Q_SCRIPTABLE bool BaslangicAcik() const { return m_baslangicAcik; }
 
     Q_INVOKABLE void setBaslangicAcik(bool a) { m_baslangicAcik = a; }
@@ -61,6 +62,7 @@ Q_SIGNALS:
     void kisisellestirIste();
     void bilgisayarAyarlariIste(const QString &sayfa);
     void yenidenYukleIste();
+    void ilkOturumIste();
 
 private:
     QAction *kisayol(const QString &ad, const QString &metin, const QList<QKeySequence> &tuslar, bool zorla = false);

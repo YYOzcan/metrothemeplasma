@@ -44,6 +44,9 @@ YOLLAR = [
     # Windows Hakkında (linver): sürüm marka görseli; Aygıt Yöneticisi simgeleri
     "Windows/Branding/Basebrd/basebrd.dll",
     "Windows/Branding/Basebrd/tr-TR/*",
+    # ilk oturum animasyonu (Merhaba / Sizin için ayarları yapıyoruz)
+    "Windows/System32/oobe/FirstLogonAnim.html",
+    "Windows/System32/oobe/tr-TR/msoobeFirstLogonAnim.dll.mui",
     "Windows/System32/setupapi.dll",
     "Windows/System32/devmgr.dll",
     "Windows/System32/pnidui.dll",

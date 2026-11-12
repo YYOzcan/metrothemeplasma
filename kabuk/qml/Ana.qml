@@ -15,6 +15,14 @@ QtObject {
     property EkranFlasi flas: EkranFlasi {}
     property BilgisayarAyarlari pcAyarlar: BilgisayarAyarlari { tema: ana.tema; ana: ana }
     property GorevYoneticisi gorevYoneticisi: GorevYoneticisi { ana: ana }
+    property IlkOturum ilkOturum: IlkOturum { tema: ana.tema }
+    readonly property string ilkOturumIsareti: Dosya.veri + "/ilk-oturum-goruldu"
+    function ilkOturumOynat() {
+        ana.ilkOturum.oynat(function () {
+            Dosya.yaz(ana.ilkOturumIsareti, new Date().toISOString() + "\n")
+            if (!ana.baslangic.acik) ana.baslangicAc(false, true)
+        })
+    }
 
     // ------------------------------------------------------------------ Başlangıç
     function baslangicAc(uygulamalar, giris) {
@@ -256,6 +264,7 @@ QtObject {
         function onBilgisayarAyarlariIste(sayfa) { ana.bilgisayarAyarlari(sayfa) }
         function onCalistirIste() { ana.hizliEylem("calistir") }
         function onGezginIste() { ana.hizliEylem("gezgin") }
+        function onIlkOturumIste() { ana.ilkOturumOynat() }
         function onAraMetinIste(metin) { ana.aramaAc(metin, "") }
         function onGorevYoneticisiIste() { ana.hizliEylem("gorev") }
         function onSabitleIste(yol) {
@@ -285,7 +294,9 @@ QtObject {
             var acilisVar = Sistem.komutCiktisi("pgrep", ["-u", Sistem.kullanici, "-x", "ksplashqml"], 1000).trim() !== ""
             if (!acilisVar || sayac > 60) {
                 stop()
-                if (!ana.baslangic.acik) ana.baslangicAc(false, true)
+                // Windows 8.1: kullanıcının ilk oturumunda "Merhaba" animasyonu, sonra Başlangıç ekranı
+                if (!Dosya.var(ana.ilkOturumIsareti)) ana.ilkOturumOynat()
+                else if (ana.tema.baslangic.giristeBaslangic && !ana.baslangic.acik) ana.baslangicAc(false, true)
             }
         }
     }
@@ -293,6 +304,6 @@ QtObject {
         // oturum açılışında Başlangıç ekranı (Windows 8.1)
         // (OturumGirisi: bu oturumda ilk çalıştırma; çökme sonrası yeniden başlatmada yeniden açılmaz)
         // açılış ekranı ("Hoş geldiniz", ksplashqml) kapanana kadar bekle; yoksa animasyon arkada kalır
-        if (OturumGirisi && tema.baslangic.giristeBaslangic) girisBekle.start()
+        if (OturumGirisi && (tema.baslangic.giristeBaslangic || !Dosya.var(ilkOturumIsareti))) girisBekle.start()
     }
 }

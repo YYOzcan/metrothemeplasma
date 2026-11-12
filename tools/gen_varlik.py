@@ -85,6 +85,22 @@ def kaydet(res, tur, kimlik, hedef):
     return True
 
 
+def ilk_oturum(win, cikti):
+    import json
+    import re
+    oobe = win / "Windows/System32/oobe"
+    st = PEResources((oobe / "tr-TR/msoobeFirstLogonAnim.dll.mui").read_bytes()).strings()
+    html = (oobe / "FirstLogonAnim.html").read_text(encoding="utf-8", errors="ignore")
+    def dizi(ad):
+        m = re.search(ad + r"=\[([0-9,]+)\]", html)
+        return [int(x) for x in m.group(1).split(",")] if m else []
+    r, g, b = dizi("rValues"), dizi("gValues"), dizi("bValues")
+    renkler = ["#%02x%02x%02x" % t for t in zip(r, g, b)] or ["#008a00", "#2671eb", "#8c0095", "#ac193d", "#ff8f32", "#00aaaa"]
+    m = re.search(r"steps=(\d+)", html)
+    veri = {"metin": {str(k): v for k, v in st.items()}, "renkler": renkler, "adim": int(m.group(1)) if m else 240}
+    (cikti / "ilk-oturum.json").write_text(json.dumps(veri, ensure_ascii=False, indent=1))
+
+
 def winver(win, cikti):
     """winver.ini + winver-marka.png (linver yaması okur): basebrd.dll BITMAP 121 ve dizeleri,
     shell32.dll.mui "Hakkında" iletişim kutusu (14352) ve sürüm biçimi (60)."""
@@ -146,6 +162,12 @@ def main(win, cikti):
         d = td.get("PNGFILE", k)
         if d:
             (cikti / f"{ad}.png").write_bytes(d)
+    # Windows 8.1 ilk oturum animasyonu (FirstLogonAnim): metinler msoobeFirstLogonAnim.dll.mui,
+    # renk döngüsü FirstLogonAnim.html'den
+    try:
+        ilk_oturum(win, cikti)
+    except Exception as x:  # noqa: BLE001
+        print("  ilk oturum animasyonu atlandı:", x)
     # Windows Hakkında (linver): marka görseli ve metinler kendi kopyandan
     try:
         winver(win, cikti)

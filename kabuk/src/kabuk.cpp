@@ -74,4 +74,5 @@ void Kabuk::BilgisayarAyarlari(const QString &sayfa) { Q_EMIT bilgisayarAyarlari
 void Kabuk::Bolme(const QString &tur) { Q_EMIT bolmeIste(tur); }
 void Kabuk::AraMetin(const QString &metin) { Q_EMIT araMetinIste(metin); }
 void Kabuk::BaslangicaSabitle(const QString &yol) { Q_EMIT sabitleIste(yol); }
+void Kabuk::IlkOturum() { Q_EMIT ilkOturumIste(); }
 void Kabuk::YenidenYukle() { Q_EMIT yenidenYukleIste(); }
