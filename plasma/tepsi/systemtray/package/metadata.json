@@ -1,0 +1,27 @@
+{
+    "KPackageStructure": "Plasma/Applet",
+    "KPlugin": {
+        "Authors": [
+            {
+                "Name": "MetroThemePlasma (AeroThemePlasma sistem tepsisinden, WackyIdeas; Plasma: Marco Martin)"
+            }
+        ],
+        "BugReportUrl": "https://github.com/YYOzcan/metrothemeplasma/issues",
+        "Category": "Windows and Tasks",
+        "EnabledByDefault": true,
+        "FormFactors": [
+            "desktop"
+        ],
+        "Icon": "preferences-desktop-notification",
+        "Id": "io.github.yyozcan.metrotepsi",
+        "License": "GPL-2.0+",
+        "Name": "Bildirim alanı (Windows 8.1)",
+        "Website": "https://github.com/YYOzcan/metrothemeplasma",
+        "Name[tr]": "Bildirim alanı (Windows 8.1)",
+        "Description": "Windows 8.1 bildirim alanı",
+        "Description[tr]": "Windows 8.1 bildirim alanı"
+    },
+    "NoDisplay": false,
+    "X-Plasma-API-Minimum-Version": "6.0",
+    "X-Plasma-ContainmentType": "CustomEmbedded"
+}

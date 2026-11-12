@@ -21,6 +21,7 @@ export FONTCONFIG_FILE="$HOME/.local/share/metrothemeplasma/fonts.conf"
 export XDG_CURRENT_DESKTOP=KDE XDG_SESSION_TYPE=wayland KDE_FULL_SESSION=true KDE_SESSION_VERSION=6
 export QT_QPA_PLATFORMTHEME=kde
 export QML_IMPORT_PATH="$HOME/.local/share/metrothemeplasma/qml"
+export QT_PLUGIN_PATH="$HOME/.local/share/metrothemeplasma/eklenti"
 "$HOME/.local/bin/metro-profil" metro > "$CIKTI/profil.log" 2>&1
 dbus-run-session -- bash -c "
   kwin_wayland --virtual --width 1920 --height 1080 --socket mt-0 --no-lockscreen >\"$CIKTI/kwin.log\" 2>&1 &

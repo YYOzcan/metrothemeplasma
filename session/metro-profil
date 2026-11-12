@@ -296,6 +296,8 @@ def metro_bildirim():
              "org.kde.plasma.volume": "io.github.yyozcan.metroses"}
     if eklenti.exists():
         degis["org.kde.plasma.notifications"] = "io.github.yyozcan.metrobildirim"
+    if (eklenti.parent / "io.github.yyozcan.metrotepsi.so").exists():
+        degis["org.kde.plasma.systemtray"] = "io.github.yyozcan.metrotepsi"
     y = s
     for eski, yeni in degis.items():
         y = y.replace("plugin=" + eski + "\n", "plugin=" + yeni + "\n")

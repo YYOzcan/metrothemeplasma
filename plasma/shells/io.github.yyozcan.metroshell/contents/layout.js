@@ -20,7 +20,8 @@ gorevler.writeConfig("maxStripes", "1");
 gorevler.writeConfig("fill", "true");
 gorevler.writeConfig("launchers", ["applications:org.kde.dolphin.desktop", "applications:firefox.desktop"]);
 
-var tepsi = panel.addWidget("org.kde.plasma.systemtray");
+// Windows 8.1 bildirim alanı (ok solda, gizli simgeler ızgarada); derlenmemişse Plasma'nınki
+var tepsi = panel.addWidget(knownWidgetTypes.indexOf("io.github.yyozcan.metrotepsi") >= 0 ? "io.github.yyozcan.metrotepsi" : "org.kde.plasma.systemtray");
 tepsi.currentConfigGroup = ["General"];
 // ATP'nin Windows 7 çatalları bu oturumda kendiliğinden eklenmesin
 tepsi.writeConfig("knownItems", ["io.gitgud.wackyideas.battery", "io.gitgud.wackyideas.networkmanagement",

@@ -171,6 +171,16 @@ $CMAKE -S kabuk -B build/kabuk -G Ninja -DCMAKE_BUILD_TYPE=Release >/dev/null
 ninja -C build/kabuk | tail -1
 install -Dm755 build/kabuk/metro-kabuk "$BIN/metro-kabuk"
 
+echo "==> Windows 8.1 bildirim alanı (sistem tepsisi) derleniyor"
+if $CMAKE -S plasma/tepsi -B build/tepsi -G Ninja -DCMAKE_BUILD_TYPE=Release >/dev/null 2>&1 && ninja -C build/tepsi >/dev/null 2>&1; then
+    install -Dm755 build/tepsi/bin/io.github.yyozcan.metrotepsi.so "$MT/eklenti/plasma/applets/io.github.yyozcan.metrotepsi.so"
+    rm -rf "$MT/qml/io/github/yyozcan/private/metrotepsi"; mkdir -p "$MT/qml/io/github/yyozcan/private"
+    cp -r build/tepsi/bin/io/github/yyozcan/private/metrotepsi "$MT/qml/io/github/yyozcan/private/"
+    kopyala plasma/tepsi/systemtray/package "$DATA/plasma/plasmoids/io.github.yyozcan.metrotepsi"
+else
+    echo "   (derlenemedi; Plasma'nın sistem tepsisi kullanılır)"
+fi
+
 echo "==> Windows 8 bildirimleri (Plasma uygulamacığı) derleniyor"
 if $CMAKE -S plasma/bildirim -B build/bildirim -G Ninja -DCMAKE_BUILD_TYPE=Release >/dev/null 2>&1 && ninja -C build/bildirim >/dev/null 2>&1; then
     install -Dm755 build/bildirim/bin/plasma/applets/io.github.yyozcan.metrobildirim.so \
@@ -195,6 +205,9 @@ for w in build/wallpapers/*/; do kopyala "$w" "$DATA/wallpapers/$(basename "$w")
 for p in plasma/plasmoids/*/; do kopyala "$p" "$DATA/plasma/plasmoids/$(basename "$p")"; done
 kopyala plasma/shells/io.github.yyozcan.metroshell "$DATA/plasma/shells/io.github.yyozcan.metroshell"
 kopyala plasma/look-and-feel/io.github.yyozcan.metro "$DATA/plasma/look-and-feel/io.github.yyozcan.metro"
+# görünüm-ve-his düzeni = kabuk düzeni (tek kaynak)
+install -Dm644 plasma/shells/io.github.yyozcan.metroshell/contents/layout.js \
+    "$DATA/plasma/look-and-feel/io.github.yyozcan.metro/contents/layouts/io.github.yyozcan.metroshell-layout.js"
 # ortak QML (dönen noktalar): kilit ekranı, kapatma ekranı, açılış
 for d in "$DATA/plasma/shells/io.github.yyozcan.metroshell/contents/lockscreen" \
          "$DATA/plasma/shells/io.github.yyozcan.metroshell/contents/logout" \
