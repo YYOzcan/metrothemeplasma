@@ -1,0 +1,81 @@
+#!/bin/bash
+# MetroThemePlasma — pacman PostTransaction kancası (root olarak çalışır).
+# Plasma / KWin / Qt / KDE Frameworks ya da Metro'nun derlendiği başka bir paket güncellenince
+# MetroThemePlasma'yı yeni sürümlere karşı yeniden derler ve kurar; elle güncelleme gerekmez.
+#   metro-guncelle-hook            (kanca) stdin'deki paket listesine bakar, gerekiyorsa yeniden kurar
+#   metro-guncelle-hook --zorla    koşulsuz yeniden kur
+# Derleme ve kullanıcı kurulumu kullanıcı olarak (kur.sh), oturum/SDDM dosyaları root olarak (kur.sh --sistem).
+# Kaynak dizini ve kullanıcı: /etc/metrothemeplasma.conf (KAYNAK=, KULLANICI=), kurulumda yazılır.
+
+LOG=/var/log/metro-guncelle.log
+KILIT=/run/metro-guncelle.lock
+[ -r /etc/metrothemeplasma.conf ] && . /etc/metrothemeplasma.conf
+U=${KULLANICI:-}
+K=${KAYNAK:-}
+adim() { echo ":: [Metro] $*"; echo "$(date '+%F %T') $*" >> "$LOG"; }
+
+[ -n "$U" ] && [ -d "$K" ] && [ -f "$K/kur.sh" ] || { adim "kaynak bulunamadı (/etc/metrothemeplasma.conf), atlanıyor"; exit 0; }
+H=$(getent passwd "$U" | cut -d: -f6)
+UID_=$(id -u "$U")
+
+# --- gerekli mi?
+GEREKLI=""
+[ "${1:-}" = "--zorla" ] && GEREKLI="elle istendi"
+if [ -z "$GEREKLI" ] && [ ! -t 0 ]; then
+    # Metro'nun derlendiği ya da bağlandığı paketler (QML/C++ ABI, özel Plasma kitaplıkları, ATP bileşenleri)
+    P=$(grep -xE 'plasma-workspace|plasma-desktop|libplasma|plasma5support|plasma-activities|plasma-activities-stats|kwin|kdecoration|kglobalacceld|kscreenlocker|layer-shell-qt|polkit-qt6|polkit-kde-agent|sddm|plymouth|qt6-[a-z0-9-]+|kio|kservice|kglobalaccel|kwindowsystem|kconfig|kcoreaddons|krunner|ki18n|solid|kcrash|kdbusaddons|knotifications|kirigami|kiconthemes|kitemmodels|ksvg|libksysguard|libaero-qt(-git)?|kvantum|pipewire|ffmpeg' | sort -u | tr '\n' ' ')
+    [ -n "$P" ] && GEREKLI="güncellenen paketler: $P"
+fi
+if [ -z "$GEREKLI" ]; then
+    exit 0
+fi
+
+exec 9>"$KILIT"
+flock -n 9 || { adim "başka bir güncelleme sürüyor, atlanıyor"; exit 0; }
+adim "MetroThemePlasma yeniden kuruluyor — neden: $GEREKLI (günlük: $LOG)"
+
+# kullanıcı olarak, oturumu açıksa oturum veri yoluyla (kwriteconfig6, systemctl --user, KWin yeniden yapılandırma)
+as_user() {
+    local ortam=(HOME="$H" USER="$U" LOGNAME="$U" LANG=tr_TR.UTF-8 PATH=/usr/local/bin:/usr/bin:/bin)
+    if [ -S "/run/user/$UID_/bus" ]; then
+        ortam+=(XDG_RUNTIME_DIR="/run/user/$UID_" DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/$UID_/bus")
+    fi
+    runuser -u "$U" -- env -i "${ortam[@]}" "$@"
+}
+
+# kaynak deposu GitHub'da ilerlemişse (ve yerelde işlenmemiş değişiklik yoksa) önce onu al
+if as_user git -C "$K" rev-parse --git-dir >/dev/null 2>&1; then
+    if [ -z "$(as_user git -C "$K" status --porcelain --untracked-files=no 2>/dev/null)" ]; then
+        as_user timeout 60 git -C "$K" pull -q --ff-only >> "$LOG" 2>&1 && adim "kaynak güncel (git)"
+    else
+        adim "kaynakta işlenmemiş değişiklik var; git pull atlandı, mevcut kaynakla derleniyor"
+    fi
+fi
+
+CIKTI=$(mktemp)
+if as_user bash -c "cd '$K' && bash kur.sh" > "$CIKTI" 2>&1; then
+    DURUM=0
+else
+    DURUM=$?
+fi
+cat "$CIKTI" >> "$LOG"
+EKSIK=$(grep -E 'derlenemedi|QML hatası' "$CIKTI" | sed 's/^ *//' | tr '\n' ' ')
+rm -f "$CIKTI"
+
+# root kısmı: Wayland oturum girdisi, oturum başlatıcısı, SDDM teması (zararsız, her seferinde)
+( cd "$K" && SUDO_USER="$U" bash kur.sh --sistem >> "$LOG" 2>&1 ) || adim "uyarı: sistem kısmı yenilenemedi"
+
+if [ "$DURUM" = 0 ] && [ -z "$EKSIK" ]; then
+    adim "MetroThemePlasma güncellendi. Tam uygulanması için oturumu kapatıp açın."
+    MESAJ="Plasma güncellemesine göre yeniden kuruldu. Tam uygulanması için oturumu kapatıp açın."
+elif [ "$DURUM" = 0 ]; then
+    adim "MetroThemePlasma güncellendi; bazı bileşenler derlenemedi (Plasma'nınkiler kullanılıyor): $EKSIK"
+    MESAJ="Güncellendi, ancak bazı bileşenler derlenemedi: $EKSIK Ayrıntılar: $LOG"
+else
+    adim "HATA: MetroThemePlasma kurulamadı (çıkış $DURUM); önceki kurulu sürüm kullanılmaya devam ediyor. Ayrıntılar: $LOG"
+    MESAJ="Güncelleme başarısız oldu; önceki sürüm kullanılmaya devam ediyor. Ayrıntılar: $LOG"
+fi
+if [ -S "/run/user/$UID_/bus" ]; then
+    as_user notify-send -a "MetroThemePlasma" -i system-software-update "MetroThemePlasma" "$MESAJ" >/dev/null 2>&1 || true
+fi
+exit 0

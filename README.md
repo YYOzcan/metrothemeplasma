@@ -99,6 +99,14 @@ Aşağıdaki açık kaynak projeler `uygulamalar/` altında git alt modülüdür
 [linux-control](https://github.com/actuallyaridan/linux-control)'ün Denetim Masası'nın daha yeni hali
 linux-explorer'ın içindedir; Windows'taki gibi `control` komutu onu açar.
 
+## Kendiliğinden güncelleme
+
+`sudo bash kur.sh --sistem` bir pacman kancası da kurar (`/etc/pacman.d/hooks/91-metro-guncelle.hook`):
+Plasma, KWin, Qt, KDE Frameworks, layer-shell-qt, polkit-qt6, libaero-qt gibi Metro'nun derlendiği bir
+paket güncellenince MetroThemePlasma yeni sürümlere karşı yeniden derlenip kurulur (AeroThemePlasma'nın
+kancasından sonra), sonuç bildirimle haber verilir. Derleme başarısız olursa önceki kurulum olduğu gibi
+kalır. Günlük: `/var/log/metro-guncelle.log`; elle: `sudo metro-guncelle-hook --zorla`.
+
 ## Kurulum
 
 ```bash

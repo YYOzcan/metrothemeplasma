@@ -82,6 +82,13 @@ if [[ "${1:-}" == "--sistem" ]]; then
     EV="$(gercek_ev)"
     install -Dm755 session/startmetro-wayland /usr/local/bin/startmetro-wayland
     install -Dm644 session/metrothemeplasma.desktop /usr/share/wayland-sessions/metrothemeplasma.desktop
+    # Plasma/Qt/KDE güncellenince kendiliğinden yeniden derle ve kur (pacman kancası; ATP'ninkinden sonra çalışır)
+    if [[ -d /etc/pacman.d ]]; then
+        install -Dm755 session/kanca/metro-guncelle-hook /usr/local/bin/metro-guncelle-hook
+        install -Dm644 session/kanca/91-metro-guncelle.hook /etc/pacman.d/hooks/91-metro-guncelle.hook
+        printf '# MetroThemePlasma kaynağı ve kullanıcısı (metro-guncelle-hook)\nKAYNAK=%q\nKULLANICI=%q\n' \
+            "$KOK" "${SUDO_USER:-$(stat -c %U "$KOK")}" > /etc/metrothemeplasma.conf
+    fi
     T=/usr/share/sddm/themes/metrothemeplasma
     onceki=$(cat "$T/.onceki" 2>/dev/null || true)
     rm -rf "$T"
@@ -137,7 +144,8 @@ if [[ "${1:-}" == "--kaldir" ]]; then
     echo "  sudo bash $0 --plymouth-geri"
     echo "  sudo rm -rf /usr/local/bin/startmetro-wayland /usr/share/wayland-sessions/metrothemeplasma.desktop \\"
     echo "              /usr/share/sddm/themes/metrothemeplasma /etc/sddm.conf.d/zz-metrothemeplasma.conf \\"
-    echo "              /usr/local/share/fonts/metrothemeplasma"
+    echo "              /usr/local/share/fonts/metrothemeplasma /usr/local/bin/metro-guncelle-hook \\"
+    echo "              /etc/pacman.d/hooks/91-metro-guncelle.hook /etc/metrothemeplasma.conf"
     exit 0
 fi
 
@@ -453,7 +461,8 @@ fi
 
 echo
 echo "Kullanıcı kurulumu tamam."
-if [[ ! -f /usr/share/wayland-sessions/metrothemeplasma.desktop ]] || ! cmp -s session/startmetro-wayland /usr/local/bin/startmetro-wayland; then
+if [[ ! -f /usr/share/wayland-sessions/metrothemeplasma.desktop ]] || ! cmp -s session/startmetro-wayland /usr/local/bin/startmetro-wayland \
+   || { [[ -d /etc/pacman.d ]] && ! cmp -s session/kanca/metro-guncelle-hook /usr/local/bin/metro-guncelle-hook; }; then
     echo "Oturum girdisi için bir kez çalıştır:  sudo bash $KOK/kur.sh --sistem"
 fi
 echo "Sonra oturumu kapatıp SDDM'de 'MetroThemePlasma (Wayland)' seç."
