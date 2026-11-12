@@ -125,6 +125,24 @@ kalır. Günlük: `/var/log/metro-guncelle.log`; elle: `sudo metro-guncelle-hook
 
 ## Kurulum
 
+Gerekenler (Arch/CachyOS; KDE Plasma 6.8 kurulu bir sistemde):
+
+```bash
+sudo pacman -S --needed git base-devel cmake ninja extra-cmake-modules python-pillow python-numpy 7zip \
+    qt6-base qt6-declarative qt6-multimedia qt6-webengine qt6-wayland layer-shell-qt polkit-qt6 kvantum
+```
+
+İsteğe bağlı: AeroThemePlasma (görev çubuğu düğmeleri onun SevenTasks motorunu kullanır; yoksa Plasma'nın
+görev çubuğu), AUR'dan `libaero-qt-git` (yoksa Dosya Gezgini yerine Dolphin). Bir Windows 8.1 ISO'su gerekir.
+
+```bash
+git clone --recurse-submodules https://github.com/YYOzcan/metrothemeplasma.git
+cd metrothemeplasma
+bash kur.sh --yukselt                         # grafik Yükseltme Yardımcısı (aşağıdaki adımların hepsini yapar)
+```
+
+ya da elle:
+
 ```bash
 bash kur.sh --win "/yol/Windows 8.1.iso"   # içe aktar + üret + kullanıcıya kur (sudo gerekmez)
 sudo bash kur.sh --sistem                    # SDDM oturum girdisi + oturum açma teması
