@@ -40,6 +40,7 @@ if [[ "${1:-}" == "--plymouth" || "${1:-}" == "--plymouth-geri" ]]; then
         systemctl disable metro-boot-bekle.service 2>/dev/null || true
         rm -f /etc/systemd/system/metro-boot-bekle.service
         sed -i '/^# MetroThemePlasma$/d; /^UseSimpledrm=1$/d' /etc/plymouth/plymouthd.conf
+        rm -f /etc/mkinitcpio.conf.d/20-metrothemeplasma-kms.conf
         plymouth-set-default-theme -R "$onceki"
         rm -rf "$T" /usr/local/lib/metrothemeplasma
         echo "Plymouth teması geri alındı: $onceki"
@@ -60,6 +61,15 @@ if [[ "${1:-}" == "--plymouth" || "${1:-}" == "--plymouth-geri" ]]; then
     grep -q '^\[Daemon\]' "$conf" 2>/dev/null || printf '[Daemon]\nTheme=metrothemeplasma\n' >> "$conf"
     if ! grep -q '^UseSimpledrm=' "$conf"; then
         sed -i '0,/^\[Daemon\]/s//[Daemon]\n# MetroThemePlasma\nUseSimpledrm=1/' "$conf"
+    fi
+    # NVIDIA: sürücü initramfs'te değilse açılışın ortasında ekranı devralır ve açılış ekranı kesilir.
+    # Erken KMS: modüller initramfs'e girer, Windows logosu ve noktalar baştan sona yerel çözünürlükte döner
+    # (pipefail: grep -q erken çıkınca lspci SIGPIPE alır; çıktı önce bir değişkene)
+    ekran=$(lspci 2>/dev/null || true)
+    # (Türkçe yerelde büyük/küçük dönüşümü "NVIDIA"yı "nvıdıa" yapar: dönüşümsüz, lspci'nin yazımıyla)
+    if [[ "$ekran" =~ (VGA|3D)[^$'\n']*NVIDIA ]] && modinfo nvidia_drm >/dev/null 2>&1; then
+        printf '# MetroThemePlasma: Plymouth için NVIDIA erken KMS\nMODULES+=(nvidia nvidia_modeset nvidia_uvm nvidia_drm)\n' \
+            > /etc/mkinitcpio.conf.d/20-metrothemeplasma-kms.conf
     fi
     echo "==> initramfs yeniden oluşturuluyor (birkaç dakika sürebilir)"
     plymouth-set-default-theme -R metrothemeplasma
