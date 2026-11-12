@@ -22,8 +22,75 @@ def ayarlar():
     c = configparser.ConfigParser(interpolation=None)
     c.optionxform = str
     if CFG.exists():
-        c.read(CFG, encoding="utf-8")
+        try:
+            c.read(CFG, encoding="utf-8")
+        except configparser.Error:
+            pass
     return c
+
+
+def oku(bolum, anahtar, varsayilan=""):
+    """QSettings değerleri tırnaklı yazabilir ("#180053"): tırnakları at."""
+    v = ayarlar().get(bolum, anahtar, fallback=varsayilan)
+    return v.strip().strip('"')
+
+
+def yaz(bolum, degerler):
+    """ayarlar.ini'de yalnızca verilen anahtarları satır satır günceller (QSettings biçimi korunur)."""
+    satirlar = CFG.read_text(encoding="utf-8").splitlines() if CFG.exists() else []
+    out, icinde, yazildi, bulundu = [], False, set(), False
+    for st in satirlar + [None]:
+        yeni_bolum = st is None or (st.strip().startswith("[") and st.strip().endswith("]"))
+        if yeni_bolum and icinde:
+            for k, v in degerler.items():
+                if k not in yazildi:
+                    out.append(f"{k}={v}")
+            icinde = False
+        if st is None:
+            break
+        if yeni_bolum:
+            icinde = st.strip()[1:-1] == bolum
+            bulundu = bulundu or icinde
+            out.append(st)
+            continue
+        if icinde and "=" in st and st.split("=", 1)[0].strip() in degerler:
+            k = st.split("=", 1)[0].strip()
+            out.append(f"{k}={degerler[k]}")
+            yazildi.add(k)
+            continue
+        out.append(st)
+    if not bulundu:
+        if out and out[-1].strip():
+            out.append("")
+        out.append(f"[{bolum}]")
+        out += [f"{k}={v}" for k, v in degerler.items()]
+    CFG.parent.mkdir(parents=True, exist_ok=True)
+    CFG.write_text("\n".join(out).rstrip("\n") + "\n", encoding="utf-8")
+
+
+def gecerli_duvar():
+    """Metro kabuğunun masaüstü duvar kağıdı (paketse içindeki en büyük resim)."""
+    import re
+    yap = CFG.parent.parent
+    for ad in ("plasma-io.github.yyozcan.metroshell-appletsrc",):
+        p = yap / ad
+        if not p.exists():
+            continue
+        m = re.search(r"\[Wallpaper\]\[org\.kde\.image\]\[General\][^\[]*?^Image=([^\n]+)", p.read_text(errors="replace"), re.M | re.S)
+        if not m:
+            continue
+        y = m.group(1).strip()
+        if y.startswith("file://"):
+            from urllib.parse import unquote
+            y = unquote(y[7:])
+        yol = Path(y)
+        if yol.is_dir():
+            adaylar = sorted((yol / "contents/images").glob("*"), key=lambda f: f.stat().st_size)
+            if adaylar:
+                return adaylar[-1]
+        elif yol.exists():
+            return yol
+    return None
 
 
 def hex2rgb(h):
@@ -74,11 +141,13 @@ def varsayilan_duvar():
 
 def pencere_rengi(duvar=None):
     """(renk RGB, yoğunluk 0..1)"""
-    a = ayarlar()
-    r = a.get("Pencere", "renk", fallback="otomatik")
-    y = a.getint("Pencere", "yogunluk", fallback=55) / 100
+    r = oku("Pencere", "renk", "otomatik")
+    try:
+        y = int(oku("Pencere", "yogunluk", "55")) / 100
+    except ValueError:
+        y = 0.55
     if r == "otomatik":
-        d = duvar or a.get("Pencere", "duvar", fallback="") or varsayilan_duvar()
+        d = duvar or gecerli_duvar() or varsayilan_duvar()
         try:
             c = duvar_rengi(d)
         except Exception:

@@ -1,0 +1,16 @@
+{
+    "KPackageStructure": "Plasma/Applet",
+    "KPlugin": {
+        "Authors": [{ "Name": "MetroThemePlasma" }],
+        "Category": "Date and Time",
+        "Description": "Windows 8.1 görev çubuğu saati: üstte saat, altta tarih; tıklayınca takvim",
+        "Description[tr]": "Windows 8.1 görev çubuğu saati: üstte saat, altta tarih; tıklayınca takvim",
+        "Icon": "preferences-system-time",
+        "Id": "io.github.yyozcan.metrosaat",
+        "License": "GPL-3.0-or-later",
+        "Name": "Saat (Windows 8.1)",
+        "Name[tr]": "Saat (Windows 8.1)",
+        "Version": "1.0"
+    },
+    "X-Plasma-API-Minimum-Version": "6.0"
+}

@@ -17,7 +17,7 @@ gorevler.writeConfig("indicateAudioStreams", "false");
 gorevler.writeConfig("middleClickAction", "NewInstance");
 gorevler.writeConfig("iconSpacing", "1");
 gorevler.writeConfig("maxStripes", "1");
-gorevler.writeConfig("fill", "false");
+gorevler.writeConfig("fill", "true");
 gorevler.writeConfig("launchers", ["applications:org.kde.dolphin.desktop", "applications:firefox.desktop"]);
 
 var tepsi = panel.addWidget("org.kde.plasma.systemtray");
@@ -38,13 +38,7 @@ tepsi.writeConfig("extraItems", ["org.kde.plasma.battery", "org.kde.plasma.netwo
 tepsi.writeConfig("hiddenItems", ["org.kde.plasma.clipboard", "org.kde.kdeconnect", "org.kde.plasma.printmanager",
     "org.kde.plasma.mediacontroller", "org.kde.plasma.devicenotifier", "org.kde.plasma.bluetooth"]);
 
-var saat = panel.addWidget("org.kde.plasma.digitalclock");
-saat.currentConfigGroup = ["Appearance"];
-saat.writeConfig("showDate", "true");
-saat.writeConfig("dateDisplayFormat", "BelowTime");
-saat.writeConfig("dateFormat", "shortDate");
-saat.writeConfig("showSeconds", "Never");
-saat.writeConfig("use24hFormat", "2");
+panel.addWidget("io.github.yyozcan.metrosaat");
 
 panel.addWidget("io.github.yyozcan.metromasaustu");
 

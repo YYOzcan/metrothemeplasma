@@ -13,7 +13,6 @@ pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Controls
 import QtCore
-import org.kde.kscreenlocker as ScreenLocker
 import org.kde.plasma.private.sessions
 import org.kde.plasma.private.keyboardindicator as KeyboardIndicator
 
@@ -247,7 +246,7 @@ Rectangle {
         // sol alt: erişim kolaylığı; sağ alt: güç
         Text {
             anchors.left: parent.left; anchors.bottom: parent.bottom; anchors.margins: 30
-            text: "♿"; font.family: "Segoe UI Symbol"; font.pixelSize: 26; color: "white"
+            text: "♿︎"; font.family: "Segoe UI Symbol"; font.pixelSize: 26; color: "white"
             opacity: 0.9
         }
         Item {

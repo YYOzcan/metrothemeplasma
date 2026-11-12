@@ -143,8 +143,8 @@ Window {
                     columnSpacing: 0; rowSpacing: 14
                     width: parent.width
                     HizliAyar {
-                        glif: ag.connectionIcon.indexOf("wired") >= 0 ? "" : ""
-                        metin: agDurum.activeConnections !== "" ? agDurum.activeConnections.split("\n")[0].replace(/:.*$/, "") : "Bağlı değil"
+                        simge: ag.connectionIcon
+                        metin: agDurum.activeConnections !== "" ? agDurum.activeConnections.split("\n")[0].replace(/:.*$/, "") : "Kullanılamıyor"
                         onTiklandi: pen.ac("aglar")
                     }
                     HizliAyar {
@@ -249,14 +249,22 @@ Window {
     component HizliAyar: Item {
         id: ha
         property string glif
+        property string simge: ""
         property string metin
         property bool uyari: false
         signal tiklandi()
         width: (pen.genislik - 80) / 3; height: 78
         Rectangle { anchors.fill: parent; color: Qt.rgba(1, 1, 1, hma.pressed ? 0.25 : 0.12); visible: hma.containsMouse }
         Text {
+            visible: ha.simge === ""
             anchors.horizontalCenter: parent.horizontalCenter; y: 6
             text: ha.glif; color: "white"; font.family: "Segoe UI Symbol"; font.pixelSize: 30
+        }
+        Image {
+            visible: ha.simge !== ""
+            anchors.horizontalCenter: parent.horizontalCenter; y: 8
+            width: 32; height: 32; sourceSize.width: 32; sourceSize.height: 32
+            source: ha.simge !== "" ? "image://simge/" + ha.simge : ""
         }
         Text {
             anchors.horizontalCenter: parent.horizontalCenter; y: 50

@@ -1,0 +1,12 @@
+{
+    "KPackageStructure": "KWin/WindowSwitcher",
+    "KPlugin": {
+        "Authors": [{ "Name": "MetroThemePlasma" }],
+        "Description": "Windows 8.1 style Alt+Tab",
+        "Description[tr]": "Windows 8.1 biçemli Alt+Tab",
+        "Id": "metro_alttab",
+        "License": "GPL-2.0-or-later",
+        "Name": "Windows 8.1 Alt+Tab",
+        "Name[tr]": "Windows 8.1 Alt+Tab"
+    }
+}

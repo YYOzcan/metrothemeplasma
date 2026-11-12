@@ -1,0 +1,89 @@
+#!/usr/bin/env python3
+"""metro-renk — Windows 8.1 "Renk ve Görünüm": pencere çerçevesi ve görev çubuğu rengi.
+
+  metro-renk uygula                 ayarlara göre pencere çerçevesi (Aurorae), görev çubuğu (Plasma teması)
+                                    ve renk şemasını yeniden üretir; KWin/Plasma'ya yeniden yükletir
+  metro-renk renk <#rrggbb|otomatik> [yoğunluk 0-100]
+                                    rengi ayarlar ve uygular (otomatik: duvar kağıdının baskın rengi)
+  metro-renk durum                  geçerli rengi yazar
+
+Ayarlar: ~/.config/metrothemeplasma/ayarlar.ini [Pencere] renk, yogunluk; hesaplanan çerçeve rengi
+[Pencere] cerceve olarak yazılır (Alt+Tab ve kapatma penceresi kullanır).
+"""
+import os
+import shutil
+import subprocess
+import sys
+import tempfile
+from pathlib import Path
+
+DATA = Path(os.environ.get("XDG_DATA_HOME", Path.home() / ".local/share"))
+CFG = Path(os.environ.get("XDG_CONFIG_HOME", Path.home() / ".config"))
+ARAC = DATA / "metrothemeplasma/tools"
+sys.path.insert(0, str(ARAC))
+import renk  # noqa: E402
+
+MSSTYLES = DATA / "metrothemeplasma/win/Windows/Resources/Themes/aero/aero.msstyles"
+
+
+def kopyala(kaynak, hedef):
+    if hedef.exists():
+        shutil.rmtree(hedef)
+    hedef.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copytree(kaynak, hedef)
+
+
+def uygula(sessiz=False):
+    if not MSSTYLES.exists():
+        sys.exit("aero.msstyles yok: önce kur.sh --win <ISO>")
+    import gen_aurorae
+    import gen_desktoptheme
+    import gen_renkler
+    c, y = renk.pencere_rengi()
+    cerceve = renk.rgb2hex(renk.cerceve(c, y, True))
+    with tempfile.TemporaryDirectory() as t:
+        t = Path(t)
+        gen_aurorae.main(str(MSSTYLES), str(t / "aurorae"))
+        gen_desktoptheme.main(str(MSSTYLES), str(t / "desktoptheme"))
+        gen_renkler.main(str(MSSTYLES), str(t / "Metro.colors"))
+        kopyala(t / "aurorae/Metro", DATA / "aurorae/themes/Metro")
+        kopyala(t / "desktoptheme/Metro", DATA / "plasma/desktoptheme/Metro")
+        (DATA / "color-schemes").mkdir(parents=True, exist_ok=True)
+        shutil.copy(t / "Metro.colors", DATA / "color-schemes/Metro.colors")
+    renk.yaz("Pencere", {"cerceve": cerceve})
+    # Plasma'nın SVG önbelleği
+    for p in Path(os.environ.get("XDG_CACHE_HOME", Path.home() / ".cache")).glob("plasma_theme_Metro*"):
+        try:
+            p.unlink()
+        except OSError:
+            shutil.rmtree(p, ignore_errors=True)
+    if os.environ.get("METROTHEMEPLASMA_SESSION") and os.environ.get("WAYLAND_DISPLAY"):
+        # çalışan oturum: KWin çerçeveyi, Plasma temayı yeniden yüklesin
+        for komut in (["qdbus6", "org.kde.KWin", "/KWin", "reconfigure"],
+                      ["plasma-apply-desktoptheme", "default"], ["plasma-apply-desktoptheme", "Metro"]):
+            subprocess.run(komut, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    if not sessiz:
+        print("pencere rengi:", renk.rgb2hex(c), "yoğunluk %d" % round(y * 100), "→ çerçeve", cerceve)
+
+
+def main():
+    komut = sys.argv[1] if len(sys.argv) > 1 else "durum"
+    if komut == "uygula":
+        uygula("--sessiz" in sys.argv)
+    elif komut == "renk" and len(sys.argv) > 2:
+        deger = {"renk": sys.argv[2]}
+        if len(sys.argv) > 3:
+            deger["yogunluk"] = str(max(0, min(100, int(sys.argv[3]))))
+        renk.yaz("Pencere", deger)
+        uygula()
+    elif komut == "durum":
+        c, y = renk.pencere_rengi()
+        print("ayar:", renk.oku("Pencere", "renk", "otomatik"), "| renk:", renk.rgb2hex(c),
+              "| yoğunluk: %d" % round(y * 100), "| çerçeve:", renk.rgb2hex(renk.cerceve(c, y, True)))
+    else:
+        print(__doc__)
+        sys.exit(1)
+
+
+if __name__ == "__main__":
+    main()

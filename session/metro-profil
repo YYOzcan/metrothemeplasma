@@ -52,7 +52,7 @@ YONETILEN = {
                     "slideEnabled": "false", "dimscreenEnabled": "false",
                     "overviewEnabled": "false",
                     "metro_koselerEnabled": "true"},
-        "TabBox": {"LayoutName": "metro_alttab", "HighlightWindows": "false", "ShowDesktopMode": "0"},
+        "TabBox": {"LayoutName": "metro_alttab", "HighlightWindows": "false", "ShowDesktopMode": "1"},
         # sıcak köşeler metro-kabuk'a ait (KWin betiği metro_koseler): KWin'in kendi köşe eylemleri kapalı
         "ElectricBorders": {"TopLeft": "None", "Top": "None", "TopRight": "None", "Right": "None",
                             "BottomRight": "None", "Bottom": "None", "BottomLeft": "None", "Left": "None"},
@@ -76,6 +76,8 @@ YONETILEN = {
         "services][org.kde.dolphin.desktop": {"_launch": "Meta+E"},
         "services][org.kde.plasma-systemmonitor.desktop": {"_launch": "Ctrl+Shift+Esc"},
         "services][org.kde.krunner.desktop": {"_launch": "Meta+R\\tAlt+F2\\tSearch"},
+        # Win+PrtSc Metro kabuğunda (ekran görüntüsünü Resimler'e kaydeder); Alt+PrtSc etkin pencere
+        "services][org.kde.spectacle.desktop": {"ActiveWindowScreenShot": "Alt+Print"},
     },
 }
 

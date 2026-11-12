@@ -301,7 +301,7 @@ Rectangle {
         Row {
             anchors.left: parent.left; anchors.bottom: parent.bottom; anchors.margins: 30
             spacing: 24
-            Text { text: "♿"; font.family: "Segoe UI Symbol"; font.pixelSize: 26; color: "white"; opacity: 0.9 }
+            Text { text: "♿︎"; font.family: "Segoe UI Symbol"; font.pixelSize: 26; color: "white"; opacity: 0.9 }
             Item {
                 visible: sessionModel.rowCount() > 1
                 width: oturumMetin.width + 24; height: 34
@@ -438,5 +438,7 @@ Rectangle {
         }
     }
 
+    // sınama: theme.conf'ta sinama=1 ise perde kendiliğinden kalkar (test/sddm.sh)
+    Timer { interval: 1200; running: config.sinama === "1" || config.sinama === 1; onTriggered: root.perdeyiKaldir() }
     Component.onCompleted: root.forceActiveFocus()
 }

@@ -85,9 +85,9 @@ Window {
 
     // ------------------------------------------------------------------ masaüstü duvar kağıdı (Masaüstü kutucuğu ve "masaüstü arka planını göster")
     function duvarKagidiOku() {
-        var dosyalar = ["plasma-io.github.yyozcan.metroshell-appletsrc", "plasma-org.kde.plasma.desktop-appletsrc"]
+        var dosyalar = ["plasma-io.github.yyozcan.metroshell-appletsrc"]
         for (var i = 0; i < dosyalar.length; i++) {
-            var m = Dosya.oku(Dosya.ev + "/.config/" + dosyalar[i]).match(/\[Wallpaper\]\[org\.kde\.image\]\[General\][^\[]*?Image=([^\n]+)/)
+            var m = Dosya.oku(Dosya.yapilandirma + "/../" + dosyalar[i]).match(/\[Wallpaper\]\[org\.kde\.image\]\[General\][^\[]*?Image=([^\n]+)/)
             if (m) {
                 var y = m[1].trim()
                 if (!y.startsWith("file://")) y = "file://" + y

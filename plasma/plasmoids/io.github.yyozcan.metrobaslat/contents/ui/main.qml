@@ -1,5 +1,6 @@
 // Windows 8.1 Update görev çubuğu Başlat düğmesi
 import QtQuick
+import QtQuick.Layouts
 import org.kde.plasma.plasmoid
 import org.kde.plasma.core as PlasmaCore
 import org.kde.plasma.plasma5support as P5Support
@@ -7,9 +8,9 @@ import QtCore
 
 PlasmoidItem {
     id: kok
-    preferredRepresentation: compactRepresentation
+    preferredRepresentation: fullRepresentation
     Plasmoid.backgroundHints: PlasmaCore.Types.NoBackground
-    Plasmoid.constraintHints: PlasmaCore.Types.CanFillArea
+    Plasmoid.constraintHints: Plasmoid.CanFillArea
 
     readonly property string varlik: StandardPaths.writableLocation(StandardPaths.GenericDataLocation) + "/metrothemeplasma/varlik/"
 
@@ -25,7 +26,7 @@ PlasmoidItem {
     // Meta tuşu / Plasma'nın "başlatıcıyı etkinleştir" isteği
     Plasmoid.onActivated: dbus("Baslangic")
 
-    compactRepresentation: Item {
+    fullRepresentation: Item {
         id: dugme
         Layout.minimumWidth: 48
         Layout.preferredWidth: 48

@@ -8,7 +8,7 @@ import org.kde.plasma.plasma5support as P5Support
 
 PlasmoidItem {
     id: kok
-    preferredRepresentation: compactRepresentation
+    preferredRepresentation: fullRepresentation
     Plasmoid.backgroundHints: PlasmaCore.Types.NoBackground
 
     P5Support.DataSource {
@@ -21,7 +21,7 @@ PlasmoidItem {
         komut.connectSource("qdbus6 org.kde.kglobalaccel /component/kwin org.kde.kglobalaccel.Component.invokeShortcut '" + ad + "'")
     }
 
-    compactRepresentation: Item {
+    fullRepresentation: Item {
         Layout.minimumWidth: 15
         Layout.preferredWidth: 15
         Layout.maximumWidth: 15
