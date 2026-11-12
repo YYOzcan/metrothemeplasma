@@ -21,6 +21,9 @@
 #include <QUrl>
 
 #include "../src/dosya.h"
+#ifdef METRO_WEBENGINE
+#include <QtWebEngineQuick/qtwebenginequickglobal.h>
+#endif
 
 // QML'e küçük yardımcılar: program çalıştırma, komut çıktısı
 class Yardimci : public QObject
@@ -81,7 +84,8 @@ public:
     Q_INVOKABLE QString kitaplik(const QString &tur) const
     {
         const auto konum = tur == QLatin1String("muzik") ? QStandardPaths::MusicLocation
-                         : tur == QLatin1String("video") ? QStandardPaths::MoviesLocation : QStandardPaths::PicturesLocation;
+                         : tur == QLatin1String("video") ? QStandardPaths::MoviesLocation
+                         : tur == QLatin1String("indirilen") ? QStandardPaths::DownloadLocation : QStandardPaths::PicturesLocation;
         return QStandardPaths::writableLocation(konum);
     }
     // arka planda kopyala (aynı adlı dosya varsa "ad (2).uzantı"); ilerleme ve bitiş sinyalle
@@ -135,6 +139,16 @@ public:
 
 int main(int argc, char **argv)
 {
+    // Internet Explorer (Modern): QtWebEngine uygulama nesnesinden önce başlatılmalı
+    const bool web = argc > 1 && qstrcmp(argv[1], "internet-explorer") == 0;
+#ifdef METRO_WEBENGINE
+    if (web) {
+        QCoreApplication::setAttribute(Qt::AA_ShareOpenGLContexts);
+        QtWebEngineQuick::initialize();
+    }
+#else
+    Q_UNUSED(web)
+#endif
     QGuiApplication app(argc, argv);
     // Metro uygulamaları Türkçe: tarih/sayı biçimleri (ay adları, ondalık virgül)
     QLocale::setDefault(QLocale(QLocale::Turkish, QLocale::Turkey));

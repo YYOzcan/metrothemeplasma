@@ -1,0 +1,19 @@
+#!/bin/sh
+# MetroThemePlasma: Metro oturumu açılırken kurulu sürümün derlendiği Plasma/Qt/KDE sürümleriyle
+# sistemdekileri karşılaştırır; farklıysa (pacman kancası çalışmadıysa) arka planda yeniden kurar.
+STATE="${XDG_STATE_HOME:-$HOME/.local/state}/metrothemeplasma"
+KOK=$(cat "$STATE/kaynak" 2>/dev/null)
+[ -f "$KOK/kur.sh" ] || exit 0
+simdi=$(pacman -Q plasma-workspace kwin libplasma qt6-base qt6-declarative layer-shell-qt 2>/dev/null)
+[ "$simdi" = "$(cat "$STATE/derleme-surumleri" 2>/dev/null)" ] && exit 0
+# pacman kancası şu anda çalışıyorsa bekleme, o halleder
+if [ -e /run/metro-guncelle.lock ] && ! flock -n /run/metro-guncelle.lock true 2>/dev/null; then exit 0; fi
+notify-send -a MetroThemePlasma -i system-software-update "MetroThemePlasma" \
+    "Plasma güncellendi; Windows 8.1 bileşenleri arka planda yeniden derleniyor." 2>/dev/null
+if (cd "$KOK" && bash kur.sh) > "$STATE/son-guncelleme.log" 2>&1; then
+    notify-send -a MetroThemePlasma -i system-software-update "MetroThemePlasma" \
+        "Güncelleme tamamlandı. Tam uygulanması için oturumu kapatıp açın." 2>/dev/null
+else
+    notify-send -a MetroThemePlasma -i dialog-warning "MetroThemePlasma" \
+        "Güncelleme başarısız oldu; önceki sürüm kullanılıyor. Ayrıntılar: $STATE/son-guncelleme.log" 2>/dev/null
+fi

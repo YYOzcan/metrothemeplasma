@@ -137,7 +137,7 @@ if [[ "${1:-}" == "--kaldir" ]]; then
            "$DATA"/wallpapers/Metro-* "$DATA/icons/Windows 8.1" "$DATA/icons/Windows 8.1 Aero" "$DATA/sounds/Windows 8.1" \
            "$DATA/kwin/tabbox/metro_alttab" "$DATA/kwin/scripts/metro_koseler" \
            "$CFG/plasma-workspace/env/metrothemeplasma.sh" \
-           "$BIN"/metro-profil "$BIN"/metro-yukselt "$BIN"/metro-oturum "$BIN"/metro-renk "$BIN"/metro-kabuk "$BIN"/metro-calistir "$BIN"/metro-uygulama "$MT" \
+           "$BIN"/metro-profil "$BIN"/metro-yukselt "$BIN"/metro-oturum "$BIN"/metro-renk "$BIN"/metro-kabuk "$BIN"/metro-calistir "$BIN"/metro-uygulama "$BIN"/metro-surum-denetimi "$CFG/systemd/user/metro-surum-denetimi.service" "$MT" \
            "$BIN"/explorer "$BIN"/devmgmt "$BIN"/linver "$BIN"/control "$BIN"/winver "$BIN"/metro-denetim \
            "${XDG_STATE_HOME:-$HOME/.local/state}/metrothemeplasma" "${XDG_CACHE_HOME:-$HOME/.cache}/metrothemeplasma"
     echo "Kullanıcı dosyaları kaldırıldı (ayarlar: $CFG/metrothemeplasma duruyor). Sistem kısmı için:"
@@ -413,13 +413,14 @@ for u in json.loads(Path("kabuk/uygulamalar/uygulamalar.json").read_text()):
         if not komut:
             continue
     else:
-        komut = f"{bin_}/metro-uygulama {u['ad']}"
+        komut = f"{bin_}/metro-uygulama {u['ad']}" + (" %u" if u.get("mime") else "")
     (hedef / f"metro-{u['ad']}.desktop").write_text(
         "[Desktop Entry]\nType=Application\n"
         f"Name={u['isim']}\nComment={u['aciklama']}\n"
         f"Exec={komut}\n"
         f"Icon={mt}/varlik/uygulama-{u['ad']}.png\n"
         f"Categories={u['kategori']}\nKeywords={u['anahtar']};\n"
+        + (f"MimeType={u['mime']}\n" if u.get("mime") else "")
         + ("" if u.get("exec") else f"StartupWMClass=metro-{u['ad']}\nX-Metro-Uygulamasi=true\n")
         + f"X-Metro-Renk={u['renk']}\n")
 PYEOF
@@ -441,6 +442,12 @@ rm -rf "${XDG_CACHE_HOME:-$HOME/.cache}"/plasma_theme_Metro* 2>/dev/null || true
 STATE="${XDG_STATE_HOME:-$HOME/.local/state}/metrothemeplasma"
 mkdir -p "$STATE"
 echo "$KOK" > "$STATE/kaynak"
+# bu kurulumun derlendiği sürümler (metro-surum-denetimi: Plasma güncellenip kanca çalışmadıysa oturumda yeniden kurar)
+pacman -Q plasma-workspace kwin libplasma qt6-base qt6-declarative layer-shell-qt > "$STATE/derleme-surumleri" 2>/dev/null || true
+install -Dm755 session/metro-surum-denetimi "$BIN/metro-surum-denetimi"
+sed "s|@BIN@|$BIN|" session/metro-surum-denetimi.service > "$CFG/systemd/user/metro-surum-denetimi.service"
+systemctl --user daemon-reload 2>/dev/null || true
+systemctl --user enable metro-surum-denetimi.service 2>/dev/null || true
 
 # AeroThemePlasma'dan yükseltme: ilk Metro oturumunda Windows 7 ayarları taşınır (metro-yukselt)
 if [[ -f "$CFG/plasma-io.gitgud.wackyideas.desktop-appletsrc" ]]; then

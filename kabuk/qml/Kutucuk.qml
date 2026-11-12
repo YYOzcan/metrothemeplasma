@@ -141,7 +141,8 @@ Item {
                 anchors.centerIn: parent
                 anchors.verticalCenterOffset: k.kucuk ? 0 : -8
                 // Metro uygulaması simgesi kutucuk rengiyle aynı kare + glif: Windows 8.1 logosu boyutunda çizilir
-                width: k.bilgi.renk ? (k.kucuk ? 60 : (k.boyut === "buyuk" ? 170 : 100)) : (k.kucuk ? 32 : (k.boyut === "buyuk" ? 96 : 48)); height: width
+                // masaüstü programı: Windows 8.1 kutucuğundaki gibi büyük simge (orta/geniş 72, küçük 40, büyük 128)
+                width: k.bilgi.renk ? (k.kucuk ? 64 : (k.boyut === "buyuk" ? 190 : 112)) : (k.kucuk ? 40 : (k.boyut === "buyuk" ? 128 : 72)); height: width
                 sourceSize.width: width * 2; sourceSize.height: height * 2
                 source: k.bilgi.simge ? (k.bilgi.simge.startsWith("/") ? "file://" + k.bilgi.simge : "image://simge/" + k.bilgi.simge) : ""
                 smooth: true

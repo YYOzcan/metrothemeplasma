@@ -1,0 +1,15 @@
+[Unit]
+Description=MetroThemePlasma sürüm denetimi (Plasma güncellendiyse yeniden kur)
+PartOf=graphical-session.target
+After=plasma-plasmashell.service
+
+[Service]
+Type=oneshot
+ExecCondition=/bin/sh -c 'test "$DESKTOP_SESSION" = metrothemeplasma'
+ExecStartPre=/bin/sleep 20
+ExecStart=@BIN@/metro-surum-denetimi
+Nice=10
+Slice=background.slice
+
+[Install]
+WantedBy=plasma-workspace.target

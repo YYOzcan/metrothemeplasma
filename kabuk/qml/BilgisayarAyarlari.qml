@@ -41,14 +41,14 @@ Window {
         { ad: "Bilgisayar ve aygıtlar", kimlik: "aygitlar", sayfalar: [
             ["Kilit ekranı", "kilit"], ["Ekran", "ekran", "kcm_kscreen"], ["Bluetooth", "bluetooth", "kcm_bluetooth"],
             ["Aygıtlar", "aygitlist", "kcm_printer_manager"], ["Fare ve dokunmatik yüzey", "fare", "kcm_mouse"],
-            ["Yazma", "yazma", "kcm_keyboard"], ["Köşeler ve kenarlar", "koseler"], ["Güç ve uyku", "guc", "kcm_powerdevilprofilesconfig"],
-            ["Otomatik Kullan", "otomatik"], ["Bilgisayar bilgileri", "bilgi", "kcm_about-distro"] ] },
+            ["Yazma", "yazma", "kcm_keyboard"], ["Köşeler ve kenarlar", "koseler"], ["Güç ve uyku", "guc"],
+            ["Otomatik Kullan", "otomatik"], ["Bilgisayar bilgileri", "bilgi"] ] },
         { ad: "Hesaplar", kimlik: "hesaplar", sayfalar: [["Hesabınız", "hesap"], ["Oturum açma seçenekleri", "oturumacma", "kcm_users"], ["Diğer hesaplar", "digerhesap", "kcm_users"]] },
         { ad: "Kişiselleştir", kimlik: "kisisel", sayfalar: [["Başlangıç", "baslangic"], ["Renk ve görünüm", "renk"], ["Gezinti", "gezinti"]] },
-        { ad: "Arama ve uygulamalar", kimlik: "arama", sayfalar: [["Ara", "ara", "kcm_plasmasearch"], ["Varsayılanlar", "varsayilan", "kcm_componentchooser"], ["Bildirimler", "bildirim", "kcm_notifications"]] },
+        { ad: "Arama ve uygulamalar", kimlik: "arama", sayfalar: [["Ara", "ara", "kcm_plasmasearch"], ["Varsayılanlar", "varsayilan", "kcm_componentchooser"], ["Bildirimler", "bildirim"]] },
         { ad: "Gizlilik", kimlik: "gizlilik", sayfalar: [["Genel", "gizlilikgenel", "kcm_recentFiles"]] },
         { ad: "Ağ", kimlik: "ag", sayfalar: [["Bağlantılar", "baglanti", "kcm_networkmanagement"], ["Proxy", "proxy", "kcm_proxy"]] },
-        { ad: "Saat ve dil", kimlik: "saat", sayfalar: [["Tarih ve saat", "tarih", "kcm_clock"], ["Bölge ve dil", "bolge", "kcm_regionandlang"]] },
+        { ad: "Saat ve dil", kimlik: "saat", sayfalar: [["Tarih ve saat", "tarih"], ["Bölge ve dil", "bolge", "kcm_regionandlang"]] },
         { ad: "Erişim Kolaylığı", kimlik: "erisim", sayfalar: [["Erişim kolaylığı", "erisimgenel", "kcm_access"]] },
         { ad: "Güncelleştir ve kurtar", kimlik: "guncel", sayfalar: [["Windows Update", "update"]] }
     ]
@@ -133,7 +133,8 @@ Window {
             sourceComponent: {
                 if (pen.kategori === "" && pen.sayfa === "") return girisSayfasi
                 return ({ kilit: kilitSayfasi, koseler: koselerSayfasi, hesap: hesapSayfasi, baslangic: baslangicSayfasi,
-                          renk: renkSayfasi, gezinti: gezintiSayfasi, update: guncelSayfasi, otomatik: otomatikSayfasi })[pen.sayfa] || bosSayfa
+                          renk: renkSayfasi, gezinti: gezintiSayfasi, update: guncelSayfasi, otomatik: otomatikSayfasi,
+                          bilgi: bilgiSayfasi, tarih: tarihSayfasi, guc: gucSayfasi, bildirim: bildirimSayfasi })[pen.sayfa] || bosSayfa
             }
         }
     }
@@ -483,6 +484,190 @@ Window {
             }
         }
     }
+    function kabuk(k, zaman) { return Sistem.komutCiktisi("sh", ["-c", k], zaman || 3000).trim() }
+
+    // ---- Bilgisayar bilgileri (Bilgisayar ve aygıtlar > Bilgisayar bilgileri)
+    Component {
+        id: bilgiSayfasi
+        Column {
+            id: bs
+            spacing: 6
+            property string ad: pen.kabuk("hostnamectl --static 2>/dev/null || cat /etc/hostname")
+            readonly property string islemci: pen.kabuk("grep -m1 'model name' /proc/cpuinfo | cut -d: -f2-").replace(/\s+/g, " ").trim()
+            readonly property string ram: { var kb = parseInt(pen.kabuk("awk '/MemTotal/{print $2}' /proc/meminfo")); return kb ? (kb / 1048576).toFixed(0) + " GB" : "" }
+            readonly property string tur: pen.kabuk("uname -m") === "x86_64" ? "64 bit işletim sistemi, x64 tabanlı işlemci" : "32 bit işletim sistemi"
+            Baslik { text: "Bilgisayar" }
+            Bilgi { etiket: "Bilgisayar adı"; deger: bs.ad }
+            Dugme { metin: "Bilgisayarı yeniden adlandır"; onTiklandi: { yeniAd.text = bs.ad; adKutusu.visible = true; yeniAd.forceActiveFocus() } }
+            Row {
+                id: adKutusu
+                visible: false
+                spacing: 10
+                Rectangle { width: 300; height: 32; color: "white"; border.color: "#bababa"; border.width: 2
+                    TextInput { id: yeniAd; anchors.fill: parent; anchors.margins: 6; font.family: "Segoe UI"; font.pixelSize: 15; clip: true
+                        validator: RegularExpressionValidator { regularExpression: /[A-Za-z0-9-]{1,63}/ } } }
+                Dugme {
+                    metin: "İleri"
+                    onTiklandi: {
+                        // hostnamectl polkit ister: Kullanıcı Hesabı Denetimi sorar
+                        Sistem.calistir("hostnamectl set-hostname " + yeniAd.text)
+                        adKutusu.visible = false
+                        yenile.restart()
+                    }
+                }
+            }
+            Timer { id: yenile; interval: 4000; repeat: true; property int n: 0; onTriggered: { bs.ad = pen.kabuk("hostnamectl --static"); if (++n > 15) { n = 0; stop() } } }
+            Bilgi { etiket: "Ürün Kimliği"; deger: pen.kabuk("cat /etc/machine-id").slice(0, 20).toUpperCase().replace(/(.{5})(?!$)/g, "$1-") }
+            Bilgi { etiket: "İşlemci"; deger: bs.islemci }
+            Bilgi { etiket: "Yüklü RAM"; deger: bs.ram }
+            Bilgi { etiket: "Sistem türü"; deger: bs.tur }
+            Bilgi { etiket: "Kalem ve dokunma"; deger: "Bu ekran için kalem veya dokunmatik giriş yok" }
+            Bolum { text: "Windows" }
+            Bilgi { etiket: "Sürüm"; deger: "Windows 8.1 (MetroThemePlasma, Plasma " + pen.kabuk("plasmashell --version 2>/dev/null | awk '{print $2}'") + ")" }
+            Bilgi { etiket: "Etkinleştirme"; deger: "Windows etkinleştirildi" }
+            Baglanti { text: "Ek bilgi için Denetim Masası'nda Sistem'e gidin"; onTiklandi: Sistem.calistir("control 'Sistem ve Güvenlik/Sistem'") }
+        }
+    }
+    component Bilgi: Row {
+        property string etiket
+        property string deger
+        spacing: 10
+        Text { width: 170; text: parent.etiket; color: "#555"; font.family: "Segoe UI"; font.pixelSize: 15 }
+        Text { width: 480; text: parent.deger; wrapMode: Text.WordWrap; color: "black"; font.family: "Segoe UI"; font.pixelSize: 15 }
+    }
+
+    // ---- Tarih ve saat (Saat ve dil > Tarih ve saat)
+    Component {
+        id: tarihSayfasi
+        Column {
+            id: ts
+            spacing: 6
+            property bool ntp: pen.kabuk("timedatectl show -p NTP --value") === "yes"
+            property string dilim: pen.kabuk("timedatectl show -p Timezone --value")
+            property var dilimler: []
+            property date simdi: new Date()
+            Timer { interval: 1000; running: true; repeat: true; onTriggered: ts.simdi = new Date() }
+            function dilimleriYukle() {
+                if (dilimler.length) return
+                var t = pen.kabuk("timedatectl list-timezones | while read z; do printf '%s %s\\n' \"$(TZ=$z date +%:z)\" \"$z\"; done", 15000)
+                var bolge = { Europe: "Avrupa", Asia: "Asya", America: "Amerika", Africa: "Afrika", Australia: "Avustralya", Pacific: "Pasifik",
+                             Atlantic: "Atlantik", Indian: "Hint Okyanusu", Antarctica: "Antarktika", Arctic: "Arktik", Etc: "Diğer" }
+                var sehir = { Istanbul: "İstanbul", Izmir: "İzmir", Moscow: "Moskova", London: "Londra", Berlin: "Berlin", Paris: "Paris",
+                              Athens: "Atina", Rome: "Roma", Vienna: "Viyana", Brussels: "Brüksel", Amsterdam: "Amsterdam", Baku: "Bakü",
+                              Tbilisi: "Tiflis", Tehran: "Tahran", Baghdad: "Bağdat", Dubai: "Dubai", Riyadh: "Riyad", Cairo: "Kahire",
+                              Jerusalem: "Kudüs", Beirut: "Beyrut", Damascus: "Şam", Nicosia: "Lefkoşa", Sofia: "Sofya", Bucharest: "Bükreş",
+                              Kiev: "Kiev", Kyiv: "Kiev", Warsaw: "Varşova", Madrid: "Madrid", Lisbon: "Lizbon", New_York: "New York",
+                              Los_Angeles: "Los Angeles", Chicago: "Chicago", Tokyo: "Tokyo", Shanghai: "Şanghay", Kolkata: "Kalküta" }
+                var l = t.split("\n").filter(Boolean).map(function (s) {
+                    var p = s.split(" "), z = p[1].split("/"), son = z[z.length - 1]
+                    var ad = (sehir[son] || son.replace(/_/g, " ")) + (z.length > 1 ? " (" + (bolge[z[0]] || z[0]) + ")" : "")
+                    return [p[1], "(UTC" + p[0] + ") " + ad]
+                })
+                l.sort(function (a, b) { var x = a[1].slice(4, 10), y = b[1].slice(4, 10); var sx = parseInt(x.replace(":", "")), sy = parseInt(y.replace(":", "")); return sx !== sy ? sx - sy : a[1].localeCompare(b[1]) })
+                dilimler = l
+            }
+            Component.onCompleted: Qt.callLater(dilimleriYukle)
+            Baslik { text: "Tarih ve saat" }
+            Text { text: ts.simdi.toLocaleTimeString(Qt.locale("tr_TR"), "HH:mm"); color: "black"; font.family: "Segoe UI"; font.weight: 300; font.pixelSize: 46 }
+            Text { text: ts.simdi.toLocaleDateString(Qt.locale("tr_TR"), "d MMMM yyyy dddd"); color: "#333"; font.family: "Segoe UI"; font.pixelSize: 15; bottomPadding: 10 }
+            Aciklama { text: "Saati otomatik olarak ayarla" }
+            MetroAnahtar {
+                renk: "black"; vurgu: pen.tema.vurgu; acik: ts.ntp
+                onDegisti: d => { Sistem.calistir("timedatectl set-ntp " + (d ? "true" : "false")); ts.ntp = d; ntpDenetle.restart() }
+            }
+            Timer { id: ntpDenetle; interval: 6000; onTriggered: ts.ntp = pen.kabuk("timedatectl show -p NTP --value") === "yes" }
+            Item { width: 1; height: 8 }
+            Aciklama { text: "Saat dilimi" }
+            Secim {
+                width: 520
+                secenekler: ts.dilimler.length ? ts.dilimler : [[ts.dilim, ts.dilim]]
+                deger: ts.dilim
+                onSecildi: d => { Sistem.calistir("timedatectl set-timezone " + d); ts.dilim = d; dilimDenetle.restart() }
+            }
+            Timer { id: dilimDenetle; interval: 6000; onTriggered: ts.dilim = pen.kabuk("timedatectl show -p Timezone --value") }
+            Bolum { text: "Biçimler" }
+            Bilgi { etiket: "Haftanın ilk günü"; deger: "Pazartesi" }
+            Bilgi { etiket: "Kısa tarih"; deger: ts.simdi.toLocaleDateString(Qt.locale("tr_TR"), "dd.MM.yyyy") }
+            Bilgi { etiket: "Uzun tarih"; deger: ts.simdi.toLocaleDateString(Qt.locale("tr_TR"), "d MMMM yyyy dddd") }
+            Bilgi { etiket: "Kısa saat"; deger: ts.simdi.toLocaleTimeString(Qt.locale("tr_TR"), "HH:mm") }
+            Bilgi { etiket: "Uzun saat"; deger: ts.simdi.toLocaleTimeString(Qt.locale("tr_TR"), "HH:mm:ss") }
+            Baglanti { text: "Tarih ve saat biçimlerini değiştir"; onTiklandi: Sistem.ayarAc("kcm_regionandlang") }
+        }
+    }
+
+    // ---- Güç ve uyku (Bilgisayar ve aygıtlar > Güç ve uyku); Plasma'nın powerdevilrc'si
+    Component {
+        id: gucSayfasi
+        Column {
+            id: gs
+            spacing: 6
+            readonly property bool pil: pen.kabuk("ls /sys/class/power_supply/ 2>/dev/null | grep -c '^BAT'") !== "0"
+            readonly property var sureler: [["60", "1 dakika"], ["120", "2 dakika"], ["180", "3 dakika"], ["300", "5 dakika"], ["600", "10 dakika"],
+                ["900", "15 dakika"], ["1200", "20 dakika"], ["1500", "25 dakika"], ["1800", "30 dakika"], ["2700", "45 dakika"], ["3600", "1 saat"],
+                ["7200", "2 saat"], ["10800", "3 saat"], ["14400", "4 saat"], ["18000", "5 saat"], ["0", "Hiçbir zaman"]]
+            function oku(grup, etkinAnahtar, sureAnahtar) {
+                var e = pen.kabuk("kreadconfig6 --file powerdevilrc --group '" + grup[0] + "' --group '" + grup[1] + "' --key " + etkinAnahtar)
+                if (e === "false" || e === "0") return "0"
+                var s = pen.kabuk("kreadconfig6 --file powerdevilrc --group '" + grup[0] + "' --group '" + grup[1] + "' --key " + sureAnahtar)
+                return s && parseInt(s) > 0 ? s : "0"
+            }
+            function yaz(grup, etkinAnahtar, etkinDeger, sureAnahtar, sure) {
+                pen.kabuk("kwriteconfig6 --file powerdevilrc --group '" + grup[0] + "' --group '" + grup[1] + "' --key " + etkinAnahtar + " " + etkinDeger
+                          + " && kwriteconfig6 --file powerdevilrc --group '" + grup[0] + "' --group '" + grup[1] + "' --key " + sureAnahtar + " " + (sure === "0" ? "-1" : sure)
+                          + " && qdbus6 org.kde.Solid.PowerManagement /org/kde/Solid/PowerManagement org.kde.Solid.PowerManagement.reparseConfiguration")
+            }
+            Baslik { text: "Güç ve uyku" }
+            Repeater {
+                model: gs.pil ? [["Battery", "Pille çalışırken"], ["AC", "Prize takılıyken"]] : [["AC", "Prize takılıyken"]]
+                delegate: Column {
+                    required property var modelData
+                    spacing: 6
+                    Bolum { text: "Ekran" }
+                    Aciklama { text: modelData[1] + ", şu süreden sonra kapat" }
+                    Secim {
+                        secenekler: gs.sureler
+                        deger: gs.oku([modelData[0], "Display"], "TurnOffDisplayWhenIdle", "TurnOffDisplayIdleTimeoutSec")
+                        onSecildi: d => { gs.yaz([modelData[0], "Display"], "TurnOffDisplayWhenIdle", d === "0" ? "false" : "true", "TurnOffDisplayIdleTimeoutSec", d); deger = d }
+                    }
+                    Bolum { text: "Uyku" }
+                    Aciklama { text: modelData[1] + ", bilgisayar şu süreden sonra uyku moduna geçsin" }
+                    Secim {
+                        secenekler: gs.sureler
+                        deger: { var a = pen.kabuk("kreadconfig6 --file powerdevilrc --group '" + modelData[0] + "' --group SuspendAndShutdown --key AutoSuspendAction"); return a === "0" ? "0" : gs.oku([modelData[0], "SuspendAndShutdown"], "AutoSuspendAction", "AutoSuspendIdleTimeoutSec") }
+                        onSecildi: d => { gs.yaz([modelData[0], "SuspendAndShutdown"], "AutoSuspendAction", d === "0" ? "0" : "1", "AutoSuspendIdleTimeoutSec", d); deger = d }
+                    }
+                }
+            }
+            Baglanti { text: "Ek güç ayarları"; onTiklandi: Sistem.ayarAc("kcm_powerdevilprofilesconfig") }
+        }
+    }
+
+    // ---- Bildirimler (Arama ve uygulamalar > Bildirimler)
+    Component {
+        id: bildirimSayfasi
+        Column {
+            id: bn
+            spacing: 6
+            property bool dnd: { var u = pen.kabuk("kreadconfig6 --file plasmanotifyrc --group DoNotDisturb --key Until"); return u !== "" && new Date(u) > new Date() }
+            property bool ses: pen.kabuk("kreadconfig6 --file plasmanotifyrc --group Notifications --key PlaySounds") !== "false"
+            Baslik { text: "Bildirimler" }
+            Aciklama { width: 640; text: "Uygulama bildirimlerini göster" }
+            MetroAnahtar { renk: "black"; vurgu: pen.tema.vurgu; acik: !bn.dnd; onDegisti: d => { Sistem.bildirimleriGizle(d ? 0 : 24 * 365); bn.dnd = !d } }
+            Aciklama { width: 640; text: "Uygulama bildirimlerini kilit ekranında göster" }
+            MetroAnahtar {
+                renk: "black"; vurgu: pen.tema.vurgu
+                acik: pen.kabuk("kreadconfig6 --file plasmanotifyrc --group Notifications --key PopupsOnLockScreen") !== "false"
+                onDegisti: d => pen.kabuk("kwriteconfig6 --file plasmanotifyrc --group Notifications --key PopupsOnLockScreen " + d)
+            }
+            Aciklama { width: 640; text: "Bildirim seslerini çal" }
+            MetroAnahtar { renk: "black"; vurgu: pen.tema.vurgu; acik: bn.ses; onDegisti: d => { pen.kabuk("kwriteconfig6 --file plasmanotifyrc --group Notifications --key PlaySounds " + d); bn.ses = d } }
+            Bolum { text: "Sessiz saatler" }
+            Aciklama { width: 640; text: "Sessiz saatlerde bildirimler gösterilmez. Şimdi bir saatliğine sessize al:" }
+            Dugme { metin: "1 saat sessiz"; onTiklandi: { Sistem.bildirimleriGizle(1); bn.dnd = true } }
+            Baglanti { text: "Uygulamaya göre bildirim ayarları"; onTiklandi: Sistem.ayarAc("kcm_notifications") }
+        }
+    }
+
     // Windows 8.1 açılır liste (Modern): beyaz kutu, sağda ok; açılınca seçenekler kutunun üstünde,
     // seçili olan vurgu renginde
     component Secim: Item {
@@ -513,11 +698,16 @@ Window {
             id: liste
             visible: false
             y: parent.height
-            width: parent.width; height: sutun.height + 4
+            width: parent.width; height: Math.min(sutun.height + 4, 340)
             color: "white"; border.color: "#bababa"; border.width: 2
-            Column {
+            onVisibleChanged: if (visible) { for (var i = 0; i < sc.secenekler.length; i++) if (sc.secenekler[i][0] === sc.deger) kaydirma.contentY = Math.max(0, Math.min(i * 34 - 136, sutun.height - kaydirma.height)) }
+            Flickable {
+              id: kaydirma
+              x: 2; y: 2; width: parent.width - 4; height: parent.height - 4
+              contentHeight: sutun.height; clip: true; boundsBehavior: Flickable.StopAtBounds
+              Column {
                 id: sutun
-                x: 2; y: 2; width: parent.width - 4
+                width: parent.width
                 Repeater {
                     model: sc.secenekler
                     delegate: Rectangle {
@@ -529,6 +719,7 @@ Window {
                         MouseArea { id: lm; anchors.fill: parent; hoverEnabled: true; onClicked: { liste.visible = false; sc.secildi(modelData[0]) } }
                     }
                 }
+              }
             }
         }
     }

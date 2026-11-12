@@ -1,5 +1,16 @@
 [
  {
+  "ad": "internet-explorer",
+  "isim": "Internet Explorer",
+  "renk": "#2672ec",
+  "glif": "",
+  "aciklama": "Web'de gezinin",
+  "kategori": "Network;WebBrowser;",
+  "anahtar": "internet;web;tarayıcı;browser;ie",
+  "kaynak": "InternetExplorer.qml",
+  "mime": "x-scheme-handler/http;x-scheme-handler/https;text/html;"
+ },
+ {
   "ad": "hesap-makinesi",
   "isim": "Hesap Makinesi",
   "renk": "#2b2b2b",

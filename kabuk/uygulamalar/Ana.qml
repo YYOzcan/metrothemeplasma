@@ -184,6 +184,5 @@ Window {
     onActiveChanged: if (!active) { baslikCubugu.goster = false; cubuk.ac = false }
 
     // Esc / Alt+F4 Windows'taki gibi; Ctrl+Z vb. uygulamalar kendisi
-    Shortcut { sequence: "Ctrl+W"; onActivated: Qt.quit() }
     Shortcut { sequence: "Meta+Z"; onActivated: cubuk.ac = !cubuk.ac }
 }

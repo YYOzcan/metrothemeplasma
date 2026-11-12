@@ -1,3 +1,4 @@
+#include <QHash>
 #include "uygulamalar.h"
 
 #include <KApplicationTrader>
@@ -16,6 +17,18 @@
 #include <QStandardPaths>
 #include <QUrl>
 #include <algorithm>
+
+// AeroThemePlasma'nın Windows 7 adları (~/.local/share/applications, iki oturumda ortak) Metro'da
+// Windows 8.1'deki karşılıklarıyla gösterilir
+static QString windows81Adi(const QString &ad)
+{
+    static const QHash<QString, QString> esle{
+        {QStringLiteral("Internet Explorer 8"), QStringLiteral("Internet Explorer (masaüstü)")},
+        {QStringLiteral("Windows Gezgini"), QStringLiteral("Dosya Gezgini")},
+        {QStringLiteral("Windows Explorer"), QStringLiteral("Dosya Gezgini")},
+    };
+    return esle.value(ad, ad);
+}
 
 static QString yapilandirmaDizini()
 {
@@ -80,7 +93,7 @@ void Uygulamalar::yukle()
         if (goruldu.contains(k.kimlik))
             continue;
         goruldu.insert(k.kimlik);
-        k.ad = s->name();
+        k.ad = windows81Adi(s->name());
         k.harf = harfBul(k.ad);
         k.kategori = kategoriBul(s);
         k.anahtar = (s->name() + QLatin1Char(' ') + s->genericName() + QLatin1Char(' ') + s->keywords().join(QLatin1Char(' '))
@@ -234,7 +247,7 @@ QVariantMap Uygulamalar::bilgi(const QString &kimlik) const
     KService::Ptr s = KService::serviceByStorageId(kimlik);
     if (!s)
         return {};
-    return {{QStringLiteral("kimlik"), s->storageId()}, {QStringLiteral("ad"), s->name()},
+    return {{QStringLiteral("kimlik"), s->storageId()}, {QStringLiteral("ad"), windows81Adi(s->name())},
             {QStringLiteral("simge"), s->icon()}, {QStringLiteral("aciklama"), s->comment()},
             {QStringLiteral("genelAd"), s->genericName()}, {QStringLiteral("yol"), s->entryPath()},
             {QStringLiteral("kategoriler"), s->categories()},
