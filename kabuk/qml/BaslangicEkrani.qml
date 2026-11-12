@@ -48,6 +48,7 @@ Window {
         sayfaAnimasyon = true
         uygulamalarGorunumu.sifirla()
         gorevCubuguGoster(false)
+        uzak = false
         oturumGirisi = !!girisKipi
         acik = true
         icerik.opacity = 1
@@ -59,6 +60,7 @@ Window {
         acilis.restart()
         icerik.forceActiveFocus()
         if (SinamaDondur > 0) sinamaZamanlayici.restart()
+        if (SinamaUzak) Qt.callLater(function () { pen.uzaklas(true) })
     }
     Timer { id: sinamaZamanlayici; interval: SinamaDondur; onTriggered: acilis.pause() }
     // hemen: animasyonsuz kapat (uygulama açılış ekranı kendi geçişini yaptıktan sonra)
@@ -479,7 +481,7 @@ Window {
                 id: kaydirici
                 x: 0; y: pen.ustBosluk - 40
                 width: pen.width; height: pen.height - y
-                contentWidth: Math.max(width, pen.solBosluk + pen.toplamGenislik + 200)
+                contentWidth: pen.uzak ? width : Math.max(width, pen.solBosluk + pen.toplamGenislik + 200)
                 contentHeight: height
                 flickableDirection: Flickable.HorizontalFlick
                 boundsBehavior: Flickable.StopAtBounds
@@ -501,14 +503,18 @@ Window {
                     }
                     onWheel: wheel => {
                         var d = wheel.angleDelta.y !== 0 ? wheel.angleDelta.y : wheel.angleDelta.x
+                        // Ctrl+tekerlek: semantik yakınlaştırma
+                        if (wheel.modifiers & Qt.ControlModifier) { pen.uzaklas(d < 0); return }
                         kaydirici.contentX = Math.max(0, Math.min(kaydirici.contentWidth - kaydirici.width, kaydirici.contentX - d * 1.6))
                     }
                 }
 
                 Item {
                     id: izgara
-                    x: pen.solBosluk; y: 40
+                    x: pen.solBosluk + pen.uzakKayma; y: 40
                     width: pen.toplamGenislik; height: pen.satir * pen.adim
+                    // semantik yakınlaştırma: uzaklaşınca bütün gruplar küçülüp ortalanır
+                    transform: Scale { origin.x: 0; origin.y: izgara.height / 2; xScale: pen.olcekDegeri; yScale: pen.olcekDegeri }
 
                     // grup adları (özelleştir kipinde düzenlenebilir)
                     Repeater {
@@ -644,6 +650,22 @@ Window {
         }
         Timer { id: fareHareket; interval: 2500 }
 
+        // uzaklaşmış görünümde tıklanan gruba yakınlaş
+        MouseArea {
+            visible: pen.uzak
+            z: 40
+            x: 0; y: kaydirici.y; width: pen.width; height: kaydirici.height
+            acceptedButtons: Qt.LeftButton | Qt.RightButton
+            onClicked: mouse => {
+                var p = izgara.mapFromItem(this, mouse.x, mouse.y)
+                var gg = pen.grupGenislik, hedef = 0
+                for (var g = 0; g < gg.length; g++) if (p.x >= gg[g].x - pen.grupAraligi / 2) hedef = g
+                pen.uzaklas(false)
+                if (gg.length) kaydirici.contentX = Math.max(0, Math.min(kaydirici.contentWidth - kaydirici.width, gg[hedef].x))
+            }
+            onWheel: wheel => { if (wheel.angleDelta.y > 0) pen.uzaklas(false) }
+        }
+
         // yatay kaydırma çubuğu (fare kıpırdayınca belirir)
         Item {
             id: kaydirmaCubugu
@@ -723,8 +745,14 @@ Window {
         MetroMenu { id: menu }
 
         Keys.onPressed: event => {
+            if ((event.modifiers & Qt.ControlModifier) && (event.key === Qt.Key_Minus || event.key === Qt.Key_Plus || event.key === Qt.Key_Equal)) {
+                if (pen.sayfa === 0) pen.uzaklas(event.key === Qt.Key_Minus)
+                event.accepted = true
+                return
+            }
             if (event.key === Qt.Key_Escape) {
                 if (menu.acik) menu.kapat()
+                else if (pen.uzak) pen.uzaklas(false)
                 else if (pen.ozellestir) pen.ozellestir = false
                 else if (pen.sayfa === 1) pen.sayfa = 0
                 else ana.baslangicKapat()
@@ -738,6 +766,22 @@ Window {
                 event.accepted = true
             }
         }
+    }
+
+    // ------------------------------------------------------------------ semantik yakınlaştırma (Ctrl+tekerlek, Ctrl+-)
+    property bool uzak: false
+    readonly property real uzakOlcek: Math.min(0.42, (width - 2 * solBosluk) / Math.max(1, toplamGenislik))
+    property real olcekDegeri: uzak ? uzakOlcek : 1
+    Behavior on olcekDegeri { NumberAnimation { duration: 400; easing.type: Easing.Bezier; easing.bezierCurve: pen.tema.pvl } }
+    // uzakta gruplar ekranda ortalanır
+    property real uzakKayma: uzak ? Math.max(0, (width - toplamGenislik * uzakOlcek) / 2 - solBosluk) : 0
+    Behavior on uzakKayma { NumberAnimation { duration: 400; easing.type: Easing.Bezier; easing.bezierCurve: pen.tema.pvl } }
+    function uzaklas(u) {
+        if (u === uzak || ozellestir) return
+        menu.kapat()
+        secimiTemizle()
+        if (u) kaydirici.contentX = 0
+        uzak = u
     }
 
     // Başlangıç <-> Uygulamalar: içerik ve zemin birlikte dikey kayar (PVL eğrisi)

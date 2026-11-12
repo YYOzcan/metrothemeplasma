@@ -110,6 +110,7 @@ int main(int argc, char **argv)
         c->setContextProperty(QStringLiteral("OturumGirisi"), oturumGirisi);
         // sınama: animasyonları bu ms'de dondur (test/ic-ice.sh ile kare kare bakmak için)
         c->setContextProperty(QStringLiteral("SinamaDondur"), qEnvironmentVariableIntValue("METRO_SINAMA_DONDUR"));
+        c->setContextProperty(QStringLiteral("SinamaUzak"), qEnvironmentVariableIntValue("METRO_SINAMA_UZAK") == 1);
         oturumGirisi = false; // yeniden yüklemede bir daha değil
         c->setContextProperty(QStringLiteral("QmlDizini"), QUrl::fromLocalFile(qmlDizin + QLatin1Char('/')).toString());
         motor->addImageProvider(QStringLiteral("simge"), new SimgeSaglayici);

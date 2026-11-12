@@ -287,7 +287,7 @@ Rectangle {
         id: perde
         width: ui.width; height: ui.height
         y: 0
-        NumberAnimation on y { id: perdeAnim; running: false; duration: 420; easing.type: Easing.OutQuint }
+        NumberAnimation on y { id: perdeAnim; running: false; duration: 450; easing.type: Easing.Bezier; easing.bezierCurve: [0.1, 0.9, 0.2, 1, 1, 1] }
 
         Image {
             anchors.fill: parent
