@@ -1,0 +1,313 @@
+#!/usr/bin/env python3
+"""AeroThemePlasma'dan (Windows 7) MetroThemePlasma'ya (Windows 8.1) yükseltme.
+
+Windows 7'den 8.1'e yükseltmede olduğu gibi kişisel ayarlar taşınır:
+  - görev çubuğuna sabitlenmiş programlar (SevenTasks) → Metro görev çubuğu
+    (Windows Gezgini, Windows 8'deki gibi Dosya Gezgini olur)
+  - Başlat menüsüne sabitlenmiş programlar (SevenStart sık kullanılanları) → Başlangıç ekranında kutucuk grubu
+  - kişisel masaüstü arka planı (Windows 7'nin varsayılan resmi değilse)
+
+    metro-yukselt            Metro henüz kurulmamış/hiç açılmamışsa taşır (oturum açılışında metro-profil çağırır)
+    metro-yukselt --zorla    var olan Metro düzenine de uygular (önceki hali yedeklenir)
+    metro-yukselt --dene     yalnızca ne taşınacağını yazar
+
+Plasma kabuğu çalışmıyorsa (oturum açılmadan önce) dosyalar doğrudan düzenlenir;
+Metro düzeni hiç oluşmamışsa değerler metrothemeplasmarc'a yazılır, ilk açılış betiği (layout.js) okur.
+"""
+import json
+import os
+import re
+import shutil
+import sqlite3
+import subprocess
+import sys
+import time
+from pathlib import Path
+
+CFG = Path(os.environ.get("XDG_CONFIG_HOME") or Path.home() / ".config")
+DATA = Path(os.environ.get("XDG_DATA_HOME") or Path.home() / ".local/share")
+ATP_RC = CFG / "plasma-io.gitgud.wackyideas.desktop-appletsrc"
+METRO_RC = CFG / "plasma-io.github.yyozcan.metroshell-appletsrc"
+BASLANGIC = CFG / "metrothemeplasma/baslangic.json"
+ISARET = CFG / "metrothemeplasma/yukseltme.json"
+RC = CFG / "metrothemeplasmarc"
+GOREV_EKLENTI = ("io.github.yyozcan.metrogorevler", "org.kde.plasma.icontasks", "org.kde.plasma.taskmanager")
+ATP_GOREV = ("io.gitgud.wackyideas.seventasks", "org.kde.plasma.icontasks", "org.kde.plasma.taskmanager")
+
+ZORLA = "--zorla" in sys.argv
+DENE = "--dene" in sys.argv
+
+
+# ------------------------------------------------------------------ KDE yapılandırma dosyası (iç içe gruplar)
+def gruplar(yol):
+    """{("Containments","2","Applets","5","Configuration","General"): {anahtar: değer}} ve satır listesi."""
+    g, ad = {}, None
+    for satir in yol.read_text(errors="ignore").splitlines():
+        if satir.startswith("["):
+            ad = tuple(re.findall(r"\[([^\]]*)\]", satir))
+            g.setdefault(ad, {})
+        elif "=" in satir and ad is not None:
+            k, v = satir.split("=", 1)
+            g[ad][k.strip()] = v
+    return g
+
+
+def uygulamacik(g, eklentiler):
+    """İlk eşleşen uygulamacığın (kap, uygulamacık) numaraları."""
+    for ad, d in g.items():
+        if len(ad) == 4 and ad[0] == "Containments" and ad[2] == "Applets" and d.get("plugin") in eklentiler:
+            return ad[1], ad[3]
+    return None
+
+
+def anahtar_yaz(yol, grup, anahtar, deger):
+    """Bir grubun anahtarını yerinde değiştirir (yoksa ekler); diğer satırlara dokunmaz."""
+    baslik = "".join("[%s]" % p for p in grup)
+    satirlar = yol.read_text(errors="ignore").splitlines() if yol.exists() else []
+    i = next((n for n, s in enumerate(satirlar) if s == baslik), None)
+    if i is None:
+        satirlar += ["", baslik, "%s=%s" % (anahtar, deger)]
+    else:
+        j = i + 1
+        while j < len(satirlar) and not satirlar[j].startswith("["):
+            if satirlar[j].split("=", 1)[0].strip() == anahtar:
+                satirlar[j] = "%s=%s" % (anahtar, deger)
+                break
+            j += 1
+        else:
+            while j > i + 1 and not satirlar[j - 1].strip():
+                j -= 1
+            satirlar.insert(j, "%s=%s" % (anahtar, deger))
+    yol.write_text("\n".join(satirlar) + "\n")
+
+
+# ------------------------------------------------------------------ uygulama kimlikleri
+def masaustu_dosyasi(kimlik):
+    dizinler = [DATA / "metrothemeplasma/data/applications", DATA / "applications"]
+    dizinler += [Path(d) / "applications" for d in (os.environ.get("XDG_DATA_DIRS") or "/usr/local/share:/usr/share").split(":") if d]
+    for d in dizinler:
+        if (d / kimlik).is_file():
+            return d / kimlik
+    return None
+
+
+def gezgin():
+    return "explorer.desktop" if masaustu_dosyasi("explorer.desktop") else None
+
+
+def tarayici():
+    try:
+        return subprocess.run(["xdg-settings", "get", "default-web-browser"], capture_output=True, text=True, timeout=5).stdout.strip() or None
+    except (OSError, subprocess.SubprocessError):
+        return None
+
+
+def sade(adres):
+    """'applications:x.desktop', 'x.desktop', 'file:///…/x.desktop' → 'x.desktop' (çözülemezse None)."""
+    if adres.startswith("preferred://browser"):
+        return tarayici()
+    if adres.startswith("preferred://filemanager"):
+        return gezgin() or "org.kde.dolphin.desktop"
+    a = adres.split(":", 1)[1] if adres.startswith("applications:") else adres
+    if a.startswith("file://"):
+        a = a[7:]
+    if a.startswith("/"):
+        return Path(a).name if Path(a).is_file() else None
+    return a if a.endswith(".desktop") else None
+
+
+def windows8_karsiligi(kimlik):
+    """Windows 8'de yeniden adlandırılan/değişen programlar."""
+    if kimlik == "org.kde.dolphin.desktop" and gezgin():
+        return gezgin()
+    return kimlik
+
+
+# ------------------------------------------------------------------ ATP'den okunanlar
+def atp_gorev_cubugu(g):
+    yer = uygulamacik(g, ATP_GOREV)
+    if not yer:
+        return []
+    ham = g.get(("Containments", yer[0], "Applets", yer[1], "Configuration", "General"), {}).get("launchers", "")
+    sonuc = []
+    for a in filter(None, (x.strip() for x in ham.split(","))):
+        if a.startswith("preferred://"):
+            sonuc.append(a)                      # görev çubuğu tercih edilen tarayıcıyı kendisi çözer
+            continue
+        k = sade(a)
+        if k and masaustu_dosyasi(windows8_karsiligi(k)):
+            sonuc.append("applications:" + windows8_karsiligi(k))
+    return list(dict.fromkeys(sonuc))
+
+
+def atp_duvar_kagidi(g):
+    for ad, d in g.items():
+        if ad[:1] == ("Containments",) and ad[2:] == ("Wallpaper", "org.kde.image", "General") and d.get("Image"):
+            resim = d["Image"].replace("file://", "")
+            ad_ = Path(resim).name.lower()
+            # Windows 7'nin (ve ATP'nin) varsayılan arka planları taşınmaz: Windows 8.1'inki gelir
+            if re.search(r"win(dows)?[ _-]?7|img0|aerothemeplasma|wackyideas|/wallpapers/(aero|windows)", resim.lower() + "/" + ad_):
+                return None
+            return resim if Path(resim).exists() else None
+    return None
+
+
+def atp_baslat_sabitleri():
+    db = DATA / "kactivitymanagerd/resources/database"
+    if not db.is_file():
+        return []
+    try:
+        c = sqlite3.connect(f"file:{db}?mode=ro", uri=True)
+        satirlar = c.execute("select targettedResource from ResourceLink where initiatingAgent='org.kde.plasma.favorites.applications'"
+                             " and usedActivity in (':global', '')").fetchall()
+    except sqlite3.Error:
+        return []
+    sonuc = []
+    for (a,) in satirlar:
+        k = sade(a)
+        if k:
+            k = windows8_karsiligi(k)
+            if masaustu_dosyasi(k):
+                sonuc.append(k)
+    return list(dict.fromkeys(sonuc))
+
+
+# ------------------------------------------------------------------ Metro'ya yazılanlar
+def plasma_betigi(betik):
+    """Metro kabuğu çalışıyorsa (Metro oturumu) değişikliği canlı uygular."""
+    try:
+        cikti = subprocess.run(["qdbus6", "org.kde.plasmashell", "/PlasmaShell", "org.kde.PlasmaShell.evaluateScript", betik],
+                               capture_output=True, text=True, timeout=15)
+        return cikti.returncode == 0
+    except (OSError, subprocess.SubprocessError):
+        return False
+
+
+def metro_kabugu_calisiyor():
+    try:
+        p = subprocess.run(["pgrep", "-u", str(os.getuid()), "-x", "plasmashell"], capture_output=True, text=True)
+        if not p.stdout.strip():
+            return False
+        ortam = dict(x.split(b"=", 1) for x in Path(f"/proc/{p.stdout.split()[0]}/environ").read_bytes().split(b"\0") if b"=" in x)
+        if ortam.get(b"DESKTOP_SESSION") != b"metrothemeplasma":
+            return False
+        # yalnızca aynı yapılandırma dizinini kullanan kabuk (XDG_CONFIG_HOME farklıysa, ör. sınamada, dokunma)
+        kabuk_cfg = Path(ortam.get(b"XDG_CONFIG_HOME", b"").decode() or Path.home() / ".config")
+        return kabuk_cfg.resolve() == CFG.resolve()
+    except OSError:
+        return False
+
+
+def yedekle(yol):
+    if yol.exists():
+        y = yol.with_name(yol.name + ".yukseltme-oncesi")
+        if not y.exists():
+            shutil.copy2(yol, y)
+
+
+def gorev_cubuguna(launchers, rapor):
+    deger = ",".join(launchers)
+    if metro_kabugu_calisiyor():
+        betik = ("var l = %s; panels().forEach(function (p) { p.widgets().forEach(function (w) {"
+                 " if (%s.indexOf(w.type) >= 0) { w.currentConfigGroup = ['General']; w.writeConfig('launchers', l); w.reloadConfig() } }) })"
+                 % (json.dumps(launchers), json.dumps(list(GOREV_EKLENTI))))
+        if plasma_betigi(betik):
+            rapor.append("görev çubuğu (canlı): " + deger)
+            return
+    if METRO_RC.exists():
+        g = gruplar(METRO_RC)
+        yer = uygulamacik(g, GOREV_EKLENTI)
+        if yer:
+            yedekle(METRO_RC)
+            anahtar_yaz(METRO_RC, ("Containments", yer[0], "Applets", yer[1], "Configuration", "General"), "launchers", deger)
+            rapor.append("görev çubuğu: " + deger)
+            return
+    anahtar_yaz(RC, ("Yukseltme",), "gorevCubugu", deger)
+    rapor.append("görev çubuğu (ilk açılışta): " + deger)
+
+
+def duvar_kagidina(resim, rapor):
+    adres = "file://" + resim
+    if metro_kabugu_calisiyor():
+        betik = ("desktops().forEach(function (d) { d.wallpaperPlugin = 'org.kde.image';"
+                 " d.currentConfigGroup = ['Wallpaper', 'org.kde.image', 'General']; d.writeConfig('Image', %s) })" % json.dumps(adres))
+        if plasma_betigi(betik):
+            rapor.append("masaüstü arka planı (canlı): " + resim)
+            return
+    if METRO_RC.exists():
+        g = gruplar(METRO_RC)
+        kaplar = {ad[1] for ad, d in g.items() if len(ad) == 2 and ad[0] == "Containments" and d.get("plugin") in ("org.kde.desktop", "org.kde.plasma.folder")}
+        if kaplar:
+            yedekle(METRO_RC)
+            for k in kaplar:
+                anahtar_yaz(METRO_RC, ("Containments", k, "Wallpaper", "org.kde.image", "General"), "Image", adres)
+            rapor.append("masaüstü arka planı: " + resim)
+            return
+    anahtar_yaz(RC, ("Yukseltme",), "duvarKagidi", adres)
+    rapor.append("masaüstü arka planı (ilk açılışta): " + resim)
+
+
+def baslangica(uygulamalar, rapor):
+    """Başlat menüsü sabitleri, Başlangıç ekranının sonuna kutucuk grubu olarak eklenir.
+    Düzen dosyası yoksa metro-kabuk ilk açılışta varsayılanı kurar ve bu grubu ekler (bekleyen-kutucuklar)."""
+    if BASLANGIC.exists():
+        try:
+            d = json.loads(BASLANGIC.read_text())
+        except ValueError:
+            d = None
+        if d and d.get("gruplar") is not None:
+            var = {t.get("kimlik") for g in d["gruplar"] for t in g.get("kutucuklar", [])}
+            yeni = [{"tur": "uygulama", "kimlik": k, "boyut": "orta"} for k in uygulamalar if k not in var]
+            if not yeni:
+                rapor.append("Başlangıç: sabitlenmiş programlar zaten var")
+                return
+            yedekle(BASLANGIC)
+            d["gruplar"].append({"ad": "", "kutucuklar": yeni})
+            BASLANGIC.write_text(json.dumps(d, ensure_ascii=False))
+            rapor.append("Başlangıç ekranına %d kutucuk: %s" % (len(yeni), ", ".join(t["kimlik"] for t in yeni)))
+            # kabuk açıksa (aynı yapılandırmayla) düzeni yeniden okusun
+            if metro_kabugu_calisiyor():
+                    subprocess.run(["qdbus6", "io.github.yyozcan.MetroKabuk", "/Kabuk", "io.github.yyozcan.MetroKabuk.YenidenYukle"],
+                               capture_output=True, timeout=10)
+            return
+    BASLANGIC.parent.mkdir(parents=True, exist_ok=True)
+    (BASLANGIC.parent / "bekleyen-kutucuklar.json").write_text(json.dumps(uygulamalar))
+    rapor.append("Başlangıç ekranına (ilk açılışta) %d kutucuk: %s" % (len(uygulamalar), ", ".join(uygulamalar)))
+
+
+def main():
+    if not ATP_RC.exists():
+        print("AeroThemePlasma yapılandırması bulunamadı (%s); taşınacak bir şey yok." % ATP_RC)
+        return 0
+    if ISARET.exists() and not ZORLA and not DENE:
+        return 0
+    taze = not METRO_RC.exists() and not BASLANGIC.exists()
+    if not taze and not ZORLA and not DENE:
+        # Metro zaten kullanılıyor: kullanıcının düzenini kendiliğinden bozma
+        ISARET.parent.mkdir(parents=True, exist_ok=True)
+        ISARET.write_text(json.dumps({"tarih": time.strftime("%Y-%m-%d %H:%M"), "atlandi": "Metro düzeni zaten vardı"}, ensure_ascii=False))
+        return 0
+    g = gruplar(ATP_RC)
+    gorev, resim, sabitler = atp_gorev_cubugu(g), atp_duvar_kagidi(g), atp_baslat_sabitleri()
+    if DENE:
+        print("AeroThemePlasma'dan taşınacaklar:")
+        print("  görev çubuğu:", ", ".join(gorev) or "-")
+        print("  Başlat menüsü sabitleri → kutucuk:", ", ".join(sabitler) or "-")
+        print("  masaüstü arka planı:", resim or "- (Windows 7 varsayılanı; Windows 8.1'inki kalır)")
+        return 0
+    rapor = []
+    if gorev:
+        gorev_cubuguna(gorev, rapor)
+    if sabitler:
+        baslangica(sabitler, rapor)
+    if resim:
+        duvar_kagidina(resim, rapor)
+    ISARET.parent.mkdir(parents=True, exist_ok=True)
+    ISARET.write_text(json.dumps({"tarih": time.strftime("%Y-%m-%d %H:%M"), "tasinan": rapor}, ensure_ascii=False, indent=1))
+    for r in rapor:
+        print("  " + r)
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

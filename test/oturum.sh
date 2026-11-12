@@ -1,6 +1,7 @@
 #!/bin/bash
 # İç içe, başsız tam Metro oturumu (KWin + plasmashell + metro-kabuk), gerçek yapılandırmadan yalıtılmış.
 #   bash test/oturum.sh <çıktı dizini> "<komut; komut; ...>"
+# ortam: ONCESI="<komut>" oturumdan önce çalışır
 # komutlar: foto | bekle <sn> | calistir <program...> | kabuk <DBus yöntemi [arg]> | sh <kabuk komutu>
 set -u
 CIKTI="$1"; KOMUTLAR="$2"
@@ -23,6 +24,8 @@ export QT_QPA_PLATFORMTHEME=kde
 export QML_IMPORT_PATH="$HOME/.local/share/metrothemeplasma/qml"
 export QT_PLUGIN_PATH="$HOME/.local/share/metrothemeplasma/eklenti"
 "$HOME/.local/bin/metro-profil" metro > "$CIKTI/profil.log" 2>&1
+# ONCESI: oturumdan önce yalıtılmış yapılandırmada çalışacak komut (ör. yükseltme sınaması)
+[ -n "${ONCESI:-}" ] && bash -c "$ONCESI" >> "$CIKTI/profil.log" 2>&1
 dbus-run-session -- bash -c "
   kwin_wayland --virtual --width 1920 --height 1080 --socket mt-0 --no-lockscreen >\"$CIKTI/kwin.log\" 2>&1 &
   for i in \$(seq 50); do [ -S \"$XDG_RUNTIME_DIR/mt-0\" ] && break; sleep 0.1; done

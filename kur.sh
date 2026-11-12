@@ -129,7 +129,7 @@ if [[ "${1:-}" == "--kaldir" ]]; then
            "$DATA"/wallpapers/Metro-* "$DATA/icons/Windows 8.1" "$DATA/icons/Windows 8.1 Aero" "$DATA/sounds/Windows 8.1" \
            "$DATA/kwin/tabbox/metro_alttab" "$DATA/kwin/scripts/metro_koseler" \
            "$CFG/plasma-workspace/env/metrothemeplasma.sh" \
-           "$BIN"/metro-profil "$BIN"/metro-oturum "$BIN"/metro-renk "$BIN"/metro-kabuk "$BIN"/metro-calistir "$MT" \
+           "$BIN"/metro-profil "$BIN"/metro-yukselt "$BIN"/metro-oturum "$BIN"/metro-renk "$BIN"/metro-kabuk "$BIN"/metro-calistir "$MT" \
            "$BIN"/explorer "$BIN"/devmgmt "$BIN"/linver "$BIN"/control "$BIN"/winver "$BIN"/metro-denetim \
            "${XDG_STATE_HOME:-$HOME/.local/state}/metrothemeplasma" "${XDG_CACHE_HOME:-$HOME/.cache}/metrothemeplasma"
     echo "Kullanıcı dosyaları kaldırıldı (ayarlar: $CFG/metrothemeplasma duruyor). Sistem kısmı için:"
@@ -358,6 +358,7 @@ install -Dm755 session/servicemenus/metro-baslangica-sabitle.desktop "$MT/data/k
 
 echo "==> Oturum yardımcıları"
 install -Dm755 session/metro-profil "$BIN/metro-profil"
+install -Dm755 session/metro-yukselt "$BIN/metro-yukselt"
 install -Dm755 session/metro-oturum "$BIN/metro-oturum"
 install -Dm755 session/metro-renk "$BIN/metro-renk"
 install -Dm644 session/metrothemeplasma-env.sh "$CFG/plasma-workspace/env/metrothemeplasma.sh"
@@ -369,6 +370,23 @@ rm -rf "${XDG_CACHE_HOME:-$HOME/.cache}"/plasma_theme_Metro* 2>/dev/null || true
 STATE="${XDG_STATE_HOME:-$HOME/.local/state}/metrothemeplasma"
 mkdir -p "$STATE"
 echo "$KOK" > "$STATE/kaynak"
+
+# AeroThemePlasma'dan yükseltme: ilk Metro oturumunda Windows 7 ayarları taşınır (metro-yukselt)
+if [[ -f "$CFG/plasma-io.gitgud.wackyideas.desktop-appletsrc" ]]; then
+    echo
+    echo "==> AeroThemePlasma (Windows 7) bulundu — Windows 8.1'e yükseltme"
+    "$BIN/metro-yukselt" --dene | sed 's/^/   /'
+    if [[ -f "$CFG/metrothemeplasma/yukseltme.json" ]]; then
+        echo "   (yükseltme daha önce yapıldı; yeniden uygulamak için: metro-yukselt --zorla)"
+    elif [[ -f "$CFG/plasma-io.github.yyozcan.metroshell-appletsrc" ]]; then
+        echo "   Metro zaten kullanılıyor; Windows 7 ayarlarını yine de taşımak için: metro-yukselt --zorla"
+    else
+        echo "   Bunlar ilk Metro oturumunda kendiliğinden taşınır. AeroThemePlasma oturumu olduğu gibi kalır."
+    fi
+fi
+# ATP kaldırılırsa: hangi bileşen neye düşer
+[[ -d /usr/lib/qt6/qml/aeroshell/taskmanager ]] || echo "   Not: ATP'nin aeroshell.taskmanager modülü yok; görev çubuğu Plasma'nın simge görev yöneticisini kullanır."
+[[ -e /usr/lib/libAeroQt.so.0 ]] || echo "   Not: libAeroQt yok (AUR: libaero-qt-git); Dosya Gezgini yerine Dolphin kullanılır."
 
 echo
 echo "Kullanıcı kurulumu tamam."

@@ -16,7 +16,7 @@ QtObject {
     property BilgisayarAyarlari pcAyarlar: BilgisayarAyarlari { tema: ana.tema; ana: ana }
     property GorevYoneticisi gorevYoneticisi: GorevYoneticisi { ana: ana }
     property IlkOturum ilkOturum: IlkOturum { tema: ana.tema }
-    readonly property string ilkOturumIsareti: Dosya.veri + "/ilk-oturum-goruldu"
+    readonly property string ilkOturumIsareti: Dosya.yapilandirma + "/ilk-oturum-goruldu"
     function ilkOturumOynat() {
         ana.ilkOturum.oynat(function () {
             Dosya.yaz(ana.ilkOturumIsareti, new Date().toISOString() + "\n")

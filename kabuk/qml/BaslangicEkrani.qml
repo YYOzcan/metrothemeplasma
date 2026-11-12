@@ -190,6 +190,17 @@ Window {
         var d = null
         try { d = JSON.parse(Dosya.oku(duzenDosyasi)) } catch (e) { d = null }
         if (!d || !d.gruplar) d = varsayilanDuzen()
+        // AeroThemePlasma'dan yükseltme (metro-yukselt): Başlat menüsü sabitleri yeni bir kutucuk grubu olur
+        var bekleyen = []
+        try { bekleyen = JSON.parse(Dosya.oku(Dosya.yapilandirma + "/bekleyen-kutucuklar.json")) || [] } catch (e) { bekleyen = [] }
+        if (bekleyen.length) {
+            var var_ = {}
+            d.gruplar.forEach(function (g) { (g.kutucuklar || []).forEach(function (t) { if (t.kimlik) var_[t.kimlik] = true }) })
+            var yeni = bekleyen.filter(function (k) { return !var_[k] && Uygulamalar.var(k) })
+                               .map(function (k) { return { tur: "uygulama", kimlik: k, boyut: "orta" } })
+            if (yeni.length) d.gruplar.push({ ad: "", kutucuklar: yeni })
+            Dosya.yaz(Dosya.yapilandirma + "/bekleyen-kutucuklar.json", "[]")
+        }
         kutucuklar.clear()
         var adlar = []
         for (var g = 0; g < d.gruplar.length; g++) {
@@ -204,6 +215,7 @@ Window {
         }
         grupAdlari = adlar
         yerlestir()
+        if (bekleyen.length) duzenKaydet()
     }
     function duzenKaydet() {
         var gruplar = []

@@ -21,7 +21,10 @@ gorevler.writeConfig("maxStripes", "1");
 gorevler.writeConfig("fill", "true");
 // Dosya Gezgini: Windows 8.1 Dosya Gezgini (linux-explorer) kuruluysa o, yoksa Dolphin
 var gezgin = applicationExists("explorer.desktop") ? "applications:explorer.desktop" : "applications:org.kde.dolphin.desktop";
-gorevler.writeConfig("launchers", [gezgin, "applications:firefox.desktop"]);
+// AeroThemePlasma'dan yükseltme (metro-yukselt): Windows 7 görev çubuğundaki sabitler korunur
+var yukseltme = ConfigFile("metrothemeplasmarc", "Yukseltme");
+var eskiSabitler = String(yukseltme.readEntry("gorevCubugu") || "");
+gorevler.writeConfig("launchers", eskiSabitler ? eskiSabitler.split(",") : [gezgin, "applications:firefox.desktop"]);
 
 // Windows 8.1 bildirim alanı (ok solda, gizli simgeler ızgarada); derlenmemişse Plasma'nınki
 var tepsi = panel.addWidget(knownWidgetTypes.indexOf("io.github.yyozcan.metrotepsi") >= 0 ? "io.github.yyozcan.metrotepsi" : "org.kde.plasma.systemtray");
@@ -54,7 +57,8 @@ for (var j = 0; j < masaustleri.length; j++) {
     var d = masaustleri[j];
     d.wallpaperPlugin = "org.kde.image";
     d.currentConfigGroup = ["Wallpaper", "org.kde.image", "General"];
-    d.writeConfig("Image", "file://" + userDataPath() + "/.local/share/wallpapers/Metro-Windows/");
+    var eskiResim = String(yukseltme.readEntry("duvarKagidi") || "");
+    d.writeConfig("Image", eskiResim || ("file://" + userDataPath() + "/.local/share/wallpapers/Metro-Windows/"));
     d.writeConfig("FillMode", "2");
     d.currentConfigGroup = ["General"];
     d.writeConfig("arrangement", "1");

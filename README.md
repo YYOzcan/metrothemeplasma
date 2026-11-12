@@ -33,6 +33,21 @@ Depoda hiçbir Microsoft dosyası yoktur. Bütün görseller, sesler, yazı tipl
 | Plymouth açılış ekranı: Windows logosu + dönen noktalar (WinRT ProgressRing anahtar kareleri) | bootres.dll |
 | "Windows 8.1" simge teması, "Windows 8.1 Aero" imleçleri (canlandırmalı), ses teması, duvar kağıtları, Segoe UI | imageres, shell32, pnidui, SndVolSSO, Cursors, Media, Web, Fonts |
 
+## AeroThemePlasma'dan yükseltme (Windows 7 → 8.1)
+
+AeroThemePlasma kuruluysa iki tema yan yana yaşar (SDDM'de iki ayrı oturum); MetroThemePlasma ATP'nin
+bileşenlerini (SevenTasks motoru `aeroshell.taskmanager`, UAC aracısı, libAeroQt) bulursa kullanır,
+bulamazsa Plasma'nın karşılıklarına düşer. İlk Metro oturumunda Windows 7'den 8.1'e yükseltmedeki gibi
+kişisel ayarlar taşınır (`metro-yukselt`):
+
+- görev çubuğuna sabitlenen programlar (Windows Gezgini → Dosya Gezgini)
+- Başlat menüsüne sabitlenen programlar → Başlangıç ekranında yeni bir kutucuk grubu
+- kişisel masaüstü arka planı (Windows 7'nin varsayılan resmiyse Windows 8.1'inki gelir)
+
+`metro-yukselt --dene` ne taşınacağını gösterir; Metro zaten kullanılıyorsa kendiliğinden dokunmaz,
+`metro-yukselt --zorla` ile uygulanır (önceki dosyalar `*.yukseltme-oncesi` olarak yedeklenir).
+ATP oturumu ve ayarları değişmez.
+
 ## Windows uygulamaları (Türkçe, Windows 8.1'e uyarlanmış)
 
 Aşağıdaki açık kaynak projeler `uygulamalar/` altında git alt modülüdür; kurulumda kopyaları
