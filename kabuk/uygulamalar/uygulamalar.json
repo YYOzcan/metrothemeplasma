@@ -155,5 +155,19 @@
    "octopi",
    "gnome-software"
   ]
+ },
+ {
+  "ad": "yukseltme",
+  "isim": "Windows 8.1'e Yükselt",
+  "renk": "#4a2b8c",
+  "glif": "",
+  "aciklama": "AeroThemePlasma'dan (Windows 7) Windows 8.1'e yükseltme ve güncelleme",
+  "kategori": "System;Settings;",
+  "anahtar": "yükselt;yükseltme;kurulum;upgrade;setup;windows 8.1",
+  "kaynak": "Yukseltme.qml",
+  "pencere": [
+   960,
+   680
+  ]
  }
 ]

@@ -6,6 +6,7 @@
 #   sudo bash kur.sh --sistem      SDDM oturum girdisi, /usr/local/bin/startmetro-wayland, SDDM teması
 #   sudo bash kur.sh --sddm-metro  SDDM oturum açma ekranını Windows 8.1 yap
 #   sudo bash kur.sh --plymouth    açılış ekranını Windows 8.1 yap (geri: --plymouth-geri)
+#   bash kur.sh --yukselt          Windows 8.1'e Yükseltme Yardımcısı (grafik sihirbaz; ATP'den ya da sıfırdan)
 #   bash kur.sh --kaldir           kullanıcı dosyalarını kaldır (önceki tema geri yüklenir)
 #
 # Depoda Microsoft dosyası yoktur: bütün görseller kurulumda senin Windows 8.1 kopyandan üretilir.
@@ -16,9 +17,47 @@ cd "$KOK"
 PY="python3 -I"
 
 # ------------------------------------------------------------------ sistem (root) kısımları
+# pkexec ile çağrıldıysa asıl kullanıcı (Yükseltme Yardımcısı tek UAC onayıyla root kısmını çalıştırır)
+if [[ -z "${SUDO_USER:-}" && -n "${PKEXEC_UID:-}" ]]; then
+    SUDO_USER=$(getent passwd "$PKEXEC_UID" | cut -d: -f1); export SUDO_USER
+fi
 gercek_ev() {  # sudo ile çağrıldığında asıl kullanıcının ev dizini
     if [[ -n "${SUDO_USER:-}" ]]; then getent passwd "$SUDO_USER" | cut -d: -f6; else echo "$HOME"; fi
 }
+
+# Windows 8.1'e Yükseltme Yardımcısı (AeroThemePlasma'dan ya da sıfırdan): grafik sihirbaz.
+# Yalnızca sihirbazın ana programını derler; kurulumun geri kalanını sihirbaz adım adım yapar.
+if [[ "${1:-}" == "--yukselt" ]]; then
+    cd "$KOK"
+    CMAKE=/usr/bin/cmake; [[ -x $CMAKE ]] || CMAKE=cmake
+    echo "==> Yükseltme Yardımcısı hazırlanıyor"
+    $CMAKE -S kabuk -B build/kabuk -G Ninja -DCMAKE_BUILD_TYPE=Release >/dev/null && ninja -C build/kabuk metro-uygulama >/dev/null \
+        || { echo "Derlenemedi: qt6-base, qt6-declarative, kio, layer-shell-qt, cmake ve ninja gerekli." >&2; exit 1; }
+    METRO_UYGULAMA_QML="$KOK/kabuk/uygulamalar" METRO_KAYNAK="$KOK" exec build/kabuk/metro-uygulama yukseltme
+fi
+
+# Yükseltme Yardımcısı'nın root adımı (pkexec, tek onay): --yukseltme-sistem <plymouth 0|1> <sddm 0|1> <oturum 0|1>
+if [[ "${1:-}" == "--yukseltme-sistem" ]]; then
+    [[ $EUID -eq 0 ]] || { echo "root gerekli" >&2; exit 1; }
+    cd "$KOK"
+    echo "==> Oturum, oturum açma ekranı teması ve kendiliğinden güncelleme kuruluyor"
+    bash "$KOK/kur.sh" --sistem || exit 1
+    if [[ "${3:-0}" == 1 ]]; then echo "==> Oturum açma ekranı: Windows 8.1"; bash "$KOK/kur.sh" --sddm-metro || true; fi
+    if [[ "${4:-0}" == 1 ]]; then
+        echo "==> Varsayılan oturum: MetroThemePlasma"
+        D=/var/lib/sddm/state.conf
+        if [[ -f $D ]] && grep -q '^\[Last\]' $D; then
+            if grep -q '^Session=' $D; then sed -i 's|^Session=.*|Session=/usr/share/wayland-sessions/metrothemeplasma.desktop|' $D
+            else sed -i 's|^\[Last\]|[Last]\nSession=/usr/share/wayland-sessions/metrothemeplasma.desktop|' $D; fi
+        else
+            mkdir -p /var/lib/sddm; printf '[Last]\nSession=/usr/share/wayland-sessions/metrothemeplasma.desktop\nUser=%s\n' "$SUDO_USER" >> $D
+        fi
+        chown sddm:sddm $D 2>/dev/null || true
+    fi
+    if [[ "${2:-0}" == 1 ]]; then echo "==> Açılış ekranı (Windows logosu) kuruluyor; initramfs yeniden oluşturuluyor"; bash "$KOK/kur.sh" --plymouth || true; fi
+    echo "==> Sistem kısmı tamam"
+    exit 0
+fi
 
 if [[ "${1:-}" == "--sddm-metro" ]]; then
     [[ $EUID -eq 0 ]] || { echo "sudo bash $0 --sddm-metro" >&2; exit 1; }
@@ -137,7 +176,7 @@ if [[ "${1:-}" == "--kaldir" ]]; then
            "$DATA"/wallpapers/Metro-* "$DATA/icons/Windows 8.1" "$DATA/icons/Windows 8.1 Aero" "$DATA/sounds/Windows 8.1" \
            "$DATA/kwin/tabbox/metro_alttab" "$DATA/kwin/scripts/metro_koseler" \
            "$CFG/plasma-workspace/env/metrothemeplasma.sh" \
-           "$BIN"/metro-profil "$BIN"/metro-yukselt "$BIN"/metro-oturum "$BIN"/metro-renk "$BIN"/metro-kabuk "$BIN"/metro-calistir "$BIN"/metro-uygulama "$BIN"/metro-surum-denetimi "$CFG/systemd/user/metro-surum-denetimi.service" "$MT" \
+           "$BIN"/metro-profil "$BIN"/metro-yukselt "$BIN"/metro-oturum "$BIN"/metro-renk "$BIN"/metro-kabuk "$BIN"/metro-calistir "$BIN"/metro-uygulama "$BIN"/metro-surum-denetimi "$CFG/systemd/user/metro-surum-denetimi.service" "$DATA/applications/metro-yukseltme.desktop" "$MT" \
            "$BIN"/explorer "$BIN"/devmgmt "$BIN"/linver "$BIN"/control "$BIN"/winver "$BIN"/metro-denetim \
            "${XDG_STATE_HOME:-$HOME/.local/state}/metrothemeplasma" "${XDG_CACHE_HOME:-$HOME/.cache}/metrothemeplasma"
     echo "Kullanıcı dosyaları kaldırıldı (ayarlar: $CFG/metrothemeplasma duruyor). Sistem kısmı için:"
@@ -442,6 +481,11 @@ rm -rf "${XDG_CACHE_HOME:-$HOME/.cache}"/plasma_theme_Metro* 2>/dev/null || true
 STATE="${XDG_STATE_HOME:-$HOME/.local/state}/metrothemeplasma"
 mkdir -p "$STATE"
 echo "$KOK" > "$STATE/kaynak"
+# Yükseltme Yardımcısı AeroThemePlasma oturumunun uygulama listesinde de görünsün (Windows 7'deki
+# "Windows 8.1'e yükselt" gibi); Metro'da aynı kimlikli girdi bunu gölgeler
+if [[ -f "$CFG/plasma-io.gitgud.wackyideas.desktop-appletsrc" && -f "$MT/data/applications/metro-yukseltme.desktop" ]]; then
+    install -Dm644 "$MT/data/applications/metro-yukseltme.desktop" "$DATA/applications/metro-yukseltme.desktop"
+fi
 # bu kurulumun derlendiği sürümler (metro-surum-denetimi: Plasma güncellenip kanca çalışmadıysa oturumda yeniden kurar)
 pacman -Q plasma-workspace kwin libplasma qt6-base qt6-declarative layer-shell-qt > "$STATE/derleme-surumleri" 2>/dev/null || true
 install -Dm755 session/metro-surum-denetimi "$BIN/metro-surum-denetimi"

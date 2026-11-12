@@ -7,7 +7,11 @@ import QtCore
 
 Window {
     id: pen
-    visibility: Window.FullScreen
+    // kayıtta "pencere": [g, y] varsa normal pencere (masaüstü sihirbazı), yoksa tam ekran Modern uygulama
+    readonly property var pencereBoyutu: bilgi.pencere || null
+    visibility: pencereBoyutu ? Window.Windowed : Window.FullScreen
+    width: pencereBoyutu ? pencereBoyutu[0] : Screen.width
+    height: pencereBoyutu ? pencereBoyutu[1] : Screen.height
     visible: true
     color: "black"
     title: uygulama.item ? uygulama.item.baslik : ""
@@ -74,7 +78,7 @@ Window {
         }
         SequentialAnimation {
             id: acilisBitis
-            PauseAnimation { duration: 650 }
+            PauseAnimation { duration: pen.pencereBoyutu ? 0 : 650 }
             NumberAnimation { target: acilis; property: "opacity"; to: 0; duration: 250 }
             PropertyAction { target: acilis; property: "visible"; value: false }
             // sayfa girişi (enterPage): sağdan kayarak
@@ -127,6 +131,7 @@ Window {
     // fare üst kenarda kısa bir süre durunca kayarak iner: solda uygulama simgesi, sağda simge durumu ve kapat
     Item {
         id: baslikCubugu
+        visible: !pen.pencereBoyutu
         width: parent.width; height: 32
         property bool goster: false
         y: goster ? 0 : -height
@@ -163,6 +168,7 @@ Window {
     // üst kenar: başlık çubuğu ipucu ve aşağı sürükleyerek kapatma
     MouseArea {
         id: ustKenar
+        enabled: !pen.pencereBoyutu   // pencereli sihirbazda gerçek pencere çerçevesi var
         width: parent.width; height: 3
         z: 30
         hoverEnabled: true

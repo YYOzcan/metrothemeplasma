@@ -33,8 +33,11 @@ class Yardimci : public QObject
 public:
     using QObject::QObject;
     QStringList m_argumanlar;
+    QProcess *m_surec = nullptr;
 Q_SIGNALS:
     void argumanlarDegisti();
+    void surecSatiri(const QString &satir);
+    void surecBitti(int kod);
     void kopyaIlerleme(int n, int toplam);
     void kopyaBitti(int n, const QString &hedef);
 public:
@@ -61,6 +64,34 @@ public:
                              {QStringLiteral("tarih"), f.lastModified()}};
         return v;
     }
+    // uzun süren bir komutu çalıştır, çıktısını satır satır bildir (Yükseltme Yardımcısı)
+    Q_INVOKABLE bool surecBaslat(const QString &program, const QStringList &arg, const QString &dizin = QString())
+    {
+        if (m_surec && m_surec->state() != QProcess::NotRunning)
+            return false;
+        delete m_surec;
+        m_surec = new QProcess(this);
+        m_surec->setProcessChannelMode(QProcess::MergedChannels);
+        if (!dizin.isEmpty())
+            m_surec->setWorkingDirectory(dizin);
+        connect(m_surec, &QProcess::readyRead, this, [this] {
+            while (m_surec->canReadLine())
+                Q_EMIT surecSatiri(QString::fromUtf8(m_surec->readLine()).trimmed());
+        });
+        connect(m_surec, &QProcess::finished, this, [this](int kod, QProcess::ExitStatus durum) {
+            const QString kalan = QString::fromUtf8(m_surec->readAll()).trimmed();
+            if (!kalan.isEmpty())
+                Q_EMIT surecSatiri(kalan);
+            Q_EMIT surecBitti(durum == QProcess::NormalExit ? kod : -1);
+        });
+        connect(m_surec, &QProcess::errorOccurred, this, [this](QProcess::ProcessError e) {
+            if (e == QProcess::FailedToStart)
+                Q_EMIT surecBitti(-2);
+        });
+        m_surec->start(program, arg);
+        return true;
+    }
+    Q_INVOKABLE QString ortamDegeri(const QString &ad) const { return qEnvironmentVariable(ad.toUtf8().constData()); }
     // yinelemeli dosya listesi (Müzik, Video): ad, klasör (albüm), üst klasör (sanatçı), adres
     Q_INVOKABLE QVariantList dosyaBul(const QString &dizin, const QStringList &uzantilar, int enFazla = 5000) const
     {

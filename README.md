@@ -57,7 +57,8 @@ Görünüm sınaması: `bash test/uac.sh <çıktı> [bilinmeyen] [ayrinti]` (pol
 Windows 8.1'in Modern uygulamaları, ortak bir tam ekran ana programla (`metro-uygulama <ad>`, QML).
 **Haberler** ve **Spor** (TRT Haber, NTV Spor; canlı kutucuk), **Finans** (TCMB kurları, 30 günlük grafik;
 canlı kutucuk), **Müzik** (`~/Müzik`), **Video** (`~/Videolar`), **Kamera** (`Resimler/Film Rulosu`),
-**Takvim** (aylık görünüm, etkinlikler, Türkiye resmi tatilleri), **Yardım ve İpuçları**, **Mağaza** (sistemin
+**Takvim** (aylık görünüm, etkinlikler, Türkiye resmi tatilleri), **Yardım ve İpuçları**, **Internet Explorer**
+(QtWebEngine ile IE11 Modern: alt adres çubuğu, sekme küçük resimleri, InPrivate; "Masaüstünde görüntüle" Falkon'da açar), **Mağaza** (sistemin
 paket yükleyicisine kısayol) ve aşağıdakiler:
 **Hesap Makinesi** (Standart/Bilimsel), **Alarmlar** (Alarm, Zamanlayıcı, Kronometre; alarmlar uygulama
 kapalıyken de metro-kabuk tarafından bildirim + Windows alarm sesiyle çalınır), **Hava Durumu** (7 günlük ve
@@ -70,6 +71,13 @@ açar. Kutucuk/simge renkleri ve glifler (ISO'daki Segoe UI Symbol) `kabuk/uygul
 uygulamalar yalnızca Metro oturumunda listelenir. Hava, Fotoğraflar ve saat canlı kutucukları bunları açar.
 
 ## AeroThemePlasma'dan yükseltme (Windows 7 → 8.1)
+
+**Windows 8.1'e Yükseltme Yardımcısı:** `bash kur.sh --yukselt` (ya da ATP'nin uygulama listesinde
+"Windows 8.1'e Yükselt"). Windows 8.1 Kurulumu gibi mor bir sihirbaz: uyumluluk denetimi (eksik araçlar,
+ATP bileşenleri), gerekirse kurulum medyası (ISO kendiliğinden bulunur), "Neyi saklamak istiyorsunuz?"
+(Windows ayarları + kişisel dosyalar + uygulamalar / yalnızca kişisel dosyalar / hiçbir şey), ek seçenekler
+(varsayılan oturum, oturum açma ekranı, açılış ekranı), "Yüklemeye hazır", ilerleme ve bitiş. Root adımları
+tek bir Kullanıcı Hesabı Denetimi onayıyla yapılır.
 
 AeroThemePlasma kuruluysa iki tema yan yana yaşar (SDDM'de iki ayrı oturum); MetroThemePlasma ATP'nin
 bileşenlerini (SevenTasks motoru `aeroshell.taskmanager`, UAC aracısı, libAeroQt) bulursa kullanır,
