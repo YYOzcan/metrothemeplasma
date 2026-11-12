@@ -154,6 +154,47 @@ def main(win, cikti):
             baglamlar.add(f"{b}x{b}/places")
             for ad in ("start-here", "start-here-kde", "start-here-kde-plasma", "distributor-logo"):
                 mavi.resize((b, b), Image.LANCZOS).save(d / f"{ad}.png")
+    # Windows 8 Dosya Gezgini gezinti okları (ExplorerFrame.dll BITMAP 590: 18 px, 591: 25 px;
+    # 6 dilim: devre dışı geri, devre dışı ileri, geri, ileri, onay, geçmiş). Windows 7'nin mavi
+    # yuvarlak düğmeleri (miras alınan tema) yerine düz siyah oklar.
+    ef = win / "Windows/System32/ExplorerFrame.dll"
+    if ef.exists():
+        try:
+            from peres import PEResources
+            import dib
+            r = PEResources(ef.read_bytes())
+            def serit(k):
+                d = r.get("BITMAP", k)
+                if d is None:
+                    return None
+                im = dib.decode_dib(d)
+                return (im[0] if isinstance(im, tuple) else im).convert("RGBA")
+            kucuk, buyuk = serit(590), serit(591)
+            if kucuk is not None and buyuk is not None:
+                def dilim(sr, i):
+                    e = sr.height
+                    return sr.crop((i * e, 0, (i + 1) * e, e))
+                def boyutla(im, b):
+                    out = Image.new("RGBA", (b, b))
+                    if im.width >= b:
+                        k = (im.width - b) // 2
+                        out = im.crop((k, k, k + b, k + b))
+                    else:
+                        out.paste(im, ((b - im.width) // 2, (b - im.height) // 2))
+                    return out
+                for b in (16, 22, 24, 32):
+                    kaynak = kucuk if b <= 16 else buyuk
+                    d = cikti / f"{b}x{b}" / "actions"
+                    d.mkdir(parents=True, exist_ok=True)
+                    baglamlar.add(f"{b}x{b}/actions")
+                    geri, ileri = boyutla(dilim(kaynak, 2), b), boyutla(dilim(kaynak, 3), b)
+                    for ad, im in (("go-previous", geri), ("go-next", ileri), ("go-previous-rtl", ileri),
+                                   ("go-next-rtl", geri), ("go-previous-view", geri), ("go-next-view", ileri)):
+                        im.save(d / f"{ad}.png")
+                        im.save(d / f"{ad}-symbolic.png")
+                        yazilan += 2
+        except Exception as x:  # noqa: BLE001
+            print("  gezinti okları atlandı:", x)
     tur = {"places": "Places", "devices": "Devices", "mimetypes": "MimeTypes", "apps": "Applications",
            "status": "Status", "actions": "Actions", "categories": "Categories"}
     dizinler = sorted(baglamlar, key=lambda x: (int(x.split("x")[0]), x))
