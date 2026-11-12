@@ -110,6 +110,12 @@ def main(win, cikti):
     for t, n, l, d in ir.items():
         if t == "PNG" and isinstance(n, int) and 20001 <= n <= 22101 and n % 100 == 1:
             (kd / f"{n - 1}.png").write_bytes(d)
+    # görev çubuğu saati açılır penceresinin analog saati (timedate.cpl: kadran + üst parlaklık/merkez)
+    td = PEResources((s32 / "timedate.cpl").read_bytes())
+    for ad, k in (("saat-kadran", 5000), ("saat-ust", 5001)):
+        d = td.get("PNGFILE", k)
+        if d:
+            (cikti / f"{ad}.png").write_bytes(d)
     # hesap resmi
     hr = win / "ProgramData/Microsoft/User Account Pictures"
     for a in ("user.png", "user-200.png", "user-40.png"):
