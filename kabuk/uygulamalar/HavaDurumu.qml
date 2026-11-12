@@ -230,7 +230,7 @@ Item {
                         required property int index
                         width: 560; height: 44
                         color: index % 2 ? "transparent" : Qt.rgba(0, 0, 0, 0.12)
-                        Text { x: 14; anchors.verticalCenter: parent.verticalCenter; text: Qt.formatTime(modelData.saat, "HH:mm"); color: "white"; font.family: "Segoe UI"; font.pixelSize: 18 }
+                        Text { x: 14; anchors.verticalCenter: parent.verticalCenter; text: new Date(modelData.saat).toLocaleTimeString(Qt.locale("tr_TR"), "HH:mm"); color: "white"; font.family: "Segoe UI"; font.pixelSize: 18 }
                         Text { x: 100; anchors.verticalCenter: parent.verticalCenter; text: h.durum(modelData.kod)[1]; color: "white"; font.family: "Segoe UI Symbol"; font.pixelSize: 22 }
                         Text { x: 150; anchors.verticalCenter: parent.verticalCenter; text: modelData.sicaklik + "°"; color: "white"; font.family: "Segoe UI"; font.pixelSize: 18 }
                         Text { x: 220; anchors.verticalCenter: parent.verticalCenter; text: h.durum(modelData.kod)[0]; color: Qt.rgba(1, 1, 1, 0.85); font.family: "Segoe UI"; font.pixelSize: 16 }

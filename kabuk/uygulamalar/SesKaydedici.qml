@@ -43,7 +43,7 @@ Item {
         if (kaydediyor) { kaydedici.stop(); return }
         oynatici.stop()
         var n = new Date()
-        kaydedici.outputLocation = Dosya.url(dizin + "/Kayıt " + Qt.formatDateTime(n, "yyyy-MM-dd HH.mm.ss"))
+        kaydedici.outputLocation = Dosya.url(dizin + "/Kayıt " + new Date(n).toLocaleString(Qt.locale("tr_TR"), "yyyy-MM-dd HH.mm.ss"))
         kaydedici.record()
     }
 
@@ -70,7 +70,7 @@ Item {
             Column {
                 x: 14; anchors.verticalCenter: parent.verticalCenter
                 Text { width: 330; text: modelData.ad; elide: Text.ElideRight; color: "white"; font.family: "Segoe UI"; font.pixelSize: 17 }
-                Text { text: Qt.formatDateTime(modelData.tarih, "d MMMM yyyy HH:mm"); color: Qt.rgba(1, 1, 1, 0.7); font.family: "Segoe UI"; font.pixelSize: 13 }
+                Text { text: new Date(modelData.tarih).toLocaleString(Qt.locale("tr_TR"), "d MMMM yyyy HH:mm"); color: Qt.rgba(1, 1, 1, 0.7); font.family: "Segoe UI"; font.pixelSize: 13 }
             }
             Text {
                 anchors.right: parent.right; anchors.rightMargin: 16; anchors.verticalCenter: parent.verticalCenter

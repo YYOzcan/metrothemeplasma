@@ -1,0 +1,148 @@
+[
+ {
+  "ad": "hesap-makinesi",
+  "isim": "Hesap Makinesi",
+  "renk": "#2b2b2b",
+  "glif": "",
+  "aciklama": "Standart ve bilimsel hesaplamalar",
+  "kategori": "Utility;Calculator;",
+  "anahtar": "hesap;calculator;calc",
+  "kaynak": "HesapMakinesi.qml"
+ },
+ {
+  "ad": "alarmlar",
+  "isim": "Alarmlar",
+  "renk": "#ac193d",
+  "glif": "",
+  "aciklama": "Alarm, zamanlayıcı ve kronometre",
+  "kategori": "Utility;Clock;",
+  "anahtar": "alarm;saat;zamanlayıcı;kronometre;timer;stopwatch",
+  "kaynak": "Alarmlar.qml"
+ },
+ {
+  "ad": "hava-durumu",
+  "isim": "Hava Durumu",
+  "renk": "#1b6ec2",
+  "glif": "☀",
+  "aciklama": "Güncel hava durumu ve tahminler",
+  "kategori": "Utility;",
+  "anahtar": "hava;weather;tahmin",
+  "kaynak": "HavaDurumu.qml"
+ },
+ {
+  "ad": "fotograflar",
+  "isim": "Fotoğraflar",
+  "renk": "#00a3a3",
+  "glif": "",
+  "aciklama": "Fotoğraflarınızı görüntüleyin",
+  "kategori": "Graphics;Viewer;",
+  "anahtar": "foto;resim;photos;pictures",
+  "kaynak": "Fotograflar.qml"
+ },
+ {
+  "ad": "ses-kaydedici",
+  "isim": "Ses Kaydedici",
+  "renk": "#d24726",
+  "glif": "",
+  "aciklama": "Ses kaydedin",
+  "kategori": "AudioVideo;Audio;Recorder;",
+  "anahtar": "ses;kayıt;mikrofon;recorder",
+  "kaynak": "SesKaydedici.qml"
+ },
+ {
+  "ad": "haberler",
+  "isim": "Haberler",
+  "renk": "#ae1f23",
+  "glif": "📰",
+  "aciklama": "Türkiye ve dünyadan son haberler",
+  "kategori": "Network;News;",
+  "anahtar": "haber;news;gündem",
+  "kaynak": "Haberler.qml"
+ },
+ {
+  "ad": "spor",
+  "isim": "Spor",
+  "renk": "#5c2d91",
+  "glif": "🏆",
+  "aciklama": "Spor haberleri",
+  "kategori": "Network;News;Sports;",
+  "anahtar": "spor;futbol;basketbol;sports",
+  "kaynak": "Spor.qml"
+ },
+ {
+  "ad": "finans",
+  "isim": "Finans",
+  "renk": "#00843f",
+  "glif": "📈",
+  "aciklama": "Döviz kurları ve ekonomi haberleri",
+  "kategori": "Network;Finance;Office;",
+  "anahtar": "finans;döviz;kur;dolar;euro;borsa;finance",
+  "kaynak": "Finans.qml"
+ },
+ {
+  "ad": "muzik",
+  "isim": "Müzik",
+  "renk": "#ec4b19",
+  "glif": "🎧",
+  "aciklama": "Müzik koleksiyonunuzu dinleyin",
+  "kategori": "AudioVideo;Audio;Player;",
+  "anahtar": "müzik;şarkı;albüm;music",
+  "kaynak": "Muzik.qml"
+ },
+ {
+  "ad": "video",
+  "isim": "Video",
+  "renk": "#b91d47",
+  "glif": "🎬",
+  "aciklama": "Kişisel videolarınızı izleyin",
+  "kategori": "AudioVideo;Video;Player;",
+  "anahtar": "video;film;izle;movie",
+  "kaynak": "Video.qml"
+ },
+ {
+  "ad": "kamera",
+  "isim": "Kamera",
+  "renk": "#603cba",
+  "glif": "",
+  "aciklama": "Fotoğraf ve video çekin",
+  "kategori": "AudioVideo;Video;Recorder;Photography;",
+  "anahtar": "kamera;webcam;fotoğraf;camera",
+  "kaynak": "Kamera.qml"
+ },
+ {
+  "ad": "takvim",
+  "isim": "Takvim",
+  "renk": "#5133ab",
+  "glif": "📅",
+  "aciklama": "Takvim ve resmi tatiller",
+  "kategori": "Office;Calendar;",
+  "anahtar": "takvim;ajanda;etkinlik;tatil;calendar",
+  "kaynak": "Takvim.qml"
+ },
+ {
+  "ad": "yardim",
+  "isim": "Yardım ve İpuçları",
+  "renk": "#00a0b1",
+  "glif": "💡",
+  "aciklama": "Windows'u öğrenin",
+  "kategori": "Utility;Documentation;",
+  "anahtar": "yardım;ipucu;help;tips",
+  "kaynak": "Yardim.qml"
+ },
+ {
+  "ad": "magaza",
+  "isim": "Mağaza",
+  "renk": "#00a300",
+  "glif": "",
+  "aciklama": "Uygulama bulun ve yükleyin",
+  "kategori": "System;PackageManager;",
+  "anahtar": "mağaza;store;uygulama yükle;paket",
+  "exec": [
+   "cachyos-pi",
+   "plasma-discover",
+   "pamac-manager",
+   "octopi",
+   "gnome-software"
+  ]
+ }
+]

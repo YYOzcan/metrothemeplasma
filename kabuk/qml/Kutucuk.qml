@@ -46,6 +46,8 @@ Item {
         return SimgeRengi.renk(bilgi.simge || "", Qt.darker(tema.vurgu, 1.0))
     }
     readonly property bool kucuk: boyut === "kucuk"
+    // canlı kutucuğu olan Metro uygulamaları
+    readonly property string canliTur: tur !== "uygulama" ? "" : (({ "metro-haberler.desktop": "haber", "metro-spor.desktop": "haber", "metro-finans.desktop": "finans" })[kimlik] || "")
 
     // açılışta kutucuklar sağdan kayarak gelir (saydamlık ilk üçte birde tamamlanır)
     opacity: Math.min(1, giris * 3)
@@ -89,6 +91,8 @@ Item {
                 case "fotograflar": return k.canli ? fotoYuz : simgeYuz
                 case "saat": return simgeYuz
                 }
+                // Metro uygulamalarının canlı kutucukları (küçük boyutta yalnız simge)
+                if (k.canli && !k.kucuk && k.canliTur !== "") return ({ haber: haberYuz, finans: finansYuz })[k.canliTur]
                 return uygulamaYuz
             }
         }
@@ -136,7 +140,8 @@ Item {
             Image {
                 anchors.centerIn: parent
                 anchors.verticalCenterOffset: k.kucuk ? 0 : -8
-                width: k.kucuk ? 32 : (k.boyut === "buyuk" ? 96 : 48); height: width
+                // Metro uygulaması simgesi kutucuk rengiyle aynı kare + glif: Windows 8.1 logosu boyutunda çizilir
+                width: k.bilgi.renk ? (k.kucuk ? 60 : (k.boyut === "buyuk" ? 170 : 100)) : (k.kucuk ? 32 : (k.boyut === "buyuk" ? 96 : 48)); height: width
                 sourceSize.width: width * 2; sourceSize.height: height * 2
                 source: k.bilgi.simge ? (k.bilgi.simge.startsWith("/") ? "file://" + k.bilgi.simge : "image://simge/" + k.bilgi.simge) : ""
                 smooth: true
@@ -206,6 +211,14 @@ Item {
     Component {
         id: havaYuz
         HavaKutucugu { kutucuk: k }
+    }
+    Component {
+        id: haberYuz
+        HaberKutucugu { kutucuk: k; kaynak: k.kimlik === "metro-spor.desktop" ? "https://www.ntvspor.net/rss/anasayfa" : "https://www.trthaber.com/manset_articles.rss" }
+    }
+    Component {
+        id: finansYuz
+        FinansKutucugu { kutucuk: k }
     }
     Component {
         id: fotoYuz

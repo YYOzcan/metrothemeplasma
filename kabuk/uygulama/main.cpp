@@ -11,6 +11,7 @@
 #include <QFileInfo>
 #include <QGuiApplication>
 #include <QLocalServer>
+#include <QLocale>
 #include <QLocalSocket>
 #include <QProcess>
 #include <QQmlApplicationEngine>
@@ -56,6 +57,32 @@ public:
                              {QStringLiteral("video"), QStringList{QStringLiteral("mp4"), QStringLiteral("mov"), QStringLiteral("avi"), QStringLiteral("mkv"), QStringLiteral("3gp"), QStringLiteral("mts"), QStringLiteral("m4v"), QStringLiteral("wmv")}.contains(f.suffix().toLower())},
                              {QStringLiteral("tarih"), f.lastModified()}};
         return v;
+    }
+    // yinelemeli dosya listesi (Müzik, Video): ad, klasör (albüm), üst klasör (sanatçı), adres
+    Q_INVOKABLE QVariantList dosyaBul(const QString &dizin, const QStringList &uzantilar, int enFazla = 5000) const
+    {
+        QVariantList v;
+        QDirIterator it(dizin, QDir::Files | QDir::NoDotAndDotDot, QDirIterator::Subdirectories | QDirIterator::FollowSymlinks);
+        while (it.hasNext() && v.size() < enFazla) {
+            const QFileInfo f(it.next());
+            if (!uzantilar.contains(f.suffix().toLower()))
+                continue;
+            const QDir d = f.dir();
+            QDir u = d;
+            u.cdUp();
+            v << QVariantMap{{QStringLiteral("yol"), f.absoluteFilePath()}, {QStringLiteral("url"), QUrl::fromLocalFile(f.absoluteFilePath()).toString()},
+                             {QStringLiteral("ad"), f.completeBaseName()}, {QStringLiteral("klasor"), d.absolutePath() == QDir(dizin).absolutePath() ? QString() : d.dirName()},
+                             {QStringLiteral("ust"), u.absolutePath().startsWith(QDir(dizin).absolutePath() + QLatin1Char('/')) ? u.dirName() : QString()},
+                             {QStringLiteral("tarih"), f.lastModified()}, {QStringLiteral("boyut"), f.size()}};
+        }
+        return v;
+    }
+    // Müzik/Videolar gibi kitaplık dizini (Türkçe ya da İngilizce ad)
+    Q_INVOKABLE QString kitaplik(const QString &tur) const
+    {
+        const auto konum = tur == QLatin1String("muzik") ? QStandardPaths::MusicLocation
+                         : tur == QLatin1String("video") ? QStandardPaths::MoviesLocation : QStandardPaths::PicturesLocation;
+        return QStandardPaths::writableLocation(konum);
     }
     // arka planda kopyala (aynı adlı dosya varsa "ad (2).uzantı"); ilerleme ve bitiş sinyalle
     Q_INVOKABLE void kopyala(const QStringList &dosyalar, const QString &hedef)
@@ -109,6 +136,8 @@ public:
 int main(int argc, char **argv)
 {
     QGuiApplication app(argc, argv);
+    // Metro uygulamaları Türkçe: tarih/sayı biçimleri (ay adları, ondalık virgül)
+    QLocale::setDefault(QLocale(QLocale::Turkish, QLocale::Turkey));
     const QStringList arg = app.arguments();
     const QString ad = arg.value(1);
     if (ad.isEmpty() || ad.startsWith(QLatin1Char('-'))) {

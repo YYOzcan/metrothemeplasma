@@ -52,7 +52,7 @@ QtObject {
     function ilkOturumOynat() {
         ana.ilkOturum.oynat(function () {
             Dosya.yaz(ana.ilkOturumIsareti, new Date().toISOString() + "\n")
-            if (!ana.baslangic.acik) ana.baslangicAc(false, true)
+            if (ana.tema.baslangic.giristeBaslangic && !ana.baslangic.acik) ana.baslangicAc(false, true)
         })
     }
 
@@ -138,7 +138,7 @@ QtObject {
     }
     // canlı kutucuk türü ya da uygulama kimliği -> kurulu Metro uygulamasının .desktop kimliği ("" yoksa)
     function metroUygulamasi(tur, kimlik) {
-        var k = ({ "hava": "metro-hava-durumu.desktop", "fotograflar": "metro-fotograflar.desktop", "saat": "metro-alarmlar.desktop" })[tur]
+        var k = ({ "hava": "metro-hava-durumu.desktop", "fotograflar": "metro-fotograflar.desktop", "saat": "metro-alarmlar.desktop", "takvim": "metro-takvim.desktop" })[tur]
         if (tur === "uygulama" && /^metro-.+\.desktop$/.test(kimlik || "")) k = kimlik
         return k && Uygulamalar.var(k) ? k : ""
     }

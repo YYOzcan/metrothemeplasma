@@ -195,7 +195,7 @@ def main(win, cikti):
         uac(win, cikti)
     except Exception as x:  # noqa: BLE001
         print("  UAC simgeleri atlandı:", x)
-    liste = Path(__file__).resolve().parent.parent / "session/metro-uygulamalari/uygulamalar.json"
+    liste = Path(__file__).resolve().parent.parent / "kabuk/uygulamalar/uygulamalar.json"
     try:
         metro_uygulamalari(win, cikti, liste)
     except Exception as x:  # noqa: BLE001

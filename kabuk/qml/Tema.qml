@@ -28,7 +28,7 @@ QtObject {
     property Settings baslangic: Settings {
         location: "file://" + Dosya.yapilandirma + "/ayarlar.ini"
         category: "Baslangic"
-        property bool giristeBaslangic: true          // oturum açınca Başlangıç ekranı
+        property bool giristeBaslangic: false         // oturum açınca Başlangıç ekranı (kullanıcı isteği: kapalı; Gezinti ayarından açılabilir)
         property bool uygulamalarOtomatik: false      // Başlangıç'a gidince Uygulamalar görünümü
         property bool masaustuUygulamalariOnce: false
         property string siralama: "ad"                 // ad, tarih, kullanim, kategori

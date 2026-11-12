@@ -216,7 +216,7 @@ Window {
                 Rectangle {
                     width: 420; height: 236; color: "#ddd"; clip: true
                     Image { anchors.fill: parent; fillMode: Image.PreserveAspectCrop; sourceSize.width: 840; source: pen.kilitResmi() }
-                    Text { x: 14; y: 150; text: Qt.formatTime(new Date(), "HH:mm"); color: "white"; font.family: "Segoe UI"; font.weight: 300; font.pixelSize: 56 }
+                    Text { x: 14; y: 150; text: new Date(new Date()).toLocaleTimeString(Qt.locale("tr_TR"), "HH:mm"); color: "white"; font.family: "Segoe UI"; font.weight: 300; font.pixelSize: 56 }
                     MouseArea { anchors.fill: parent; onClicked: { pen.kategori = "aygitlar"; pen.sayfa = "kilit" } }
                 }
                 Rectangle {
@@ -261,7 +261,7 @@ Window {
                 Image { anchors.fill: parent; fillMode: Image.PreserveAspectCrop; sourceSize.width: 1120; source: pen.kilitResmi() }
                 Column {
                     x: 20; anchors.bottom: parent.bottom; anchors.bottomMargin: 26
-                    Text { text: Qt.formatTime(new Date(), "HH:mm"); color: "white"; font.family: "Segoe UI"; font.weight: 300; font.pixelSize: 64 }
+                    Text { text: new Date(new Date()).toLocaleTimeString(Qt.locale("tr_TR"), "HH:mm"); color: "white"; font.family: "Segoe UI"; font.weight: 300; font.pixelSize: 64 }
                     Text { text: new Date().toLocaleDateString(Qt.locale("tr_TR"), "d MMMM dddd"); color: "white"; font.family: "Segoe UI"; font.weight: 300; font.pixelSize: 22 }
                 }
             }

@@ -62,7 +62,7 @@ Window {
             }
             Text {
                 anchors.verticalCenter: parent.verticalCenter
-                text: Qt.formatTime(pen.simdi, "HH:mm")
+                text: new Date(pen.simdi).toLocaleTimeString(Qt.locale("tr_TR"), "HH:mm")
                 color: "white"
                 font.family: "Segoe UI"; font.weight: 300; font.pixelSize: 96
             }

@@ -12,13 +12,15 @@ Window {
     color: "black"
     title: uygulama.item ? uygulama.item.baslik : ""
 
-    readonly property var bilgi: ({
-        "hesap-makinesi": { kaynak: "HesapMakinesi.qml", renk: "#2b2b2b", glif: "" },
-        "alarmlar": { kaynak: "Alarmlar.qml", renk: "#ac193d", glif: "" },
-        "hava-durumu": { kaynak: "HavaDurumu.qml", renk: "#1b6ec2", glif: "☀" },
-        "fotograflar": { kaynak: "Fotograflar.qml", renk: "#00a3a3", glif: "" },
-        "ses-kaydedici": { kaynak: "SesKaydedici.qml", renk: "#d24726", glif: "" }
-    })[UygulamaAdi] || { kaynak: "", renk: "#333333", glif: "" }
+    // uygulama kaydı (ad, renk, glif, QML dosyası): uygulamalar.json — kurulum ve simgelerle aynı kaynak
+    readonly property var bilgi: {
+        var yol = String(Qt.resolvedUrl("uygulamalar.json")).replace(/^file:\/\//, "")
+        try {
+            var l = JSON.parse(Dosya.oku(decodeURIComponent(yol)))
+            for (var i = 0; i < l.length; i++) if (l[i].ad === UygulamaAdi) return l[i]
+        } catch (e) {}
+        return { kaynak: "", renk: "#333333", glif: "" }
+    }
     readonly property var pvl: [0.1, 0.9, 0.2, 1, 1, 1]
     readonly property string yazi: "Segoe UI"
     readonly property string sembol: "Segoe UI Symbol"

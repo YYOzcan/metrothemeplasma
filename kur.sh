@@ -397,14 +397,23 @@ from pathlib import Path
 mt, bin_ = Path(sys.argv[1]), sys.argv[2]
 hedef = mt / "data/applications"
 hedef.mkdir(parents=True, exist_ok=True)
-for u in json.loads(Path("session/metro-uygulamalari/uygulamalar.json").read_text()):
+import shutil
+for u in json.loads(Path("kabuk/uygulamalar/uygulamalar.json").read_text()):
+    # Modern uygulama ya da (Mağaza gibi) kurulu bir programa kısayol
+    if u.get("exec"):
+        komut = next((e for e in u["exec"] if shutil.which(e)), None)
+        if not komut:
+            continue
+    else:
+        komut = f"{bin_}/metro-uygulama {u['ad']}"
     (hedef / f"metro-{u['ad']}.desktop").write_text(
         "[Desktop Entry]\nType=Application\n"
         f"Name={u['isim']}\nComment={u['aciklama']}\n"
-        f"Exec={bin_}/metro-uygulama {u['ad']}\n"
+        f"Exec={komut}\n"
         f"Icon={mt}/varlik/uygulama-{u['ad']}.png\n"
         f"Categories={u['kategori']}\nKeywords={u['anahtar']};\n"
-        f"StartupWMClass=metro-{u['ad']}\nX-Metro-Renk={u['renk']}\nX-Metro-Uygulamasi=true\n")
+        + ("" if u.get("exec") else f"StartupWMClass=metro-{u['ad']}\nX-Metro-Uygulamasi=true\n")
+        + f"X-Metro-Renk={u['renk']}\n")
 PYEOF
 # Dosya Gezgini: "Başlangıç ekranına sabitle" (bu veri dizini yalnızca Metro oturumunda XDG_DATA_DIRS'te)
 install -Dm755 session/servicemenus/metro-baslangica-sabitle.desktop "$MT/data/kio/servicemenus/metro-baslangica-sabitle.desktop"

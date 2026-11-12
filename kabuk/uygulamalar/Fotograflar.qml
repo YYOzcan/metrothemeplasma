@@ -87,7 +87,7 @@ Item {
         if (!l.length) return
         aktariliyor = true; aktarN = 0; aktarToplam = l.length
         var kok = Dosya.var(Dosya.ev + "/Resimler") ? Dosya.ev + "/Resimler" : Dosya.ev + "/Pictures"
-        Yardimci.kopyala(l, kok + "/" + Qt.formatDate(new Date(), "yyyy-MM-dd"))
+        Yardimci.kopyala(l, kok + "/" + new Date(new Date()).toLocaleDateString(Qt.locale("tr_TR"), "yyyy-MM-dd"))
     }
     Rectangle {
         anchors.fill: parent

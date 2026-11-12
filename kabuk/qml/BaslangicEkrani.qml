@@ -192,20 +192,33 @@ Window {
             var id = Uygulamalar.bul(adaylar)
             return id ? { tur: "uygulama", kimlik: id, boyut: boyut || "orta" } : null
         }
+        // Windows 8.1 varsayılanına benzer: 1) Masaüstü, Takvim, tarayıcı, Fotoğraflar, Hava, Mağaza…
+        // 2) Metro uygulamaları (Haberler, Spor, Finans, Müzik, Video…) 3) masaüstü programları
         var g1 = [
             { tur: "masaustu", boyut: "genis" },
-            u(["firefox.desktop", "google-chrome.desktop", "chromium.desktop", "org.kde.falkon.desktop"]),
-            { tur: "ayarlar", boyut: "orta" },
-            { tur: "hava", boyut: "genis" },
             { tur: "takvim", boyut: "orta" },
-            u(["explorer.desktop", "org.kde.dolphin.desktop", "org.gnome.Nautilus.desktop", "thunar.desktop"]),
+            u(["firefox.desktop", "google-chrome.desktop", "chromium.desktop", "org.kde.falkon.desktop"]),
             { tur: "fotograflar", boyut: "genis" },
-            u(["org.kde.discover.desktop", "octopi.desktop", "org.manjaro.pamac.manager.desktop", "pamac-manager.desktop"]),
-            u(["steam.desktop"]),
+            { tur: "hava", boyut: "genis" },
+            { tur: "ayarlar", boyut: "orta" },
+            u(["metro-magaza.desktop"]),
+            u(["explorer.desktop", "org.kde.dolphin.desktop", "org.gnome.Nautilus.desktop", "thunar.desktop"]),
         ]
         var g2 = [
+            u(["metro-haberler.desktop"], "genis"),
+            u(["metro-spor.desktop"]),
+            u(["metro-finans.desktop"]),
+            u(["metro-muzik.desktop"]),
+            u(["metro-video.desktop"]),
+            u(["metro-kamera.desktop"]),
+            u(["metro-yardim.desktop"]),
+            u(["metro-hesap-makinesi.desktop"], "kucuk"),
+            u(["metro-alarmlar.desktop"], "kucuk"),
+            u(["metro-ses-kaydedici.desktop"], "kucuk"),
+            u(["steam.desktop"], "kucuk"),
+        ]
+        var g3 = [
             u(["org.kde.kwrite.desktop", "org.kde.kate.desktop", "org.gnome.TextEditor.desktop"]),
-            u(["org.kde.kcalc.desktop", "org.gnome.Calculator.desktop", "qalculate-gtk.desktop"]),
             u(["org.kde.konsole.desktop", "org.gnome.Console.desktop", "kitty.desktop", "alacritty.desktop"]),
             u(["org.kde.plasma-systemmonitor.desktop", "org.kde.ksysguard.desktop"]),
             u(["org.kde.spectacle.desktop"], "kucuk"),
@@ -213,9 +226,9 @@ Window {
             u(["org.kde.gwenview.desktop"], "kucuk"),
             u(["org.kde.okular.desktop"], "kucuk"),
             u(["vlc.desktop", "mpv.desktop", "org.kde.haruna.desktop", "org.kde.dragonplayer.desktop"]),
-            u(["org.kde.elisa.desktop", "strawberry.desktop", "audacious.desktop"]),
         ]
-        return { gruplar: [{ ad: "", kutucuklar: g1.filter(Boolean) }, { ad: "", kutucuklar: g2.filter(Boolean) }] }
+        return { gruplar: [g1, g2, g3].map(function (g) { return { ad: "", kutucuklar: g.filter(Boolean) } })
+                                          .filter(function (g) { return g.kutucuklar.length > 0 }) }
     }
     function duzenYukle() {
         var d = null
@@ -892,13 +905,14 @@ Window {
             l.push({ metin: sabit ? "Görev çubuğundan ayır" : "Görev çubuğuna sabitle", eylem: function () { ana.gorevCubugunaSabitle(t.kimlik, !sabit) } })
             l.push({ metin: "Kaldır", eylem: function () { ana.kaldir(t.kimlik) } })
         }
-        var boyutlar = t.tur === "uygulama" ? [["kucuk", "Küçük"], ["orta", "Orta"]]
+        var genisOlur = ["metro-haberler.desktop", "metro-spor.desktop", "metro-finans.desktop", "metro-fotograflar.desktop", "metro-hava-durumu.desktop", "metro-takvim.desktop", "metro-muzik.desktop", "metro-video.desktop"].indexOf(t.kimlik) >= 0
+        var boyutlar = t.tur === "uygulama" && !genisOlur ? [["kucuk", "Küçük"], ["orta", "Orta"]]
                      : [["kucuk", "Küçük"], ["orta", "Orta"], ["genis", "Geniş"], ["buyuk", "Büyük"]]
         if (t.tur === "ayarlar") boyutlar = [["kucuk", "Küçük"], ["orta", "Orta"]]
         l.push({ metin: "Yeniden boyutlandır", alt: boyutlar.map(function (b) {
             return { metin: b[1], isaretli: t.boyut === b[0], eylem: function () { pen.yenidenBoyutlandir(i, b[0]) } }
         }) })
-        if (["hava", "takvim", "fotograflar"].indexOf(t.tur) >= 0)
+        if (["hava", "takvim", "fotograflar"].indexOf(t.tur) >= 0 || ["metro-haberler.desktop", "metro-spor.desktop", "metro-finans.desktop"].indexOf(t.kimlik) >= 0)
             l.push({ metin: t.canli ? "Canlı kutucuğu kapat" : "Canlı kutucuğu aç", eylem: function () { kutucuklar.setProperty(i, "canli", !t.canli); pen.duzenKaydet() } })
         // Windows 8.1 Update masaüstü uygulaması kutucuğu: ayır, görev çubuğu, kaldır, boyut, dosya konumu
         // (atlama listesi ve "Yeni pencere" yalnızca görev çubuğunda)
