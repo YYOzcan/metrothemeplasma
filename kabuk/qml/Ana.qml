@@ -251,6 +251,7 @@ QtObject {
         function onEkranGoruntusuIste() { ana.ekranGoruntusu() }
         function onKisisellestirIste() { ana.bolme.ac("kisisellestir", "baslangic") }
         function onBilgisayarAyarlariIste(sayfa) { ana.bilgisayarAyarlari(sayfa) }
+        function onCalistirIste() { ana.hizliEylem("calistir") }
         function onSabitleIste(yol) {
             // kurulu uygulamanın .desktop'ı ise kimliğiyle, değilse yoluyla (masaüstündeki bağlantılar)
             var b = Uygulamalar.bilgi(yol)

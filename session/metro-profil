@@ -75,7 +75,8 @@ YONETILEN = {
                  "Walk Through Windows": "Alt+Tab,Alt+Tab\\tMeta+Tab,Pencereler Arasında Gezin"},
         "services][org.kde.dolphin.desktop": {"_launch": "Meta+E"},
         "services][org.kde.plasma-systemmonitor.desktop": {"_launch": "Ctrl+Shift+Esc"},
-        "services][org.kde.krunner.desktop": {"_launch": "Meta+R\\tAlt+F2\\tSearch"},
+        # Win+R: Windows "Çalıştır" iletişim kutusu (metro-kabuk); KRunner Alt+F2'de kalır
+        "services][org.kde.krunner.desktop": {"_launch": "Alt+F2\\tSearch"},
         # Win+PrtSc Metro kabuğunda (ekran görüntüsünü Resimler'e kaydeder); Alt+PrtSc etkin pencere
         "services][org.kde.spectacle.desktop": {"ActiveWindowScreenShot": "Alt+Print"},
     },

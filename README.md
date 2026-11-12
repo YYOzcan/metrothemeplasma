@@ -18,6 +18,7 @@ Depoda hiçbir Microsoft dosyası yoktur. Bütün görseller, sesler, yazı tipl
 | Dosya Gezgini'nde "Başlangıç ekranına sabitle" | — |
 | Tılsımlar (Win+C, sağ köşeler), saat paneli, Ara / Paylaş / Aygıtlar / Ayarlar bölmeleri, Kişiselleştir, Kutucuklar, Ağlar, Yansıt | twinui.dll simgeleri, Segoe UI Symbol |
 | Hızlı bağlantı menüsü (Win+X) — özgün Türkçe öğeler ve kısayol harfleri | twinui.dll.mui |
+| Çalıştır iletişim kutusu (Win+R; geçmiş, Gözat, `cmd`/`notepad`/`calc`… karşılıkları), sol altta | shell32.dll.mui |
 | Uygulamalar arasında geçiş (Win+Tab, sol üst köşe), Windows 8.1 Alt+Tab | — |
 | Bilgisayar ayarları (kilit ekranı resmi, hesap, köşeler ve kenarlar, Başlangıç renkleri, Renk ve görünüm, Gezinti) | Web/Screen |
 | Görev çubuğu: 8.1 Başlat düğmesi, görev düğmeleri, saat (saat/tarih), Masaüstünü göster şeridi; ağ simgesi Ağlar bölmesini açar, ses açılır penceresi (dikey kaydırıcı, Karıştırıcı) | aero.msstyles (TaskBand2Composited8, TaskBar2Composited, TrackBar) |
@@ -46,7 +47,7 @@ Kaldırmak: `bash kur.sh --kaldir` (yazdığı sistem komutlarını da gösterir
 ## Kısayollar
 
 Win: Başlangıç · Win+C tılsımlar · Win+Q/S ara · Win+F dosyalarda · Win+W ayarlarda · Win+I Ayarlar ·
-Win+K Aygıtlar · Win+H Paylaş · Win+X hızlı bağlantı menüsü · Win+Tab geçiş · Win+PrtSc ekran görüntüsü
+Win+K Aygıtlar · Win+H Paylaş · Win+X hızlı bağlantı menüsü · Win+R Çalıştır · Win+Tab geçiş · Win+PrtSc ekran görüntüsü
 (Resimler/Ekran Görüntüleri, ekran kararır) · Win+D masaüstü · Win+E Dosya Gezgini · Ctrl+Esc Başlangıç
 
 ## Yapı

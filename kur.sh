@@ -119,7 +119,7 @@ if [[ "${1:-}" == "--kaldir" ]]; then
            "$DATA"/wallpapers/Metro-* "$DATA/icons/Windows 8.1" "$DATA/icons/Windows 8.1 Aero" "$DATA/sounds/Windows 8.1" \
            "$DATA/kwin/tabbox/metro_alttab" "$DATA/kwin/scripts/metro_koseler" \
            "$CFG/plasma-workspace/env/metrothemeplasma.sh" \
-           "$BIN"/metro-profil "$BIN"/metro-oturum "$BIN"/metro-renk "$BIN"/metro-kabuk "$MT" \
+           "$BIN"/metro-profil "$BIN"/metro-oturum "$BIN"/metro-renk "$BIN"/metro-kabuk "$BIN"/metro-calistir "$MT" \
            "${XDG_STATE_HOME:-$HOME/.local/state}/metrothemeplasma" "${XDG_CACHE_HOME:-$HOME/.cache}/metrothemeplasma"
     echo "Kullanıcı dosyaları kaldırıldı (ayarlar: $CFG/metrothemeplasma duruyor). Sistem kısmı için:"
     echo "  sudo bash $0 --plymouth-geri"
@@ -170,6 +170,7 @@ CMAKE=/usr/bin/cmake; [[ -x $CMAKE ]] || CMAKE=cmake
 $CMAKE -S kabuk -B build/kabuk -G Ninja -DCMAKE_BUILD_TYPE=Release >/dev/null
 ninja -C build/kabuk | tail -1
 install -Dm755 build/kabuk/metro-kabuk "$BIN/metro-kabuk"
+install -Dm755 build/kabuk/metro-calistir "$BIN/metro-calistir"
 
 echo "==> Windows 8.1 bildirim alanı (sistem tepsisi) derleniyor"
 if $CMAKE -S plasma/tepsi -B build/tepsi -G Ninja -DCMAKE_BUILD_TYPE=Release >/dev/null 2>&1 && ninja -C build/tepsi >/dev/null 2>&1; then

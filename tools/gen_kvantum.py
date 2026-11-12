@@ -76,13 +76,17 @@ def main(msstyles, cikti):
     ds = durumlar(im, n)
     for durum, i in [("normal", 0), ("focused", 1), ("pressed", 2), ("toggled", 2), ("disabled", 3)]:
         kv("combo", durum, ds[i], 3, 3, 3, 3, 30, 21)
-    ok = gk.img(9, 9, gk.triangle("down", "#000000"))
-    im, n, m = parca("Combobox", 6)
-    ds = durumlar(im, n)
-    for durum, i in [("normal", 0), ("focused", 1), ("pressed", 2), ("toggled", 2), ("disabled", 3)]:
-        z = gerdir(ds[i], 17, 21, 2, 2, 3, 3)
-        z.alpha_composite(ok.resize((9, 9)), (4, 6))
-        ind(f"carrow-{durum}", z)
+    # açılır ok: Windows 8'deki 7x4 piksellik keskin üçgen (zemin "combo" çerçevesinden gelir)
+    def ucgen(renk):
+        # Kvantum oku kare alana ölçekler: 9x9 tuvalin ortasında 7x4 üçgen (en-boy oranı korunur)
+        z = Image.new("RGBA", (9, 9))
+        for sat in range(4):
+            for x in range(sat, 7 - sat):
+                z.putpixel((x + 1, sat + 3), renk)
+        return z
+    for durum, rn in [("normal", (0, 0, 0, 255)), ("focused", (0, 0, 0, 255)), ("pressed", (0, 0, 0, 255)),
+                      ("toggled", (0, 0, 0, 255)), ("disabled", (160, 160, 160, 255))]:
+        ind(f"carrow-{durum}", ucgen(rn))
     s.newline()
 
     # ---- kaydırma çubuğu okları (20 durum: yukarı/aşağı/sol/sağ x N,H,P,D + 4 üzerinde)

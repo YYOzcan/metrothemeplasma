@@ -38,3 +38,9 @@ target_link_libraries(metro-kabuk PRIVATE
 )
 
 install(TARGETS metro-kabuk RUNTIME DESTINATION bin)
+
+# Windows 8.1 "Çalıştır" iletişim kutusu (Win+R): Qt Widgets + Kvantum Metro
+find_package(Qt6 REQUIRED COMPONENTS Widgets)
+qt_add_executable(metro-calistir calistir/main.cpp)
+target_link_libraries(metro-calistir PRIVATE Qt6::Widgets KF6::KIOGui KF6::KIOCore KF6::Service)
+install(TARGETS metro-calistir RUNTIME DESTINATION bin)
