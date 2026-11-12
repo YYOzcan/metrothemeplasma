@@ -55,7 +55,8 @@ Window {
         acik = true
         icerik.opacity = 1
         icerik.scale = 1
-        zemin.opacity = oturumGirisi ? 1 : 0
+        // Windows 8.1: Windows tuşuyla zemin anında tam ekran gelir, yalnız kutucuklar kayarak girer
+        zemin.opacity = 1
         girisZaman = 0
         visible = true
         requestActivate()

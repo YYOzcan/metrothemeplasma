@@ -121,6 +121,9 @@ if [[ "${1:-}" == "--sistem" ]]; then
     EV="$(gercek_ev)"
     install -Dm755 session/startmetro-wayland /usr/local/bin/startmetro-wayland
     install -Dm644 session/metrothemeplasma.desktop /usr/share/wayland-sessions/metrothemeplasma.desktop
+    # kapanışta konsola "The system will reboot now!" yazılmasın
+    install -Dm644 session/metro-sessiz-kapanis.service /etc/systemd/system/metro-sessiz-kapanis.service
+    systemctl daemon-reload; systemctl enable --now metro-sessiz-kapanis.service 2>/dev/null || true
     # Plasma/Qt/KDE güncellenince kendiliğinden yeniden derle ve kur (pacman kancası; ATP'ninkinden sonra çalışır)
     if [[ -d /etc/pacman.d ]]; then
         install -Dm755 session/kanca/metro-guncelle-hook /usr/local/bin/metro-guncelle-hook
@@ -184,7 +187,8 @@ if [[ "${1:-}" == "--kaldir" ]]; then
     echo "  sudo rm -rf /usr/local/bin/startmetro-wayland /usr/share/wayland-sessions/metrothemeplasma.desktop \\"
     echo "              /usr/share/sddm/themes/metrothemeplasma /etc/sddm.conf.d/zz-metrothemeplasma.conf \\"
     echo "              /usr/local/share/fonts/metrothemeplasma /usr/local/bin/metro-guncelle-hook \\"
-    echo "              /etc/pacman.d/hooks/91-metro-guncelle.hook /etc/metrothemeplasma.conf"
+    echo "              /etc/pacman.d/hooks/91-metro-guncelle.hook /etc/metrothemeplasma.conf \\"
+    echo "              /etc/systemd/system/metro-sessiz-kapanis.service  (önce: sudo systemctl disable metro-sessiz-kapanis)"
     exit 0
 fi
 

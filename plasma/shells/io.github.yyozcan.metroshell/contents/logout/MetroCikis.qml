@@ -43,24 +43,37 @@ Item {
         durum = d
         calistir.restart()
     }
+    // Windows 7 gibi: durum ekranı belirir, bir süre kalır, ekran siyaha kararır, işlem o zaman başlar
+    // (kapanış ekranı da siyahtan belirdiği için geçiş kesintisizdir)
     Timer {
         id: calistir
-        interval: 900
+        interval: 1300
         running: root.durum !== ""
-        onTriggered: {
-            if (root.durum === "oturum") oturum.requestLogout(0)
-            else if (root.durum === "yeniden") oturum.requestReboot(0)
-            else oturum.requestShutdown(0)
-            bekci.start()
+        onTriggered: karar.start()
+    }
+    SequentialAnimation {
+        id: karar
+        NumberAnimation { target: siyah; property: "opacity"; to: 1; duration: 650; easing.type: Easing.InOutQuad }
+        ScriptAction {
+            script: {
+                if (root.durum === "oturum") oturum.requestLogout(0)
+                else if (root.durum === "yeniden") oturum.requestReboot(0)
+                else oturum.requestShutdown(0)
+                bekci.start()
+            }
         }
     }
     Timer { id: bekci; interval: 20000; onTriggered: root.cancelRequested() }
 
     // durum ekranı
     Rectangle {
+        id: durumEkrani
         anchors.fill: parent
         visible: root.durum !== ""
         color: renk.arkaPlan
+        opacity: 0
+        onVisibleChanged: if (visible) belir.restart()
+        NumberAnimation { id: belir; target: durumEkrani; property: "opacity"; from: 0; to: 1; duration: 450; easing.type: Easing.OutQuad }
         Row {
             anchors.centerIn: parent
             spacing: 18
@@ -135,5 +148,8 @@ Item {
             }
         }
     }
+    // siyaha kararma (en üstte)
+    Rectangle { id: siyah; anchors.fill: parent; color: "black"; opacity: 0; visible: opacity > 0; z: 100 }
+    Component.onCompleted: if (root.durum !== "") belir.restart()
     Keys.onEscapePressed: if (root.durum === "") root.cancelRequested()
 }

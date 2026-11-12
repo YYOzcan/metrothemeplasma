@@ -14,10 +14,13 @@ PlasmoidItem {
     preferredRepresentation: compactRepresentation
     property date simdi: new Date()
     readonly property var tr: Qt.locale("tr_TR")
+    // ayar: yıl yalnızca görüntüde kaydırılır (2026 -> 2016 gibi); hesaplar gerçek tarihle yapılır
+    readonly property int kayma: Plasmoid.configuration.yilKaydir || 0
+    function yil(d) { return d.getFullYear() + kayma }
     Timer { interval: 1000; running: true; repeat: true; onTriggered: kok.simdi = new Date() }
 
     toolTipMainText: kok.simdi.getDate() + " " + tr.standaloneMonthName(kok.simdi.getMonth(), Locale.LongFormat) + " "
-                     + kok.simdi.getFullYear() + " " + tr.dayName(kok.simdi.getDay(), Locale.LongFormat)
+                     + kok.yil(kok.simdi) + " " + tr.dayName(kok.simdi.getDay(), Locale.LongFormat)
     toolTipSubText: ""
 
     P5Support.DataSource {
@@ -43,7 +46,7 @@ PlasmoidItem {
             }
             Text {
                 anchors.horizontalCenter: parent.horizontalCenter
-                text: Qt.formatDate(kok.simdi, "dd.MM.yyyy")
+                text: Qt.formatDate(kok.simdi, "dd.MM.") + kok.yil(kok.simdi)
                 color: "white"; font.family: "Segoe UI"; font.pixelSize: 12
             }
         }
@@ -70,7 +73,7 @@ PlasmoidItem {
         Text {
             x: 14; y: 10
             text: kok.simdi.getDate() + " " + kok.tr.standaloneMonthName(kok.simdi.getMonth(), Locale.LongFormat) + " "
-                  + kok.simdi.getFullYear() + " " + kok.tr.dayName(kok.simdi.getDay(), Locale.LongFormat)
+                  + kok.yil(kok.simdi) + " " + kok.tr.dayName(kok.simdi.getDay(), Locale.LongFormat)
             color: uzunMa.containsMouse ? "#3399ff" : "#0066cc"; font.family: "Segoe UI"; font.pixelSize: 15
             MouseArea { id: uzunMa; anchors.fill: parent; hoverEnabled: true; cursorShape: Qt.PointingHandCursor
                         onClicked: { acilir.ay = kok.simdi.getMonth(); acilir.yil = kok.simdi.getFullYear() } }
@@ -90,7 +93,7 @@ PlasmoidItem {
                 }
                 Text {
                     width: parent.width - 48; height: 24; horizontalAlignment: Text.AlignHCenter; verticalAlignment: Text.AlignVCenter
-                    text: kok.tr.standaloneMonthName(acilir.ay, Locale.LongFormat) + " " + acilir.yil
+                    text: kok.tr.standaloneMonthName(acilir.ay, Locale.LongFormat) + " " + (acilir.yil + kok.kayma)
                     color: "#1e395b"; font.family: "Segoe UI"; font.pixelSize: 13
                 }
                 Text {

@@ -13,6 +13,7 @@ global.KARE = 110;
 global.W = 0;
 global.H = 0;
 global.sayac = 0;
+global.solgun = 0;          # Windows 7 gibi yumuşak belirme: 0 -> 1 (açılış ~0,6 sn, kapanış ~0,8 sn)
 
 for (i = 0; i < global.KARE; i++) {
     if (i < 10) ad = "halka-00" + i + ".png";
@@ -48,6 +49,8 @@ fun yerlestir() {
         global.y_sprite.SetX(x0 + cap + Math.Int(cap * 0.5));
         global.y_sprite.SetY(Math.Int(h / 2 - yh * 0.42));
         global.y_sprite.SetZ(2);
+        global.y_sprite.SetOpacity(global.solgun);
+        global.h_sprite.SetOpacity(global.solgun);
     } else {
         # logo: yüksekliği ekranın ~1/8.5'ini geçmeyen en büyük boy
         sec = 1;
@@ -62,12 +65,14 @@ fun yerlestir() {
         global.h_sprite.SetX(Math.Int((w - cap) / 2));
         global.h_sprite.SetY(Math.Int(h * 0.78 - cap / 2));
         global.h_sprite.SetZ(2);
+        global.l_sprite.SetOpacity(global.solgun);
+        global.h_sprite.SetOpacity(global.solgun);
     }
 }
 
 if (global.kapanis) {
-    Window.SetBackgroundTopColor(global.arka_r, global.arka_g, global.arka_b);
-    Window.SetBackgroundBottomColor(global.arka_r, global.arka_g, global.arka_b);
+    Window.SetBackgroundTopColor(0, 0, 0);       # siyahtan başlar, guncelle() rengine taşır
+    Window.SetBackgroundBottomColor(0, 0, 0);
 } else {
     Window.SetBackgroundTopColor(0, 0, 0);
     Window.SetBackgroundBottomColor(0, 0, 0);
@@ -78,6 +83,20 @@ fun guncelle() {
     if (Window.GetWidth() != global.W || Window.GetHeight() != global.H)
         yerlestir();
     global.sayac++;
+    if (global.solgun < 1) {
+        if (global.kapanis) global.solgun += 0.025; else global.solgun += 0.033;
+        if (global.solgun > 1) global.solgun = 1;
+        f = global.solgun;
+        if (global.kapanis) {
+            # siyahtan Başlangıç rengine
+            Window.SetBackgroundTopColor(global.arka_r * f, global.arka_g * f, global.arka_b * f);
+            Window.SetBackgroundBottomColor(global.arka_r * f, global.arka_g * f, global.arka_b * f);
+            global.y_sprite.SetOpacity(f);
+        } else {
+            global.l_sprite.SetOpacity(f);
+        }
+        global.h_sprite.SetOpacity(f);
+    }
     # 50 Hz yenileme, 25 kare/sn
     kare = Math.Int(global.sayac / 2) % global.KARE;
     global.h_sprite.SetImage(global.halka[kare]);

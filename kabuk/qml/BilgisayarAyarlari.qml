@@ -101,9 +101,11 @@ Window {
                     MouseArea {
                         id: ma; anchors.fill: parent; hoverEnabled: true
                         onClicked: {
-                            if (og.kat) { pen.kategori = og.kimlik; var s0 = og.modelData.sayfalar[0]; if (!s0[2]) pen.sayfa = s0[1]; else pen.sayfa = "" }
-                            else if (og.modelData[2]) { Sistem.ayarAc(og.modelData[2]) }
-                            else pen.sayfa = og.kimlik
+                            // önce değerleri al: kategori değişince bu öğe (liste modeli değiştiği için) yok edilir
+                            var p = pen, kat = og.kat, kimlik = og.kimlik, veri = og.modelData
+                            if (kat) { var s0 = veri.sayfalar[0]; p.sayfa = s0[2] ? "" : s0[1]; p.kategori = kimlik }
+                            else if (veri[2]) { Sistem.ayarAc(veri[2]) }
+                            else p.sayfa = kimlik
                         }
                     }
                 }
@@ -132,9 +134,10 @@ Window {
             width: Math.min(parent.width, 720)
             sourceComponent: {
                 if (pen.kategori === "" && pen.sayfa === "") return girisSayfasi
+                if (pen.sayfa === "") return kategoriSayfasi
                 return ({ kilit: kilitSayfasi, koseler: koselerSayfasi, hesap: hesapSayfasi, baslangic: baslangicSayfasi,
                           renk: renkSayfasi, gezinti: gezintiSayfasi, update: guncelSayfasi, otomatik: otomatikSayfasi,
-                          bilgi: bilgiSayfasi, tarih: tarihSayfasi, guc: gucSayfasi, bildirim: bildirimSayfasi })[pen.sayfa] || bosSayfa
+                          bilgi: bilgiSayfasi, tarih: tarihSayfasi, guc: gucSayfasi, bildirim: bildirimSayfasi })[pen.sayfa] || modulSayfasi
             }
         }
     }
@@ -450,6 +453,43 @@ Window {
             MetroAnahtar { renk: "black"; vurgu: pen.tema.vurgu; acik: pen.tema.baslangic.uygulamalarOtomatik; onDegisti: d => pen.tema.baslangic.uygulamalarOtomatik = d }
             Aciklama { width: 640; text: "Uygulamalar görünümü kategoriye göre sıralandığında önce masaüstü uygulamalarını listele" }
             MetroAnahtar { renk: "black"; vurgu: pen.tema.vurgu; acik: pen.tema.baslangic.masaustuUygulamalariOnce; onDegisti: d => pen.tema.baslangic.masaustuUygulamalariOnce = d }
+        }
+    }
+
+    // ---- kategori özeti: ilk sayfası Plasma modülü olan kategoriler (Ara, Gizlilik, Ağ, Erişim Kolaylığı)
+    Component {
+        id: kategoriSayfasi
+        Column {
+            spacing: 10
+            Baslik { text: pen.kategoriNesnesi() ? pen.kategoriNesnesi().ad : "" }
+            Repeater {
+                model: pen.kategoriNesnesi() ? pen.kategoriNesnesi().sayfalar : []
+                delegate: Column {
+                    required property var modelData
+                    spacing: 2
+                    Bolum { text: modelData[0] }
+                    Baglanti {
+                        text: modelData[2] ? modelData[0] + " ayarlarını aç" : modelData[0] + " sayfasına git"
+                        onTiklandi: { if (modelData[2]) Sistem.ayarAc(modelData[2]); else pen.sayfa = modelData[1] }
+                    }
+                }
+            }
+        }
+    }
+
+    // ---- Plasma modülüyle yapılan sayfa: başlık, kısa açıklama ve ayarı açan düğme
+    Component {
+        id: modulSayfasi
+        Column {
+            spacing: 10
+            readonly property var girdi: {
+                var k = pen.kategoriNesnesi()
+                if (k) for (var i = 0; i < k.sayfalar.length; i++) if (k.sayfalar[i][1] === pen.sayfa) return k.sayfalar[i]
+                return null
+            }
+            Baslik { text: parent.girdi ? parent.girdi[0] : "" }
+            Aciklama { width: 640; text: "Bu ayarlar Sistem Ayarları'nda düzenlenir." }
+            Dugme { metin: "Ayarları aç"; onTiklandi: if (parent.girdi && parent.girdi[2]) Sistem.ayarAc(parent.girdi[2]) }
         }
     }
 

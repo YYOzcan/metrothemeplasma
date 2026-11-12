@@ -107,6 +107,14 @@ Aşağıdaki açık kaynak projeler `uygulamalar/` altında git alt modülüdür
 [linux-control](https://github.com/actuallyaridan/linux-control)'ün Denetim Masası'nın daha yeni hali
 linux-explorer'ın içindedir; Windows'taki gibi `control` komutu onu açar.
 
+## Açılış ve kapanış
+
+Windows 7 gibi yumuşak geçişler: oturum açılınca masaüstü siyahtan belirir; kapatırken önce Windows 8.1
+"Kapatılıyor" ekranı belirir, ekran siyaha kararır ve Windows logolu kapanış ekranı siyahtan belirir.
+Kapanışta metin konsoluna "The system will power off/reboot now!" yazılmaz (`metro-sessiz-kapanis.service`,
+logind duyuruları kapalı). Görev çubuğu saatinde yıl isteğe bağlı kaydırılarak gösterilebilir
+(sağ tık > Yapılandır > Yılı kaydır; yalnızca görüntü, sistem saati değişmez).
+
 ## Kendiliğinden güncelleme
 
 `sudo bash kur.sh --sistem` bir pacman kancası da kurar (`/etc/pacman.d/hooks/91-metro-guncelle.hook`):

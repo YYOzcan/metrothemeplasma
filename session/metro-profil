@@ -52,7 +52,9 @@ YONETILEN = {
                     "windowapertureEnabled": "false", "fadedesktopEnabled": "true",
                     "slideEnabled": "false", "dimscreenEnabled": "false",
                     "overviewEnabled": "false", "minimizeallEnabled": "true",
-                    "metro_koselerEnabled": "true"},
+                    "metro_koselerEnabled": "true",
+                    # Windows 7/8 gibi: oturum açılınca masaüstü siyahtan belirir, kapanırken kararır
+                    "loginEnabled": "true", "logoutEnabled": "true"},
         "TabBox": {"LayoutName": "metro_alttab", "HighlightWindows": "false", "ShowDesktopMode": "1"},
         # sıcak köşeler metro-kabuk'a ait (KWin betiği metro_koseler): KWin'in kendi köşe eylemleri kapalı
         "ElectricBorders": {"TopLeft": "None", "Top": "None", "TopRight": "None", "Right": "None",

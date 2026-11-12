@@ -229,11 +229,11 @@ Item {
                         visible: og.o.kimlik !== undefined
                         width: 40; height: 40
                         anchors.verticalCenter: parent.verticalCenter
-                        color: og.o.kimlik ? (og.o.renk || SimgeRengi.renk(og.o.simge, g.tema.vurgu)) : "transparent"
+                        color: og.o && og.o.kimlik ? (og.o.renk || SimgeRengi.renk(og.o.simge, g.tema.vurgu)) : "transparent"
                         Image {
                             anchors.centerIn: parent
                             // Metro uygulaması simgesi zaten kutucuk renginde kare: kareyi doldurur
-                            readonly property bool metro: (og.o.simge || "").indexOf("/varlik/uygulama-") >= 0
+                            readonly property bool metro: og.o ? (og.o.simge || "").indexOf("/varlik/uygulama-") >= 0 : false
                             width: metro ? 40 : 30; height: width
                             sourceSize.width: 60; sourceSize.height: 60
                             source: og.o.simge ? (og.o.simge.startsWith("/") ? "file://" + og.o.simge : "image://simge/" + og.o.simge) : ""
