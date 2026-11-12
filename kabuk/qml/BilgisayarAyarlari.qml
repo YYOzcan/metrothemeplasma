@@ -137,12 +137,52 @@ Window {
             }
         }
     }
-    // pencereyi kapat (Windows 8.1 uygulamasında fare üstteyken başlık çubuğu)
+    // 8.1 Update: Mağaza uygulamasının başlık çubuğu — fare üst kenara gelince kayarak iner
+    // (solda simge ve uygulama adı, sağda küçült ve kapat); fare aşağı inince geri çekilir
+    MouseArea {
+        id: ustKenar
+        width: parent.width; height: 4
+        hoverEnabled: true
+        onEntered: baslikCubugu.goster = true
+    }
     Rectangle {
-        anchors.right: parent.right; width: 46; height: 30
-        color: kapatMa.containsMouse ? "#e81123" : "transparent"
-        Text { anchors.centerIn: parent; text: ""; font.family: "Segoe UI Symbol"; font.pixelSize: 12; color: kapatMa.containsMouse ? "white" : "#555" }
-        MouseArea { id: kapatMa; anchors.fill: parent; hoverEnabled: true; onClicked: pen.close() }
+        id: baslikCubugu
+        property bool goster: false
+        width: parent.width; height: 32
+        y: goster ? 0 : -height
+        Behavior on y { NumberAnimation { duration: 200; easing.type: Easing.Bezier; easing.bezierCurve: pen.tema.pvl } }
+        color: "#f0f0f0"
+        Rectangle { anchors.bottom: parent.bottom; width: parent.width; height: 1; color: "#d9d9d9" }
+        MouseArea {
+            anchors.fill: parent
+            hoverEnabled: true
+            onExited: if (mouseY > height - 2) baslikCubugu.goster = false
+        }
+        Rectangle {
+            id: baslikSimge
+            x: 8; anchors.verticalCenter: parent.verticalCenter
+            width: 20; height: 20; color: pen.tema.vurgu
+            Image { anchors.fill: parent; source: pen.tema.win + "ImmersiveControlPanel/images/logo.scale-100.png"; sourceSize.width: 40 }
+        }
+        Text {
+            anchors.left: baslikSimge.right; anchors.leftMargin: 8; anchors.verticalCenter: parent.verticalCenter
+            text: "Bilgisayar ayarları"; color: "black"; font.family: "Segoe UI"; font.pixelSize: 12
+        }
+        Row {
+            anchors.right: parent.right; height: parent.height - 1
+            Rectangle {
+                width: 46; height: parent.height
+                color: kucultMa.pressed ? "#cccccc" : (kucultMa.containsMouse ? "#e5e5e5" : "transparent")
+                Text { anchors.centerIn: parent; text: "─"; font.pixelSize: 10; color: "#333" }
+                MouseArea { id: kucultMa; anchors.fill: parent; hoverEnabled: true; onClicked: { baslikCubugu.goster = false; pen.showMinimized() } }
+            }
+            Rectangle {
+                width: 46; height: parent.height
+                color: kapatMa.pressed ? "#f1707a" : (kapatMa.containsMouse ? "#e81123" : "transparent")
+                Text { anchors.centerIn: parent; text: "✕"; font.family: "Segoe UI Symbol"; font.pixelSize: 12; color: kapatMa.containsMouse ? "white" : "#333" }
+                MouseArea { id: kapatMa; anchors.fill: parent; hoverEnabled: true; onClicked: { baslikCubugu.goster = false; pen.close() } }
+            }
+        }
     }
 
     component Baslik: Text { color: "black"; font.family: "Segoe UI"; font.weight: 300; font.pixelSize: 34; bottomPadding: 18 }
