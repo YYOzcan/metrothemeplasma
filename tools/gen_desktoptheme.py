@@ -114,7 +114,13 @@ def acilir(d, c, y):
     s2.add_frame("", im, 2, 2, 2, 2)
     s2.add_frame("shadow", golge(40, 40, 6, 0.25), 8, 8, 8, 8)
     yaz(d / "widgets/background.svg", s2)
-    yaz(d / "widgets/translucentbackground.svg", s2)
+    # Aero Snap önizlemesi (KWin outline bu öğeyi kullanır): Windows 8'deki yarı saydam beyaz alan, açık kenar
+    s3 = Sheet(scale=1, width=300)
+    yari = Image.new("RGBA", (40, 40), (255, 255, 255, 70))
+    ImageDraw.Draw(yari).rectangle([0, 0, 39, 39], outline=(255, 255, 255, 170))
+    s3.add_frame("", yari, 2, 2, 2, 2)
+    s3.add_frame("shadow", golge(40, 40, 6, 0.18), 8, 8, 8, 8)
+    yaz(d / "widgets/translucentbackground.svg", s3)
 
 
 def gorunum_ogesi(d, c, y):
