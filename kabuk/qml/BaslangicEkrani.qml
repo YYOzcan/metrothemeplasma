@@ -21,7 +21,7 @@ Window {
     readonly property int adim: hucre + aralik
     readonly property int solBosluk: 120
     readonly property int ustBosluk: 180
-    readonly property int grupAraligi: 56
+    readonly property int grupAraligi: 70        // + aralık = 80 px (Windows 8 grup boşluğu)
     readonly property int satir: Math.max(4, Math.floor((ekranY - ustBosluk - 60) / adim) & ~1)
     // içerik her zaman tam ekran yüksekliğinde; pencere alttan kısalınca (görev çubuğu) yalnız kırpılır
     readonly property int ekranY: Screen.height
