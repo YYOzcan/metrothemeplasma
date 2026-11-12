@@ -11,6 +11,8 @@ export XDG_DATA_DIRS="$HOME/.local/share/metrothemeplasma/data:${XDG_DATA_DIRS:-
 export QML_IMPORT_PATH="$HOME/.local/share/metrothemeplasma/qml${QML_IMPORT_PATH:+:$QML_IMPORT_PATH}"
 # Windows 8 bildirimleri (derlenmiş Plasma uygulamacığı, yalnızca bu oturumda)
 export QT_PLUGIN_PATH="$HOME/.local/share/metrothemeplasma/eklenti${QT_PLUGIN_PATH:+:$QT_PLUGIN_PATH}"
+# Kullanıcı Hesabı Denetimi: AeroThemePlasma'nın UAC polkit aracısı (Windows 7/8 düzeni), kuruluysa
+[ -x /usr/lib/uac-polkit-agent ] && export USE_UAC_AGENT=1
 # Windows 8.1'in kendi Segoe UI ailesi (yalnızca bu oturumda)
 [ -f "$HOME/.local/share/metrothemeplasma/fonts.conf" ] && export FONTCONFIG_FILE="$HOME/.local/share/metrothemeplasma/fonts.conf"
 /usr/lib/plasma-dbus-run-session-if-needed /usr/bin/startplasma-wayland

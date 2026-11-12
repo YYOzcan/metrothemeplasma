@@ -40,7 +40,8 @@ YONETILEN = {
                                  "ButtonsOnLeft": "M", "ButtonsOnRight": "IAX",
                                  "BorderSize": "Normal", "BorderSizeAuto": "false"},
         "Plugins": {"aeroglassblurEnabled": "false", "aeroglideEnabled": "false",
-                    "dimscreenaeroEnabled": "false", "smodglowEnabled": "false",
+                    # UAC: yetki penceresinin arkası kararır (ATP'nin dimscreenaero efekti)
+                    "dimscreenaeroEnabled": "true", "smodglowEnabled": "false",
                     "smodpeekeffectEnabled": "false", "libkwin_effect_smodsnapEnabled": "false",
                     # Windows 8: bulanıklık yok, pencere açılışı yakınlaşarak, küçültme görev çubuğuna
                     "blurEnabled": "false", "contrastEnabled": "false",
