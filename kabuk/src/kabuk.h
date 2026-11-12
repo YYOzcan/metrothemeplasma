@@ -58,6 +58,6 @@ Q_SIGNALS:
     void yenidenYukleIste();
 
 private:
-    QAction *kisayol(const QString &ad, const QString &metin, const QList<QKeySequence> &tuslar);
+    QAction *kisayol(const QString &ad, const QString &metin, const QList<QKeySequence> &tuslar, bool zorla = false);
     bool m_baslangicAcik = false;
 };

@@ -10,7 +10,9 @@ Kabuk::Kabuk(QObject *parent)
 {
     QDBusConnection::sessionBus().registerObject(QStringLiteral("/Kabuk"), this, QDBusConnection::ExportScriptableSlots);
 
-    connect(kisayol(QStringLiteral("baslangic"), QStringLiteral("Başlangıç ekranı"), {Qt::CTRL | Qt::Key_Escape}),
+    // Windows tuşu tek başına (KWin 6.8: yalnız değiştirici tuş kısayolları KGlobalAccel'de "Meta") + Ctrl+Esc.
+    // Windows'ta değiştirilemez; kayıtlı eski değer (yalnız Ctrl+Esc) varsa ezilir.
+    connect(kisayol(QStringLiteral("baslangic"), QStringLiteral("Başlangıç ekranı"), {QKeySequence(Qt::Key_Meta), Qt::CTRL | Qt::Key_Escape}, true),
             &QAction::triggered, this, &Kabuk::Baslangic);
     connect(kisayol(QStringLiteral("tilsimlar"), QStringLiteral("Tılsımlar"), {Qt::META | Qt::Key_C}),
             &QAction::triggered, this, &Kabuk::Tilsimlar);
@@ -34,14 +36,14 @@ Kabuk::Kabuk(QObject *parent)
             &QAction::triggered, this, &Kabuk::EkranGoruntusu);
 }
 
-QAction *Kabuk::kisayol(const QString &ad, const QString &metin, const QList<QKeySequence> &tuslar)
+QAction *Kabuk::kisayol(const QString &ad, const QString &metin, const QList<QKeySequence> &tuslar, bool zorla)
 {
     auto *a = new QAction(metin, this);
     a->setObjectName(ad);
     a->setProperty("componentName", QStringLiteral("metro-kabuk"));
     a->setProperty("componentDisplayName", QStringLiteral("Metro Kabuğu"));
     KGlobalAccel::self()->setDefaultShortcut(a, tuslar);
-    if (!KGlobalAccel::self()->setShortcut(a, tuslar, KGlobalAccel::Autoloading))
+    if (!KGlobalAccel::self()->setShortcut(a, tuslar, zorla ? KGlobalAccel::NoAutoloading : KGlobalAccel::Autoloading))
         qWarning() << "kısayol alınamadı (başka bileşende):" << ad << tuslar;
     return a;
 }

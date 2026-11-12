@@ -22,7 +22,9 @@ Window {
     readonly property int solBosluk: 120
     readonly property int ustBosluk: 180
     readonly property int grupAraligi: 56
-    readonly property int satir: Math.max(4, Math.floor((height - ustBosluk - 60) / adim) & ~1)
+    readonly property int satir: Math.max(4, Math.floor((ekranY - ustBosluk - 60) / adim) & ~1)
+    // içerik her zaman tam ekran yüksekliğinde; pencere alttan kısalınca (görev çubuğu) yalnız kırpılır
+    readonly property int ekranY: Screen.height
 
     width: Screen.width
     height: Screen.height
@@ -116,8 +118,9 @@ Window {
     function gorevCubuguGoster(g) {
         if (gorevCubugu === g) return
         gorevCubugu = g
-        // Üst katman (Top) Plasma panelinin altında kalır: panel görünür, tıklanınca etkin pencere değişir
-        KatmanYardimci.katmanAyarla(pen, g ? 2 : 3)
+        // pencere alttan görev çubuğu yüksekliği kadar kısalır, Plasma paneli altta görünür;
+        // klavye isteğe bağlı olur ki görev düğmesine tıklanınca etkin pencere değişsin (Başlangıç kapanır)
+        KatmanYardimci.kenarBosluk(pen, 0, 0, g ? 40 : 0, 0)
         KatmanYardimci.klavyeAyarla(pen, g ? 2 : 1)
     }
     onActiveChanged: if (!active && acik && gorevCubugu) kapat()
@@ -395,7 +398,7 @@ Window {
     // ------------------------------------------------------------------ içerik
     Item {
         id: icerik
-        width: pen.width; height: pen.height
+        width: pen.width; height: pen.ekranY
         focus: true
         transformOrigin: Item.Center
 
@@ -411,8 +414,8 @@ Window {
         // Başlangıç / Uygulamalar dikey geçişi
         Item {
             id: baslangicSayfasi
-            width: pen.width; height: pen.height
-            y: -pen.sayfaKonum * pen.height
+            width: pen.width; height: pen.ekranY
+            y: -pen.sayfaKonum * pen.ekranY
 
             Text {
                 id: baslikYazi
@@ -480,7 +483,7 @@ Window {
             Flickable {
                 id: kaydirici
                 x: 0; y: pen.ustBosluk - 40
-                width: pen.width; height: pen.height - y
+                width: pen.width; height: pen.ekranY - y
                 contentWidth: pen.uzak ? width : Math.max(width, pen.solBosluk + pen.toplamGenislik + 200)
                 contentHeight: height
                 flickableDirection: Flickable.HorizontalFlick
@@ -627,8 +630,8 @@ Window {
 
         UygulamalarGorunumu {
             id: uygulamalarGorunumu
-            width: pen.width; height: pen.height
-            y: (1 - pen.sayfaKonum) * pen.height
+            width: pen.width; height: pen.ekranY
+            y: (1 - pen.sayfaKonum) * pen.ekranY
             tema: pen.tema
             ana: pen.ana
             baslangic: pen
@@ -644,8 +647,8 @@ Window {
             onPositionChanged: mouse => {
                 fareHareket.restart()
                 // 8.1 Update: alt kenarda görev çubuğu belirir, yukarı çıkınca gizlenir
-                if (pen.acik && !kapanis.running && mouse.y >= pen.height - 2) pen.gorevCubuguGoster(true)
-                else if (pen.gorevCubugu && mouse.y < pen.height - 48) pen.gorevCubuguGoster(false)
+                if (pen.acik && !kapanis.running && mouse.y >= pen.ekranY - 2) pen.gorevCubuguGoster(true)
+                else if (pen.gorevCubugu && mouse.y < pen.ekranY - 48) pen.gorevCubuguGoster(false)
             }
         }
         Timer { id: fareHareket; interval: 2500 }
@@ -672,7 +675,7 @@ Window {
             readonly property real oran: kaydirici.width / Math.max(1, kaydirici.contentWidth)
             visible: oran < 0.999 && pen.sayfaKonum < 0.5
             x: 0; width: pen.width; height: 14
-            y: pen.height - height - 2 - pen.sayfaKonum * pen.height
+            y: pen.ekranY - height - 2 - pen.sayfaKonum * pen.ekranY
             opacity: fareHareket.running || cma.pressed ? 1 : 0
             Behavior on opacity { NumberAnimation { duration: 250 } }
             Rectangle { anchors.fill: parent; anchors.topMargin: 2; anchors.bottomMargin: 2; color: Qt.rgba(1, 1, 1, 0.12) }
@@ -730,7 +733,7 @@ Window {
                     NumberAnimation { target: acilisEkrani; property: "x"; to: 0; duration: 400; easing.type: Easing.Bezier; easing.bezierCurve: pen.tema.pvl }
                     NumberAnimation { target: acilisEkrani; property: "y"; to: 0; duration: 400; easing.type: Easing.Bezier; easing.bezierCurve: pen.tema.pvl }
                     NumberAnimation { target: acilisEkrani; property: "width"; to: pen.width; duration: 400; easing.type: Easing.Bezier; easing.bezierCurve: pen.tema.pvl }
-                    NumberAnimation { target: acilisEkrani; property: "height"; to: pen.height; duration: 400; easing.type: Easing.Bezier; easing.bezierCurve: pen.tema.pvl }
+                    NumberAnimation { target: acilisEkrani; property: "height"; to: pen.ekranY; duration: 400; easing.type: Easing.Bezier; easing.bezierCurve: pen.tema.pvl }
                     SequentialAnimation {
                         PauseAnimation { duration: 120 }
                         NumberAnimation { target: logo; property: "opacity"; to: 1; duration: 167 }
