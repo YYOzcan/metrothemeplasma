@@ -13,6 +13,7 @@ QtObject {
     property GucMenusu hizliMenu: GucMenusu { ana: ana }
     property SolGecis gecis: SolGecis { ana: ana }
     property EkranFlasi flas: EkranFlasi {}
+    property BilgisayarAyarlari pcAyarlar: BilgisayarAyarlari { tema: ana.tema; ana: ana }
 
     // ------------------------------------------------------------------ Başlangıç
     function baslangicAc(uygulamalar) {
@@ -116,14 +117,13 @@ QtObject {
     }
     function bilgisayarAyarlari(sayfa) {
         hepsiniKapat()
-        if (Sistem.programVar("metro-ayarlar")) Sistem.calistir("metro-ayarlar " + (sayfa || ""))
-        else Sistem.ayarAc(sayfa || "")
+        pcAyarlar.ac(sayfa || "")
     }
     function ayarEylem(a) {
         switch (a) {
         case "denetim": hepsiniKapat(); Sistem.calistir(ilkProgram(["metro-denetim", "systemsettings"])); break
-        case "kisisellestirme": hepsiniKapat(); Sistem.calistir(ilkProgram(["metro-kisisellestirme", "systemsettings kcm_lookandfeel"])); break
-        case "bilgi": hepsiniKapat(); Sistem.calistir(ilkProgram(["kinfocenter", "systemsettings kcm_about-distro"])); break
+        case "kisisellestirme": bilgisayarAyarlari("renk"); break
+        case "bilgi": hepsiniKapat(); Sistem.calistir(ilkProgram(["kinfocenter kcm_about-distro", "systemsettings kcm_about-distro"])); break
         case "yardim": hepsiniKapat(); Sistem.calistir(ilkProgram(["khelpcenter", "xdg-open https://userbase.kde.org"])); break
         case "kisisellestir": bolme.ac("kisisellestir"); break
         case "kutucuklar": bolme.ac("kutucuklar"); break
