@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name=Aygıt Yöneticisi
+Comment=Donanım aygıtlarını görüntüleyin ve yönetin
+Exec=@BIN@/devmgmt
+Icon=computer
+Terminal=false
+Categories=System;HardwareSettings;
+Keywords=devmgmt;aygıt;donanım;sürücü;
+StartupNotify=true
+StartupWMClass=devmgmt

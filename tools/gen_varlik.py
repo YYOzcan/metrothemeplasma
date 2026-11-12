@@ -85,6 +85,36 @@ def kaydet(res, tur, kimlik, hedef):
     return True
 
 
+def winver(win, cikti):
+    """winver.ini + winver-marka.png (linver yaması okur): basebrd.dll BITMAP 121 ve dizeleri,
+    shell32.dll.mui "Hakkında" iletişim kutusu (14352) ve sürüm biçimi (60)."""
+    import re
+    brd = win / "Windows/Branding/Basebrd"
+    bb = PEResources((brd / "basebrd.dll").read_bytes())
+    d = bb.get("BITMAP", 121)
+    if d is not None:
+        dib_resim(d).save(cikti / "winver-marka.png")
+    bs = PEResources((brd / "tr-TR/basebrd.dll.mui").read_bytes()).strings()
+    sh = PEResources((win / "Windows/System32/tr-TR/shell32.dll.mui").read_bytes())
+    metin = sh.get("DIALOG", 14352).decode("utf-16-le", "ignore")
+    parcalar = [x for x in re.split(r"[\x00-\x1f\uffff]+", metin) if len(x) > 3]
+    baslik = next((x for x in parcalar if "%s" in x), "%s Hakkında").replace("%s", "Windows")
+    uzun = next((x for x in parcalar if "%WINDOWS_LONG%" in x), "").lstrip("\x80\x81\x82")
+    lisans = next((x for x in parcalar if "<A>" in x), "")
+    lisans = lisans.replace("<A>", '<a style="color: #0066cc;" href="https://support.microsoft.com/tr-tr/windows/'
+                            'microsoft-software-license-terms-e26eedad-97a2-5250-2670-aad156b654bd">').replace("</A>", "</a>")
+    bicim = sh.strings().get(60, "Sürüm %d.%d (Yapım No %d%s)%s")
+    surum = bicim.replace("%d.%d", "6.3").replace("%d%s", "9600").replace("%s", "")
+    satirlar = ["[Windows81]", f"baslik={baslik}", "marka=winver-marka.png", "urun=Microsoft Windows",
+                f"surum={surum}", f"telif={bs.get(14, '')}", f"ad={bs.get(13, bs.get(35, 'Windows 8.1'))}",
+                f"lisans={lisans}", f"uzun={uzun.replace('%WINDOWS_LONG%', '%1')}"]
+    # QSettings INI: değerlerdeki özel karakterler için tırnak
+    def q(v):
+        return '"' + v.replace("\\", "\\\\").replace('"', '\\"') + '"'
+    out = [satirlar[0]] + [k + "=" + q(v) for k, v in (x.split("=", 1) for x in satirlar[1:])]
+    (cikti / "winver.ini").write_text("\n".join(out) + "\n")
+
+
 def main(win, cikti):
     win, cikti = Path(win), Path(cikti)
     cikti.mkdir(parents=True, exist_ok=True)
@@ -116,6 +146,11 @@ def main(win, cikti):
         d = td.get("PNGFILE", k)
         if d:
             (cikti / f"{ad}.png").write_bytes(d)
+    # Windows Hakkında (linver): marka görseli ve metinler kendi kopyandan
+    try:
+        winver(win, cikti)
+    except Exception as x:  # noqa: BLE001
+        print("  winver bilgisi atlandı:", x)
     # hesap resmi
     hr = win / "ProgramData/Microsoft/User Account Pictures"
     for a in ("user.png", "user-200.png", "user-40.png"):

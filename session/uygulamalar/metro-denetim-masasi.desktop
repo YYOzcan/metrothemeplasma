@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name=Denetim Masası
+Comment=Bilgisayarınızın ayarlarını yapın
+Exec=@BIN@/explorer --control-panel
+Icon=preferences-system
+Terminal=false
+Categories=Qt;KDE;Settings;
+Keywords=control;denetim;ayarlar;program kaldır;
+StartupNotify=true
+StartupWMClass=explorer

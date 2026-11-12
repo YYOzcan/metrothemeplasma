@@ -1,0 +1,9 @@
+[submodule "uygulamalar/linux-explorer"]
+	path = uygulamalar/linux-explorer
+	url = https://github.com/actuallyaridan/linux-explorer
+[submodule "uygulamalar/linux-devmgmt"]
+	path = uygulamalar/linux-devmgmt
+	url = https://github.com/actuallyaridan/linux-devmgmt
+[submodule "uygulamalar/linver"]
+	path = uygulamalar/linver
+	url = https://gitgud.io/wackyideas/linver

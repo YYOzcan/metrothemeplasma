@@ -32,6 +32,8 @@ Kabuk::Kabuk(QObject *parent)
             &QAction::triggered, this, [this] { GucMenusu(-1, -1); });
     connect(kisayol(QStringLiteral("gecis"), QStringLiteral("Uygulamalar arasında geçiş yap"), {Qt::META | Qt::Key_Tab}),
             &QAction::triggered, this, &Kabuk::Gecis);
+    connect(kisayol(QStringLiteral("dosya-gezgini"), QStringLiteral("Dosya Gezgini"), {Qt::META | Qt::Key_E}),
+            &QAction::triggered, this, [this] { Q_EMIT gezginIste(); });
     connect(kisayol(QStringLiteral("calistir"), QStringLiteral("Çalıştır"), {Qt::META | Qt::Key_R}),
             &QAction::triggered, this, [this] { Q_EMIT calistirIste(); });
     connect(kisayol(QStringLiteral("gorev-yoneticisi"), QStringLiteral("Görev Yöneticisi"), {Qt::CTRL | Qt::SHIFT | Qt::Key_Escape}),

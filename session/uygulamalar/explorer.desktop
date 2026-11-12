@@ -1,0 +1,18 @@
+[Desktop Entry]
+Type=Application
+Name=Dosya Gezgini
+GenericName=Dosya Yöneticisi
+Comment=Dosya ve klasörlere göz atın
+Exec=@BIN@/explorer %U
+Icon=system-file-manager
+Terminal=false
+MimeType=inode/directory;x-directory/normal;inode/mount-point;
+Categories=Qt;KDE;System;FileTools;FileManager;
+Keywords=explorer;dosya;klasör;gezgin;
+StartupNotify=true
+StartupWMClass=explorer
+Actions=YeniPencere;
+
+[Desktop Action YeniPencere]
+Name=Yeni pencere aç
+Exec=@BIN@/explorer

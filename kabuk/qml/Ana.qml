@@ -126,7 +126,7 @@ QtObject {
         switch (a) {
         case "denetim": hepsiniKapat(); Sistem.calistir(ilkProgram(["metro-denetim", "systemsettings"])); break
         case "kisisellestirme": bilgisayarAyarlari("renk"); break
-        case "bilgi": hepsiniKapat(); Sistem.calistir(ilkProgram(["kinfocenter kcm_about-distro", "systemsettings kcm_about-distro"])); break
+        case "bilgi": hepsiniKapat(); Sistem.calistir(ilkProgram(["control 'Sistem ve Güvenlik/Sistem'", "kinfocenter kcm_about-distro", "systemsettings kcm_about-distro"])); break
         case "yardim": hepsiniKapat(); Sistem.calistir(ilkProgram(["khelpcenter", "xdg-open https://userbase.kde.org"])); break
         case "kisisellestir": bolme.ac("kisisellestir"); break
         case "kutucuklar": bolme.ac("kutucuklar"); break
@@ -136,12 +136,13 @@ QtObject {
         hepsiniKapat()
         var konsol = ilkProgram(["konsole", "kgx", "kitty", "alacritty", "xterm"])
         switch (e) {
-        case "programlar": Sistem.calistir(ilkProgram(["plasma-discover --mode installed", "octopi", "pamac-manager", "systemsettings"])); break
+        // Windows uygulamaları (linux-explorer Denetim Masası sayfaları, linux-devmgmt) kuruluysa onlar
+        case "programlar": Sistem.calistir(ilkProgram(["control 'Programlar/Programlar ve Özellikler'", "plasma-discover --mode installed", "octopi", "pamac-manager", "systemsettings"])); break
         case "mobility": Sistem.ayarAc("kcm_powerdevilprofilesconfig"); break
-        case "guc": Sistem.ayarAc("kcm_powerdevilprofilesconfig"); break
+        case "guc": Sistem.calistir(ilkProgram(["control 'Sistem ve Güvenlik/Güç Seçenekleri'", "systemsettings kcm_powerdevilprofilesconfig"])); break
         case "olay": Sistem.calistir(ilkProgram(["ksystemlog", "gnome-logs", konsol + " -e journalctl -b"])); break
-        case "sistem": Sistem.calistir(ilkProgram(["kinfocenter kcm_about-distro", "systemsettings kcm_about-distro"])); break
-        case "aygit": Sistem.calistir(ilkProgram(["kinfocenter kcm_pci", "systemsettings"])); break
+        case "sistem": Sistem.calistir(ilkProgram(["control 'Sistem ve Güvenlik/Sistem'", "kinfocenter kcm_about-distro", "systemsettings kcm_about-distro"])); break
+        case "aygit": Sistem.calistir(ilkProgram(["devmgmt", "kinfocenter kcm_pci", "systemsettings"])); break
         case "ag": Sistem.ayarAc("kcm_networkmanagement"); break
         case "disk": Sistem.calistir(ilkProgram(["partitionmanager", "gnome-disks", "gparted"])); break
         case "bilgisayar": Sistem.calistir(ilkProgram(["plasma-systemmonitor", "kinfocenter"])); break
@@ -150,7 +151,7 @@ QtObject {
         case "gorev": gorevYoneticisi.ac(); break
         case "gorevAyrinti": Sistem.calistir(ilkProgram(["plasma-systemmonitor", "ksysguard"])); break
         case "denetim": Sistem.calistir(ilkProgram(["metro-denetim", "systemsettings"])); break
-        case "gezgin": Sistem.calistir(ilkProgram(["dolphin", "nautilus", "thunar"])); break
+        case "gezgin": Sistem.calistir(ilkProgram(["explorer", "dolphin", "nautilus", "thunar"])); break
         case "ara": aramaAc("", ""); break
         case "calistir": Sistem.calistir(ilkProgram(["metro-calistir", "krunner"])); break
         case "oturum": Sistem.oturumuKapat(); break
@@ -254,6 +255,7 @@ QtObject {
         function onKisisellestirIste() { ana.bolme.ac("kisisellestir", "baslangic") }
         function onBilgisayarAyarlariIste(sayfa) { ana.bilgisayarAyarlari(sayfa) }
         function onCalistirIste() { ana.hizliEylem("calistir") }
+        function onGezginIste() { ana.hizliEylem("gezgin") }
         function onAraMetinIste(metin) { ana.aramaAc(metin, "") }
         function onGorevYoneticisiIste() { ana.hizliEylem("gorev") }
         function onSabitleIste(yol) {

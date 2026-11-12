@@ -41,6 +41,11 @@ YOLLAR = [
     "Windows/System32/Windows.UI.Immersive.dll",
     "Windows/System32/Windows.UI.Search.dll",
     "Windows/System32/ExplorerFrame.dll",
+    # Windows Hakkında (linver): sürüm marka görseli; Aygıt Yöneticisi simgeleri
+    "Windows/Branding/Basebrd/basebrd.dll",
+    "Windows/Branding/Basebrd/tr-TR/*",
+    "Windows/System32/setupapi.dll",
+    "Windows/System32/devmgr.dll",
     "Windows/System32/pnidui.dll",
     "Windows/System32/SndVolSSO.dll",
     "Windows/System32/stobject.dll",

@@ -167,7 +167,7 @@ Window {
             { tur: "ayarlar", boyut: "orta" },
             { tur: "hava", boyut: "genis" },
             { tur: "takvim", boyut: "orta" },
-            u(["org.kde.dolphin.desktop", "org.gnome.Nautilus.desktop", "thunar.desktop"]),
+            u(["explorer.desktop", "org.kde.dolphin.desktop", "org.gnome.Nautilus.desktop", "thunar.desktop"]),
             { tur: "fotograflar", boyut: "genis" },
             u(["org.kde.discover.desktop", "octopi.desktop", "org.manjaro.pamac.manager.desktop", "pamac-manager.desktop"]),
             u(["steam.desktop"]),

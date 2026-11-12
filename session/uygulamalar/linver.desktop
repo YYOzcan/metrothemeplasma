@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=Windows Hakkında
+Comment=Windows sürüm bilgilerini görüntüleyin
+Exec=@BIN@/linver
+Icon=help-about
+Terminal=false
+NoDisplay=true
+Keywords=winver;sürüm;hakkında;
+StartupWMClass=linver

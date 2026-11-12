@@ -33,6 +33,21 @@ Depoda hiçbir Microsoft dosyası yoktur. Bütün görseller, sesler, yazı tipl
 | Plymouth açılış ekranı: Windows logosu + dönen noktalar (WinRT ProgressRing anahtar kareleri) | bootres.dll |
 | "Windows 8.1" simge teması, "Windows 8.1 Aero" imleçleri (canlandırmalı), ses teması, duvar kağıtları, Segoe UI | imageres, shell32, pnidui, SndVolSSO, Cursors, Media, Web, Fonts |
 
+## Windows uygulamaları (Türkçe, Windows 8.1'e uyarlanmış)
+
+Aşağıdaki açık kaynak projeler `uygulamalar/` altında git alt modülüdür; kurulumda kopyaları
+`uygulamalar/yamalar/` ile Windows 8.1'e uyarlanır ve `uygulamalar/ceviri/` sözlükleriyle Türkçeleştirilir
+(`tools/uygulama_cevir.py`; saat dilimi adları kendi kopyandaki tzres.dll.mui'den `tools/gen_tz_sozluk.py`):
+
+| Uygulama | Upstream | Uyarlama |
+|---|---|---|
+| Dosya Gezgini + Denetim Masası (`explorer`, `control`) | [linux-explorer](https://github.com/actuallyaridan/linux-explorer) (actuallyaridan, GPL-3.0) | Windows 8 gezinti satırı (düz ← → ↑, opak), düz komut çubuğu, "Bu Bilgisayar", Windows 8.1 sesleri ve rozeti, Win+E, klasör ilişkilendirmesi |
+| Aygıt Yöneticisi (`devmgmt`) | [linux-devmgmt](https://github.com/actuallyaridan/linux-devmgmt) (actuallyaridan, GPL-3.0) | Türkçe kategoriler alfabetik, Türkçe söz dizimi |
+| Windows Hakkında (`winver`) | [linver](https://gitgud.io/wackyideas/linver) (WackyIdeas, catpswin56, AGPL-3.0) | varsayılan Windows 8.1; ad, sürüm, telif ve marka görseli kendi kopyandan (basebrd.dll, shell32.dll.mui) |
+
+[linux-control](https://github.com/actuallyaridan/linux-control)'ün Denetim Masası'nın daha yeni hali
+linux-explorer'ın içindedir; Windows'taki gibi `control` komutu onu açar.
+
 ## Kurulum
 
 ```bash

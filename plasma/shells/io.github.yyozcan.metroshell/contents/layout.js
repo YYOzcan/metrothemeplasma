@@ -19,7 +19,9 @@ gorevler.writeConfig("middleClickAction", "NewInstance");
 gorevler.writeConfig("iconSpacing", "1");
 gorevler.writeConfig("maxStripes", "1");
 gorevler.writeConfig("fill", "true");
-gorevler.writeConfig("launchers", ["applications:org.kde.dolphin.desktop", "applications:firefox.desktop"]);
+// Dosya Gezgini: Windows 8.1 Dosya Gezgini (linux-explorer) kuruluysa o, yoksa Dolphin
+var gezgin = applicationExists("explorer.desktop") ? "applications:explorer.desktop" : "applications:org.kde.dolphin.desktop";
+gorevler.writeConfig("launchers", [gezgin, "applications:firefox.desktop"]);
 
 // Windows 8.1 bildirim alanı (ok solda, gizli simgeler ızgarada); derlenmemişse Plasma'nınki
 var tepsi = panel.addWidget(knownWidgetTypes.indexOf("io.github.yyozcan.metrotepsi") >= 0 ? "io.github.yyozcan.metrotepsi" : "org.kde.plasma.systemtray");

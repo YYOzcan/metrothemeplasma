@@ -120,6 +120,7 @@ if [[ "${1:-}" == "--kaldir" ]]; then
            "$DATA/kwin/tabbox/metro_alttab" "$DATA/kwin/scripts/metro_koseler" \
            "$CFG/plasma-workspace/env/metrothemeplasma.sh" \
            "$BIN"/metro-profil "$BIN"/metro-oturum "$BIN"/metro-renk "$BIN"/metro-kabuk "$BIN"/metro-calistir "$MT" \
+           "$BIN"/explorer "$BIN"/devmgmt "$BIN"/linver "$BIN"/control "$BIN"/winver "$BIN"/metro-denetim \
            "${XDG_STATE_HOME:-$HOME/.local/state}/metrothemeplasma" "${XDG_CACHE_HOME:-$HOME/.cache}/metrothemeplasma"
     echo "Kullanıcı dosyaları kaldırıldı (ayarlar: $CFG/metrothemeplasma duruyor). Sistem kısmı için:"
     echo "  sudo bash $0 --plymouth-geri"
@@ -205,6 +206,66 @@ for es in "seventasks:metrogorevler" "systemtray:metrotepsi" "notifications:metr
     done
 done
 
+echo "==> Windows uygulamaları: Dosya Gezgini + Denetim Masası, Aygıt Yöneticisi, Windows Hakkında (Türkçe)"
+# upstream projeler git alt modülü (uygulamalar/); kopyaları build/uyg altında yamalanıp Türkçeleştirilir
+[[ -d .git ]] && git submodule update --init --quiet uygulamalar 2>/dev/null || true
+UY="$KOK/build/uyg"
+rm -rf "$UY"; mkdir -p "$UY" build/ceviri
+$PY tools/gen_tz_sozluk.py "$WIN" uygulamalar/linux-explorer/src/data/control/WindowsTimeZones.cpp build/ceviri/saat-dilimleri.json 2>/dev/null || true
+uyg_hazirla() {  # uyg_hazirla <ad> <sözlük...>
+    local ad=$1; shift
+    [[ -f uygulamalar/$ad/README.md ]] || { echo "   ($ad alt modülü yok, atlandı)"; return 1; }
+    cp -r "uygulamalar/$ad" "$UY/$ad"; rm -rf "$UY/$ad/.git"
+    ( cd "$UY/$ad"
+      if [[ -f "$KOK/uygulamalar/yamalar/$ad.patch" ]]; then patch -s -p1 < "$KOK/uygulamalar/yamalar/$ad.patch" || exit 1; fi
+      if [[ -f "$KOK/uygulamalar/yamalar/$ad.py" ]]; then $PY "$KOK/uygulamalar/yamalar/$ad.py" || exit 1; fi ) || return 1
+    $PY tools/uygulama_cevir.py "$UY/$ad" "$@" >/dev/null
+}
+if uyg_hazirla linux-explorer uygulamalar/ceviri/linux-devmgmt.json uygulamalar/ceviri/linux-explorer.json build/ceviri/saat-dilimleri.json \
+   && $CMAKE -S "$UY/linux-explorer" -B "$UY/linux-explorer/b" -G Ninja -DCMAKE_BUILD_TYPE=Release >/dev/null 2>&1 \
+   && ninja -C "$UY/linux-explorer/b" >/dev/null 2>&1; then
+    install -Dm755 "$UY/linux-explorer/b/explorer" "$BIN/explorer"
+else
+    echo "   (Dosya Gezgini derlenemedi: libAeroQt, kio, cups gerekli)"
+fi
+if uyg_hazirla linux-devmgmt uygulamalar/ceviri/linux-devmgmt.json \
+   && $CMAKE -S "$UY/linux-devmgmt" -B "$UY/linux-devmgmt/b" -G Ninja -DCMAKE_BUILD_TYPE=Release >/dev/null 2>&1 \
+   && ninja -C "$UY/linux-devmgmt/b" >/dev/null 2>&1; then
+    install -Dm755 "$UY/linux-devmgmt/b/devmgmt" "$BIN/devmgmt"
+else
+    echo "   (Aygıt Yöneticisi derlenemedi)"
+fi
+if uyg_hazirla linver uygulamalar/ceviri/linver.json \
+   && ( cd "$UY/linver" && mkdir -p b && cd b && qmake6 .. >/dev/null 2>&1 && make -j"$(nproc)" >/dev/null 2>&1 ); then
+    install -Dm755 "$UY/linver/b/linver" "$BIN/linver"
+else
+    echo "   (Windows Hakkında derlenemedi: qmake6 gerekli)"
+fi
+# Windows komutları: control (Denetim Masası), winver
+printf '#!/bin/sh\n# Windows control.exe: Denetim Masası (Dosya Gezgini içinde)\n[ $# -gt 0 ] && exec "%s/explorer" "controlpanel:///$*"\nexec "%s/explorer" --control-panel\n' "$BIN" "$BIN" > "$BIN/control"
+printf '#!/bin/sh\nexec "%s/linver" "$@"\n' "$BIN" > "$BIN/winver"
+chmod 755 "$BIN/control" "$BIN/winver"
+ln -sf control "$BIN/metro-denetim"
+# Dosya Gezgini ilk ayarları (yoksa): Windows adları (Windows Update, Kullanıcılar…) ve Windows 8.1 rozeti
+EXC="$CFG/explorer/explorer.conf"
+if [[ -x "$BIN/explorer" && ! -f "$EXC" ]]; then
+    mkdir -p "$(dirname "$EXC")"
+    printf '[Branding]\nuseWindowsNames=true\nwindowsFriendlyMode=true\n\n[ControlPanel]\nBranding\\style=1\n' > "$EXC"
+fi
+# Windows Hakkında: yalnızca kapat düğmesi (upstream add_rule.sh ile aynı KWin kuralı, sabit grup adıyla)
+if [[ -x "$BIN/linver" ]] && ! grep -q '^\[metro-linver\]' "$CFG/kwinrulesrc" 2>/dev/null; then
+    kwriteconfig6 --file kwinrulesrc --group metro-linver --key Description "Windows Hakkında (MetroThemePlasma)"
+    kwriteconfig6 --file kwinrulesrc --group metro-linver --key clientmachine localhost
+    kwriteconfig6 --file kwinrulesrc --group metro-linver --key minimizerule 2
+    kwriteconfig6 --file kwinrulesrc --group metro-linver --key wmclass linver
+    kwriteconfig6 --file kwinrulesrc --group metro-linver --key wmclassmatch 1
+    kurallar=$(kreadconfig6 --file kwinrulesrc --group General --key rules)
+    sayi=$(kreadconfig6 --file kwinrulesrc --group General --key count --default 0)
+    kwriteconfig6 --file kwinrulesrc --group General --key rules "${kurallar:+$kurallar,}metro-linver"
+    kwriteconfig6 --file kwinrulesrc --group General --key count $((sayi + 1))
+    qdbus6 org.kde.KWin /KWin reconfigure >/dev/null 2>&1 || true
+fi
+
 echo "==> Windows 8 bildirimleri (Plasma uygulamacığı) derleniyor"
 if $CMAKE -S plasma/bildirim -B build/bildirim -G Ninja -DCMAKE_BUILD_TYPE=Release >/dev/null 2>&1 && ninja -C build/bildirim >/dev/null 2>&1; then
     install -Dm755 build/bildirim/bin/plasma/applets/io.github.yyozcan.metrobildirim.so \
@@ -276,6 +337,11 @@ systemctl --user enable metro-kabuk.service 2>/dev/null || true
 APP="$MT/data/applications"
 rm -rf "$APP"; mkdir -p "$APP"
 sed "s|@BIN@|$BIN|" session/metro-kabuk.desktop > "$APP/metro-kabuk.desktop"
+# Windows uygulamaları (yalnızca Metro oturumunda görünür)
+for g in session/uygulamalar/*.desktop; do
+    ikili=$(sed -n 's|^Exec=@BIN@/\([^ ]*\).*|\1|p' "$g" | head -1)
+    [[ -x "$BIN/$ikili" ]] && sed "s|@BIN@|$BIN|g" "$g" > "$APP/$(basename "$g")"
+done
 # Dosya Gezgini: "Başlangıç ekranına sabitle" (bu veri dizini yalnızca Metro oturumunda XDG_DATA_DIRS'te)
 install -Dm755 session/servicemenus/metro-baslangica-sabitle.desktop "$MT/data/kio/servicemenus/metro-baslangica-sabitle.desktop"
 

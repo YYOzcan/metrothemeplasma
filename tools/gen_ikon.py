@@ -188,7 +188,8 @@ def main(win, cikti):
                     d.mkdir(parents=True, exist_ok=True)
                     baglamlar.add(f"{b}x{b}/actions")
                     geri, ileri = boyutla(dilim(kaynak, 2), b), boyutla(dilim(kaynak, 3), b)
-                    for ad, im in (("go-previous", geri), ("go-next", ileri), ("go-previous-rtl", ileri),
+                    yukari = ileri.rotate(90)   # Windows 8 "Bir düzey yukarı" oku: aynı çizimde yukarı
+                    for ad, im in (("go-up", yukari), ("go-previous", geri), ("go-next", ileri), ("go-previous-rtl", ileri),
                                    ("go-next-rtl", geri), ("go-previous-view", geri), ("go-next-view", ileri)):
                         im.save(d / f"{ad}.png")
                         im.save(d / f"{ad}-symbolic.png")

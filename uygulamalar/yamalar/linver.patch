@@ -1,0 +1,116 @@
+diff --git a/about.cpp b/about.cpp
+index 0856e9d..5070897 100644
+--- a/about.cpp
++++ b/about.cpp
+@@ -14,7 +14,9 @@ void About::loadSettings()
+     fakeBranding = settings.value("fakeBranding", false).toBool();
+     displayFullName = settings.value("displayFullName", false).toBool();
+ 
+-    int currentWinverInt = settings.value("currentWinver", WIN_7).toInt();
++    // MetroThemePlasma: varsayılan Windows 8.1 markası (gerçek işletim sistemi bilgisi yapılandırmadan seçilebilir)
++    fakeBranding = settings.value("fakeBranding", true).toBool();
++    int currentWinverInt = settings.value("currentWinver", WIN_8_9600).toInt();
+     // Sanity check to ensure we aren't getting weird values
+     if(currentWinverInt < (int)WIN_VISTA) currentWinverInt = (int)WIN_VISTA;
+     else if(currentWinverInt > (int)CUSTOM) currentWinverInt = (int)CUSTOM;
+@@ -93,7 +95,10 @@ void About::updateBranding()
+ 
+     if(currentWinver == CUSTOM && !fakeBranding) winverName = distro;
+     else winverName = brd.winverName;
+-    ui->longdesc->setText("<p style=\"line-height:85%\">The " + winverName + " operating system and its user interface are protected by trademark and other pending or existing intellectual property rights in the United States and other countries.</p>");
++    if(!longTextTemplate.isEmpty() && fakeBranding && currentWinver == WIN_8_9600)
++        ui->longdesc->setText("<p style=\"line-height:85%\">" + longTextTemplate.arg(winverName) + "</p>");
++    else
++        ui->longdesc->setText("<p style=\"line-height:85%\">The " + winverName + " operating system and its user interface are protected by trademark and other pending or existing intellectual property rights in the United States and other countries.</p>");
+ 
+     struct sysinfo info;
+     sysinfo(&info);
+@@ -147,7 +152,7 @@ About::About(QWidget *parent)
+ {
+     ui->setupUi(this);
+     isUISetup = true;
+-    fakeBranding = settings.value("fakeBranding", false).toBool();
++    fakeBranding = settings.value("fakeBranding", true).toBool();
+ 
+     refresh();
+ 
+diff --git a/about.h b/about.h
+index 6eccb3d..0f6dff1 100644
+--- a/about.h
++++ b/about.h
+@@ -2,6 +2,8 @@
+ #define ABOUT_H
+ 
+ #include <QSettings>
++#include <QStandardPaths>
++#include <QFileInfo>
+ #include <QMainWindow>
+ #include <QProcess>
+ #include <QTextStream>
+@@ -82,6 +84,7 @@ private:
+     bool displayFullName;
+     winVersion currentWinver;
+     QString winverName;
++    QString longTextTemplate; // %1 = işletim sistemi adı (Windows'un kendi metni, winver.ini)
+     BrandingInfo brandingInfo[5];
+ };
+ 
+@@ -142,6 +145,26 @@ inline void About::initializeBrandingInfo()
+     brandingInfo[WIN_8_9600].showMemory = false;
+     brandingInfo[WIN_8_9600].license = brandingInfo[WIN_VISTA].license;
+ 
++    // MetroThemePlasma: kendi Windows 8.1 kopyandan (basebrd.dll, shell32.dll.mui) üretilen marka bilgisi
++    {
++        const QString ini = QStandardPaths::locate(QStandardPaths::GenericDataLocation, QStringLiteral("metrothemeplasma/varlik/winver.ini"));
++        if (!ini.isEmpty()) {
++            QSettings m(ini, QSettings::IniFormat);
++            m.beginGroup(QStringLiteral("Windows81"));
++            auto &b = brandingInfo[WIN_8_9600];
++            b.windowTitle = m.value(QStringLiteral("baslik"), b.windowTitle).toString();
++            b.brandingPath = m.value(QStringLiteral("marka"), b.brandingPath).toString();
++            if (!b.brandingPath.startsWith(QLatin1Char(':')) && QFileInfo(b.brandingPath).isRelative())
++                b.brandingPath = QFileInfo(ini).absolutePath() + QLatin1Char('/') + b.brandingPath;
++            b.osName = m.value(QStringLiteral("urun"), b.osName).toString();
++            b.version = m.value(QStringLiteral("surum"), b.version).toString();
++            b.copyright = m.value(QStringLiteral("telif"), b.copyright).toString();
++            b.winverName = m.value(QStringLiteral("ad"), b.winverName).toString();
++            b.license = m.value(QStringLiteral("lisans"), b.license).toString();
++            longTextTemplate = m.value(QStringLiteral("uzun"), QString()).toString();
++        }
++    }
++
+     // Custom
+     brandingInfo[CUSTOM].windowTitle = settings.value("windowTitle", "undefined").toString();
+     brandingInfo[CUSTOM].windowWidth = settings.value("windowWidth", 458).toInt();
+diff --git a/configdlg.cpp b/configdlg.cpp
+index fa6d0e5..96fcc10 100644
+--- a/configdlg.cpp
++++ b/configdlg.cpp
+@@ -5,8 +5,8 @@ void ConfigDlg::refreshSettings(bool firstCreation)
+ {
+     if(firstCreation)
+     {
+-        ui->brandingcmb->setCurrentIndex(settings.value("currentWinver", About::WIN_7).toInt());
+-        ui->fakeDetails->setChecked(settings.value("fakeBranding", false).toBool());
++        ui->brandingcmb->setCurrentIndex(settings.value("currentWinver", About::WIN_8_9600).toInt());
++        ui->fakeDetails->setChecked(settings.value("fakeBranding", true).toBool());
+         ui->displayFullName->setChecked(settings.value("displayFullName", false).toBool());
+     }
+ 
+diff --git a/customizedlg.cpp b/customizedlg.cpp
+index 065b98c..85a8ddc 100644
+--- a/customizedlg.cpp
++++ b/customizedlg.cpp
+@@ -32,9 +32,9 @@ void CustomizeDlg::loadSettings()
+     ui->spacerRightWidth->setValue(settings.value("spacerRightWidth", 64).toInt());
+ 
+     ui->memoryField->setEnabled(settings.value("showMemory", true).toBool());
+-    ui->brdDetails->setEnabled(settings.value("fakeBranding", false).toBool());
+-    ui->details->setEnabled(settings.value("fakeBranding", false).toBool());
+-    ui->titleField->setEnabled(settings.value("fakeBranding", false).toBool());
++    ui->brdDetails->setEnabled(settings.value("fakeBranding", true).toBool());
++    ui->details->setEnabled(settings.value("fakeBranding", true).toBool());
++    ui->titleField->setEnabled(settings.value("fakeBranding", true).toBool());
+ }
+ void CustomizeDlg::saveSettings()
+ {

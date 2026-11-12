@@ -78,7 +78,8 @@ YONETILEN = {
                  "Window Quick Tile Top": "none,Meta+Up,Tez Pencereyi Üste Döşe",
                  "Window Quick Tile Bottom": "none,Meta+Down,Tez Pencereyi Alta Döşe",
                  "MinimizeAll": "Meta+M,Meta+Shift+D,Tüm pencereleri simge durumuna küçült"},
-        "services][org.kde.dolphin.desktop": {"_launch": "Meta+E"},
+        # Win+E: metro-kabuk (Dosya Gezgini / Dolphin)
+        "services][org.kde.dolphin.desktop": {"_launch": "none"},
         # Ctrl+Shift+Esc: Windows 8 Görev Yöneticisi (metro-kabuk); Sistem İzleyicisi "Diğer ayrıntılar"dan açılır
         "services][org.kde.plasma-systemmonitor.desktop": {"_launch": "none"},
         # Win+R: Windows "Çalıştır" iletişim kutusu (metro-kabuk); KRunner Alt+F2'de kalır
@@ -100,6 +101,14 @@ def gercek_varliklar(spec):
         spec["kcminputrc"]["keys"]["Mouse"] = {"cursorTheme": "Windows 8.1 Aero", "cursorSize": "32"}
     if (DATA / "sounds/Windows 8.1/index.theme").exists():
         spec["kdeglobals"]["keys"].setdefault("Sounds", {}).update({"Theme": "Windows 8.1", "Enable": "true"})
+    # Windows 8.1 Dosya Gezgini (linux-explorer) kuruluysa: Win+E ve klasörler onunla açılır
+    if (DATA / "metrothemeplasma/data/applications/explorer.desktop").exists():
+        ks = spec.setdefault("kglobalshortcutsrc", {"keys": {}, "groups": {}})["keys"]
+        # Win+E metro-kabuk'ta (Dosya Gezgini, yoksa Dolphin)
+        ks["services][org.kde.dolphin.desktop"] = {"_launch": "none"}
+        ma = spec.setdefault("mimeapps.list", {"keys": {}, "groups": {}})["keys"]
+        ma.setdefault("Default Applications", {}).update({"inode/directory": "explorer.desktop",
+                                                          "x-directory/normal": "explorer.desktop"})
     return spec
 
 # renk şemasının gruplarını bütünüyle kdeglobals'a kopyala
