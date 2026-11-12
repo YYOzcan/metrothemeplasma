@@ -187,6 +187,7 @@ Item {
             Satir { visible: yk.varsayilanOturum; glif: ""; metin: "Oturum açarken Windows 8.1'i varsayılan yap" }
             Satir { visible: yk.sddm; glif: ""; metin: "Windows 8.1 oturum açma ekranı" }
             Satir { visible: yk.plymouth; glif: ""; metin: "Windows 8.1 açılış ekranı" }
+            Satir { glif: "\ue10b"; metin: "Kapatırken konsol duyuruları gizlenir; Plasma güncellendikçe Windows 8.1 de kendiliğinden güncellenir" }
             Text { width: parent.width; wrapMode: Text.WordWrap; topPadding: 10
                    text: "Yükle'ye tıkladığınızda yönetici izni istenir (Kullanıcı Hesabı Denetimi). Kurulum sırasında bilgisayarı kullanmaya devam edebilirsiniz."
                    color: Qt.rgba(1, 1, 1, 0.85); font.family: "Segoe UI"; font.pixelSize: 15 }

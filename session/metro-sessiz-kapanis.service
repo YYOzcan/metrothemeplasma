@@ -1,9 +1,11 @@
 # MetroThemePlasma: kapatırken/yeniden başlatırken metin konsoluna "The system will power off/reboot now!"
 # duyurusu yazılmasın (oturum kapanınca o siyah ekranda görünüyordu); Windows 8.1 kapanış ekranı doğrudan gelir.
+# logind yeniden başlarsa (ör. systemd güncellemesi) bu da yeniden çalışıp ayarı tekrar uygular.
 [Unit]
 Description=MetroThemePlasma: kapanış duyurularını sustur
 After=systemd-logind.service
 Requires=systemd-logind.service
+PartOf=systemd-logind.service
 
 [Service]
 Type=oneshot
@@ -11,4 +13,4 @@ ExecStart=/usr/bin/busctl set-property org.freedesktop.login1 /org/freedesktop/l
 RemainAfterExit=yes
 
 [Install]
-WantedBy=multi-user.target
+WantedBy=multi-user.target systemd-logind.service

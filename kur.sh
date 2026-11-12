@@ -40,7 +40,7 @@ fi
 if [[ "${1:-}" == "--yukseltme-sistem" ]]; then
     [[ $EUID -eq 0 ]] || { echo "root gerekli" >&2; exit 1; }
     cd "$KOK"
-    echo "==> Oturum, oturum açma ekranı teması ve kendiliğinden güncelleme kuruluyor"
+    echo "==> Oturum, oturum açma ekranı teması, kendiliğinden güncelleme ve sessiz kapanış kuruluyor"
     bash "$KOK/kur.sh" --sistem || exit 1
     if [[ "${3:-0}" == 1 ]]; then echo "==> Oturum açma ekranı: Windows 8.1"; bash "$KOK/kur.sh" --sddm-metro || true; fi
     if [[ "${4:-0}" == 1 ]]; then
@@ -123,7 +123,8 @@ if [[ "${1:-}" == "--sistem" ]]; then
     install -Dm644 session/metrothemeplasma.desktop /usr/share/wayland-sessions/metrothemeplasma.desktop
     # kapanışta konsola "The system will reboot now!" yazılmasın
     install -Dm644 session/metro-sessiz-kapanis.service /etc/systemd/system/metro-sessiz-kapanis.service
-    systemctl daemon-reload; systemctl enable --now metro-sessiz-kapanis.service 2>/dev/null || true
+    systemctl daemon-reload; systemctl reenable metro-sessiz-kapanis.service 2>/dev/null || true
+    systemctl restart metro-sessiz-kapanis.service 2>/dev/null || true
     # Plasma/Qt/KDE güncellenince kendiliğinden yeniden derle ve kur (pacman kancası; ATP'ninkinden sonra çalışır)
     if [[ -d /etc/pacman.d ]]; then
         install -Dm755 session/kanca/metro-guncelle-hook /usr/local/bin/metro-guncelle-hook
