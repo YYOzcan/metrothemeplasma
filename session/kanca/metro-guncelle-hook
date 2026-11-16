@@ -23,7 +23,7 @@ GEREKLI=""
 [ "${1:-}" = "--zorla" ] && GEREKLI="elle istendi"
 if [ -z "$GEREKLI" ] && [ ! -t 0 ]; then
     # Metro'nun derlendiği ya da bağlandığı paketler (QML/C++ ABI, özel Plasma kitaplıkları, ATP bileşenleri)
-    P=$(grep -xE 'plasma-workspace|plasma-desktop|libplasma|plasma5support|plasma-activities|plasma-activities-stats|kwin|kdecoration|kglobalacceld|kscreenlocker|layer-shell-qt|polkit-qt6|polkit-kde-agent|sddm|plymouth|qt6-[a-z0-9-]+|kio|kservice|kglobalaccel|kwindowsystem|kconfig|kcoreaddons|krunner|ki18n|solid|kcrash|kdbusaddons|knotifications|kirigami|kiconthemes|kitemmodels|ksvg|libksysguard|libaero-qt(-git)?|kvantum|pipewire|ffmpeg' | sort -u | tr '\n' ' ')
+    P=$(grep -xE 'plasma-workspace|plasma-desktop|libplasma|plasma5support|plasma-activities|plasma-activities-stats|kwin|kdecoration|kglobalacceld|kscreenlocker|layer-shell-qt|polkit-qt6|polkit-kde-agent|sddm|plymouth|qt6-[a-z0-9-]+|kio|kxmlgui|kconfigwidgets|kwidgetsaddons|kservice|kglobalaccel|kwindowsystem|kconfig|kcoreaddons|krunner|ki18n|solid|kcrash|kdbusaddons|knotifications|kirigami|kiconthemes|kitemmodels|ksvg|libksysguard|libaero-qt(-git)?|kvantum|pipewire|ffmpeg' | sort -u | tr '\n' ' ')
     [ -n "$P" ] && GEREKLI="güncellenen paketler: $P"
 fi
 if [ -z "$GEREKLI" ]; then
