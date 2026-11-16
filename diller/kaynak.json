@@ -1,0 +1,2333 @@
+{
+ " Arifesi": [
+  "kabuk/uygulamalar/Takvim.qml"
+ ],
+ " ayarlarını aç": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ " dakika önce": [
+  "kabuk/uygulamalar/HaberUygulamasi.qml"
+ ],
+ " ile ne yapmak istediğinizi seçin.": [
+  "kabuk/qml/OtomatikPanel.qml"
+ ],
+ " saat önce": [
+  "kabuk/uygulamalar/HaberUygulamasi.qml"
+ ],
+ " sayfasına git": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ " tamamlandı": [
+  "kabuk/uygulamalar/Yukseltme.qml"
+ ],
+ " · Yerel hesap": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ " öğe içeri aktarıldı": [
+  "kabuk/uygulamalar/Fotograflar.qml"
+ ],
+ " öğe içeri aktarılıyor...": [
+  "kabuk/uygulamalar/Fotograflar.qml"
+ ],
+ " öğe seçildi": [
+  "kabuk/uygulamalar/Fotograflar.qml"
+ ],
+ "%d uygulama kapatılıyor ve bilgisayar kapatılıyor": [
+  "kabuk/qml/KapatmaEngeli.qml"
+ ],
+ "%d uygulama kapatılıyor ve yeniden başlatılıyor": [
+  "kabuk/qml/KapatmaEngeli.qml"
+ ],
+ "%d uygulama ve oturum kapatılıyor": [
+  "kabuk/qml/KapatmaEngeli.qml"
+ ],
+ "&Aç:": [
+  "kabuk/calistir/main.cpp"
+ ],
+ "&Ağ Bağlantıları": [
+  "kabuk/qml/GucMenusu.qml"
+ ],
+ "&Büyük simgeler": [
+  "plasma/masaustu/folder/viewpropertiesmenu.cpp"
+ ],
+ "&Değiştirme tarihi": [
+  "plasma/masaustu/folder/viewpropertiesmenu.cpp"
+ ],
+ "&Disk Yönetimi": [
+  "kabuk/qml/GucMenusu.qml"
+ ],
+ "&Görev Yöneticisi": [
+  "kabuk/qml/GucMenusu.qml",
+  "plasma/masaustu/baglam/metrogorevcubugu.cpp"
+ ],
+ "&Görünüm": [
+  "plasma/masaustu/package/contents/ui/FolderViewLayer.qml"
+ ],
+ "&Kapatın": [
+  "kabuk/qml/GucMenusu.qml"
+ ],
+ "&Kapatın veya oturumu kapatın": [
+  "kabuk/qml/GucMenusu.qml"
+ ],
+ "&Kişiselleştir": [
+  "plasma/masaustu/package/contents/ui/FolderViewLayer.qml",
+  "plasma/masaustu/package/contents/ui/main.qml"
+ ],
+ "&Küçük simgeler": [
+  "plasma/masaustu/folder/viewpropertiesmenu.cpp"
+ ],
+ "&Masaüstü": [
+  "kabuk/qml/GucMenusu.qml"
+ ],
+ "&Masaüstü simgelerini göster": [
+  "plasma/masaustu/folder/viewpropertiesmenu.cpp"
+ ],
+ "&Olay Görüntüleyicisi": [
+  "kabuk/qml/GucMenusu.qml"
+ ],
+ "&Oturumu kapatın": [
+  "kabuk/qml/GucMenusu.qml"
+ ],
+ "&Uyku": [
+  "kabuk/qml/GucMenusu.qml"
+ ],
+ "&Yeniden başlatın": [
+  "kabuk/qml/GucMenusu.qml"
+ ],
+ "&Çalıştır": [
+  "kabuk/qml/GucMenusu.qml"
+ ],
+ ") şarkı ekleyin; burada albümlere göre listelenir.": [
+  "kabuk/uygulamalar/Muzik.qml"
+ ],
+ "+ Yeni etkinlik": [
+  "kabuk/uygulamalar/Takvim.qml"
+ ],
+ ", bilgisayar şu süreden sonra uyku moduna geçsin": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ ", şu süreden sonra kapat": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "1 saat için gizle": [
+  "kabuk/qml/BolmePenceresi.qml"
+ ],
+ "1 uygulama kapatılıyor ve bilgisayar kapatılıyor": [
+  "kabuk/qml/KapatmaEngeli.qml"
+ ],
+ "1 uygulama kapatılıyor ve yeniden başlatılıyor": [
+  "kabuk/qml/KapatmaEngeli.qml"
+ ],
+ "1 uygulama ve oturum kapatılıyor": [
+  "kabuk/qml/KapatmaEngeli.qml"
+ ],
+ "3 saat için gizle": [
+  "kabuk/qml/BolmePenceresi.qml"
+ ],
+ "32 bit işletim sistemi": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "64 bit işletim sistemi, x64 tabanlı işlemci": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "8 saat için gizle": [
+  "kabuk/qml/BolmePenceresi.qml"
+ ],
+ "A&ra": [
+  "kabuk/qml/GucMenusu.qml"
+ ],
+ "ABD ": [
+  "kabuk/uygulamalar/Finans.qml"
+ ],
+ "Ad": [
+  "kabuk/uygulamalar/Alarmlar.qml",
+  "kabuk/uygulamalar/Finans.qml"
+ ],
+ "AeroThemePlasma (Windows 7) bulundu: Windows 8.1'e yükseltilebilir. Windows 7 oturumunuz olduğu gibi kalır.": [
+  "kabuk/uygulamalar/Yukseltme.qml"
+ ],
+ "AeroThemePlasma bulunamadı: Windows 8.1 temiz olarak yüklenecek.": [
+  "kabuk/uygulamalar/Yukseltme.qml"
+ ],
+ "AeroThemePlasma'dan (Windows 7) Windows 8.1'e yükseltme ve güncelleme": [
+  "kabuk/uygulamalar/uygulamalar.json"
+ ],
+ "AeroThemePlasma'nın görev çubuğu motoru yok: Plasma'nın görev çubuğu kullanılacak": [
+  "kabuk/uygulamalar/Yukseltme.qml"
+ ],
+ "Afrika": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Akorlar": [
+  "kabuk/uygulamalar/Alarmlar.qml"
+ ],
+ "Alarm": [
+  "kabuk/qml/Ana.qml",
+  "kabuk/uygulamalar/Alarmlar.qml"
+ ],
+ "Alarm, zamanlayıcı ve kronometre": [
+  "kabuk/uygulamalar/uygulamalar.json"
+ ],
+ "Alarmlar": [
+  "kabuk/qml/Kutucuk.qml",
+  "kabuk/uygulamalar/Alarmlar.qml",
+  "kabuk/uygulamalar/uygulamalar.json"
+ ],
+ "Almanya": [
+  "kabuk/uygulamalar/HavaDurumu.qml"
+ ],
+ "Alış": [
+  "kabuk/uygulamalar/Finans.qml"
+ ],
+ "Amerika": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Ana Sayfa": [
+  "kabuk/uygulamalar/Finans.qml",
+  "kabuk/uygulamalar/HaberUygulamasi.qml",
+  "kabuk/uygulamalar/HavaDurumu.qml",
+  "kabuk/uygulamalar/Yardim.qml"
+ ],
+ "Ana sayfa": [
+  "kabuk/uygulamalar/InternetExplorer.qml"
+ ],
+ "Antarktika": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Appearance and Personalization/Personalization": [
+  "plasma/masaustu/package/contents/ui/FolderViewLayer.qml"
+ ],
+ "Ara": [
+  "kabuk/qml/BilgisayarAyarlari.qml",
+  "kabuk/qml/BolmePenceresi.qml",
+  "kabuk/qml/Tilsimlar.qml",
+  "kabuk/qml/UygulamalarGorunumu.qml",
+  "kabuk/uygulamalar/Yardim.qml"
+ ],
+ "Aralık": [
+  "kabuk/uygulamalar/Takvim.qml"
+ ],
+ "Arama ve uygulamalar": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Arka plan": [
+  "kabuk/qml/BilgisayarAyarlari.qml",
+  "kabuk/qml/BolmePenceresi.qml"
+ ],
+ "Arka plan rengi": [
+  "kabuk/qml/BilgisayarAyarlari.qml",
+  "kabuk/qml/BolmePenceresi.qml"
+ ],
+ "Arktik": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Asya": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Atatürk'ü Anma, Gençlik ve Spor Bayramı": [
+  "kabuk/uygulamalar/Takvim.qml"
+ ],
+ "Atina": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Atlantik": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Avrupa": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Avustralya": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Ay": [
+  "kabuk/uygulamalar/Takvim.qml"
+ ],
+ "Ayarlar": [
+  "kabuk/qml/BolmePenceresi.qml",
+  "kabuk/qml/Tilsimlar.qml",
+  "kabuk/uygulamalar/Yardim.qml"
+ ],
+ "Ayarlar tılsımı": [
+  "kabuk/src/kabuk.cpp"
+ ],
+ "Ayarları aç": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Aygıt &Yöneticisi": [
+  "kabuk/qml/GucMenusu.qml"
+ ],
+ "Aygıtlar": [
+  "kabuk/qml/BilgisayarAyarlari.qml",
+  "kabuk/qml/BolmePenceresi.qml",
+  "kabuk/qml/Tilsimlar.qml"
+ ],
+ "Aygıtlar tılsımı": [
+  "kabuk/src/kabuk.cpp"
+ ],
+ "Aygıtlar ve Paylaş": [
+  "kabuk/uygulamalar/Yardim.qml"
+ ],
+ "Ayrıntılar": [
+  "kabuk/uygulamalar/HavaDurumu.qml"
+ ],
+ "Ayrıntıları gizle": [
+  "uac/qml/MetroUac.qml"
+ ],
+ "Ayrıntıları göster": [
+  "uac/qml/MetroUac.qml"
+ ],
+ "Azerbaycan": [
+  "kabuk/uygulamalar/HavaDurumu.qml"
+ ],
+ "Aç": [
+  "kabuk/uygulamalar/InternetExplorer.qml"
+ ],
+ "Açık": [
+  "kabuk/qml/HavaKutucugu.qml",
+  "kabuk/qml/MetroAnahtar.qml"
+ ],
+ "Açık pencereleri göst&er": [
+  "plasma/masaustu/baglam/metrogorevcubugu.cpp"
+ ],
+ "Ağ": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Ağlar": [
+  "kabuk/qml/BolmePenceresi.qml"
+ ],
+ "Ağustos": [
+  "kabuk/uygulamalar/Takvim.qml"
+ ],
+ "Aşağıdaki programın bu bilgisayarda değişiklik yapmasına izin vermek istiyor musunuz?": [
+  "uac/qml/MetroUac.qml"
+ ],
+ "Bakü": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Barometre": [
+  "kabuk/uygulamalar/HavaDurumu.qml"
+ ],
+ "Basketbol": [
+  "kabuk/uygulamalar/Spor.qml"
+ ],
+ "Bağdat": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Bağlantı yok": [
+  "plasma/plasmoids/io.github.yyozcan.metroag/contents/ui/main.qml"
+ ],
+ "Bağlantılar": [
+  "kabuk/qml/BilgisayarAyarlari.qml",
+  "kabuk/qml/BolmePenceresi.qml"
+ ],
+ "Bağlanılıyor…": [
+  "plasma/plasmoids/io.github.yyozcan.metroag/contents/ui/main.qml"
+ ],
+ "Bağlanıyor…": [
+  "kabuk/qml/BolmePenceresi.qml"
+ ],
+ "Bağlı": [
+  "kabuk/qml/BolmePenceresi.qml"
+ ],
+ "Bağlı değil": [
+  "plasma/plasmoids/io.github.yyozcan.metroag/contents/ui/main.qml"
+ ],
+ "Başlangıç": [
+  "kabuk/qml/BaslangicEkrani.qml",
+  "kabuk/qml/BilgisayarAyarlari.qml",
+  "kabuk/qml/BolmePenceresi.qml",
+  "kabuk/qml/Tilsimlar.qml"
+ ],
+ "Başlangıç ekranı": [
+  "kabuk/qml/BilgisayarAyarlari.qml",
+  "kabuk/src/kabuk.cpp",
+  "kabuk/uygulamalar/Yardim.qml"
+ ],
+ "Başlangıç ekranına sabitle": [
+  "kabuk/qml/UygulamalarGorunumu.qml"
+ ],
+ "Başlangıç ekranından ayır": [
+  "kabuk/qml/BaslangicEkrani.qml",
+  "kabuk/qml/UygulamalarGorunumu.qml"
+ ],
+ "Başlangıç'a gitme": [
+  "kabuk/uygulamalar/Yardim.qml"
+ ],
+ "Başlangıç'a gittiğimde Uygulamalar görünümünü otomatik olarak göster": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Başlangıç'a sabitleme": [
+  "kabuk/uygulamalar/Yardim.qml"
+ ],
+ "Başlangıç'tayken yazmaya başlayın; sonuçlar hemen görünür.": [
+  "kabuk/uygulamalar/Yardim.qml"
+ ],
+ "Başlangıç'ın sol altındaki aşağı ok düğmesine tıklayın ya da Ctrl+Sekme'ye basın.": [
+  "kabuk/uygulamalar/Yardim.qml"
+ ],
+ "Başlat düğmesine sağ tıklayın ya da Windows+X'e basın.": [
+  "kabuk/uygulamalar/Yardim.qml"
+ ],
+ "Başlayabilirsiniz": [
+  "kabuk/qml/IlkOturum.qml"
+ ],
+ "Bellek kartları": [
+  "kabuk/qml/OtomatikPanel.qml"
+ ],
+ "Bellek kartı": [
+  "kabuk/qml/BilgisayarAyarlari.qml",
+  "kabuk/src/otomatik.cpp"
+ ],
+ "Beyrut": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Bi&lgisayar Yönetimi": [
+  "kabuk/qml/GucMenusu.qml"
+ ],
+ "Bildirim alanındaki bütün simgeleri gösterir": [
+  "plasma/tepsi/systemtray/package/contents/ui/ExpanderArrow.qml"
+ ],
+ "Bildirim seslerini çal": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Bildirimler": [
+  "kabuk/qml/BilgisayarAyarlari.qml",
+  "kabuk/qml/BolmePenceresi.qml"
+ ],
+ "Bilgi": [
+  "kabuk/qml/BolmePenceresi.qml"
+ ],
+ "Bilgisayar": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Bilgisayar adı": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Bilgisayar ayarları": [
+  "kabuk/qml/BilgisayarAyarlari.qml",
+  "kabuk/qml/Kutucuk.qml"
+ ],
+ "Bilgisayar ayarlarını değiştir": [
+  "kabuk/qml/BolmePenceresi.qml"
+ ],
+ "Bilgisayar ayarlarınız uygulanıyor": [
+  "kabuk/uygulamalar/Yukseltme.qml"
+ ],
+ "Bilgisayar açılırken Windows logosu ve dönen noktalar (initramfs yeniden oluşturulur, birkaç dakika sürebilir).": [
+  "kabuk/uygulamalar/Yukseltme.qml"
+ ],
+ "Bilgisayar bilgileri": [
+  "kabuk/qml/BilgisayarAyarlari.qml",
+  "kabuk/qml/BolmePenceresi.qml"
+ ],
+ "Bilgisayar ve aygıtlar": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Bilgisayarda değişiklik yapan programlar yönetici parolanızı ister; tanımadığınız programlara izin vermeyin.": [
+  "kabuk/uygulamalar/Yardim.qml"
+ ],
+ "Bilgisayarı yeniden adlandır": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Bilgisayarın ne yapmasını istiyorsunuz?": [
+  "plasma/shells/io.github.yyozcan.metroshell/contents/logout/MetroCikis.qml"
+ ],
+ "Bilgisayarınız hazır olduktan sonra": [
+  "kabuk/qml/IlkOturum.qml"
+ ],
+ "Bilgisayarınızı kapatmayın": [
+  "kabuk/qml/IlkOturum.qml"
+ ],
+ "Bilgisayarınızı kapatmayın. Bu işlem biraz zaman alabilir.": [
+  "kabuk/uygulamalar/Yukseltme.qml"
+ ],
+ "Bilim ve Teknoloji": [
+  "kabuk/uygulamalar/Haberler.qml"
+ ],
+ "Bilimsel": [
+  "kabuk/uygulamalar/HesapMakinesi.qml"
+ ],
+ "Bilinmeyen albüm": [
+  "kabuk/uygulamalar/Muzik.qml"
+ ],
+ "Bilinmeyen bir yayımcıya ait aşağıdaki programın bu bilgisayarda değişiklik yapmasına izin vermek istiyor musunuz?": [
+  "uac/qml/MetroUac.qml"
+ ],
+ "Bilinmeyen program": [
+  "uac/qml/MetroUac.qml"
+ ],
+ "Bilinmeyen sanatçı": [
+  "kabuk/uygulamalar/Muzik.qml"
+ ],
+ "Bilinmiyor": [
+  "uac/qml/MetroUac.qml"
+ ],
+ "Bir kez": [
+  "kabuk/uygulamalar/Alarmlar.qml"
+ ],
+ "Bir program, klasör, belge veya Internet kaynağının adını yazdığınızda Windows sizin için açacaktır.": [
+  "kabuk/calistir/main.cpp"
+ ],
+ "Birkaç işlem tamamlanıyor": [
+  "kabuk/qml/IlkOturum.qml"
+ ],
+ "Birleşik Krallık": [
+  "kabuk/uygulamalar/HavaDurumu.qml"
+ ],
+ "Biçimler": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Boş bir alana sağ tıklayıp Özelleştir'i seçin, grubun üstündeki alana bir ad yazın.": [
+  "kabuk/uygulamalar/Yardim.qml"
+ ],
+ "Brüksel": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Bu aramayla eşleşen bir uygulama bulunamadı.": [
+  "kabuk/qml/UygulamalarGorunumu.qml"
+ ],
+ "Bu ayarlar Sistem Ayarları'nda düzenlenir.": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Bu aygıta ne olacağını seçmek için dokunun.": [
+  "kabuk/src/otomatik.cpp"
+ ],
+ "Bu aygıtta fotoğraf ya da video bulunamadı.": [
+  "kabuk/uygulamalar/Fotograflar.qml"
+ ],
+ "Bu bilgisayardaki sabit sürücü": [
+  "uac/qml/MetroUac.qml"
+ ],
+ "Bu dosya bulunamadı.": [
+  "kabuk/uygulamalar/Yukseltme.qml"
+ ],
+ "Bu ekran için kalem veya dokunmatik giriş yok": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Bu sürücüyü yedekleme için yapılandır": [
+  "kabuk/qml/OtomatikPanel.qml"
+ ],
+ "Bu sürücüyü yedekleme için yapılandır (Dosya Geçmişi)": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Bu uygulama başka aygıtlara içerik gönderemiyor.": [
+  "kabuk/qml/BolmePenceresi.qml"
+ ],
+ "Bu uygulama oturumu kapatmanızı engelliyor.": [
+  "kabuk/qml/KapatmaEngeli.qml"
+ ],
+ "Bu uygulama yazdıramıyor.": [
+  "kabuk/qml/BolmePenceresi.qml"
+ ],
+ "Bu uygulama, kapatmayı engelliyor.": [
+  "kabuk/qml/KapatmaEngeli.qml"
+ ],
+ "Bu uygulama, yeniden başlatmanızı engelliyor.": [
+  "kabuk/qml/KapatmaEngeli.qml"
+ ],
+ "Bugün": [
+  "kabuk/qml/HavaKutucugu.qml",
+  "kabuk/uygulamalar/HavaDurumu.qml",
+  "kabuk/uygulamalar/Takvim.qml"
+ ],
+ "Bulutlu": [
+  "kabuk/qml/HavaKutucugu.qml",
+  "kabuk/uygulamalar/HavaDurumu.qml"
+ ],
+ "Buz Taneleri": [
+  "kabuk/qml/HavaKutucugu.qml"
+ ],
+ "Buz Taneli Sağanak": [
+  "kabuk/qml/HavaKutucugu.qml"
+ ],
+ "Bölge ve dil": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Bölme": [
+  "kabuk/qml/BolmePenceresi.qml"
+ ],
+ "Bükreş": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Büyük": [
+  "kabuk/qml/BaslangicEkrani.qml"
+ ],
+ "Canlı kutucuğu aç": [
+  "kabuk/qml/BaslangicEkrani.qml"
+ ],
+ "Canlı kutucuğu kapat": [
+  "kabuk/qml/BaslangicEkrani.qml"
+ ],
+ "Caps Lock açık": [
+  "plasma/shells/io.github.yyozcan.metroshell/contents/lockscreen/MetroKilit.qml",
+  "sddm/metrothemeplasma/Main.qml",
+  "uac/qml/MetroUac.qml"
+ ],
+ "Cmt": [
+  "kabuk/uygulamalar/Alarmlar.qml"
+ ],
+ "Ct": [
+  "plasma/plasmoids/io.github.yyozcan.metrosaat/contents/ui/main.qml"
+ ],
+ "Cu": [
+  "plasma/plasmoids/io.github.yyozcan.metrosaat/contents/ui/main.qml"
+ ],
+ "Cum": [
+  "kabuk/uygulamalar/Alarmlar.qml"
+ ],
+ "Cuma": [
+  "kabuk/uygulamalar/HavaDurumu.qml",
+  "kabuk/uygulamalar/Takvim.qml"
+ ],
+ "Cumartesi": [
+  "kabuk/uygulamalar/HavaDurumu.qml",
+  "kabuk/uygulamalar/Takvim.qml"
+ ],
+ "Cumhuriyet Bayramı": [
+  "kabuk/uygulamalar/Takvim.qml"
+ ],
+ "D&enetim Masası": [
+  "kabuk/qml/GucMenusu.qml"
+ ],
+ "Daha fazla kutucuk göster": [
+  "kabuk/qml/BolmePenceresi.qml"
+ ],
+ "Daha sonra": [
+  "kabuk/uygulamalar/Yukseltme.qml"
+ ],
+ "Darbe": [
+  "kabuk/uygulamalar/Alarmlar.qml"
+ ],
+ "Demokrasi ve Millî Birlik Günü": [
+  "kabuk/uygulamalar/Takvim.qml"
+ ],
+ "Denetim Masası": [
+  "kabuk/qml/BilgisayarAyarlari.qml",
+  "kabuk/qml/BolmePenceresi.qml",
+  "kabuk/src/uygulamalar.cpp"
+ ],
+ "Devam etmek için yönetici parolası yazın ve ardından Evet'i tıklatın.": [
+  "uac/qml/MetroUac.qml"
+ ],
+ "Dil tercihleri": [
+  "kabuk/qml/BolmePenceresi.qml"
+ ],
+ "Diğer": [
+  "kabuk/qml/BilgisayarAyarlari.qml",
+  "kabuk/src/uygulamalar.cpp",
+  "kabuk/uygulamalar/Spor.qml"
+ ],
+ "Diğer ayrıntılar": [
+  "kabuk/qml/GorevYoneticisi.qml"
+ ],
+ "Diğer hesaplar": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Donan Yağmur": [
+  "kabuk/qml/HavaKutucugu.qml"
+ ],
+ "Donan Çisenti": [
+  "kabuk/qml/HavaKutucugu.qml"
+ ],
+ "Donatılar": [
+  "kabuk/src/uygulamalar.cpp"
+ ],
+ "Dondurucu Sis": [
+  "kabuk/qml/HavaKutucugu.qml"
+ ],
+ "Dosya Ge&zgini": [
+  "kabuk/qml/GucMenusu.qml"
+ ],
+ "Dosya Gezgini": [
+  "kabuk/qml/OtomatikPanel.qml",
+  "kabuk/uygulamalar/Yardim.qml"
+ ],
+ "Dosya Geçmişi": [
+  "kabuk/qml/OtomatikPanel.qml"
+ ],
+ "Dosya kaynağı:": [
+  "uac/qml/MetroUac.qml"
+ ],
+ "Dosya konumunu aç": [
+  "kabuk/qml/BaslangicEkrani.qml",
+  "kabuk/qml/UygulamalarGorunumu.qml"
+ ],
+ "Dosyalar": [
+  "kabuk/qml/BolmePenceresi.qml"
+ ],
+ "Dosyalar kurulum için hazırlanıyor": [
+  "kabuk/uygulamalar/Yukseltme.qml"
+ ],
+ "Dosyaları görüntülemek için klasörü aç": [
+  "kabuk/qml/OtomatikPanel.qml"
+ ],
+ "Dosyaları görüntülemek için klasörü aç (Dosya Gezgini)": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Döndür": [
+  "kabuk/uygulamalar/Fotograflar.qml"
+ ],
+ "Döviz kurları ve ekonomi haberleri": [
+  "kabuk/uygulamalar/uygulamalar.json"
+ ],
+ "Döviz ›": [
+  "kabuk/uygulamalar/Finans.qml"
+ ],
+ "Dünya": [
+  "kabuk/uygulamalar/Haberler.qml"
+ ],
+ "Ek bilgi için Denetim Masası'nda Sistem'e gidin": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Ek güç ayarları": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Ek seçenekler": [
+  "kabuk/uygulamalar/Yukseltme.qml"
+ ],
+ "Ekim": [
+  "kabuk/uygulamalar/Takvim.qml"
+ ],
+ "Ekonomi": [
+  "kabuk/uygulamalar/Haberler.qml"
+ ],
+ "Ekran": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Ekran görüntüsü": [
+  "kabuk/qml/BolmePenceresi.qml",
+  "kabuk/qml/EkranFlasi.qml"
+ ],
+ "Ekran görüntüsü al ve kaydet": [
+  "kabuk/src/kabuk.cpp"
+ ],
+ "Ekran kapatıldığında": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Ekran kilidi zamanlaması": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Ekran çöz&ünürlüğü": [
+  "plasma/masaustu/package/contents/ui/FolderViewLayer.qml"
+ ],
+ "Eksik: ": [
+  "kabuk/uygulamalar/Yukseltme.qml"
+ ],
+ "Emek ve Dayanışma Günü": [
+  "kabuk/uygulamalar/Takvim.qml"
+ ],
+ "Erişim Kolaylığı": [
+  "kabuk/qml/BilgisayarAyarlari.qml",
+  "kabuk/src/uygulamalar.cpp"
+ ],
+ "Erişim kolaylığı": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Etkinleştirme": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Etkinlik adı": [
+  "kabuk/uygulamalar/Takvim.qml"
+ ],
+ "Etkinlik yok": [
+  "kabuk/uygulamalar/Takvim.qml"
+ ],
+ "Evet": [
+  "kabuk/qml/BolmePenceresi.qml",
+  "uac/qml/MetroUac.qml"
+ ],
+ "Eylem yok": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Eylem:": [
+  "uac/qml/MetroUac.qml"
+ ],
+ "Eylül": [
+  "kabuk/uygulamalar/Takvim.qml"
+ ],
+ "Eğitim": [
+  "kabuk/src/uygulamalar.cpp"
+ ],
+ "Fare ve dokunmatik yüzey": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Farenizi herhangi bir köşeye götürün": [
+  "kabuk/qml/IlkOturum.qml"
+ ],
+ "Fareyi sağ üst ya da sağ alt köşeye götürün veya Windows+C tuşlarına basın.": [
+  "kabuk/uygulamalar/Yardim.qml"
+ ],
+ "Film rulosu": [
+  "kabuk/uygulamalar/Kamera.qml"
+ ],
+ "Finans": [
+  "kabuk/uygulamalar/Finans.qml",
+  "kabuk/uygulamalar/uygulamalar.json"
+ ],
+ "Fotoğraf ve video çekin": [
+  "kabuk/uygulamalar/uygulamalar.json"
+ ],
+ "Fotoğraflar": [
+  "kabuk/qml/Kutucuk.qml",
+  "kabuk/qml/OtomatikPanel.qml",
+  "kabuk/uygulamalar/Fotograflar.qml",
+  "kabuk/uygulamalar/uygulamalar.json"
+ ],
+ "Fotoğraflara dön": [
+  "kabuk/uygulamalar/Fotograflar.qml"
+ ],
+ "Fotoğrafları ve videoları içeri aktar": [
+  "kabuk/qml/OtomatikPanel.qml"
+ ],
+ "Fotoğrafları ve videoları içeri aktar (Fotoğraflar)": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Fotoğraflarınızı görüntüleyin": [
+  "kabuk/uygulamalar/uygulamalar.json"
+ ],
+ "Fransa": [
+  "kabuk/uygulamalar/HavaDurumu.qml"
+ ],
+ "Futbol": [
+  "kabuk/uygulamalar/Spor.qml"
+ ],
+ "G&özat...": [
+  "kabuk/calistir/main.cpp"
+ ],
+ "G<u>ö</u>revi sonlandır": [
+  "kabuk/qml/GorevYoneticisi.qml"
+ ],
+ "Gelişmiş görünüm ayarları": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Geliştirme": [
+  "kabuk/src/uygulamalar.cpp"
+ ],
+ "Genel": [
+  "kabuk/qml/BilgisayarAyarlari.qml",
+  "plasma/plasmoids/io.github.yyozcan.metrosaat/contents/config/config.qml"
+ ],
+ "Geniş": [
+  "kabuk/qml/BaslangicEkrani.qml"
+ ],
+ "Genişlet": [
+  "kabuk/qml/BolmePenceresi.qml"
+ ],
+ "Geri": [
+  "kabuk/uygulamalar/Video.qml",
+  "kabuk/uygulamalar/Yukseltme.qml"
+ ],
+ "Geri gidip işinizi kaydetmek için, İptal’i tıklatın ve işinizi tamamlayın.": [
+  "kabuk/qml/KapatmaEngeli.qml"
+ ],
+ "Gezinti": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Geçersiz giriş": [
+  "kabuk/uygulamalar/HesapMakinesi.qml"
+ ],
+ "Gizli simgeleri göster": [
+  "plasma/tepsi/systemtray/package/contents/ui/ExpanderArrow.qml"
+ ],
+ "Gizlilik": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Grubu adlandırın": [
+  "kabuk/qml/BaslangicEkrani.qml"
+ ],
+ "Grupları adlandırma": [
+  "kabuk/uygulamalar/Yardim.qml"
+ ],
+ "Gök Gürültülü": [
+  "kabuk/qml/HavaKutucugu.qml",
+  "kabuk/uygulamalar/HavaDurumu.qml"
+ ],
+ "Gök Gürültülü Kar": [
+  "kabuk/qml/HavaKutucugu.qml"
+ ],
+ "Gök Gürültülü Yağmur": [
+  "kabuk/qml/HavaKutucugu.qml"
+ ],
+ "Görev Yöneticisi": [
+  "kabuk/qml/GorevYoneticisi.qml",
+  "kabuk/src/kabuk.cpp"
+ ],
+ "Görev çubuğu saatinde ve takviminde yıl bu kadar kaydırılarak gösterilir (ör. -10: ": [
+  "plasma/plasmoids/io.github.yyozcan.metrosaat/contents/ui/AyarGenel.qml"
+ ],
+ "Görev çubuğun&u kilitle": [
+  "plasma/masaustu/baglam/metrogorevcubugu.cpp"
+ ],
+ "Görev çubuğuna sabitle": [
+  "kabuk/qml/BaslangicEkrani.qml",
+  "kabuk/qml/UygulamalarGorunumu.qml"
+ ],
+ "Görev çubuğuna ve Başlat menüsüne sabitlediğiniz programlar, masaüstü arka planınız ve kişisel dosyalarınız korunur.": [
+  "kabuk/uygulamalar/Yukseltme.qml"
+ ],
+ "Görev çubuğundan ayır": [
+  "kabuk/qml/BaslangicEkrani.qml",
+  "kabuk/qml/UygulamalarGorunumu.qml"
+ ],
+ "Görseller, sesler ve yazı tipleri kendi Windows 8.1 kopyanızdan alınır; depoda Microsoft dosyası yoktur. ISO dosyasının ya da install.wim'in yolunu yazın.": [
+  "kabuk/uygulamalar/Yukseltme.qml"
+ ],
+ "Görüş Mesafesi": [
+  "kabuk/uygulamalar/HavaDurumu.qml"
+ ],
+ "Göster": [
+  "kabuk/qml/BolmePenceresi.qml"
+ ],
+ "Gözat": [
+  "kabuk/calistir/main.cpp",
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Gün": [
+  "kabuk/uygulamalar/Takvim.qml"
+ ],
+ "Gün batımı": [
+  "kabuk/uygulamalar/HavaDurumu.qml"
+ ],
+ "Gün doğumu": [
+  "kabuk/uygulamalar/HavaDurumu.qml"
+ ],
+ "Güncel hava durumu ve tahminler": [
+  "kabuk/uygulamalar/uygulamalar.json"
+ ],
+ "Güncelleştir ve kurtar": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Güncelleştirmeler sistem paket yöneticisiyle yüklenir.": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Güneşli": [
+  "kabuk/qml/HavaKutucugu.qml",
+  "kabuk/uygulamalar/HavaDurumu.qml"
+ ],
+ "Güvenlik ve aygıtlar": [
+  "kabuk/uygulamalar/Yardim.qml"
+ ],
+ "Güç": [
+  "kabuk/qml/BolmePenceresi.qml"
+ ],
+ "Güç &Seçenekleri": [
+  "kabuk/qml/GucMenusu.qml"
+ ],
+ "Güç ve uyku": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Güç ve uyku ayarları": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "HH:mm": [
+  "kabuk/qml/BilgisayarAyarlari.qml",
+  "kabuk/qml/SaatPaneli.qml",
+  "kabuk/uygulamalar/HavaDurumu.qml",
+  "plasma/plasmoids/io.github.yyozcan.metrosaat/contents/ui/main.qml",
+  "plasma/shells/io.github.yyozcan.metroshell/contents/lockscreen/MetroKilit.qml",
+  "sddm/metrothemeplasma/Main.qml"
+ ],
+ "Haberin tamamını oku ›": [
+  "kabuk/uygulamalar/HaberUygulamasi.qml"
+ ],
+ "Haberler": [
+  "kabuk/uygulamalar/HaberUygulamasi.qml",
+  "kabuk/uygulamalar/Haberler.qml",
+  "kabuk/uygulamalar/uygulamalar.json"
+ ],
+ "Haberler alınamadı. İnternet bağlantınızı denetleyin.": [
+  "kabuk/uygulamalar/HaberUygulamasi.qml"
+ ],
+ "Haberler ›": [
+  "kabuk/uygulamalar/Finans.qml"
+ ],
+ "Hafif Buz Taneli Sağanak": [
+  "kabuk/qml/HavaKutucugu.qml"
+ ],
+ "Hafif Donan Yağmur": [
+  "kabuk/qml/HavaKutucugu.qml"
+ ],
+ "Hafif Kar Sağanağı": [
+  "kabuk/qml/HavaKutucugu.qml"
+ ],
+ "Hafif Kar Yağışlı": [
+  "kabuk/qml/HavaKutucugu.qml"
+ ],
+ "Hafif Karla Karışık Sağanak": [
+  "kabuk/qml/HavaKutucugu.qml"
+ ],
+ "Hafif Karla Karışık Yağmur": [
+  "kabuk/qml/HavaKutucugu.qml"
+ ],
+ "Hafif Sağanak": [
+  "kabuk/qml/HavaKutucugu.qml"
+ ],
+ "Hafif Yağmurlu": [
+  "kabuk/qml/HavaKutucugu.qml"
+ ],
+ "Hafta içi": [
+  "kabuk/uygulamalar/Alarmlar.qml"
+ ],
+ "Haftanın ilk günü": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Hava Durumu": [
+  "kabuk/qml/HavaKutucugu.qml",
+  "kabuk/qml/Kutucuk.qml",
+  "kabuk/uygulamalar/HavaDurumu.qml",
+  "kabuk/uygulamalar/uygulamalar.json"
+ ],
+ "Hava durumu bilgisi alınamadı. İnternet bağlantınızı denetleyin.": [
+  "kabuk/uygulamalar/HavaDurumu.qml"
+ ],
+ "Hayır": [
+  "kabuk/qml/BolmePenceresi.qml",
+  "uac/qml/MetroUac.qml"
+ ],
+ "Haziran": [
+  "kabuk/uygulamalar/Takvim.qml"
+ ],
+ "Henüz sık kullanılan bir site eklemediniz.": [
+  "kabuk/uygulamalar/InternetExplorer.qml"
+ ],
+ "Her gün": [
+  "kabuk/uygulamalar/Alarmlar.qml"
+ ],
+ "Her seferinde bana sor": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Her yerde": [
+  "kabuk/qml/BolmePenceresi.qml"
+ ],
+ "Her yerde arama: Windows+S.": [
+  "kabuk/uygulamalar/Yardim.qml"
+ ],
+ "Hesabınız": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Hesap Makinesi": [
+  "kabuk/uygulamalar/HesapMakinesi.qml",
+  "kabuk/uygulamalar/uygulamalar.json"
+ ],
+ "Hesap resmi oluşturun": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Hesap resmini değiştir": [
+  "kabuk/qml/BaslangicEkrani.qml"
+ ],
+ "Hesaplar": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Hint Okyanusu": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Hissedilen": [
+  "kabuk/uygulamalar/HavaDurumu.qml"
+ ],
+ "Hiçbir zaman": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Hiçbir şey": [
+  "kabuk/uygulamalar/Yukseltme.qml"
+ ],
+ "Hiçbir şey saklama": [
+  "kabuk/uygulamalar/Yukseltme.qml"
+ ],
+ "Hiçbir şey yapma": [
+  "kabuk/qml/OtomatikPanel.qml"
+ ],
+ "Hiçbir şey yürütülmüyor": [
+  "kabuk/uygulamalar/Muzik.qml"
+ ],
+ "Hollanda": [
+  "kabuk/uygulamalar/HavaDurumu.qml"
+ ],
+ "Hoparlörler": [
+  "plasma/plasmoids/io.github.yyozcan.metroses/contents/ui/main.qml"
+ ],
+ "Hoş geldiniz": [
+  "plasma/look-and-feel/io.github.yyozcan.metro/contents/splash/Splash.qml",
+  "sddm/metrothemeplasma/Main.qml"
+ ],
+ "Hızlı bağlantı menüsü": [
+  "kabuk/qml/GucMenusu.qml",
+  "kabuk/src/kabuk.cpp",
+  "kabuk/uygulamalar/Yardim.qml"
+ ],
+ "Internet Explorer (masaüstü)": [
+  "kabuk/src/uygulamalar.cpp"
+ ],
+ "Kahire": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Kaldır": [
+  "kabuk/qml/BaslangicEkrani.qml",
+  "kabuk/qml/UygulamalarGorunumu.qml"
+ ],
+ "Kalem ve dokunma": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Kalküta": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Kamera": [
+  "kabuk/uygulamalar/Kamera.qml",
+  "kabuk/uygulamalar/uygulamalar.json"
+ ],
+ "Kameranın bağlı ve başka bir uygulama tarafından kullanılmıyor olduğundan emin olun.": [
+  "kabuk/uygulamalar/Kamera.qml"
+ ],
+ "Kameranızı bulamıyoruz": [
+  "kabuk/uygulamalar/Kamera.qml"
+ ],
+ "Kamerayı değiştir": [
+  "kabuk/uygulamalar/Kamera.qml"
+ ],
+ "Kanal": [
+  "kabuk/uygulamalar/Alarmlar.qml"
+ ],
+ "Kapalı": [
+  "kabuk/qml/HavaKutucugu.qml",
+  "kabuk/qml/MetroAnahtar.qml"
+ ],
+ "Kapat": [
+  "kabuk/qml/Ana.qml",
+  "kabuk/uygulamalar/InternetExplorer.qml",
+  "plasma/shells/io.github.yyozcan.metroshell/contents/lockscreen/MetroKilit.qml",
+  "plasma/shells/io.github.yyozcan.metroshell/contents/logout/MetroCikis.qml",
+  "plasma/tepsi/systemtray/package/contents/ui/ExpanderArrow.qml",
+  "sddm/metrothemeplasma/Main.qml"
+ ],
+ "Kapatma engellendi": [
+  "kabuk/qml/KapatmaEngeli.qml"
+ ],
+ "Kapatılıyor": [
+  "plasma/shells/io.github.yyozcan.metroshell/contents/logout/MetroCikis.qml",
+  "sddm/metrothemeplasma/Main.qml"
+ ],
+ "Kapatırken konsol duyuruları gizlenir; Plasma güncellendikçe Windows 8.1 de kendiliğinden güncellenir": [
+  "kabuk/uygulamalar/Yukseltme.qml"
+ ],
+ "Kar Fırtınası": [
+  "kabuk/qml/HavaKutucugu.qml"
+ ],
+ "Kar Sağanağı": [
+  "kabuk/qml/HavaKutucugu.qml",
+  "kabuk/uygulamalar/HavaDurumu.qml"
+ ],
+ "Kar Yağışlı": [
+  "kabuk/qml/HavaKutucugu.qml",
+  "kabuk/uygulamalar/HavaDurumu.qml"
+ ],
+ "Karla Karışık Sağanak": [
+  "kabuk/qml/HavaKutucugu.qml"
+ ],
+ "Karla Karışık Yağmur": [
+  "kabuk/qml/HavaKutucugu.qml"
+ ],
+ "Karıştır": [
+  "kabuk/uygulamalar/Muzik.qml"
+ ],
+ "Karıştırıcı": [
+  "plasma/plasmoids/io.github.yyozcan.metroses/contents/ui/main.qml"
+ ],
+ "Kasım": [
+  "kabuk/uygulamalar/Takvim.qml"
+ ],
+ "Kaydet": [
+  "kabuk/uygulamalar/Alarmlar.qml",
+  "kabuk/uygulamalar/Takvim.qml"
+ ],
+ "Kaydetmek için dokunun": [
+  "kabuk/uygulamalar/SesKaydedici.qml"
+ ],
+ "Kilit": [
+  "plasma/shells/io.github.yyozcan.metroshell/contents/lockscreen/MetroKilit.qml"
+ ],
+ "Kilit ekranı": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Kilit ekranı resmi ve Başlangıç renkleriyle Windows 8.1 oturum açma ekranı.": [
+  "kabuk/uygulamalar/Yukseltme.qml"
+ ],
+ "Kilit ekranı yap": [
+  "kabuk/uygulamalar/Fotograflar.qml"
+ ],
+ "Kilit ekranını, hesap resmini ve renkleri değiştirin": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Kilitle": [
+  "kabuk/qml/BaslangicEkrani.qml"
+ ],
+ "Kilitleme": [
+  "kabuk/uygulamalar/Yardim.qml"
+ ],
+ "Kişisel bilgilerimi kutucuklarımdan temizle": [
+  "kabuk/qml/BolmePenceresi.qml"
+ ],
+ "Kişisel videolar": [
+  "kabuk/uygulamalar/Video.qml"
+ ],
+ "Kişisel videolarınızı izleyin": [
+  "kabuk/uygulamalar/uygulamalar.json"
+ ],
+ "Kişiselleştir": [
+  "kabuk/qml/BilgisayarAyarlari.qml",
+  "kabuk/qml/BolmePenceresi.qml"
+ ],
+ "Kişiselleştirme": [
+  "kabuk/qml/BolmePenceresi.qml"
+ ],
+ "Klasörü aç": [
+  "kabuk/uygulamalar/Fotograflar.qml",
+  "kabuk/uygulamalar/InternetExplorer.qml"
+ ],
+ "Koleksiyon": [
+  "kabuk/uygulamalar/Muzik.qml"
+ ],
+ "Komu&t İstemi": [
+  "kabuk/qml/GucMenusu.qml"
+ ],
+ "Komut İstemi (Yö&netici)": [
+  "kabuk/qml/GucMenusu.qml"
+ ],
+ "Kronometre": [
+  "kabuk/uygulamalar/Alarmlar.qml"
+ ],
+ "Kudüs": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Kullanıcı Hesabı Denetimi": [
+  "kabuk/uygulamalar/Yardim.qml",
+  "uac/qml/MetroUac.qml"
+ ],
+ "Kullanıcı Hesabı Denetimi onayı verilmedi": [
+  "kabuk/uygulamalar/Yukseltme.qml"
+ ],
+ "Kullanıcı değiştir": [
+  "plasma/shells/io.github.yyozcan.metroshell/contents/logout/MetroCikis.qml"
+ ],
+ "Kullanılamıyor": [
+  "kabuk/qml/BolmePenceresi.qml"
+ ],
+ "Kurban Bayramı": [
+  "kabuk/uygulamalar/Takvim.qml"
+ ],
+ "Kutucuklar": [
+  "kabuk/qml/BolmePenceresi.qml"
+ ],
+ "Kutucukları düzenleme": [
+  "kabuk/uygulamalar/Yardim.qml"
+ ],
+ "Kutucuğa sağ tıklayın, Yeniden boyutlandır'ı seçin.": [
+  "kabuk/uygulamalar/Yardim.qml"
+ ],
+ "Kutucuğu sürükleyip bırakın. İki grubun arasına bırakırsanız yeni bir grup oluşur.": [
+  "kabuk/uygulamalar/Yardim.qml"
+ ],
+ "Köşeler ve kenarlar": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Küçük": [
+  "kabuk/qml/BaslangicEkrani.qml"
+ ],
+ "Kıbrıs": [
+  "kabuk/uygulamalar/HavaDurumu.qml"
+ ],
+ "Kısa saat": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Kısa tarih": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Kısay&ol yapıştır": [
+  "plasma/masaustu/folder/foldermodel.cpp"
+ ],
+ "Lefkoşa": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Lizbon": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Londra": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Manşet": [
+  "kabuk/uygulamalar/Haberler.qml"
+ ],
+ "Mart": [
+  "kabuk/uygulamalar/Takvim.qml"
+ ],
+ "Masaüstü": [
+  "kabuk/qml/BolmePenceresi.qml",
+  "kabuk/qml/Kutucuk.qml",
+  "kabuk/uygulamalar/Yardim.qml"
+ ],
+ "Masaüstü arka planını Başlangıç'ta göster": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Masaüstü kutucuğuna tıklayın ya da Windows+D tuşlarına basın.": [
+  "kabuk/uygulamalar/Yardim.qml"
+ ],
+ "Masaüstünde görüntüle": [
+  "kabuk/uygulamalar/InternetExplorer.qml"
+ ],
+ "Masaüstünden paylaşılabilecek bir şey yok.": [
+  "kabuk/qml/BolmePenceresi.qml"
+ ],
+ "Masaüstüne gitme": [
+  "kabuk/uygulamalar/Yardim.qml"
+ ],
+ "Masaüstünü göst&er": [
+  "plasma/masaustu/baglam/metrogorevcubugu.cpp"
+ ],
+ "Mayıs": [
+  "kabuk/uygulamalar/Takvim.qml"
+ ],
+ "Mağaza": [
+  "kabuk/uygulamalar/uygulamalar.json"
+ ],
+ "Merhaba": [
+  "kabuk/qml/IlkOturum.qml"
+ ],
+ "Metro Kabuğu": [
+  "kabuk/src/kabuk.cpp"
+ ],
+ "MetroThemePlasma kaynağı (": [
+  "kabuk/uygulamalar/Yukseltme.qml"
+ ],
+ "MetroThemePlasma zaten kurulu: güncellenecek, ayarlarınız korunacak.": [
+  "kabuk/uygulamalar/Yukseltme.qml"
+ ],
+ "Moskova": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Müzik": [
+  "kabuk/uygulamalar/Muzik.qml",
+  "kabuk/uygulamalar/uygulamalar.json"
+ ],
+ "Müzik koleksiyonunuz boş. Müzik klasörünüze (": [
+  "kabuk/uygulamalar/Muzik.qml"
+ ],
+ "Müzik koleksiyonunuzu dinleyin": [
+  "kabuk/uygulamalar/uygulamalar.json"
+ ],
+ "Neden: ": [
+  "kabuk/uygulamalar/Yukseltme.qml"
+ ],
+ "Nem": [
+  "kabuk/uygulamalar/HavaDurumu.qml"
+ ],
+ "Neredeyse hazır": [
+  "kabuk/qml/IlkOturum.qml"
+ ],
+ "Neyi saklamak istiyorsunuz?": [
+  "kabuk/uygulamalar/Yukseltme.qml"
+ ],
+ "Nisan": [
+  "kabuk/uygulamalar/Takvim.qml"
+ ],
+ "Ocak": [
+  "kabuk/uygulamalar/Takvim.qml"
+ ],
+ "Onaylanmış yayımcı:": [
+  "uac/qml/MetroUac.qml"
+ ],
+ "Orta": [
+  "kabuk/qml/BaslangicEkrani.qml"
+ ],
+ "Otomatik": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Otomatik Kullan": [
+  "kabuk/qml/BilgisayarAyarlari.qml",
+  "kabuk/qml/OtomatikPanel.qml",
+  "kabuk/uygulamalar/Yardim.qml"
+ ],
+ "Otomatik Kullan varsayılanlarını seçin": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Oturum açarken Windows 8.1'i varsayılan yap": [
+  "kabuk/uygulamalar/Yukseltme.qml"
+ ],
+ "Oturum açma ekranında MetroThemePlasma seçili gelir; Windows 7 oturumu listede kalır.": [
+  "kabuk/uygulamalar/Yukseltme.qml"
+ ],
+ "Oturum açma seçenekleri": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Oturum açtığımda Başlangıç yerine masaüstüne git": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Oturum kapatılıyor": [
+  "plasma/shells/io.github.yyozcan.metroshell/contents/logout/MetroCikis.qml"
+ ],
+ "Oturumu kapat": [
+  "kabuk/qml/BaslangicEkrani.qml",
+  "kabuk/uygulamalar/Yukseltme.qml",
+  "plasma/shells/io.github.yyozcan.metroshell/contents/logout/MetroCikis.qml"
+ ],
+ "Oturumu kapatın ve oturum açma ekranında MetroThemePlasma (Wayland) oturumunu seçin. İlk oturum açışınızda Windows 8.1 sizi \"Merhaba\" ile karşılar. Bundan sonra Plasma güncellendikçe Windows 8.1 de kendiliğinden güncellenir.": [
+  "kabuk/uygulamalar/Yukseltme.qml"
+ ],
+ "PM": [
+  "kabuk/uygulamalar/HavaDurumu.qml"
+ ],
+ "Parlaklık": [
+  "kabuk/qml/BolmePenceresi.qml"
+ ],
+ "Parola": [
+  "plasma/shells/io.github.yyozcan.metroshell/contents/lockscreen/MetroKilit.qml",
+  "sddm/metrothemeplasma/Main.qml",
+  "uac/qml/MetroUac.qml"
+ ],
+ "Parola yanlış. Yeniden deneyin.": [
+  "plasma/shells/io.github.yyozcan.metroshell/contents/lockscreen/MetroKilit.qml",
+  "sddm/metrothemeplasma/Main.qml",
+  "uac/qml/MetroUac.qml"
+ ],
+ "Parçalı Bulutlu": [
+  "kabuk/qml/HavaKutucugu.qml",
+  "kabuk/uygulamalar/HavaDurumu.qml"
+ ],
+ "Pasifik": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Paylaş": [
+  "kabuk/qml/BolmePenceresi.qml",
+  "kabuk/qml/Tilsimlar.qml"
+ ],
+ "Paylaş tılsımı": [
+  "kabuk/src/kabuk.cpp"
+ ],
+ "Paz": [
+  "kabuk/uygulamalar/Alarmlar.qml"
+ ],
+ "Pazar": [
+  "kabuk/uygulamalar/HavaDurumu.qml",
+  "kabuk/uygulamalar/Takvim.qml"
+ ],
+ "Pazartesi": [
+  "kabuk/qml/BilgisayarAyarlari.qml",
+  "kabuk/uygulamalar/HavaDurumu.qml",
+  "kabuk/uygulamalar/Takvim.qml"
+ ],
+ "Pe": [
+  "plasma/plasmoids/io.github.yyozcan.metrosaat/contents/ui/main.qml"
+ ],
+ "Pen&cereleri üst üste göster": [
+  "plasma/masaustu/baglam/metrogorevcubugu.cpp"
+ ],
+ "Pencere": [
+  "plasma/gorevler/package/contents/ui/ToolTip.qml"
+ ],
+ "Pencere kenarlıklarınızın ve görev çubuğunuzun rengini değiştirin.": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Pencereleri yan yana g&öster": [
+  "plasma/masaustu/baglam/metrogorevcubugu.cpp"
+ ],
+ "Per": [
+  "kabuk/uygulamalar/Alarmlar.qml"
+ ],
+ "Perşembe": [
+  "kabuk/uygulamalar/HavaDurumu.qml",
+  "kabuk/uygulamalar/Takvim.qml"
+ ],
+ "Pille çalışırken": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Piyasa verileri alınamadı. İnternet bağlantınızı denetleyin.": [
+  "kabuk/uygulamalar/Finans.qml"
+ ],
+ "Prize takılıyken": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Program adı:": [
+  "uac/qml/MetroUac.qml"
+ ],
+ "Program konumu:": [
+  "uac/qml/MetroUac.qml"
+ ],
+ "Programlar &ve Özellikler": [
+  "kabuk/qml/GucMenusu.qml"
+ ],
+ "Pt": [
+  "plasma/plasmoids/io.github.yyozcan.metrosaat/contents/ui/main.qml"
+ ],
+ "Pus": [
+  "kabuk/qml/HavaKutucugu.qml"
+ ],
+ "Pz": [
+  "plasma/plasmoids/io.github.yyozcan.metrosaat/contents/ui/main.qml"
+ ],
+ "Pzt": [
+  "kabuk/uygulamalar/Alarmlar.qml"
+ ],
+ "Ramazan Bayramı": [
+  "kabuk/uygulamalar/Takvim.qml"
+ ],
+ "Renk": [
+  "kabuk/qml/Tema.qml",
+  "kabuk/uygulamalar/Ana.qml",
+  "plasma/bildirim/applet/NotificationPopup.qml",
+  "plasma/look-and-feel/io.github.yyozcan.metro/contents/splash/Splash.qml",
+  "plasma/shells/io.github.yyozcan.metroshell/contents/lockscreen/MetroKilit.qml",
+  "plasma/shells/io.github.yyozcan.metroshell/contents/logout/MetroCikis.qml"
+ ],
+ "Renk ve görünüm": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Renk yoğunluğu": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Resim seçin": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Resimler kitaplığınızda fotoğraf yok.": [
+  "kabuk/uygulamalar/Fotograflar.qml"
+ ],
+ "Riyad": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Roma": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Rüzgar": [
+  "kabuk/uygulamalar/HavaDurumu.qml"
+ ],
+ "S&istem": [
+  "kabuk/qml/GucMenusu.qml"
+ ],
+ "Sa": [
+  "plasma/plasmoids/io.github.yyozcan.metrosaat/contents/ui/main.qml"
+ ],
+ "Saat": [
+  "kabuk/qml/SaatPaneli.qml"
+ ],
+ "Saat (boş: tüm gün)": [
+  "kabuk/uygulamalar/Takvim.qml"
+ ],
+ "Saat dilimi": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Saat ve dil": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Saati otomatik olarak ayarla": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Saatlik Tahmin": [
+  "kabuk/uygulamalar/HavaDurumu.qml"
+ ],
+ "Sal": [
+  "kabuk/uygulamalar/Alarmlar.qml"
+ ],
+ "Salı": [
+  "kabuk/uygulamalar/HavaDurumu.qml",
+  "kabuk/uygulamalar/Takvim.qml"
+ ],
+ "Satış": [
+  "kabuk/uygulamalar/Finans.qml"
+ ],
+ "Sayfada bul": [
+  "kabuk/uygulamalar/InternetExplorer.qml"
+ ],
+ "Sağ köşeler": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Sağ üst ve sağ alt köşeye geldiğimde tılsımları göster": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Sağanak": [
+  "kabuk/qml/HavaKutucugu.qml",
+  "kabuk/uygulamalar/HavaDurumu.qml"
+ ],
+ "Sekmeleri kapat": [
+  "kabuk/uygulamalar/InternetExplorer.qml"
+ ],
+ "Ses": [
+  "kabuk/uygulamalar/Alarmlar.qml"
+ ],
+ "Ses Kaydedici": [
+  "kabuk/uygulamalar/SesKaydedici.qml",
+  "kabuk/uygulamalar/uygulamalar.json"
+ ],
+ "Ses aygıtı yok": [
+  "plasma/plasmoids/io.github.yyozcan.metroses/contents/ui/main.qml"
+ ],
+ "Ses kaydedin": [
+  "kabuk/uygulamalar/uygulamalar.json"
+ ],
+ "Ses, ağ, parlaklık, bildirimler ve güç: Windows+I.": [
+  "kabuk/uygulamalar/Yardim.qml"
+ ],
+ "Sessiz": [
+  "plasma/plasmoids/io.github.yyozcan.metroses/contents/ui/main.qml"
+ ],
+ "Sessiz saatler": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Sessiz saatlerde bildirimler gösterilmez. Şimdi bir saatliğine sessize al:": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Seç": [
+  "kabuk/src/otomatik.cpp"
+ ],
+ "Seçimi temizle": [
+  "kabuk/qml/BaslangicEkrani.qml"
+ ],
+ "Sil": [
+  "kabuk/uygulamalar/Alarmlar.qml",
+  "kabuk/uygulamalar/Fotograflar.qml",
+  "kabuk/uygulamalar/SesKaydedici.qml"
+ ],
+ "Simgeleri kılavuz çizgisine hi&zala": [
+  "plasma/masaustu/folder/viewpropertiesmenu.cpp"
+ ],
+ "Simgeleri o&tomatik düzenle": [
+  "plasma/masaustu/folder/viewpropertiesmenu.cpp"
+ ],
+ "Sisli": [
+  "kabuk/qml/HavaKutucugu.qml",
+  "kabuk/uygulamalar/HavaDurumu.qml"
+ ],
+ "Sistem Araçları": [
+  "kabuk/src/uygulamalar.cpp"
+ ],
+ "Sistem Ayarları": [
+  "kabuk/src/uygulamalar.cpp"
+ ],
+ "Sistem türü": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Sizin için ayarları yapıyoruz": [
+  "kabuk/qml/IlkOturum.qml"
+ ],
+ "Slayt gösterisi": [
+  "kabuk/uygulamalar/Fotograflar.qml"
+ ],
+ "Sofya": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Sol üst köşe ya da Windows+Sekme; Alt+Sekme tüm pencereleri gösterir.": [
+  "kabuk/uygulamalar/Yardim.qml"
+ ],
+ "Son 30 gün": [
+  "kabuk/uygulamalar/Finans.qml"
+ ],
+ "Son kullandığım uygulamalar arasında sol üst köşeye dokunarak geçiş yapmama izin ver": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Spor": [
+  "kabuk/uygulamalar/Spor.qml",
+  "kabuk/uygulamalar/uygulamalar.json"
+ ],
+ "Spor haberleri": [
+  "kabuk/uygulamalar/uygulamalar.json"
+ ],
+ "Standart": [
+  "kabuk/uygulamalar/HesapMakinesi.qml"
+ ],
+ "Standart ve bilimsel hesaplamalar": [
+  "kabuk/uygulamalar/uygulamalar.json"
+ ],
+ "Süre doldu": [
+  "kabuk/uygulamalar/Alarmlar.qml"
+ ],
+ "Sürüm": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Sıfıra bölünemez": [
+  "kabuk/uygulamalar/HesapMakinesi.qml"
+ ],
+ "Sık kullanılanlar": [
+  "kabuk/uygulamalar/InternetExplorer.qml"
+ ],
+ "Sık kullanılanlara ekle": [
+  "kabuk/uygulamalar/InternetExplorer.qml"
+ ],
+ "Sık kullanılanlardan kaldır": [
+  "kabuk/uygulamalar/InternetExplorer.qml"
+ ],
+ "Sık ziyaret edilenler": [
+  "kabuk/uygulamalar/InternetExplorer.qml"
+ ],
+ "Sıralama &ölçütü": [
+  "plasma/masaustu/folder/viewpropertiesmenu.cpp",
+  "plasma/masaustu/package/contents/ui/FolderViewLayer.qml"
+ ],
+ "TCMB gösterge kuru (döviz satış) · ": [
+  "kabuk/uygulamalar/Finans.qml"
+ ],
+ "Tahmin": [
+  "kabuk/uygulamalar/HavaDurumu.qml"
+ ],
+ "Tahran": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Takvim": [
+  "kabuk/qml/Kutucuk.qml",
+  "kabuk/uygulamalar/Takvim.qml",
+  "kabuk/uygulamalar/uygulamalar.json"
+ ],
+ "Takvim ve resmi tatiller": [
+  "kabuk/uygulamalar/uygulamalar.json"
+ ],
+ "Tamam": [
+  "plasma/shells/io.github.yyozcan.metroshell/contents/lockscreen/MetroKilit.qml",
+  "plasma/shells/io.github.yyozcan.metroshell/contents/logout/MetroCikis.qml",
+  "sddm/metrothemeplasma/Main.qml"
+ ],
+ "Tarih ve saat": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Tarih ve saat ayarlarını değiştir...": [
+  "plasma/plasmoids/io.github.yyozcan.metrosaat/contents/ui/main.qml"
+ ],
+ "Tarih ve saat biçimlerini değiştir": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Tekrar": [
+  "kabuk/uygulamalar/Alarmlar.qml"
+ ],
+ "Temizle": [
+  "kabuk/qml/BolmePenceresi.qml"
+ ],
+ "Temmuz": [
+  "kabuk/uygulamalar/Takvim.qml"
+ ],
+ "Teyp": [
+  "kabuk/uygulamalar/Alarmlar.qml"
+ ],
+ "Tiflis": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Tipi": [
+  "kabuk/qml/HavaKutucugu.qml"
+ ],
+ "Tüm gün": [
+  "kabuk/uygulamalar/Takvim.qml"
+ ],
+ "Tüm medya ve aygıtlar için Otomatik Kullan'ı kullan": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Tüm uygulamalarınız": [
+  "kabuk/uygulamalar/Yardim.qml"
+ ],
+ "Tümünü seç": [
+  "kabuk/uygulamalar/Fotograflar.qml"
+ ],
+ "Tümünü temizle": [
+  "kabuk/uygulamalar/Fotograflar.qml"
+ ],
+ "Türkiye": [
+  "kabuk/uygulamalar/Haberler.qml",
+  "kabuk/uygulamalar/HavaDurumu.qml"
+ ],
+ "Türkiye ve dünyadan son haberler": [
+  "kabuk/uygulamalar/uygulamalar.json"
+ ],
+ "Tıkırtı": [
+  "kabuk/uygulamalar/Alarmlar.qml"
+ ],
+ "Tılsımlar": [
+  "kabuk/qml/Tilsimlar.qml",
+  "kabuk/src/kabuk.cpp",
+  "kabuk/uygulamalar/Yardim.qml"
+ ],
+ "Tılsımları açma": [
+  "kabuk/uygulamalar/Yardim.qml"
+ ],
+ "USB SÜRÜCÜ": [
+  "kabuk/qml/Ana.qml"
+ ],
+ "USB bellek ya da bellek kartı taktığınızda ne yapılacağını seçin; Bilgisayar ayarları > Otomatik Kullan'dan değiştirebilirsiniz.": [
+  "kabuk/uygulamalar/Yardim.qml"
+ ],
+ "UV dizini": [
+  "kabuk/uygulamalar/HavaDurumu.qml"
+ ],
+ "Ulusal Egemenlik ve Çocuk Bayramı": [
+  "kabuk/uygulamalar/Takvim.qml"
+ ],
+ "Uygulama arama": [
+  "kabuk/uygulamalar/Yardim.qml"
+ ],
+ "Uygulama bildirimlerini göster": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Uygulama bildirimlerini kilit ekranında göster": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Uygulama bulun ve yükleyin": [
+  "kabuk/uygulamalar/uygulamalar.json"
+ ],
+ "Uygulama geçişi": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Uygulamalar": [
+  "kabuk/qml/BolmePenceresi.qml",
+  "kabuk/qml/UygulamalarGorunumu.qml",
+  "kabuk/uygulamalar/Yardim.qml"
+ ],
+ "Uygulamalar arasında geçiş": [
+  "kabuk/qml/SolGecis.qml",
+  "kabuk/uygulamalar/Yardim.qml"
+ ],
+ "Uygulamalar arasında geçiş yap": [
+  "kabuk/src/kabuk.cpp"
+ ],
+ "Uygulamalar görünümü kategoriye göre sıralandığında önce masaüstü uygulamalarını listele": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Uygulamalar görünümünde bir uygulamaya sağ tıklayıp Başlangıç ekranına sabitle'yi seçin.": [
+  "kabuk/uygulamalar/Yardim.qml"
+ ],
+ "Uygulamalarınız hazırlanıyor": [
+  "kabuk/qml/IlkOturum.qml"
+ ],
+ "Uygulamanın üst kenarından aşağı doğru sürükleyin ya da fareyi üst kenara getirip X'e tıklayın.": [
+  "kabuk/uygulamalar/Yardim.qml"
+ ],
+ "Uygulamaya göre bildirim ayarları": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Uygulamayı kapatma": [
+  "kabuk/uygulamalar/Yardim.qml"
+ ],
+ "Uyku": [
+  "kabuk/qml/Ana.qml",
+  "kabuk/qml/BilgisayarAyarlari.qml",
+  "plasma/shells/io.github.yyozcan.metroshell/contents/lockscreen/MetroKilit.qml",
+  "plasma/shells/io.github.yyozcan.metroshell/contents/logout/MetroCikis.qml",
+  "sddm/metrothemeplasma/Main.qml"
+ ],
+ "Uyumluluk denetimi tamamlandı": [
+  "kabuk/uygulamalar/Yukseltme.qml"
+ ],
+ "Uyumluluk denetleniyor": [
+  "kabuk/uygulamalar/Yukseltme.qml"
+ ],
+ "Uzaklaştır": [
+  "kabuk/uygulamalar/InternetExplorer.qml"
+ ],
+ "Uzun saat": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Uzun tarih": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Uçak modu": [
+  "kabuk/qml/BolmePenceresi.qml"
+ ],
+ "Varsayılanlar": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Varşova": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Video": [
+  "kabuk/uygulamalar/Video.qml",
+  "kabuk/uygulamalar/uygulamalar.json"
+ ],
+ "Videolar klasörünüzde (": [
+  "kabuk/uygulamalar/Video.qml"
+ ],
+ "Viyana": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Vurgu rengi": [
+  "kabuk/qml/BilgisayarAyarlari.qml",
+  "kabuk/qml/BolmePenceresi.qml"
+ ],
+ "Web'de gezinin": [
+  "kabuk/uygulamalar/uygulamalar.json"
+ ],
+ "Windows '%1' öğesini bulamıyor. Yazımı denetleyin ve yeniden deneyin.": [
+  "kabuk/calistir/main.cpp"
+ ],
+ "Windows 7'den (AeroThemePlasma) Windows 8.1'e yükselt": [
+  "kabuk/uygulamalar/Yukseltme.qml"
+ ],
+ "Windows 8.1 Kurulumu": [
+  "kabuk/uygulamalar/Yukseltme.qml"
+ ],
+ "Windows 8.1 açılış ekranı": [
+  "kabuk/uygulamalar/Yukseltme.qml"
+ ],
+ "Windows 8.1 açılış ekranını kullan": [
+  "kabuk/uygulamalar/Yukseltme.qml"
+ ],
+ "Windows 8.1 dosyaları daha önce içe aktarılmış.": [
+  "kabuk/uygulamalar/Yukseltme.qml"
+ ],
+ "Windows 8.1 kurulum medyası (ISO) gerekli.": [
+  "kabuk/uygulamalar/Yukseltme.qml"
+ ],
+ "Windows 8.1 kurulum medyasını seçin": [
+  "kabuk/uygulamalar/Yukseltme.qml"
+ ],
+ "Windows 8.1 oturum açma ekranı": [
+  "kabuk/uygulamalar/Yukseltme.qml"
+ ],
+ "Windows 8.1 oturum açma ekranını kullan": [
+  "kabuk/uygulamalar/Yukseltme.qml"
+ ],
+ "Windows 8.1 varsayılan düzeniyle başlar; Belgeler ve Masaüstü gibi Kullanıcı klasörünüzdeki dosyalar korunur.": [
+  "kabuk/uygulamalar/Yukseltme.qml"
+ ],
+ "Windows 8.1 varsayılanları uygulanıyor": [
+  "kabuk/uygulamalar/Yukseltme.qml"
+ ],
+ "Windows 8.1 yüklendi": [
+  "kabuk/uygulamalar/Yukseltme.qml"
+ ],
+ "Windows 8.1 yüklenemedi": [
+  "kabuk/uygulamalar/Yukseltme.qml"
+ ],
+ "Windows 8.1'e Yükselt": [
+  "kabuk/uygulamalar/uygulamalar.json"
+ ],
+ "Windows 8.1'i yükle": [
+  "kabuk/uygulamalar/Yukseltme.qml"
+ ],
+ "Windows Kurulumu öğelerinizi taşıyor": [
+  "kabuk/uygulamalar/Yukseltme.qml"
+ ],
+ "Windows ayarlarını, kişisel dosyaları ve uygulamaları sakla": [
+  "kabuk/uygulamalar/Yukseltme.qml"
+ ],
+ "Windows etkinleştirildi": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Windows tuşuna basın ya da görev çubuğundaki Başlat düğmesine tıklayın.": [
+  "kabuk/uygulamalar/Yardim.qml"
+ ],
+ "Windows yükleniyor": [
+  "kabuk/uygulamalar/Yukseltme.qml"
+ ],
+ "Windows yükseltiliyor": [
+  "kabuk/uygulamalar/Yukseltme.qml"
+ ],
+ "Windows'u Kapat": [
+  "plasma/shells/io.github.yyozcan.metroshell/contents/logout/MetroCikis.qml"
+ ],
+ "Windows'u öğrenin": [
+  "kabuk/uygulamalar/uygulamalar.json"
+ ],
+ "Windows'u öğrenmenin en hızlı yolu. Sağa kaydırarak temel bilgilere göz atın.": [
+  "kabuk/uygulamalar/Yardim.qml"
+ ],
+ "Windows+E.": [
+  "kabuk/uygulamalar/Yardim.qml"
+ ],
+ "Windows+L bilgisayarı kilitler.": [
+  "kabuk/uygulamalar/Yardim.qml"
+ ],
+ "Ya&pıştır": [
+  "plasma/masaustu/folder/foldermodel.cpp"
+ ],
+ "Yakınlaştır": [
+  "kabuk/uygulamalar/InternetExplorer.qml"
+ ],
+ "Yalnızca bilgisayar ekranı": [
+  "kabuk/qml/BolmePenceresi.qml"
+ ],
+ "Yalnızca görüntü değişir: sistem saati, günler ve dosya tarihleri olduğu gibi kalır.": [
+  "plasma/plasmoids/io.github.yyozcan.metrosaat/contents/ui/AyarGenel.qml"
+ ],
+ "Yalnızca ikinci ekran": [
+  "kabuk/qml/BolmePenceresi.qml"
+ ],
+ "Yalnızca kişisel dosyaları sakla": [
+  "kabuk/uygulamalar/Yukseltme.qml"
+ ],
+ "Yan Yana Göster": [
+  "plasma/masaustu/baglam/metrogorevcubugu.cpp"
+ ],
+ "Yansıt": [
+  "kabuk/qml/BolmePenceresi.qml"
+ ],
+ "Yansıtma ve yazdırma Aygıtlar'da, paylaşma Paylaş'ta.": [
+  "kabuk/uygulamalar/Yardim.qml"
+ ],
+ "Yardım": [
+  "kabuk/qml/BolmePenceresi.qml",
+  "plasma/shells/io.github.yyozcan.metroshell/contents/logout/MetroCikis.qml"
+ ],
+ "Yardım ve İpuçları": [
+  "kabuk/uygulamalar/Yardim.qml",
+  "kabuk/uygulamalar/uygulamalar.json"
+ ],
+ "Yayımcı:": [
+  "uac/qml/MetroUac.qml"
+ ],
+ "Yazdır": [
+  "kabuk/qml/BolmePenceresi.qml"
+ ],
+ "Yazma": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Yazılım Merkezi": [
+  "kabuk/qml/BolmePenceresi.qml"
+ ],
+ "Yağmurlu": [
+  "kabuk/qml/HavaKutucugu.qml",
+  "kabuk/uygulamalar/HavaDurumu.qml"
+ ],
+ "Yeni": [
+  "kabuk/qml/UygulamalarGorunumu.qml",
+  "kabuk/uygulamalar/Alarmlar.qml",
+  "kabuk/uygulamalar/Takvim.qml"
+ ],
+ "Yeni InPrivate sekmesi": [
+  "kabuk/uygulamalar/InternetExplorer.qml"
+ ],
+ "Yeni etkinlik · ": [
+  "kabuk/uygulamalar/Takvim.qml"
+ ],
+ "Yeniden başlat": [
+  "kabuk/qml/Ana.qml",
+  "plasma/shells/io.github.yyozcan.metroshell/contents/lockscreen/MetroKilit.qml",
+  "plasma/shells/io.github.yyozcan.metroshell/contents/logout/MetroCikis.qml",
+  "sddm/metrothemeplasma/Main.qml"
+ ],
+ "Yeniden başlatılıyor": [
+  "plasma/shells/io.github.yyozcan.metroshell/contents/logout/MetroCikis.qml",
+  "sddm/metrothemeplasma/Main.qml"
+ ],
+ "Yeniden boyutlandır": [
+  "kabuk/qml/BaslangicEkrani.qml"
+ ],
+ "Yeniden boyutlandırma": [
+  "kabuk/uygulamalar/Yardim.qml"
+ ],
+ "Yeniden dene": [
+  "kabuk/uygulamalar/Yukseltme.qml"
+ ],
+ "Yenile": [
+  "kabuk/uygulamalar/Finans.qml",
+  "kabuk/uygulamalar/Fotograflar.qml",
+  "kabuk/uygulamalar/HaberUygulamasi.qml",
+  "kabuk/uygulamalar/HavaDurumu.qml",
+  "kabuk/uygulamalar/Muzik.qml",
+  "kabuk/uygulamalar/Video.qml"
+ ],
+ "Yer Yer Donan Çisenti": [
+  "kabuk/qml/HavaKutucugu.qml"
+ ],
+ "Yer Yer Gök Gürültülü Kar": [
+  "kabuk/qml/HavaKutucugu.qml"
+ ],
+ "Yer Yer Gök Gürültülü Yağmur": [
+  "kabuk/qml/HavaKutucugu.qml"
+ ],
+ "Yer Yer Hafif Kar": [
+  "kabuk/qml/HavaKutucugu.qml"
+ ],
+ "Yer Yer Hafif Yağmurlu": [
+  "kabuk/qml/HavaKutucugu.qml"
+ ],
+ "Yer Yer Kar Yağışlı": [
+  "kabuk/qml/HavaKutucugu.qml"
+ ],
+ "Yer Yer Karla Karışık Yağmur": [
+  "kabuk/qml/HavaKutucugu.qml"
+ ],
+ "Yer Yer Yağmurlu": [
+  "kabuk/qml/HavaKutucugu.qml"
+ ],
+ "Yer Yer Yoğun Kar": [
+  "kabuk/qml/HavaKutucugu.qml"
+ ],
+ "Yer Yer Çisenti": [
+  "kabuk/qml/HavaKutucugu.qml"
+ ],
+ "Yine de kapat": [
+  "kabuk/qml/KapatmaEngeli.qml"
+ ],
+ "Yine de oturumu kapat": [
+  "kabuk/qml/KapatmaEngeli.qml"
+ ],
+ "Yine de yeniden başlat": [
+  "kabuk/qml/KapatmaEngeli.qml"
+ ],
+ "Yinele": [
+  "kabuk/qml/BolmePenceresi.qml",
+  "kabuk/uygulamalar/Muzik.qml"
+ ],
+ "Yoğun Donan Çisenti": [
+  "kabuk/qml/HavaKutucugu.qml"
+ ],
+ "Yoğun Kar Yağışlı": [
+  "kabuk/qml/HavaKutucugu.qml"
+ ],
+ "Yükle": [
+  "kabuk/uygulamalar/Yukseltme.qml"
+ ],
+ "Yükle'ye tıkladığınızda yönetici izni istenir (Kullanıcı Hesabı Denetimi). Kurulum sırasında bilgisayarı kullanmaya devam edebilirsiniz.": [
+  "kabuk/uygulamalar/Yukseltme.qml"
+ ],
+ "Yüklemeye hazır": [
+  "kabuk/uygulamalar/Yukseltme.qml"
+ ],
+ "Yükleniyor...": [
+  "kabuk/uygulamalar/HavaDurumu.qml"
+ ],
+ "Yüklü RAM": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Yükselen": [
+  "kabuk/uygulamalar/Alarmlar.qml"
+ ],
+ "Yürüt": [
+  "kabuk/qml/BolmePenceresi.qml"
+ ],
+ "Yılbaşı": [
+  "kabuk/uygulamalar/Takvim.qml"
+ ],
+ "Yılı kaydır:": [
+  "plasma/plasmoids/io.github.yyozcan.metrosaat/contents/ui/AyarGenel.qml"
+ ],
+ "Zafer Bayramı": [
+  "kabuk/uygulamalar/Takvim.qml"
+ ],
+ "Zaman Zaman Yağmurlu": [
+  "kabuk/qml/HavaKutucugu.qml"
+ ],
+ "Zaman Zaman Şiddetli Yağmur": [
+  "kabuk/qml/HavaKutucugu.qml"
+ ],
+ "Zamanlayıcı": [
+  "kabuk/uygulamalar/Alarmlar.qml"
+ ],
+ "Zil": [
+  "kabuk/uygulamalar/Alarmlar.qml"
+ ],
+ "ada göre": [
+  "kabuk/qml/UygulamalarGorunumu.qml"
+ ],
+ "alarm;saat;zamanlayıcı;kronometre;timer;stopwatch": [
+  "kabuk/uygulamalar/uygulamalar.json"
+ ],
+ "başlatılamadı": [
+  "kabuk/uygulamalar/Yukseltme.qml"
+ ],
+ "bulunamadı": [
+  "kabuk/uygulamalar/Yukseltme.qml"
+ ],
+ "d MMMM": [
+  "kabuk/uygulamalar/HaberUygulamasi.qml"
+ ],
+ "d MMMM dddd": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "d MMMM yyyy": [
+  "kabuk/uygulamalar/Video.qml"
+ ],
+ "d MMMM yyyy HH:mm": [
+  "kabuk/uygulamalar/SesKaydedici.qml"
+ ],
+ "d MMMM yyyy dddd": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "dd.MM.": [
+  "plasma/plasmoids/io.github.yyozcan.metrosaat/contents/ui/main.qml"
+ ],
+ "dd.MM.yyyy": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "en çok kullanılana göre": [
+  "kabuk/qml/UygulamalarGorunumu.qml"
+ ],
+ "finans;döviz;kur;dolar;euro;borsa;finance": [
+  "kabuk/uygulamalar/uygulamalar.json"
+ ],
+ "haber;news;gündem": [
+  "kabuk/uygulamalar/uygulamalar.json"
+ ],
+ "internet;web;tarayıcı;browser;ie": [
+  "kabuk/uygulamalar/uygulamalar.json"
+ ],
+ "kamera;webcam;fotoğraf;camera": [
+  "kabuk/uygulamalar/uygulamalar.json"
+ ],
+ "kategoriye göre": [
+  "kabuk/qml/UygulamalarGorunumu.qml"
+ ],
+ "libAeroQt yok (AUR: libaero-qt-git): Dosya Gezgini yerine Dolphin kullanılacak": [
+  "kabuk/uygulamalar/Yukseltme.qml"
+ ],
+ "mağaza;store;uygulama yükle;paket": [
+  "kabuk/uygulamalar/uygulamalar.json"
+ ],
+ "müzik;şarkı;albüm;music": [
+  "kabuk/uygulamalar/uygulamalar.json"
+ ],
+ "qmake6 yok: Windows Hakkında (winver) derlenmeyecek": [
+  "kabuk/uygulamalar/Yukseltme.qml"
+ ],
+ "ses;kayıt;mikrofon;recorder": [
+  "kabuk/uygulamalar/uygulamalar.json"
+ ],
+ "tr-TR,tr;q=0.9,en;q=0.6": [
+  "kabuk/uygulamalar/InternetExplorer.qml"
+ ],
+ "tr_TR": [
+  "kabuk/qml/BilgisayarAyarlari.qml",
+  "kabuk/qml/FinansKutucugu.qml",
+  "kabuk/qml/GucMenusu.qml",
+  "kabuk/qml/HavaKutucugu.qml",
+  "kabuk/qml/Kutucuk.qml",
+  "kabuk/qml/SaatPaneli.qml",
+  "kabuk/qml/UygulamalarGorunumu.qml",
+  "kabuk/uygulamalar/Finans.qml",
+  "kabuk/uygulamalar/Fotograflar.qml",
+  "kabuk/uygulamalar/HaberUygulamasi.qml",
+  "kabuk/uygulamalar/HavaDurumu.qml",
+  "kabuk/uygulamalar/Kamera.qml",
+  "kabuk/uygulamalar/SesKaydedici.qml",
+  "kabuk/uygulamalar/Takvim.qml",
+  "kabuk/uygulamalar/Video.qml",
+  "plasma/plasmoids/io.github.yyozcan.metrosaat/contents/ui/main.qml",
+  "plasma/shells/io.github.yyozcan.metroshell/contents/lockscreen/MetroKilit.qml",
+  "sddm/metrothemeplasma/Main.qml"
+ ],
+ "yardım;ipucu;help;tips": [
+  "kabuk/uygulamalar/uygulamalar.json"
+ ],
+ "yükleme tarihine göre": [
+  "kabuk/qml/UygulamalarGorunumu.qml"
+ ],
+ "yükselt;yükseltme;kurulum;upgrade;setup;windows 8.1": [
+  "kabuk/uygulamalar/uygulamalar.json"
+ ],
+ "yıl": [
+  "plasma/plasmoids/io.github.yyozcan.metrosaat/contents/ui/AyarGenel.qml"
+ ],
+ "Ça": [
+  "plasma/plasmoids/io.github.yyozcan.metrosaat/contents/ui/main.qml"
+ ],
+ "Çalıştır": [
+  "kabuk/calistir/main.cpp",
+  "kabuk/src/kabuk.cpp"
+ ],
+ "Çar": [
+  "kabuk/uygulamalar/Alarmlar.qml"
+ ],
+ "Çarşamba": [
+  "kabuk/uygulamalar/HavaDurumu.qml",
+  "kabuk/uygulamalar/Takvim.qml"
+ ],
+ "Çisenti": [
+  "kabuk/qml/HavaKutucugu.qml",
+  "kabuk/uygulamalar/HavaDurumu.qml"
+ ],
+ "Çoklu Ortam": [
+  "kabuk/src/uygulamalar.cpp"
+ ],
+ "Çoğunlukla Güneşli": [
+  "kabuk/uygulamalar/HavaDurumu.qml"
+ ],
+ "Çıkarılabilir Disk": [
+  "kabuk/src/otomatik.cpp"
+ ],
+ "Çıkarılabilir sürücü": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Çıkarılabilir sürücüler": [
+  "kabuk/qml/OtomatikPanel.qml"
+ ],
+ "Ö&zellikler": [
+  "plasma/masaustu/baglam/metrogorevcubugu.cpp"
+ ],
+ "Önceki Metro ayarları yedeklenip Windows 8.1 varsayılanlarına dönülür. Kişisel dosyalarınız silinmez.": [
+  "kabuk/uygulamalar/Yukseltme.qml"
+ ],
+ "Özelleştir": [
+  "kabuk/qml/BaslangicEkrani.qml"
+ ],
+ "Özelleştir...": [
+  "plasma/tepsi/systemtray/package/contents/ui/ExpandedRepresentation.qml"
+ ],
+ "Özelleştirmeyi bitir": [
+  "kabuk/qml/BaslangicEkrani.qml"
+ ],
+ "Özellikler yükleniyor": [
+  "kabuk/uygulamalar/Yukseltme.qml"
+ ],
+ "Öğe &türü": [
+  "plasma/masaustu/folder/viewpropertiesmenu.cpp"
+ ],
+ "Ürün Kimliği": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Üst Üste Göster": [
+  "plasma/masaustu/baglam/metrogorevcubugu.cpp"
+ ],
+ "çıkış kodu ": [
+  "kabuk/uygulamalar/Yukseltme.qml"
+ ],
+ "İleri": [
+  "kabuk/qml/BilgisayarAyarlari.qml",
+  "kabuk/uygulamalar/Yukseltme.qml"
+ ],
+ "İnternet": [
+  "kabuk/src/uygulamalar.cpp"
+ ],
+ "İnternet erişimi": [
+  "plasma/plasmoids/io.github.yyozcan.metroag/contents/ui/main.qml"
+ ],
+ "İptal": [
+  "kabuk/calistir/main.cpp",
+  "kabuk/qml/KapatmaEngeli.qml",
+  "kabuk/uygulamalar/Alarmlar.qml",
+  "kabuk/uygulamalar/Takvim.qml",
+  "kabuk/uygulamalar/Yukseltme.qml",
+  "plasma/shells/io.github.yyozcan.metroshell/contents/logout/MetroCikis.qml"
+ ],
+ "İstanbul": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "İzmir": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "İçeri aktar": [
+  "kabuk/uygulamalar/Fotograflar.qml"
+ ],
+ "İşlemci": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Şam": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Şanghay": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Şelale": [
+  "kabuk/uygulamalar/Alarmlar.qml"
+ ],
+ "Şiddetli Sağanak": [
+  "kabuk/qml/HavaKutucugu.qml"
+ ],
+ "Şiddetli Yağmur": [
+  "kabuk/qml/HavaKutucugu.qml",
+  "kabuk/uygulamalar/HavaDurumu.qml"
+ ],
+ "Şimdi denetle": [
+  "kabuk/qml/BilgisayarAyarlari.qml"
+ ],
+ "Şimdi yürütülüyor": [
+  "kabuk/uygulamalar/Muzik.qml"
+ ],
+ "Şu seçenekleri yaptınız:": [
+  "kabuk/uygulamalar/Yukseltme.qml"
+ ],
+ "Şubat": [
+  "kabuk/uygulamalar/Takvim.qml"
+ ],
+ "−1 dk": [
+  "kabuk/uygulamalar/Alarmlar.qml"
+ ]
+}
