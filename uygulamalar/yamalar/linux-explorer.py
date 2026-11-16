@@ -187,8 +187,8 @@ QList<PersonalizationPage::Scheme> PersonalizationPage::gatherSchemes()
                                                    QStringLiteral("metrothemeplasma/win/Windows/Web/Wallpaper"),
                                                    QStandardPaths::LocateDirectory);
         const QList<QPair<QString, QString>> temalar{{QStringLiteral("Windows"), QStringLiteral("Windows")},
-                                                     {QStringLiteral("Theme1"), QStringLiteral("Çizgiler ve renkler")},
-                                                     {QStringLiteral("Theme2"), QStringLiteral("Çiçekler")}};
+                                                     {QStringLiteral("Theme1"), QStringLiteral("Lines and colors")},
+                                                     {QStringLiteral("Theme2"), QStringLiteral("Flowers")}};
         for (const auto &[dizin, ad] : temalar) {
             QDir d(kok + QLatin1Char('/') + dizin);
             QStringList resimler;
@@ -248,7 +248,31 @@ s = s.replace(a, '''    const Scheme &s = m_schemes[index];
 a = '''    addHeading(QStringLiteral("Aero Themes (%1)").arg(m_schemes.size()));'''
 assert a in s, "heading"
 s = s.replace(a, '''    if (metroOturumu())
-        addHeading(QStringLiteral("Windows Varsayılan Temaları (%1)").arg(m_schemes.size()));
+        addHeading(QStringLiteral("Windows Default Themes (%1)").arg(m_schemes.size()));
     else
         addHeading(QStringLiteral("Aero Themes (%1)").arg(m_schemes.size()));''')
+p.write_text(s)
+
+# Denetim Masası: Metro'nun açtığı sayfalar dilden bağımsız İngilizce yollarla da bulunsun
+# (control 'System and Security/System'); dizeler bitişik parçalar halinde yazılır ki sözlük çevirmesin
+p = Path("src/ui/control/ControlPanelView.cpp")
+s = p.read_text()
+a = '''QString View::resolvePath(const QString &path)
+{
+    if (path.isEmpty())
+        return QString();
+'''
+assert a in s, "resolvePath"
+s = s.replace(a, a + '''
+    static const QHash<QString, PageId> metroYollari = {
+        {QLatin1String("System and Secu" "rity/System"), PageId::System},
+        {QLatin1String("System and Secu" "rity/Power Options"), PageId::PowerOptions},
+        {QLatin1String("Prog" "rams/Programs and Features"), PageId::ProgramsFeatures},
+        {QLatin1String("Appearance and Person" "alization/Personalization"), PageId::Personalization},
+    };
+    if (metroYollari.contains(path))
+        return PageRegistry::pathFor(metroYollari.value(path));
+''')
+if "#include <QHash>" not in s:
+    s = s.replace('#include "ui/control/ControlPanelView.h"', '#include "ui/control/ControlPanelView.h"\n#include <QHash>', 1)
 p.write_text(s)

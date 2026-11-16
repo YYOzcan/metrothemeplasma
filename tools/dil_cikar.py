@@ -62,7 +62,7 @@ def topla():
                 # KDE kataloğuyla çevrilen i18n*() (ATP çatalları), içe aktarmalar, kimlik/yol özellikleri
                 if re.search(r"i18n[a-z]*\(\s*(?:\"(?:[^\"\\]|\\.)*\"\s*,\s*)*$", onu) or re.search(r"(^|\n)\s*import\s+\S*$", onu):
                     continue
-                if re.search(r"(^|[\s{;])(id|objectName|source|icon\.name|iconName|font\.family|family|imagePath|prefix)\s*:\s*$", onu):
+                if re.search(r"(^|[\s{;])(id|objectName|source|icon\.name|iconName|font\.family|family|imagePath|prefix|category|location)\s*:\s*$", onu):
                     continue
                 v = coz(icerik)
                 if arayuz_metni(v):

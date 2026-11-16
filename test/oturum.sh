@@ -17,6 +17,20 @@ export XDG_CONFIG_HOME="$T/config" XDG_STATE_HOME="$T/state" XDG_CACHE_HOME="$T/
 cp -r "$HOME/.config/metrothemeplasma" "$XDG_CONFIG_HOME/" 2>/dev/null
 mkdir -p "$XDG_CONFIG_HOME/Kvantum"; cp -r "$HOME/.config/Kvantum/Metro" "$XDG_CONFIG_HOME/Kvantum/"
 export QT_FORCE_STDERR_LOGGING=1
+# DIL=de: başka bir arayüz dili; gerçek ~/.local/share'a dokunmadan geçici veri dizininde (plasma kopyalanır,
+# o dilin çevrilmiş paketleri kopyanın üstüne konur; diğer her şey bağlantı)
+if [ -n "${DIL:-}" ]; then
+  TD=/tmp/claude-$(id -u)/metro-veri-$DIL
+  rm -rf "$TD"; mkdir -p "$TD"
+  for e in "$HOME/.local/share"/*; do [ "$(basename "$e")" = plasma ] || ln -s "$e" "$TD/"; done
+  cp -r "$HOME/.local/share/plasma" "$TD/plasma"
+  for tur in plasmoids shells look-and-feel; do
+    for p in "$HOME/.local/share/metrothemeplasma/dil/$DIL/plasma/$tur"/*; do
+      [ -d "$p" ] && rm -rf "$TD/plasma/$tur/$(basename "$p")" && cp -r "$p" "$TD/plasma/$tur/"
+    done
+  done
+  export XDG_DATA_HOME="$TD" METRO_DIL="$DIL" LANGUAGE="$DIL" LANG="$(python3 -c "import sys; sys.path.insert(0, '$KOK/tools'); from dil_ortak import YEREL; print(YEREL.get('$DIL', 'en_US'))").UTF-8"
+fi
 export PLASMA_DEFAULT_SHELL=io.github.yyozcan.metroshell METROTHEMEPLASMA_SESSION=1
 export XDG_CONFIG_DIRS="$HOME/.local/share/metrothemeplasma/xdg:/etc/xdg"
 export XDG_DATA_DIRS="$HOME/.local/share/metrothemeplasma/data:/usr/local/share:/usr/share"

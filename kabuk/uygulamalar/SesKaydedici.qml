@@ -9,7 +9,7 @@ Item {
     readonly property color zemin: "#1d1d1d"
     readonly property color cubukRengi: "#2b2b2b"
     readonly property color turuncu: "#d24726"
-    readonly property string dizin: Dosya.ev + "/Belgeler/Ses Kayıtları"
+    readonly property string dizin: Yardimci.kitaplik("belgeler") + "/" + "Ses Kayıtları"
     property var kayitlar: []
     property int secili: -1
     readonly property var solKomutlar: []
@@ -43,7 +43,7 @@ Item {
         if (kaydediyor) { kaydedici.stop(); return }
         oynatici.stop()
         var n = new Date()
-        kaydedici.outputLocation = Dosya.url(dizin + "/Kayıt " + new Date(n).toLocaleString(Qt.locale("tr_TR"), "yyyy-MM-dd HH.mm.ss"))
+        kaydedici.outputLocation = Dosya.url(dizin + "/" + "Kayıt" + " " + new Date(n).toLocaleString(Qt.locale("tr_TR"), "yyyy-MM-dd HH.mm.ss"))
         kaydedici.record()
     }
 

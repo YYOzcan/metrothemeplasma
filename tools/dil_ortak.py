@@ -28,6 +28,21 @@ def dil_sec(diller):
     return "en"
 
 
+def sistem_dili():
+    """Açılış ve oturum açma ekranının dili: /etc/locale.conf (LANGUAGE, LANG), yoksa ortam."""
+    import os
+    diller = []
+    try:
+        for satir in open("/etc/locale.conf", encoding="utf-8"):
+            a, _, d = satir.strip().partition("=")
+            if a in ("LANGUAGE", "LC_MESSAGES", "LANG") and d:
+                diller += d.strip('"').split(":")
+    except OSError:
+        pass
+    diller += [os.environ.get(k, "") for k in ("LANGUAGE", "LANG")]
+    return dil_sec([d for d in diller if d])
+
+
 def dizeler(t, tur="js"):
     sonuc = []
     i, n = 0, len(t)

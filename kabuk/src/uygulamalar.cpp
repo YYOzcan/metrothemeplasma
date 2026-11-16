@@ -1,4 +1,5 @@
 #include <QHash>
+#include "../../ortak/metroceviri.h"
 #include "uygulamalar.h"
 
 #include <KApplicationTrader>
@@ -26,12 +27,12 @@ static QString windows81Adi(const QString &ad, const QString &kimlik = QString()
     // ATP'nin bu adları verdiği Dolphin ve Sistem Ayarları kendi adlarıyla
     if (kimlik == QLatin1String("org.kde.dolphin.desktop") && !QStandardPaths::locate(QStandardPaths::ApplicationsLocation, QStringLiteral("explorer.desktop")).isEmpty())
         return QStringLiteral("Dolphin");
-    if (kimlik == QLatin1String("systemsettings.desktop") && ad == QLatin1String("Denetim Masası"))
-        return QStringLiteral("Sistem Ayarları");
+    if (kimlik == QLatin1String("systemsettings.desktop") && (ad == QStringLiteral("Denetim Masası") || ad == mtr(QStringLiteral("Denetim Masası"))))
+        return mtr(QStringLiteral("Sistem Ayarları"));
     static const QHash<QString, QString> esle{
-        {QStringLiteral("Internet Explorer 8"), QStringLiteral("Internet Explorer (masaüstü)")},
-        {QStringLiteral("Windows Gezgini"), QStringLiteral("Dosya Gezgini")},
-        {QStringLiteral("Windows Explorer"), QStringLiteral("Dosya Gezgini")},
+        {QStringLiteral("Internet Explorer 8"), mtr(QStringLiteral("Internet Explorer (masaüstü)"))},
+        {QStringLiteral("Windows Gezgini"), mtr(QStringLiteral("Dosya Gezgini"))},
+        {QStringLiteral("Windows Explorer"), mtr(QStringLiteral("Dosya Gezgini"))},
     };
     return esle.value(ad, ad);
 }
@@ -44,7 +45,10 @@ static QString yapilandirmaDizini()
 // Türkçe büyük harf (i -> İ) ve ASCII dışı harf grupları
 static QString harfBul(const QString &ad)
 {
-    static const QLocale tr(QLocale::Turkish, QLocale::Turkey);
+    // Türkçe ve Azerbaycancada i -> İ; diğer dillerde i -> I
+    static const QLocale tr = metroDil() == QLatin1String("tr") ? QLocale(QLocale::Turkish, QLocale::Turkey)
+                            : metroDil() == QLatin1String("az") ? QLocale(QLocale::Azerbaijani, QLocale::Azerbaijan)
+                                                                : QLocale(QLocale::English, QLocale::UnitedStates);
     for (const QChar c : ad) {
         if (c.isLetter())
             return tr.toUpper(QString(c));
@@ -73,16 +77,16 @@ QString Uygulamalar::kategoriBul(const KService::Ptr &s) const
     auto var = [&](const char *a) { return k.contains(QLatin1String(a)); };
     if (var("Game")) return QStringLiteral("Oyunlar");
     if (var("Settings") || var("DesktopSettings") || var("HardwareSettings")) return QStringLiteral("Ayarlar");
-    if (var("System") || var("Monitor") || var("TerminalEmulator") || var("PackageManager")) return QStringLiteral("Sistem Araçları");
-    if (var("Development") || var("IDE")) return QStringLiteral("Geliştirme");
+    if (var("System") || var("Monitor") || var("TerminalEmulator") || var("PackageManager")) return mtr(QStringLiteral("Sistem Araçları"));
+    if (var("Development") || var("IDE")) return mtr(QStringLiteral("Geliştirme"));
     if (var("Office")) return QStringLiteral("Ofis");
     if (var("Graphics")) return QStringLiteral("Grafik");
-    if (var("AudioVideo") || var("Audio") || var("Video")) return QStringLiteral("Çoklu Ortam");
-    if (var("Network") || var("WebBrowser") || var("Email")) return QStringLiteral("İnternet");
-    if (var("Education") || var("Science")) return QStringLiteral("Eğitim");
-    if (var("Accessibility")) return QStringLiteral("Erişim Kolaylığı");
-    if (var("Utility")) return QStringLiteral("Donatılar");
-    return QStringLiteral("Diğer");
+    if (var("AudioVideo") || var("Audio") || var("Video")) return mtr(QStringLiteral("Çoklu Ortam"));
+    if (var("Network") || var("WebBrowser") || var("Email")) return mtr(QStringLiteral("İnternet"));
+    if (var("Education") || var("Science")) return mtr(QStringLiteral("Eğitim"));
+    if (var("Accessibility")) return mtr(QStringLiteral("Erişim Kolaylığı"));
+    if (var("Utility")) return mtr(QStringLiteral("Donatılar"));
+    return mtr(QStringLiteral("Diğer"));
 }
 
 void Uygulamalar::yukle()

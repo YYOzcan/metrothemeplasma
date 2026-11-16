@@ -1,4 +1,5 @@
 #include "otomatik.h"
+#include "../../ortak/metroceviri.h"
 
 #include <QDBusConnection>
 #include <QDBusMessage>
@@ -66,7 +67,7 @@ QVariantMap OtomatikKullan::aygitBilgisi(const QString &udi) const
     // Windows: "ETİKET (E:)"; Linux'ta sürücü harfi yok, etiket ya da "Çıkarılabilir Disk" (shell32 9309)
     QString ad = aygit.as<Solid::StorageVolume>()->label();
     if (ad.isEmpty())
-        ad = tur == QLatin1String("bellekKarti") ? QStringLiteral("Bellek kartı") : QStringLiteral("Çıkarılabilir Disk");
+        ad = tur == QLatin1String("bellekKarti") ? mtr(QStringLiteral("Bellek kartı")) : mtr(QStringLiteral("Çıkarılabilir Disk"));
     auto *erisim = aygit.as<Solid::StorageAccess>();
     return {{QStringLiteral("udi"), udi}, {QStringLiteral("ad"), ad}, {QStringLiteral("simge"), aygit.icon()},
             {QStringLiteral("tur"), tur}, {QStringLiteral("yol"), erisim->isAccessible() ? erisim->filePath() : QString()}};
@@ -90,8 +91,8 @@ void OtomatikKullan::aygitEklendi(const QString &udi)
     QVariantMap ipucu{{QStringLiteral("desktop-entry"), QStringLiteral("metro-kabuk")},
                       {QStringLiteral("x-kde-display-appname"), QStringLiteral("Otomatik Kullan")}};
     m << QStringLiteral("Otomatik Kullan") << uint(0) << a.value(QStringLiteral("simge")).toString() << a.value(QStringLiteral("ad")).toString()
-      << QStringLiteral("Bu aygıta ne olacağını seçmek için dokunun.")
-      << QStringList{QStringLiteral("default"), QStringLiteral("Seç")} << ipucu << int(-1);
+      << mtr(QStringLiteral("Bu aygıta ne olacağını seçmek için dokunun."))
+      << QStringList{QStringLiteral("default"), mtr(QStringLiteral("Seç"))} << ipucu << int(-1);
     auto *izle = new QDBusPendingCallWatcher(QDBusConnection::sessionBus().asyncCall(m), this);
     connect(izle, &QDBusPendingCallWatcher::finished, this, [this, izle, udi] {
         QDBusPendingReply<uint> c = *izle;

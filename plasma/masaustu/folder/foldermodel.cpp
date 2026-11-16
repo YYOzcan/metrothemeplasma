@@ -9,6 +9,7 @@
 */
 
 #include "foldermodel.h"
+#include "../../../ortak/metroceviri.h"
 #include "debug.h"
 #include "desktopschemehelper.h"
 #include "itemviewadapter.h"
@@ -547,7 +548,7 @@ void FolderModel::setUsedByContainment(bool used)
         QAction *action = m_actionCollection.action(QStringLiteral("refresh"));
 
         if (action) {
-            action->setText(QStringLiteral("Y&enile"));
+            action->setText(mtr(QStringLiteral("Y&enile")));
         }
 
         m_screenMapper->disconnect(this);
@@ -1842,7 +1843,7 @@ void FolderModel::createActions()
     paste->setShortcutVisibleInContextMenu(false);
     undo->setShortcutVisibleInContextMenu(false);
 
-    QAction *refresh = new QAction(QIcon(), QStringLiteral("Y&enile"), this);
+    QAction *refresh = new QAction(QIcon(), mtr(QStringLiteral("Y&enile")), this);
     refresh->setShortcut(QKeySequence(QKeySequence::Refresh));
     refresh->setShortcutVisibleInContextMenu(false);
     connect(refresh, &QAction::triggered, this, &FolderModel::refresh);
@@ -1883,7 +1884,7 @@ void FolderModel::createActions()
     m_actionCollection.addAction(QStringLiteral("emptyTrash"), emptyTrash);
 
     // Windows 8.1 "Kısayol yapıştır": panodaki öğelere bu klasörde bağlantı
-    QAction *pasteShortcut = new QAction(QStringLiteral("Kısay&ol yapıştır"), this);
+    QAction *pasteShortcut = new QAction(mtr(QStringLiteral("Kısay&ol yapıştır")), this);
     connect(pasteShortcut, &QAction::triggered, this, &FolderModel::pasteShortcut);
     m_actionCollection.addAction(QStringLiteral("pasteShortcut"), pasteShortcut);
     undo->setVisible(manager->isUndoAvailable());
@@ -1902,7 +1903,7 @@ void FolderModel::createActions()
     connect(m_newMenu, &KNewFileMenu::directoryCreationRejected, this, &FolderModel::newFileMenuItemRejected);
     connect(m_newMenu, &KNewFileMenu::fileCreationRejected, this, &FolderModel::newFileMenuItemRejected);
 
-    m_newMenu->setText(QStringLiteral("Ye&ni"));
+    m_newMenu->setText(mtr(QStringLiteral("Ye&ni")));
     m_newMenu->setIcon(QIcon());
     m_actionCollection.addAction(QStringLiteral("newMenu"), m_newMenu);
 
@@ -2006,7 +2007,7 @@ void FolderModel::updateActions()
 
         Q_UNUSED(pasteText)
         // Windows'ta masaüstü menüsünde her zaman yalnız "Yapıştır" yazar
-        paste->setText(QStringLiteral("Ya&pıştır"));
+        paste->setText(mtr(QStringLiteral("Ya&pıştır")));
         paste->setIcon(QIcon());
         paste->setEnabled(enable);
         if (QAction *pasteShortcut = m_actionCollection.action(QStringLiteral("pasteShortcut"))) {
@@ -2476,7 +2477,7 @@ void FolderModel::undoTextChanged(const QString &text)
         // KIO "Geri Al: Taşı" -> Windows 8.1 "Geri Al Taşı" (Ctrl+Z kısayolu sağda)
         const int iki = text.indexOf(QLatin1Char(':'));
         const QString islem = iki >= 0 ? text.mid(iki + 1).trimmed().remove(QLatin1Char('&')) : QString();
-        action->setText((islem.isEmpty() ? QStringLiteral("Ge&ri Al") : QStringLiteral("Ge&ri Al ") + islem) + QStringLiteral("\tCtrl+Z"));
+        action->setText((islem.isEmpty() ? mtr(QStringLiteral("Ge&ri Al")) : mtr(QStringLiteral("Ge&ri Al ")) + islem) + QStringLiteral("\tCtrl+Z"));
         action->setIcon(QIcon());
     }
 }

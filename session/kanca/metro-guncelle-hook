@@ -36,7 +36,8 @@ adim "MetroThemePlasma yeniden kuruluyor — neden: $GEREKLI (günlük: $LOG)"
 
 # kullanıcı olarak, oturumu açıksa oturum veri yoluyla (kwriteconfig6, systemctl --user, KWin yeniden yapılandırma)
 as_user() {
-    local ortam=(HOME="$H" USER="$U" LOGNAME="$U" LANG=tr_TR.UTF-8 PATH=/usr/local/bin:/usr/bin:/bin)
+    local dil; dil=$(. /etc/locale.conf 2>/dev/null; echo "${LANG:-C.UTF-8}")
+    local ortam=(HOME="$H" USER="$U" LOGNAME="$U" LANG="$dil" PATH=/usr/local/bin:/usr/bin:/bin)
     if [ -S "/run/user/$UID_/bus" ]; then
         ortam+=(XDG_RUNTIME_DIR="/run/user/$UID_" DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/$UID_/bus")
     fi

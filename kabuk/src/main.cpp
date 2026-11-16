@@ -2,6 +2,7 @@
 // Başlangıç ekranı, Uygulamalar görünümü, tılsımlar, saat paneli, Ara/Paylaş/Aygıtlar/Ayarlar
 // bölmeleri, hızlı bağlantı menüsü (Win+X) ve sol geçiş çubuğu.
 #include <QDBusConnection>
+#include "../../ortak/metroceviri.h"
 #include <QDBusMessage>
 #include <QDir>
 #include <QFile>
@@ -75,8 +76,9 @@ int main(int argc, char **argv)
     Katman katman;
     OtomatikKullan otomatikKullan;
 
-    const QString qmlDizin = qEnvironmentVariable("METRO_QML",
-        QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + QStringLiteral("/metrothemeplasma/kabuk/qml"));
+    // sistem dilinin çevrilmiş kopyası (metro-dil), yoksa Türkçe asıl
+    QLocale::setDefault(metroYerel());
+    const QString qmlDizin = qEnvironmentVariable("METRO_QML", metroQmlDizini(QStringLiteral("kabuk/qml")));
 
     // --giris: oturumun ilk çalıştırmasında Başlangıç ekranı açılış animasyonuyla gelir.
     // Oturum kimliği $XDG_RUNTIME_DIR altında tutulur; systemd yeniden başlatınca tekrar açılmaz.

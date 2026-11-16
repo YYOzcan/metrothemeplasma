@@ -410,7 +410,7 @@ FocusScope {
         onTriggered: {
             const control = folderView.model.programYolu("control");
             if (control) {
-                folderView.model.calistir(control, ["Görünüm ve Kişiselleştirme/Kişiselleştirme"]);
+                folderView.model.calistir(control, ["Appearance and Personalization/Personalization"]);
             } else {
                 Plasmoid.containment.configureRequested(Plasmoid);
             }

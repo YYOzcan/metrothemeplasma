@@ -5,6 +5,7 @@
     SPDX-License-Identifier: GPL-2.0-or-later
 */
 #include "QuickAuthDialog.h"
+#include "../ortak/metroceviri.h"
 #include "IdentitiesModel.h"
 #include "config.h"
 
@@ -183,7 +184,12 @@ QuickAuthDialog::QuickAuthDialog(const QString &actionId,
 
     // Windows 8.1 diyaloğu; yüklenemezse (ör. eksik QML modülü) AeroThemePlasma'nın Windows 7 diyaloğu —
     // kimlik doğrulama hiçbir zaman diyalogsuz kalmasın
-    engine->load(QStringLiteral("qrc:/qml/MetroUac.qml"));
+    // sistem dili Türkçe değilse kurulumda çevrilmiş kopya (metro-dil): <veri>/metrothemeplasma/dil/<dil>/uac/qml
+    const QString cevrilmis = metroQmlDizini(QStringLiteral("uac/qml")) + QStringLiteral("/MetroUac.qml");
+    if (metroDil() != QLatin1String("tr") && QFile::exists(cevrilmis))
+        engine->load(QUrl::fromLocalFile(cevrilmis));
+    else
+        engine->load(QStringLiteral("qrc:/qml/MetroUac.qml"));
     if (engine->rootObjects().isEmpty()) {
         qWarning() << "MetroUac.qml yüklenemedi; Windows 7 diyaloğuna dönülüyor";
         props.remove(QStringLiteral("ayrintilar"));

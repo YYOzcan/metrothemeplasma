@@ -142,7 +142,13 @@ if [[ "${1:-}" == "--sistem" ]]; then
     T=/usr/share/sddm/themes/metrothemeplasma
     onceki=$(cat "$T/.onceki" 2>/dev/null || true)
     rm -rf "$T"
-    cp -r sddm/metrothemeplasma "$T"
+    # oturum açma ekranı sistemin dilinde (/etc/locale.conf); Türkçe dışında çevrilmiş kopya
+    sdil=$(python3 -I -c 'import sys; sys.path.insert(0, "tools"); from dil_ortak import sistem_dili; print(sistem_dili())' 2>/dev/null || echo tr)
+    if [[ $sdil != tr ]] && $PY tools/dil_uygula.py agac "$sdil" sddm/metrothemeplasma "$T" 2>/dev/null; then
+        echo "Oturum açma ekranı dili: $sdil"
+    else
+        rm -rf "$T"; cp -r sddm/metrothemeplasma "$T"
+    fi
     [[ -n "$onceki" ]] && echo "$onceki" > "$T/.onceki"
     mkdir -p "$T/metro"
     # kendi Windows 8.1 kopyandan: kilit ekranı resmi ve varsayılan hesap resmi
@@ -191,7 +197,7 @@ if [[ "${1:-}" == "--kaldir" ]]; then
            "$DATA"/wallpapers/Metro-* "$DATA/icons/Windows 8.1" "$DATA/icons/Windows 8.1 Aero" "$DATA/sounds/Windows 8.1" \
            "$DATA/kwin/tabbox/metro_alttab" "$DATA/kwin/scripts/metro_koseler" \
            "$CFG/plasma-workspace/env/metrothemeplasma.sh" \
-           "$BIN"/metro-profil "$BIN"/metro-yukselt "$BIN"/metro-oturum "$BIN"/metro-renk "$BIN"/metro-kabuk "$BIN"/metro-calistir "$BIN"/metro-uygulama "$BIN"/metro-surum-denetimi "$CFG/systemd/user/metro-surum-denetimi.service" "$DATA/applications/metro-yukseltme.desktop" "$MT" \
+           "$BIN"/metro-profil "$BIN"/metro-yukselt "$BIN"/metro-oturum "$BIN"/metro-renk "$BIN"/metro-dil "$BIN"/metro-kabuk "$BIN"/metro-calistir "$BIN"/metro-uygulama "$BIN"/metro-surum-denetimi "$CFG/systemd/user/metro-surum-denetimi.service" "$DATA/applications/metro-yukseltme.desktop" "$MT" \
            "$BIN"/explorer "$BIN"/devmgmt "$BIN"/linver "$BIN"/control "$BIN"/winver "$BIN"/metro-denetim \
            "${XDG_STATE_HOME:-$HOME/.local/state}/metrothemeplasma" "${XDG_CACHE_HOME:-$HOME/.cache}/metrothemeplasma"
     echo "Kullanıcı dosyaları kaldırıldı (ayarlar: $CFG/metrothemeplasma duruyor). Sistem kısmı için:"
@@ -319,7 +325,8 @@ for es in "seventasks:metrogorevler" "systemtray:metrotepsi" "notifications:metr
     done
 done
 
-echo "==> Windows uygulamaları: Dosya Gezgini + Denetim Masası, Aygıt Yöneticisi, Windows Hakkında (Türkçe)"
+UDIL=$($PY tools/dil_uygula.py sec 2>/dev/null || echo tr)
+echo "==> Windows uygulamaları: Dosya Gezgini + Denetim Masası, Aygıt Yöneticisi, Windows Hakkında ($([[ $UDIL == tr ]] && echo Türkçe || echo English))"
 # upstream projeler git alt modülü (uygulamalar/); kopyaları build/uyg altında yamalanıp Türkçeleştirilir
 [[ -d .git ]] && git submodule update --init --quiet uygulamalar 2>/dev/null || true
 UY="$KOK/build/uyg"
@@ -332,7 +339,8 @@ uyg_hazirla() {  # uyg_hazirla <ad> <sözlük...>
     ( cd "$UY/$ad"
       if [[ -f "$KOK/uygulamalar/yamalar/$ad.patch" ]]; then patch -s -p1 < "$KOK/uygulamalar/yamalar/$ad.patch" || exit 1; fi
       if [[ -f "$KOK/uygulamalar/yamalar/$ad.py" ]]; then $PY "$KOK/uygulamalar/yamalar/$ad.py" || exit 1; fi ) || return 1
-    $PY tools/uygulama_cevir.py "$UY/$ad" "$@" >/dev/null
+    # Türkçe sözlükler yalnız arayüz dili Türkçeyse; diğer dillerde programların özgün İngilizcesi
+    if [[ $UDIL == tr ]]; then $PY tools/uygulama_cevir.py "$UY/$ad" "$@" >/dev/null; fi
 }
 if uyg_hazirla linux-explorer uygulamalar/ceviri/linux-devmgmt.json uygulamalar/ceviri/linux-explorer.json build/ceviri/saat-dilimleri.json \
    && $CMAKE -S "$UY/linux-explorer" -B "$UY/linux-explorer/b" -G Ninja -DCMAKE_BUILD_TYPE=Release >/dev/null 2>&1 \
@@ -506,6 +514,17 @@ mt, bin_ = Path(sys.argv[1]), sys.argv[2]
 hedef = mt / "data/applications"
 hedef.mkdir(parents=True, exist_ok=True)
 import shutil
+sys.path.insert(0, "tools")
+from dil_uygula import yukle
+diller = {d: yukle(d)[0] for d in ("en", "de", "fr", "es", "it", "pt_BR", "ru", "pl", "nl", "az")}
+def ceviriler(u):
+    # Name[de]=… gibi: menü ve arama, KDE'nin seçtiği dilde
+    satir = ""
+    for d, s in diller.items():
+        for anahtar, alan in (("Name", "isim"), ("Comment", "aciklama"), ("Keywords", "anahtar")):
+            if u.get(alan) in s:
+                satir += f"{anahtar}[{d}]={s[u[alan]]}" + (";" if anahtar == "Keywords" else "") + "\n"
+    return satir
 for u in json.loads(Path("kabuk/uygulamalar/uygulamalar.json").read_text()):
     # Modern uygulama ya da (Mağaza gibi) kurulu bir programa kısayol
     if u.get("exec"):
@@ -519,7 +538,7 @@ for u in json.loads(Path("kabuk/uygulamalar/uygulamalar.json").read_text()):
         f"Name={u['isim']}\nComment={u['aciklama']}\n"
         f"Exec={komut}\n"
         f"Icon={mt}/varlik/uygulama-{u['ad']}.png\n"
-        f"Categories={u['kategori']}\nKeywords={u['anahtar']};\n"
+        f"Categories={u['kategori']}\nKeywords={u['anahtar']};\n" + ceviriler(u)
         + (f"MimeType={u['mime']}\n" if u.get("mime") else "")
         + ("" if u.get("exec") else f"StartupWMClass=metro-{u['ad']}\nX-Metro-Uygulamasi=true\n")
         + f"X-Metro-Renk={u['renk']}\n")
@@ -533,6 +552,7 @@ install -Dm755 session/metro-profil "$BIN/metro-profil"
 install -Dm755 session/metro-yukselt "$BIN/metro-yukselt"
 install -Dm755 session/metro-oturum "$BIN/metro-oturum"
 install -Dm755 session/metro-renk "$BIN/metro-renk"
+install -Dm755 session/metro-dil "$BIN/metro-dil"
 install -Dm644 session/metrothemeplasma-env.sh "$CFG/plasma-workspace/env/metrothemeplasma.sh"
 
 # pencere çerçevesi rengi ([Pencere] cerceve): Alt+Tab bunu okur
@@ -553,6 +573,24 @@ install -Dm755 session/metro-surum-denetimi "$BIN/metro-surum-denetimi"
 sed "s|@BIN@|$BIN|" session/metro-surum-denetimi.service > "$CFG/systemd/user/metro-surum-denetimi.service"
 systemctl --user daemon-reload 2>/dev/null || true
 systemctl --user enable metro-surum-denetimi.service 2>/dev/null || true
+
+echo "==> Diller (Türkçe + 10 dil; oturumda sistemin dili seçilir)"
+# Türkçe kurulu kopyalardan her dilin kopyası (tools/dil_uygula.py, diller/<dil>.tsv); metro-dil etkin dili yerine koyar
+D="$MT/dil"
+rm -rf "$D"; mkdir -p "$D/tr/plasma"
+for tur in plasmoids shells look-and-feel; do
+    mkdir -p "$D/tr/plasma/$tur"
+    for p in "$DATA/plasma/$tur"/io.github.yyozcan.*; do [[ -d $p ]] && cp -r "$p" "$D/tr/plasma/$tur/"; done
+done
+for dil in en de fr es it pt_BR ru pl nl az; do
+    $PY tools/dil_uygula.py agac "$dil" "$D/tr/plasma" "$D/$dil/plasma" \
+      && $PY tools/dil_uygula.py agac "$dil" "$MT/kabuk/qml" "$D/$dil/kabuk/qml" \
+      && $PY tools/dil_uygula.py agac "$dil" "$MT/kabuk/uygulamalar" "$D/$dil/kabuk/uygulamalar" \
+      && $PY tools/dil_uygula.py agac "$dil" uac/qml "$D/$dil/uac/qml" \
+      && $PY tools/dil_uygula.py json "$dil" "$D/$dil.json" \
+      || { echo "   ($dil üretilemedi)"; rm -rf "${D:?}/$dil"; }
+done
+"$BIN/metro-dil" --zorla | sed 's/^/   /'
 
 # AeroThemePlasma'dan yükseltme: ilk Metro oturumunda Windows 7 ayarları taşınır (metro-yukselt)
 if [[ -f "$CFG/plasma-io.gitgud.wackyideas.desktop-appletsrc" ]]; then

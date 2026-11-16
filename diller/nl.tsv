@@ -1,0 +1,733 @@
+1	 (vooravond)
+2	-instellingen
+3	 minuten
+4	: kies wat er moet gebeuren.
+5	 uur
+6	-pagina
+7	 voltooid
+8	 · Lokaal account
+9	 items geïmporteerd
+10	 items worden geïmporteerd...
+11	 items geselecteerd
+12	%d apps worden gesloten en de pc wordt afgesloten
+13	%d apps worden gesloten en de pc wordt opnieuw opgestart
+14	%d apps worden gesloten en u wordt afgemeld
+15	&Openen:
+16	Net&werkverbindingen
+17	&Grote pictogrammen
+18	&Gewijzigd op
+19	Schijf&beheer
+20	&Taakbeheer
+21	Beel&d
+22	Af&sluiten
+23	Af&sluiten of afmelden
+24	Aan&passen
+25	&Kleine pictogrammen
+26	B&ureaublad
+27	B&ureaubladpictogrammen weergeven
+28	&Logboeken
+29	&Afmelden
+30	&Slaapstand
+31	&Opnieuw opstarten
+32	&Uitvoeren
+33	) toe om ze hier per album te zien.
+34	+ Nieuwe gebeurtenis
+35	, pc in slaapstand zetten na
+36	, uitschakelen na
+37	1 uur verbergen
+38	1 app wordt gesloten en de pc wordt afgesloten
+39	1 app wordt gesloten en de pc wordt opnieuw opgestart
+40	1 app wordt gesloten en u wordt afgemeld
+41	3 uur verbergen
+42	32-bits besturingssysteem
+43	64-bits besturingssysteem, x64-processor
+44	8 uur verbergen
+45	&Zoeken
+47	Naam
+48	AeroThemePlasma (Windows 7) gevonden: een upgrade naar Windows 8.1 is mogelijk. Uw Windows 7-sessie blijft zoals hij is.
+49	AeroThemePlasma niet gevonden: Windows 8.1 wordt schoon geïnstalleerd.
+50	Upgrade van AeroThemePlasma (Windows 7) naar Windows 8.1
+51	De taakbalkengine van AeroThemePlasma ontbreekt: de taakbalk van Plasma wordt gebruikt
+52	Afrika
+53	Akkoorden
+54	Alarm
+55	Alarm, timer en stopwatch
+56	Alarmen
+57	Duitsland
+58	Aankoop
+59	Amerika
+60	Startpagina
+61	Startpagina
+62	Antarctica
+64	Zoeken
+65	december
+66	Zoeken en apps
+67	Achtergrond
+68	Achtergrondkleur
+69	Noordpool
+70	Azië
+71	Herdenking van Atatürk, Dag van de Jeugd en Sport
+72	Athene
+73	Atlantische Oceaan
+74	Europa
+75	Australië
+76	Maand
+77	Instellingen
+78	Charm Instellingen
+79	Instellingen openen
+80	&Apparaatbeheer
+81	Apparaten
+82	Charm Apparaten
+83	Apparaten en Delen
+84	Details
+85	Details verbergen
+86	Details weergeven
+87	Azerbeidzjan
+88	Openen
+89	Aan
+89@HavaKutucugu.qml	Helder
+90	Geopende vensters &weergeven
+91	Netwerk
+92	Netwerken
+93	augustus
+94	Wilt u toestaan dat het volgende programma wijzigingen aanbrengt op deze computer?
+95	Bakoe
+96	Barometer
+97	Basketbal
+98	Bagdad
+99	Geen verbinding
+100	Verbindingen
+101	Verbinding maken…
+102	Verbinding maken…
+103	Verbonden
+104	Niet verbonden
+105	Start
+106	Startscherm
+107	Aan Start vastmaken
+108	Van Start losmaken
+109	Naar Start gaan
+110	De weergave Apps automatisch weergeven wanneer ik naar Start ga
+111	Aan Start vastmaken
+112	Begin gewoon te typen op Start; de resultaten worden meteen weergegeven.
+113	Klik op de pijl omlaag linksonder op Start of druk op Ctrl+Tab.
+114	Klik met de rechtermuisknop op de knop Start of druk op Windows+X.
+115	U kunt aan de slag
+116	Geheugenkaarten
+117	Geheugenkaart
+118	Beiroet
+119	&Computerbeheer
+120	Geeft alle pictogrammen in het systeemvak weer
+121	Meldingsgeluiden afspelen
+122	Meldingen
+123	Info
+124	Pc
+125	Pc-naam
+126	Pc-instellingen
+127	Pc-instellingen wijzigen
+128	Uw pc-instellingen worden toegepast
+129	Windows-logo en draaiende stippen bij het opstarten van de pc (de initramfs wordt opnieuw gemaakt; dit kan enkele minuten duren).
+130	Pc-info
+131	Pc en apparaten
+132	Programma's die wijzigingen aanbrengen op de pc vragen om uw beheerderswachtwoord; sta geen programma's toe die u niet kent.
+133	Naam van pc wijzigen
+134	Wat moet de pc doen?
+135	Nadat uw pc klaar is
+136	Schakel de pc niet uit
+137	Schakel de pc niet uit. Dit kan even duren.
+138	Wetenschap en technologie
+139	Wetenschappelijk
+140	Onbekend album
+141	Wilt u toestaan dat het volgende programma van een onbekende uitgever wijzigingen aanbrengt op deze computer?
+142	Onbekend programma
+143	Onbekende artiest
+144	Onbekend
+145	Eenmaal
+146	Geef de naam van een programma, map, document of internetbron op die u wilt openen.
+147	Enkele dingen worden afgerond
+148	Verenigd Koninkrijk
+149	Notaties
+150	Klik met de rechtermuisknop op een lege plek, kies Aanpassen en typ een naam boven de groep.
+151	Brussel
+152	Er zijn geen apps die overeenkomen met uw zoekopdracht.
+153	Deze instellingen worden bewerkt in Systeeminstellingen.
+154	Tik om te kiezen wat er met dit apparaat gebeurt.
+155	Er zijn geen foto's of video's gevonden op dit apparaat.
+156	Harde schijf in deze pc
+157	Dit bestand is niet gevonden.
+158	Er is geen pen- of aanraakinvoer beschikbaar voor dit beeldscherm
+159	Dit station configureren voor back-up
+160	Dit station configureren voor back-up (Bestandsgeschiedenis)
+161	Deze app kan geen inhoud naar andere apparaten verzenden.
+162	Deze app voorkomt dat u zich afmeldt.
+163	Deze app kan niet afdrukken.
+164	Deze app voorkomt dat de pc wordt afgesloten.
+165	Deze app voorkomt dat de pc opnieuw wordt opgestart.
+166	Vandaag
+167	Bewolkt
+168	IJskorrels
+169	Buien met ijskorrels
+170	Land en taal
+171	Deelvenster
+172	Boekarest
+173	Groot
+174	Live-tegel inschakelen
+175	Live-tegel uitschakelen
+176	Caps Lock is ingeschakeld
+177	za
+178	za
+179	vr
+180	vr
+181	vrijdag
+182	zaterdag
+183	Dag van de Republiek
+184	&Configuratiescherm
+185	Meer tegels weergeven
+186	Later
+187	Puls
+188	Dag van de Democratie en Nationale Eenheid
+189	Configuratiescherm
+190	Als u wilt doorgaan, typt u een beheerderswachtwoord en klikt u op Ja.
+191	Taalvoorkeuren
+192	Overige
+193	Meer details
+194	Andere accounts
+195	Ijzel
+196	Aanvriezende motregen
+197	Bureau-accessoires
+198	Aanvriezende mist
+199	&Verkenner
+200	Verkenner
+201	Bestandsgeschiedenis
+202	Bestandsherkomst:
+203	Bestandslocatie openen
+204	Bestanden
+205	Bestanden worden voorbereid op de installatie
+206	Map openen om bestanden weer te geven
+207	Map openen om bestanden weer te geven (Verkenner)
+208	Draaien
+209	Wisselkoersen en economisch nieuws
+210	Valuta ›
+211	Wereld
+212	Ga voor meer informatie naar Systeem in het Configuratiescherm
+213	Extra energie-instellingen
+214	Meer opties
+215	oktober
+216	Economie
+217	Beeldscherm
+218	Schermopname
+219	Schermopname maken en opslaan
+220	Wanneer het scherm wordt uitgeschakeld
+221	Time-out van vergrendelingsscherm
+222	&Schermresolutie
+223	Ontbreekt:
+224	Dag van de Arbeid en Solidariteit
+225	Toegankelijkheid
+226	Toegankelijkheid
+227	Activering
+228	Naam van gebeurtenis
+229	Geen gebeurtenissen
+230	Ja
+231	Geen actie
+232	Actie:
+233	september
+234	Onderwijs
+235	Muis en touchpad
+236	Wijs met de muis een willekeurige hoek aan
+237	Wijs met de muis de rechterbovenhoek of rechterbenedenhoek aan of druk op Windows+C.
+238	Filmrol
+239	Financiën
+240	Foto's en video's maken
+241	Foto's
+242	Terug naar Foto's
+243	Foto's en video's importeren
+244	Foto's en video's importeren (Foto's)
+245	Uw foto's bekijken
+246	Frankrijk
+247	Voetbal
+248	&Bladeren...
+249	Taak <u>b</u>eëindigen
+250	Geavanceerde beeldscherminstellingen
+251	Ontwikkeling
+252	Algemeen
+253	Breed
+254	Uitvouwen
+255	Vorige
+256	Als u terug wilt gaan en uw werk wilt opslaan, klikt u op Annuleren en rondt u af wat u nog moet doen.
+257	Navigatie
+258	Ongeldige invoer
+259	Verborgen pictogrammen weergeven
+260	Privacy
+261	Groep een naam geven
+262	Groepen een naam geven
+263	Onweer
+264	Onweer met sneeuw
+265	Onweer met regen
+266	Taakbeheer
+267	Het jaar in de klok en agenda van de taakbalk wordt met deze waarde verschoven (bijv. -10:
+268	Taakbalk ver&grendelen
+269	Aan de taakbalk vastmaken
+270	Programma's die u aan de taakbalk en het menu Start hebt vastgemaakt, uw bureaubladachtergrond en uw persoonlijke bestanden blijven behouden.
+271	Van de taakbalk losmaken
+272	Afbeeldingen, geluiden en lettertypen komen uit uw eigen exemplaar van Windows 8.1; de opslagplaats bevat geen Microsoft-bestanden. Typ het pad van het ISO-bestand of install.wim.
+273	Zicht
+274	Weergeven
+275	Bladeren
+276	Dag
+277	Zonsondergang
+278	Zonsopgang
+279	Actueel weer en verwachtingen
+280	Bijwerken en herstellen
+281	Updates worden geïnstalleerd met het pakketbeheer van het systeem.
+282	Zonnig
+283	Beveiliging en apparaten
+284	Energie
+285	&Energiebeheer
+286	Energiebeheer en slaapstand
+287	Instellingen voor energiebeheer en slaapstand
+289	Het hele artikel lezen ›
+290	Nieuws
+291	Kan het nieuws niet ophalen. Controleer uw internetverbinding.
+292	Nieuws ›
+293	Lichte buien met ijskorrels
+294	Lichte ijzel
+295	Lichte sneeuwbuien
+296	Lichte sneeuw
+297	Lichte buien met natte sneeuw
+298	Lichte natte sneeuw
+299	Lichte buien
+300	Lichte regen
+301	Weekdagen
+302	Eerste dag van de week
+303	Weer
+304	Kan het weer niet ophalen. Controleer uw internetverbinding.
+305	Nee
+306	juni
+307	U hebt nog geen favoriete sites toegevoegd.
+308	Elke dag
+309	Telkens vragen
+310	Overal
+311	Overal zoeken: Windows+S.
+312	Uw account
+313	Rekenmachine
+314	Een accountafbeelding maken
+315	Accountafbeelding wijzigen
+316	Accounts
+317	Indische Oceaan
+318	Voelt als
+319	Nooit
+320	Niets
+321	Niets behouden
+322	Geen actie ondernemen
+323	Er wordt niets afgespeeld
+324	Nederland
+325	Luidsprekers
+326	Welkom
+327	Menu Snelkoppelingen
+328	Internet Explorer (bureaublad)
+329	Caïro
+330	Verwijderen
+331	Pen en aanraken
+332	Kolkata
+333	Camera
+334	Controleer of de camera is aangesloten en niet door een andere app wordt gebruikt.
+335	Uw camera is niet gevonden
+336	Camera wijzigen
+337	Kanaal
+338	Uit
+338@HavaKutucugu.qml	Betrokken
+339	Sluiten
+340	Afsluiten geblokkeerd
+341	Afsluiten
+342	Consoleberichten worden bij het afsluiten verborgen; bij elke Plasma-update wordt ook Windows 8.1 automatisch bijgewerkt
+343	Sneeuwstorm
+344	Sneeuwbuien
+345	Sneeuw
+346	Buien met natte sneeuw
+347	Natte sneeuw
+348	Willekeurige volgorde
+349	Mixer
+350	november
+351	Opslaan
+352	Tik om op te slaan
+354	Vergrendelingsscherm
+355	Aanmeldingsscherm van Windows 8.1 met de afbeelding van uw vergrendelingsscherm en de kleuren van Start.
+356	Instellen als vergrendelingsscherm
+357	Uw vergrendelingsscherm, accountafbeelding en kleuren wijzigen
+358	Vergrendelen
+359	Vergrendelen
+360	Persoonlijke gegevens van mijn tegels wissen
+361	Persoonlijke video's
+362	Uw persoonlijke video's bekijken
+363	Aanpassen
+364	Persoonlijke instellingen
+365	Map openen
+366	Verzameling
+367	&Opdrachtprompt
+368	Opdrachtprompt (&Admin)
+369	Stopwatch
+370	Jeruzalem
+371	Gebruikersaccountbeheer
+372	Gebruikersaccountbeheer heeft geen toestemming gegeven
+373	Andere gebruiker
+374	Niet beschikbaar
+375	Offerfeest
+376	Tegels
+377	Tegels rangschikken
+378	Klik met de rechtermuisknop op de tegel en kies Formaat wijzigen.
+379	Sleep de tegel naar een andere plek. Als u hem tussen twee groepen neerzet, wordt een nieuwe groep gemaakt.
+380	Hoeken en randen
+381	Klein
+382	Cyprus
+383	Korte tijd
+384	Korte datum
+385	Snelkoppeling p&lakken
+386	Nicosia
+387	Lissabon
+388	Londen
+389	Koppen
+390	maart
+391	Bureaublad
+392	Mijn bureaubladachtergrond weergeven op Start
+393	Klik op de tegel Bureaublad of druk op Windows+D.
+394	Weergeven op het bureaublad
+395	Er is niets om te delen vanaf het bureaublad.
+396	Naar het bureaublad gaan
+397	&Bureaublad weergeven
+398	mei
+399	Store
+400	Hallo
+401	Metro-shell
+402	MetroThemePlasma-bron (
+403	MetroThemePlasma is al geïnstalleerd: het wordt bijgewerkt en uw instellingen blijven behouden.
+404	Moskou
+405	Muziek
+406	Uw muziekverzameling is leeg. Voeg nummers toe aan uw map Muziek (
+407	Naar uw muziekverzameling luisteren
+408	Reden:
+409	Luchtvochtigheid
+410	Bijna klaar
+411	Kies wat u wilt behouden
+412	april
+413	januari
+414	Geverifieerde uitgever:
+415	Middel
+416	Automatisch
+417	Automatisch afspelen
+418	Standaardinstellingen voor Automatisch afspelen kiezen
+419	Windows 8.1 als standaard instellen bij het aanmelden
+420	MetroThemePlasma is vooraf geselecteerd op het aanmeldingsscherm; de Windows 7-sessie blijft in de lijst staan.
+421	Aanmeldingsopties
+422	Bij het aanmelden naar het bureaublad gaan in plaats van naar Start
+423	Afmelden
+424	Afmelden
+425	Meld u af en kies op het aanmeldingsscherm de sessie MetroThemePlasma (Wayland). De eerste keer dat u zich aanmeldt, begroet Windows 8.1 u met \"Hallo\". Daarna wordt Windows 8.1 bij elke Plasma-update automatisch bijgewerkt.
+427	Helderheid
+428	Wachtwoord
+429	Het wachtwoord is onjuist. Probeer het opnieuw.
+430	Gedeeltelijk bewolkt
+431	Grote Oceaan
+432	Delen
+433	Charm Delen
+434	zo
+435	zondag
+436	maandag
+437	do
+438	Vensters &gestapeld weergeven
+440	Wijzig de kleur van de vensterranden en de taakbalk.
+441	Vensters &naast elkaar weergeven
+442	do
+443	donderdag
+444	Op batterij
+445	Kan de marktgegevens niet ophalen. Controleer uw internetverbinding.
+446	Op netstroom
+447	Programmanaam:
+448	Programmalocatie:
+449	Programma's en &onderdelen
+450	ma
+451	Nevel
+452	zo
+453	ma
+454	Suikerfeest
+456	Kleur en vormgeving
+457	Kleurintensiteit
+458	Een afbeelding kiezen
+459	Er staan geen foto's in uw bibliotheek Afbeeldingen.
+460	Riyad
+461	Rome
+462	Wind
+463	&Systeem
+464	di
+465	Klok
+466	Tijd (leeg: hele dag)
+467	Tijdzone
+468	Tijd en taal
+469	Tijd automatisch instellen
+470	Verwachting per uur
+471	di
+472	dinsdag
+473	Verkoop
+474	Zoeken op pagina
+475	Rechterhoeken
+476	De charms weergeven wanneer ik naar de rechterbovenhoek of rechterbenedenhoek wijs
+477	Buien
+478	Tabbladen sluiten
+479	Geluid
+480	Geluidsrecorder
+481	Geen audioapparaat
+482	Geluid opnemen
+483	Geluid, netwerk, helderheid, meldingen en energie: Windows+I.
+484	Dempen
+485	Stille uren
+486	Tijdens stille uren worden er geen meldingen weergegeven. Nu een uur dempen:
+487	Selecteren
+488	Selectie wissen
+489	Verwijderen
+490	Pictogrammen uitlijnen op &raster
+491	Pictogrammen &automatisch schikken
+492	Mistig
+493	Systeemwerkset
+494	Systeeminstellingen
+495	Systeemtype
+496	Instellingen worden voor u gemaakt
+497	Diavoorstelling
+498	Sofia
+499	Linkerbovenhoek of Windows+Tab; Alt+Tab geeft alle vensters weer.
+500	Afgelopen 30 dagen
+501	Toestaan dat ik tussen mijn recente apps schakel door op de linkerbovenhoek te klikken
+502	Sport
+503	Sportnieuws
+504	Standaard
+505	Standaard en wetenschappelijke berekeningen
+506	Tijd is om
+507	Editie
+508	Kan niet delen door nul
+509	Favorieten
+510	Toevoegen aan favorieten
+511	Verwijderen uit favorieten
+512	Vaak bezocht
+513	S&orteren op
+514	Indicatieve koers van de CBRT (verkoop) ·
+515	Verwachting
+516	Teheran
+517	Agenda
+518	Agenda en feestdagen
+519	OK
+520	Datum en tijd
+521	Instellingen voor datum en tijd wijzigen...
+522	Datum- en tijdnotaties wijzigen
+523	Herhalen
+524	Wissen
+525	juli
+526	Band
+527	Tbilisi
+528	Opwaaiende sneeuw
+529	Hele dag
+530	Automatisch afspelen gebruiken voor alle media en apparaten
+531	Al uw apps
+532	Alles selecteren
+533	Alles wissen
+534	Turkije
+535	Het laatste nieuws uit Turkije en de wereld
+536	Klik
+537	Charms
+538	De charms openen
+539	USB-STATION
+540	Kies wat er gebeurt wanneer u een USB-station of geheugenkaart aansluit; u kunt dit wijzigen in Pc-instellingen > Automatisch afspelen.
+541	UV-index
+542	Dag van de Nationale Soevereiniteit en het Kind
+543	Apps zoeken
+544	App-meldingen weergeven
+545	App-meldingen weergeven op het vergrendelingsscherm
+546	Apps zoeken en installeren
+547	Schakelen tussen apps
+548	Apps
+549	Schakelen tussen apps
+550	Schakelen tussen apps
+551	Bureaublad-apps eerst weergeven in de weergave Apps wanneer die op categorie is gesorteerd
+552	Klik in de weergave Apps met de rechtermuisknop op een app en kies Aan Start vastmaken.
+553	Uw apps worden voorbereid
+554	Sleep de app vanaf de bovenrand omlaag, of wijs met de muis de bovenrand aan en klik op X.
+555	Meldingsinstellingen per app
+556	Een app sluiten
+557	Slaapstand
+558	Compatibiliteitscontrole voltooid
+559	Compatibiliteit controleren
+560	Uitzoomen
+561	Lange tijd
+562	Lange datum
+563	Vliegtuigstand
+564	Standaardwaarden
+565	Warschau
+566	Video
+567	Er staan geen video's in uw map Video's (
+568	Wenen
+569	Accentkleur
+570	Surfen op het web
+571	Kan %1 niet vinden. Controleer of u de naam juist hebt getypt en probeer het opnieuw.
+572	Upgrade van Windows 7 (AeroThemePlasma) naar Windows 8.1
+573	Windows 8.1 Setup
+574	Opstartscherm van Windows 8.1
+575	Het opstartscherm van Windows 8.1 gebruiken
+576	De Windows 8.1-bestanden zijn al geïmporteerd.
+577	Er is een Windows 8.1-installatiemedium (ISO) vereist.
+578	Kies het Windows 8.1-installatiemedium
+579	Aanmeldingsscherm van Windows 8.1
+580	Het aanmeldingsscherm van Windows 8.1 gebruiken
+581	Windows 8.1 start met de standaardindeling; bestanden in uw gebruikersmap, zoals Documenten en Bureaublad, blijven behouden.
+582	Standaardinstellingen van Windows 8.1 worden toegepast
+583	Windows 8.1 is geïnstalleerd
+584	Windows 8.1 kan niet worden geïnstalleerd
+585	Upgraden naar Windows 8.1
+586	Windows 8.1 installeren
+587	Windows Setup verplaatst uw items
+588	Windows-instellingen, persoonlijke bestanden en apps behouden
+589	Windows is geactiveerd
+590	Druk op de Windows-toets of klik op de knop Start op de taakbalk.
+591	Windows wordt geïnstalleerd
+592	Windows wordt bijgewerkt
+593	Windows afsluiten
+594	Leer Windows kennen
+595	De snelste manier om Windows te leren kennen. Veeg naar rechts om de basis te bekijken.
+596	Windows+E.
+597	Windows+L vergrendelt uw pc.
+598	&Plakken
+599	Inzoomen
+600	Alleen pc-scherm
+601	Alleen de weergave verandert: de systeemklok, dagen en bestandsdatums blijven zoals ze zijn.
+602	Alleen tweede scherm
+603	Alleen persoonlijke bestanden behouden
+604	Naast elkaar weergeven
+605	Projecteren
+606	Projecteren en afdrukken staan in Apparaten, delen in Delen.
+607	Help
+608	Help en tips
+609	Uitgever:
+610	Afdrukken
+611	Typen
+612	Software Center
+613	Regen
+614	Nieuw
+615	Nieuw InPrivate-tabblad
+616	Nieuwe gebeurtenis ·
+617	Opnieuw opstarten
+618	Opnieuw opstarten
+619	Formaat wijzigen
+620	Formaat wijzigen
+621	Opnieuw proberen
+622	Vernieu&wen
+623	Plaatselijk aanvriezende motregen
+624	Plaatselijk onweer met sneeuw
+625	Plaatselijk onweer met regen
+626	Plaatselijk lichte sneeuw
+627	Plaatselijk lichte regen
+628	Plaatselijk sneeuw
+629	Plaatselijk natte sneeuw
+630	Plaatselijk regen
+631	Plaatselijk zware sneeuw
+632	Plaatselijk motregen
+633	Toch afsluiten
+634	Toch afmelden
+635	Toch opnieuw opstarten
+636	Opnieuw
+637	Zware aanvriezende motregen
+638	Zware sneeuw
+639	Installeren
+640	Wanneer u op Installeren klikt, wordt om beheerdersmachtiging gevraagd (Gebruikersaccountbeheer). U kunt de pc tijdens de installatie blijven gebruiken.
+641	Klaar om te installeren
+642	Laden...
+643	Geïnstalleerd geheugen (RAM)
+644	Oplopend
+645	Afspelen
+646	Nieuwjaarsdag
+647	Jaar verschuiven:
+648	Dag van de Overwinning
+649	Af en toe regen
+650	Af en toe zware regen
+651	Timer
+652	Bel
+653	op naam
+654	alarm;wekker;timer;stopwatch
+655	kan niet worden gestart
+656	niet gevonden
+657	d MMMM
+658	dddd d MMMM
+659	d MMMM yyyy
+660	d MMMM yyyy HH:mm
+661	dddd d MMMM yyyy
+662	d-M-
+663	d-M-yyyy
+664	op meest gebruikt
+665	financiën;valuta;wisselkoers;dollar;euro;beurs
+666	nieuws;koppen
+667	internet;web;browser;ie
+668	camera;webcam;foto
+669	op categorie
+670	libAeroQt ontbreekt (AUR: libaero-qt-git): Dolphin wordt gebruikt in plaats van Verkenner
+671	store;apps installeren;pakket
+672	muziek;nummer;album
+673	qmake6 ontbreekt: Over Windows (winver) wordt niet gebouwd
+674	geluid;opname;microfoon;recorder
+675	nl-NL,nl;q=0.9,en;q=0.6
+676	nl_NL
+677	help;tips
+678	op installatiedatum
+679	upgrade;installatie;windows 8.1
+680	jaar
+681	wo
+682	Uitvoeren
+683	wo
+684	woensdag
+685	Motregen
+686	Multimedia
+687	Overwegend zonnig
+688	Verwisselbare schijf
+689	Verwisselbaar station
+690	Verwisselbare stations
+691	&Eigenschappen
+692	Uw vorige Metro-instellingen worden in een back-up opgeslagen en de standaardinstellingen van Windows 8.1 worden hersteld. Uw persoonlijke bestanden worden niet verwijderd.
+693	Aanpassen
+694	Aanpassen...
+695	Aanpassen voltooien
+696	Functies worden voorbereid
+697	Item&type
+698	Product-id
+699	Gestapeld weergeven
+700	afsluitcode
+701	Volgende
+702	Internet
+703	Internettoegang
+704	Annuleren
+705	Istanboel
+706	Izmir
+707	Importeren
+708	Processor
+709	Damascus
+710	Shanghai
+711	Waterval
+712	Zware buien
+713	Zware regen
+714	Nu controleren
+715	Wordt nu afgespeeld
+716	U hebt deze keuzes gemaakt:
+717	februari
+718	−1 min
+719	Schermopnamen
+720	Schermopname (
+721	Geluidsopnamen
+722	Opname
+723	dag %1
+724	).
+725	. De geïnstalleerde versie is niet gewijzigd; details hieronder.
+726	%1 minuten geleden
+727	%1 uur geleden
+728	&Naam
+729	&Grootte
+730	&Middelgrote pictogrammen
+731	&Trapsgewijs
+732	&Ongedaan maken
+733	&Ongedaan maken: 
+734	Trapsgewijs
+735	&Ongedaan maken
+736	&Ongedaan maken: 
+737	Vernieu&wen
+738	&Nieuw

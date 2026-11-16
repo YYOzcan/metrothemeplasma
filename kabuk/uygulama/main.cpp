@@ -4,6 +4,7 @@
 // Alt+Tab onu kendi .desktop dosyasıyla (simge, ad) eşler. Aynı uygulama ikinci kez açılırsa
 // çalışan kopya öne gelir.
 #include <QDateTime>
+#include "../../ortak/metroceviri.h"
 #include <QDir>
 #include <QDirIterator>
 #include <QPointer>
@@ -116,7 +117,9 @@ public:
     {
         const auto konum = tur == QLatin1String("muzik") ? QStandardPaths::MusicLocation
                          : tur == QLatin1String("video") ? QStandardPaths::MoviesLocation
-                         : tur == QLatin1String("indirilen") ? QStandardPaths::DownloadLocation : QStandardPaths::PicturesLocation;
+                         : tur == QLatin1String("indirilen") ? QStandardPaths::DownloadLocation
+                         : tur == QLatin1String("belgeler") ? QStandardPaths::DocumentsLocation
+                         : tur == QLatin1String("masaustu") ? QStandardPaths::DesktopLocation : QStandardPaths::PicturesLocation;
         return QStandardPaths::writableLocation(konum);
     }
     // arka planda kopyala (aynı adlı dosya varsa "ad (2).uzantı"); ilerleme ve bitiş sinyalle
@@ -182,7 +185,7 @@ int main(int argc, char **argv)
 #endif
     QGuiApplication app(argc, argv);
     // Metro uygulamaları Türkçe: tarih/sayı biçimleri (ay adları, ondalık virgül)
-    QLocale::setDefault(QLocale(QLocale::Turkish, QLocale::Turkey));
+    QLocale::setDefault(metroYerel());
     const QStringList arg = app.arguments();
     const QString ad = arg.value(1);
     if (ad.isEmpty() || ad.startsWith(QLatin1Char('-'))) {
@@ -216,7 +219,7 @@ int main(int argc, char **argv)
     QQmlApplicationEngine motor;
     const QString qmlDizin = qEnvironmentVariableIsSet("METRO_UYGULAMA_QML")
         ? qEnvironmentVariable("METRO_UYGULAMA_QML")
-        : QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + QStringLiteral("/metrothemeplasma/kabuk/uygulamalar");
+        : metroQmlDizini(QStringLiteral("kabuk/uygulamalar"));
     auto *c = motor.rootContext();
     c->setContextProperty(QStringLiteral("UygulamaAdi"), ad);
     c->setContextProperty(QStringLiteral("Dosya"), &dosya);

@@ -3,6 +3,7 @@
 //   [Geri Al …] │ Görev Yöneticisi │ Görev çubuğunu kilitle · Özellikler
 // Pencere düzeni ve Görev Yöneticisi metro-kabuk'ta (DBus); kilit = Plasma'nın parçacık kilidi.
 #include <Plasma/Containment>
+#include "../../../ortak/metroceviri.h"
 #include <Plasma/ContainmentActions>
 #include <Plasma/Corona>
 
@@ -30,31 +31,31 @@ public:
             a->setSeparator(true);
             return a;
         };
-        m_basamak = ekle(QStringLiteral("&Pencereleri basamakla"), [this] { duzen(QStringLiteral("basamak"), QStringLiteral("Basamakla")); });
-        m_ustuste = ekle(QStringLiteral("Pen&cereleri üst üste göster"), [this] { duzen(QStringLiteral("ustuste"), QStringLiteral("Üst Üste Göster")); });
-        m_yanyana = ekle(QStringLiteral("Pencereleri yan yana g&öster"), [this] { duzen(QStringLiteral("yanyana"), QStringLiteral("Yan Yana Göster")); });
-        m_masaustu = ekle(QStringLiteral("Masaüstünü göst&er"), [] { KWindowSystem::setShowingDesktop(!KWindowSystem::showingDesktop()); });
-        m_geri = ekle(QStringLiteral("Geri &Al"), [this] {
+        m_basamak = ekle(mtr(QStringLiteral("&Pencereleri basamakla")), [this] { duzen(QStringLiteral("basamak"), mtr(QStringLiteral("Basamakla"))); });
+        m_ustuste = ekle(mtr(QStringLiteral("Pen&cereleri üst üste göster")), [this] { duzen(QStringLiteral("ustuste"), mtr(QStringLiteral("Üst Üste Göster"))); });
+        m_yanyana = ekle(mtr(QStringLiteral("Pencereleri yan yana g&öster")), [this] { duzen(QStringLiteral("yanyana"), mtr(QStringLiteral("Yan Yana Göster"))); });
+        m_masaustu = ekle(mtr(QStringLiteral("Masaüstünü göst&er")), [] { KWindowSystem::setShowingDesktop(!KWindowSystem::showingDesktop()); });
+        m_geri = ekle(mtr(QStringLiteral("Geri &Al")), [this] {
             kabuk(QStringLiteral("PencereDuzeni"), {QStringLiteral("geri")});
             m_geriMetin.clear();
         });
         m_ayrac1 = ayrac();
-        m_gorev = ekle(QStringLiteral("&Görev Yöneticisi"), [this] { kabuk(QStringLiteral("GorevYoneticisi")); });
+        m_gorev = ekle(mtr(QStringLiteral("&Görev Yöneticisi")), [this] { kabuk(QStringLiteral("GorevYoneticisi")); });
         m_ayrac2 = ayrac();
-        m_kilit = ekle(QStringLiteral("Görev çubuğun&u kilitle"), [this] {
+        m_kilit = ekle(mtr(QStringLiteral("Görev çubuğun&u kilitle")), [this] {
             if (Plasma::Corona *c = containment() ? containment()->corona() : nullptr)
                 c->setImmutability(c->immutability() == Plasma::Types::Mutable ? Plasma::Types::UserImmutable : Plasma::Types::Mutable);
         });
         m_kilit->setCheckable(true);
-        m_ozellikler = ekle(QStringLiteral("Ö&zellikler"), [this] { kabuk(QStringLiteral("BilgisayarAyarlari"), {QStringLiteral("gezinti")}); });
+        m_ozellikler = ekle(mtr(QStringLiteral("Ö&zellikler")), [this] { kabuk(QStringLiteral("BilgisayarAyarlari"), {QStringLiteral("gezinti")}); });
     }
 
     QList<QAction *> contextualActions() override
     {
         // Windows: masaüstü gösterilirken "Açık pencereleri göster"
-        m_masaustu->setText(KWindowSystem::showingDesktop() ? QStringLiteral("Açık pencereleri göst&er") : QStringLiteral("Masaüstünü göst&er"));
+        m_masaustu->setText(KWindowSystem::showingDesktop() ? mtr(QStringLiteral("Açık pencereleri göst&er")) : mtr(QStringLiteral("Masaüstünü göst&er")));
         m_geri->setVisible(!m_geriMetin.isEmpty());
-        m_geri->setText(QStringLiteral("Geri &Al ") + m_geriMetin);
+        m_geri->setText(mtr(QStringLiteral("Geri &Al ")) + m_geriMetin);
         Plasma::Corona *c = containment() ? containment()->corona() : nullptr;
         m_kilit->setChecked(c && c->immutability() != Plasma::Types::Mutable);
         m_kilit->setEnabled(c && c->immutability() != Plasma::Types::SystemImmutable);

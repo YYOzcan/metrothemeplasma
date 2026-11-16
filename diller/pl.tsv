@@ -1,0 +1,733 @@
+1	 (wigilia)
+2	: ustawienia
+3	 min
+4	: wybierz, co zrobić.
+5	 godz.
+6	: strona
+7	 — ukończono
+8	 · Konto lokalne
+9	 elementów zaimportowano
+10	 elementów jest importowanych...
+11	 elementów zaznaczono
+12	Zamykanie aplikacji (%d) i zamykanie systemu
+13	Zamykanie aplikacji (%d) i ponowne uruchamianie
+14	Zamykanie aplikacji (%d) i wylogowywanie
+15	&Otwórz:
+16	Połączenia sie&ciowe
+17	&Duże ikony
+18	Data &modyfikacji
+19	Zarządzanie &dyskami
+20	Menedżer &zadań
+21	&Widok
+22	&Zamknij
+23	Zamknij lub wy&loguj się
+24	Personali&zuj
+25	&Małe ikony
+26	&Pulpit
+27	Pokaż &ikony pulpitu
+28	Pod&gląd zdarzeń
+29	&Wyloguj się
+30	&Uśpij
+31	U&ruchom ponownie
+32	U&ruchom
+33	), a zostaną tu wyświetlone według albumów.
+34	+ Nowe wydarzenie
+35	, przełącz komputer w stan uśpienia po
+36	, wyłącz po
+37	Ukryj na 1 godzinę
+38	Zamykanie 1 aplikacji i zamykanie systemu
+39	Zamykanie 1 aplikacji i ponowne uruchamianie
+40	Zamykanie 1 aplikacji i wylogowywanie
+41	Ukryj na 3 godziny
+42	32-bitowy system operacyjny
+43	64-bitowy system operacyjny, procesor x64
+44	Ukryj na 8 godzin
+45	W&yszukaj
+47	Nazwa
+48	Znaleziono AeroThemePlasma (Windows 7): możliwe jest uaktualnienie do Windows 8.1. Sesja Windows 7 pozostanie bez zmian.
+49	Nie znaleziono AeroThemePlasma: Windows 8.1 zostanie zainstalowany od nowa.
+50	Uaktualnienie z AeroThemePlasma (Windows 7) do Windows 8.1
+51	Brak silnika paska zadań AeroThemePlasma: zostanie użyty pasek zadań Plasma
+52	Afryka
+53	Akordy
+54	Alarm
+55	Alarm, czasomierz i stoper
+56	Alarmy
+57	Niemcy
+58	Kupno
+59	Ameryka
+60	Strona główna
+61	Strona główna
+62	Antarktyda
+64	Wyszukaj
+65	grudzień
+66	Wyszukiwanie i aplikacje
+67	Tło
+68	Kolor tła
+69	Arktyka
+70	Azja
+71	Dzień Pamięci Atatürka, Młodzieży i Sportu
+72	Ateny
+73	Atlantyk
+74	Europa
+75	Australia
+76	Miesiąc
+77	Ustawienia
+78	Panel funkcji Ustawienia
+79	Otwórz ustawienia
+80	&Menedżer urządzeń
+81	Urządzenia
+82	Panel funkcji Urządzenia
+83	Urządzenia i Udostępnij
+84	Szczegóły
+85	Ukryj szczegóły
+86	Pokaż szczegóły
+87	Azerbejdżan
+88	Otwórz
+89	Wł.
+89@HavaKutucugu.qml	Bezchmurnie
+90	Pokaż &otwarte okna
+91	Sieć
+92	Sieci
+93	sierpień
+94	Czy chcesz zezwolić następującemu programowi na wprowadzenie zmian na tym komputerze?
+95	Baku
+96	Barometr
+97	Koszykówka
+98	Bagdad
+99	Brak połączenia
+100	Połączenia
+101	Łączenie…
+102	Łączenie…
+103	Połączono
+104	Nie połączono
+105	Start
+106	Ekran startowy
+107	Przypnij do ekranu startowego
+108	Odepnij od ekranu startowego
+109	Przechodzenie do ekranu startowego
+110	Automatycznie pokazuj widok Aplikacje po przejściu do ekranu startowego
+111	Przypinanie do ekranu startowego
+112	Po prostu zacznij pisać na ekranie startowym — wyniki pojawią się od razu.
+113	Kliknij strzałkę w dół w lewym dolnym rogu ekranu startowego lub naciśnij klawisze Ctrl+Tab.
+114	Kliknij prawym przyciskiem myszy przycisk Start lub naciśnij klawisze Windows+X.
+115	Możesz zaczynać
+116	Karty pamięci
+117	Karta pamięci
+118	Bejrut
+119	Zarządzanie &komputerem
+120	Pokazuje wszystkie ikony w obszarze powiadomień
+121	Odtwarzaj dźwięki powiadomień
+122	Powiadomienia
+123	Informacje
+124	Komputer
+125	Nazwa komputera
+126	Ustawienia komputera
+127	Zmień ustawienia komputera
+128	Stosowanie ustawień komputera
+129	Logo Windows i obracające się kropki podczas uruchamiania komputera (initramfs zostanie odtworzony; może to potrwać kilka minut).
+130	Informacje o komputerze
+131	Komputer i urządzenia
+132	Programy wprowadzające zmiany na komputerze proszą o hasło administratora; nie zezwalaj programom, których nie znasz.
+133	Zmień nazwę komputera
+134	Co komputer ma zrobić?
+135	Gdy komputer będzie gotowy
+136	Nie wyłączaj komputera
+137	Nie wyłączaj komputera. Może to trochę potrwać.
+138	Nauka i technika
+139	Naukowy
+140	Nieznany album
+141	Czy chcesz zezwolić następującemu programowi nieznanego wydawcy na wprowadzenie zmian na tym komputerze?
+142	Nieznany program
+143	Nieznany wykonawca
+144	Nieznane
+145	Jednorazowo
+146	Wpisz nazwę programu, folderu, dokumentu lub zasobu internetowego, a zostanie on otwarty przez system Windows.
+147	Kończenie kilku czynności
+148	Wielka Brytania
+149	Formaty
+150	Kliknij prawym przyciskiem myszy puste miejsce, wybierz Dostosuj i wpisz nazwę nad grupą.
+151	Bruksela
+152	Żadna aplikacja nie pasuje do wyszukiwania.
+153	Te ustawienia edytuje się w Ustawieniach systemowych.
+154	Naciśnij, aby wybrać, co ma się dziać z tym urządzeniem.
+155	Na tym urządzeniu nie znaleziono zdjęć ani filmów.
+156	Dysk twardy w tym komputerze
+157	Nie można odnaleźć tego pliku.
+158	Dla tego ekranu jest niedostępne wprowadzanie za pomocą pióra i dotyku
+159	Skonfiguruj ten dysk do tworzenia kopii zapasowej
+160	Skonfiguruj ten dysk do tworzenia kopii zapasowej (Historia plików)
+161	Ta aplikacja nie może wysyłać zawartości do innych urządzeń.
+162	Ta aplikacja uniemożliwia wylogowanie.
+163	Ta aplikacja nie może drukować.
+164	Ta aplikacja uniemożliwia zamknięcie systemu.
+165	Ta aplikacja uniemożliwia ponowne uruchomienie.
+166	Dzisiaj
+167	Pochmurno
+168	Ziarna lodowe
+169	Przelotne ziarna lodowe
+170	Region i język
+171	Okienko
+172	Bukareszt
+173	Duży
+174	Włącz kafelek dynamiczny
+175	Wyłącz kafelek dynamiczny
+176	Klawisz Caps Lock jest włączony
+177	sob.
+178	So
+179	Pt
+180	pt.
+181	piątek
+182	sobota
+183	Święto Republiki
+184	Pa&nel sterowania
+185	Pokaż więcej kafelków
+186	Później
+187	Puls
+188	Dzień Demokracji i Jedności Narodowej
+189	Panel sterowania
+190	Aby kontynuować, wpisz hasło administratora, a następnie kliknij przycisk Tak.
+191	Preferencje językowe
+192	Inne
+193	Więcej szczegółów
+194	Inne konta
+195	Marznący deszcz
+196	Marznąca mżawka
+197	Akcesoria
+198	Marznąca mgła
+199	&Eksplorator plików
+200	Eksplorator plików
+201	Historia plików
+202	Pochodzenie pliku:
+203	Otwórz lokalizację pliku
+204	Pliki
+205	Przygotowywanie plików do instalacji
+206	Otwórz folder, aby wyświetlić pliki
+207	Otwórz folder, aby wyświetlić pliki (Eksplorator plików)
+208	Obróć
+209	Kursy walut i wiadomości gospodarcze
+210	Waluty ›
+211	Świat
+212	Aby uzyskać więcej informacji, przejdź do sekcji System w Panelu sterowania
+213	Dodatkowe ustawienia zasilania
+214	Więcej opcji
+215	październik
+216	Gospodarka
+217	Ekran
+218	Zrzut ekranu
+219	Wykonaj i zapisz zrzut ekranu
+220	Po wyłączeniu ekranu
+221	Limit czasu ekranu blokady
+222	&Rozdzielczość ekranu
+223	Brak:
+224	Święto Pracy i Solidarności
+225	Ułatwienia dostępu
+226	Ułatwienia dostępu
+227	Aktywacja
+228	Nazwa wydarzenia
+229	Brak wydarzeń
+230	Tak
+231	Brak akcji
+232	Akcja:
+233	wrzesień
+234	Edukacja
+235	Mysz i touchpad
+236	Przesuń wskaźnik myszy do dowolnego rogu
+237	Przesuń wskaźnik myszy do prawego górnego lub prawego dolnego rogu albo naciśnij klawisze Windows+C.
+238	Z aparatu
+239	Finanse
+240	Rób zdjęcia i nagrywaj filmy
+241	Zdjęcia
+242	Wróć do aplikacji Zdjęcia
+243	Importuj zdjęcia i filmy
+244	Importuj zdjęcia i filmy (Zdjęcia)
+245	Wyświetlaj swoje zdjęcia
+246	Francja
+247	Piłka nożna
+248	&Przeglądaj...
+249	Zakończ <u>z</u>adanie
+250	Zaawansowane ustawienia ekranu
+251	Programowanie
+252	Ogólne
+253	Szeroki
+254	Rozwiń
+255	Wstecz
+256	Aby wrócić i zapisać pracę, kliknij przycisk Anuluj i dokończ to, co musisz.
+257	Nawigacja
+258	Nieprawidłowe dane wejściowe
+259	Pokaż ukryte ikony
+260	Prywatność
+261	Nazwij grupę
+262	Nazywanie grup
+263	Burza
+264	Burza śnieżna
+265	Burza z deszczem
+266	Menedżer zadań
+267	Rok w zegarze i kalendarzu paska zadań jest przesunięty o tę wartość (np. -10:
+268	Zablokuj pasek &zadań
+269	Przypnij do paska zadań
+270	Programy przypięte do paska zadań i menu Start, tło pulpitu oraz pliki osobiste zostaną zachowane.
+271	Odepnij od paska zadań
+272	Obrazy, dźwięki i czcionki pochodzą z Twojej kopii Windows 8.1; repozytorium nie zawiera plików firmy Microsoft. Wpisz ścieżkę pliku ISO lub install.wim.
+273	Widoczność
+274	Pokaż
+275	Przeglądaj
+276	Dzień
+277	Zachód słońca
+278	Wschód słońca
+279	Bieżąca pogoda i prognozy
+280	Aktualizacja i odzyskiwanie
+281	Aktualizacje są instalowane za pomocą systemowego menedżera pakietów.
+282	Słonecznie
+283	Zabezpieczenia i urządzenia
+284	Zasilanie
+285	&Opcje zasilania
+286	Zasilanie i uśpienie
+287	Ustawienia zasilania i uśpienia
+289	Przeczytaj cały artykuł ›
+290	Wiadomości
+291	Nie można pobrać wiadomości. Sprawdź połączenie z Internetem.
+292	Wiadomości ›
+293	Słabe przelotne ziarna lodowe
+294	Słaby marznący deszcz
+295	Słabe przelotne opady śniegu
+296	Słabe opady śniegu
+297	Słabe przelotne opady deszczu ze śniegiem
+298	Słaby deszcz ze śniegiem
+299	Słabe przelotne opady
+300	Słaby deszcz
+301	Dni robocze
+302	Pierwszy dzień tygodnia
+303	Pogoda
+304	Nie można pobrać pogody. Sprawdź połączenie z Internetem.
+305	Nie
+306	czerwiec
+307	Nie dodano jeszcze żadnych ulubionych witryn.
+308	Codziennie
+309	Pytaj mnie za każdym razem
+310	Wszędzie
+311	Wyszukaj wszędzie: Windows+S.
+312	Twoje konto
+313	Kalkulator
+314	Utwórz obraz konta
+315	Zmień obraz konta
+316	Konta
+317	Ocean Indyjski
+318	Odczuwalna
+319	Nigdy
+320	Nic
+321	Nie zachowuj niczego
+322	Nie podejmuj żadnej akcji
+323	Nic nie jest odtwarzane
+324	Holandia
+325	Głośniki
+326	Witamy
+327	Menu szybkiego łącza
+328	Internet Explorer (pulpit)
+329	Kair
+330	Odinstaluj
+331	Pióro i dotyk
+332	Kalkuta
+333	Aparat
+334	Upewnij się, że aparat jest podłączony i nie jest używany przez inną aplikację.
+335	Nie można odnaleźć aparatu
+336	Zmień aparat
+337	Kanał
+338	Wył.
+338@HavaKutucugu.qml	Zachmurzenie całkowite
+339	Zamknij
+340	Zamykanie zablokowane
+341	Zamykanie
+342	Komunikaty konsoli są ukrywane podczas zamykania; przy każdej aktualizacji Plasma system Windows 8.1 również aktualizuje się automatycznie
+343	Zamieć śnieżna
+344	Przelotne opady śniegu
+345	Śnieg
+346	Przelotne opady deszczu ze śniegiem
+347	Deszcz ze śniegiem
+348	Odtwarzanie losowe
+349	Mikser
+350	listopad
+351	Zapisz
+352	Naciśnij, aby zapisać
+354	Ekran blokady
+355	Ekran logowania Windows 8.1 z obrazem ekranu blokady i kolorami ekranu startowego.
+356	Ustaw jako ekran blokady
+357	Zmień ekran blokady, obraz konta i kolory
+358	Zablokuj
+359	Blokowanie
+360	Wyczyść informacje osobiste z kafelków
+361	Filmy osobiste
+362	Oglądaj swoje filmy
+363	Personalizuj
+364	Personalizacja
+365	Otwórz folder
+366	Kolekcja
+367	&Wiersz polecenia
+368	Wiersz polecenia (&administrator)
+369	Stoper
+370	Jerozolima
+371	Kontrola konta użytkownika
+372	Nie uzyskano zgody Kontroli konta użytkownika
+373	Przełącz użytkownika
+374	Niedostępne
+375	Święto Ofiarowania
+376	Kafelki
+377	Rozmieszczanie kafelków
+378	Kliknij kafelek prawym przyciskiem myszy i wybierz Zmień rozmiar.
+379	Przeciągnij i upuść kafelek. Upuszczenie go między dwiema grupami tworzy nową grupę.
+380	Narożniki i krawędzie
+381	Mały
+382	Cypr
+383	Krótki format godziny
+384	Krótki format daty
+385	Wklej &skrót
+386	Nikozja
+387	Lizbona
+388	Londyn
+389	Najważniejsze
+390	marzec
+391	Pulpit
+392	Pokaż tło pulpitu na ekranie startowym
+393	Kliknij kafelek Pulpit lub naciśnij klawisze Windows+D.
+394	Wyświetl na pulpicie
+395	Na pulpicie nie ma niczego do udostępnienia.
+396	Przechodzenie do pulpitu
+397	Pokaż &pulpit
+398	maj
+399	Sklep
+400	Witaj
+401	Powłoka Metro
+402	Źródło MetroThemePlasma (
+403	MetroThemePlasma jest już zainstalowany: zostanie zaktualizowany, a ustawienia zostaną zachowane.
+404	Moskwa
+405	Muzyka
+406	Twoja kolekcja muzyki jest pusta. Dodaj utwory do folderu Muzyka (
+407	Słuchaj swojej kolekcji muzyki
+408	Przyczyna:
+409	Wilgotność
+410	Prawie gotowe
+411	Wybierz, co zachować
+412	kwiecień
+413	styczeń
+414	Zweryfikowany wydawca:
+415	Średni
+416	Automatycznie
+417	Autoodtwarzanie
+418	Wybierz domyślne ustawienia autoodtwarzania
+419	Ustaw Windows 8.1 jako domyślny przy logowaniu
+420	MetroThemePlasma jest wstępnie wybrany na ekranie logowania; sesja Windows 7 pozostaje na liście.
+421	Opcje logowania
+422	Po zalogowaniu przechodź do pulpitu zamiast do ekranu startowego
+423	Wylogowywanie
+424	Wyloguj się
+425	Wyloguj się i wybierz na ekranie logowania sesję MetroThemePlasma (Wayland). Przy pierwszym logowaniu Windows 8.1 przywita Cię słowem \"Witaj\". Od tej pory Windows 8.1 aktualizuje się automatycznie przy każdej aktualizacji Plasma.
+427	Jasność
+428	Hasło
+429	Hasło jest nieprawidłowe. Spróbuj ponownie.
+430	Częściowe zachmurzenie
+431	Pacyfik
+432	Udostępnij
+433	Panel funkcji Udostępnij
+434	niedz.
+435	niedziela
+436	poniedziałek
+437	Cz
+438	Pokaż okna &skumulowane
+440	Zmień kolor obramowań okien i paska zadań.
+441	Pokaż okna obok &siebie
+442	czw.
+443	czwartek
+444	Zasilanie z baterii
+445	Nie można pobrać danych rynkowych. Sprawdź połączenie z Internetem.
+446	Zasilanie z sieci
+447	Nazwa programu:
+448	Lokalizacja programu:
+449	&Programy i funkcje
+450	Pn
+451	Zamglenie
+452	Nd
+453	pon.
+454	Święto Zakończenia Ramadanu
+456	Kolor i wygląd
+457	Intensywność koloru
+458	Wybierz obraz
+459	W bibliotece Obrazy nie ma zdjęć.
+460	Rijad
+461	Rzym
+462	Wiatr
+463	&System
+464	Wt
+465	Zegar
+466	Godzina (puste: cały dzień)
+467	Strefa czasowa
+468	Czas i język
+469	Ustaw czas automatycznie
+470	Prognoza godzinowa
+471	wt.
+472	wtorek
+473	Sprzedaż
+474	Znajdź na stronie
+475	Prawe narożniki
+476	Pokazuj panele funkcji po wskazaniu prawego górnego lub prawego dolnego rogu
+477	Przelotne opady
+478	Zamknij karty
+479	Dźwięk
+480	Rejestrator dźwięku
+481	Brak urządzenia audio
+482	Nagrywaj dźwięki
+483	Dźwięk, sieć, jasność, powiadomienia i zasilanie: Windows+I.
+484	Wycisz
+485	Godziny ciszy
+486	W godzinach ciszy powiadomienia nie są wyświetlane. Wycisz teraz na godzinę:
+487	Wybierz
+488	Wyczyść zaznaczenie
+489	Usuń
+490	Wyrównaj ikony do &siatki
+491	&Autorozmieszczanie ikon
+492	Mgliście
+493	Narzędzia systemowe
+494	Ustawienia systemowe
+495	Typ systemu
+496	Konfigurujemy ustawienia
+497	Pokaz slajdów
+498	Sofia
+499	Lewy górny róg lub Windows+Tab; Alt+Tab pokazuje wszystkie okna.
+500	Ostatnie 30 dni
+501	Zezwalaj na przełączanie między ostatnio używanymi aplikacjami przez kliknięcie lewego górnego rogu
+502	Sport
+503	Wiadomości sportowe
+504	Standardowy
+505	Obliczenia standardowe i naukowe
+506	Czas minął
+507	Wersja
+508	Nie można dzielić przez zero
+509	Ulubione
+510	Dodaj do ulubionych
+511	Usuń z ulubionych
+512	Często odwiedzane
+513	&Sortuj według
+514	Kurs orientacyjny CBRT (sprzedaż) ·
+515	Prognoza
+516	Teheran
+517	Kalendarz
+518	Kalendarz i święta
+519	OK
+520	Data i godzina
+521	Zmień ustawienia daty i godziny...
+522	Zmień formaty daty i godziny
+523	Powtórz
+524	Wyczyść
+525	lipiec
+526	Taśma
+527	Tbilisi
+528	Zamieć
+529	Cały dzień
+530	Używaj autoodtwarzania dla wszystkich nośników i urządzeń
+531	Wszystkie Twoje aplikacje
+532	Zaznacz wszystko
+533	Wyczyść wszystko
+534	Turcja
+535	Najnowsze wiadomości z Turcji i ze świata
+536	Kliknięcie
+537	Panele funkcji
+538	Otwieranie paneli funkcji
+539	DYSK USB
+540	Wybierz, co ma się dziać po włożeniu dysku USB lub karty pamięci; możesz to zmienić w Ustawieniach komputera > Autoodtwarzanie.
+541	Indeks UV
+542	Dzień Suwerenności Narodowej i Dziecka
+543	Wyszukiwanie aplikacji
+544	Pokazuj powiadomienia aplikacji
+545	Pokazuj powiadomienia aplikacji na ekranie blokady
+546	Znajdź i zainstaluj aplikacje
+547	Przełączanie aplikacji
+548	Aplikacje
+549	Przełączanie między aplikacjami
+550	Przełączaj się między aplikacjami
+551	Pokazuj najpierw aplikacje klasyczne w widoku Aplikacje, gdy jest posortowany według kategorii
+552	W widoku Aplikacje kliknij aplikację prawym przyciskiem myszy i wybierz Przypnij do ekranu startowego.
+553	Przygotowywanie aplikacji
+554	Przeciągnij aplikację w dół od górnej krawędzi lub przesuń wskaźnik myszy do górnej krawędzi i kliknij X.
+555	Ustawienia powiadomień według aplikacji
+556	Zamykanie aplikacji
+557	Uśpij
+558	Sprawdzanie zgodności zakończone
+559	Sprawdzanie zgodności
+560	Pomniejsz
+561	Długi format godziny
+562	Długi format daty
+563	Tryb samolotowy
+564	Domyślne
+565	Warszawa
+566	Wideo
+567	W folderze Wideo (
+568	Wiedeń
+569	Kolor akcentu
+570	Przeglądaj sieć Web
+571	System Windows nie może odnaleźć elementu „%1”. Upewnij się, że nazwa została wpisana poprawnie, a następnie spróbuj ponownie.
+572	Uaktualnij z Windows 7 (AeroThemePlasma) do Windows 8.1
+573	Instalator systemu Windows 8.1
+574	Ekran rozruchowy Windows 8.1
+575	Użyj ekranu rozruchowego Windows 8.1
+576	Pliki Windows 8.1 zostały już zaimportowane.
+577	Wymagany jest nośnik instalacyjny Windows 8.1 (ISO).
+578	Wybierz nośnik instalacyjny Windows 8.1
+579	Ekran logowania Windows 8.1
+580	Użyj ekranu logowania Windows 8.1
+581	Windows 8.1 uruchamia się z domyślnym układem; pliki w folderze użytkownika, takie jak Dokumenty i Pulpit, zostają zachowane.
+582	Stosowanie domyślnych ustawień Windows 8.1
+583	Zainstalowano Windows 8.1
+584	Nie można zainstalować Windows 8.1
+585	Uaktualnij do Windows 8.1
+586	Zainstaluj Windows 8.1
+587	Instalator systemu Windows przenosi Twoje elementy
+588	Zachowaj ustawienia systemu Windows, pliki osobiste i aplikacje
+589	System Windows jest aktywowany
+590	Naciśnij klawisz Windows lub kliknij przycisk Start na pasku zadań.
+591	Instalowanie systemu Windows
+592	Uaktualnianie systemu Windows
+593	Zamykanie systemu Windows
+594	Poznaj system Windows
+595	Najszybszy sposób na poznanie systemu Windows. Przesuń w prawo, aby przejrzeć podstawy.
+596	Windows+E.
+597	Windows+L blokuje komputer.
+598	&Wklej
+599	Powiększ
+600	Tylko ekran komputera
+601	Zmienia się tylko wyświetlanie: zegar systemowy, dni i daty plików pozostają bez zmian.
+602	Tylko drugi ekran
+603	Zachowaj tylko pliki osobiste
+604	Pokaż obok siebie
+605	Projekcja
+606	Projekcja i drukowanie są w Urządzeniach, udostępnianie w Udostępnij.
+607	Pomoc
+608	Pomoc i porady
+609	Wydawca:
+610	Drukuj
+611	Pisanie
+612	Software Center
+613	Deszcz
+614	Nowy
+615	Nowa karta InPrivate
+616	Nowe wydarzenie ·
+617	Uruchom ponownie
+618	Ponowne uruchamianie
+619	Zmień rozmiar
+620	Zmienianie rozmiaru
+621	Spróbuj ponownie
+622	Odśw&ież
+623	Miejscami marznąca mżawka
+624	Miejscami burza śnieżna
+625	Miejscami burza z deszczem
+626	Miejscami słabe opady śniegu
+627	Miejscami słaby deszcz
+628	Miejscami opady śniegu
+629	Miejscami deszcz ze śniegiem
+630	Miejscami deszcz
+631	Miejscami intensywne opady śniegu
+632	Miejscami mżawka
+633	Zamknij mimo to
+634	Wyloguj się mimo to
+635	Uruchom ponownie mimo to
+636	Ponów
+637	Intensywna marznąca mżawka
+638	Intensywne opady śniegu
+639	Zainstaluj
+640	Po kliknięciu przycisku Zainstaluj pojawi się prośba o uprawnienia administratora (Kontrola konta użytkownika). Podczas instalacji możesz dalej korzystać z komputera.
+641	Gotowe do instalacji
+642	Ładowanie...
+643	Zainstalowana pamięć (RAM)
+644	Narastający
+645	Odtwórz
+646	Nowy Rok
+647	Przesuń rok:
+648	Dzień Zwycięstwa
+649	Okresowy deszcz
+650	Okresowy intensywny deszcz
+651	Czasomierz
+652	Dzwonek
+653	według nazwy
+654	alarm;budzik;zegar;czasomierz;stoper
+655	nie można uruchomić
+656	nie znaleziono
+657	d MMMM
+658	dddd, d MMMM
+659	d MMMM yyyy
+660	d MMMM yyyy HH:mm
+661	dddd, d MMMM yyyy
+662	dd.MM.
+663	dd.MM.yyyy
+664	według częstości używania
+665	finanse;waluty;kurs;dolar;euro;giełda
+666	wiadomości;nagłówki
+667	internet;sieć web;przeglądarka;ie
+668	aparat;kamera internetowa;zdjęcie
+669	według kategorii
+670	Brak libAeroQt (AUR: libaero-qt-git): zamiast Eksploratora plików zostanie użyty Dolphin
+671	sklep;instaluj aplikacje;pakiet
+672	muzyka;utwór;album
+673	Brak qmake6: Informacje o systemie Windows (winver) nie zostaną skompilowane
+674	dźwięk;nagranie;mikrofon;rejestrator
+675	pl-PL,pl;q=0.9,en;q=0.6
+676	pl_PL
+677	pomoc;porady
+678	według daty instalacji
+679	uaktualnienie;instalacja;windows 8.1
+680	rok
+681	Śr
+682	Uruchom
+683	śr.
+684	środa
+685	Mżawka
+686	Multimedia
+687	Przeważnie słonecznie
+688	Dysk wymienny
+689	Dysk wymienny
+690	Dyski wymienne
+691	&Właściwości
+692	Poprzednie ustawienia Metro zostaną zapisane w kopii zapasowej, a ustawienia domyślne Windows 8.1 zostaną przywrócone. Pliki osobiste nie zostaną usunięte.
+693	Dostosuj
+694	Dostosuj...
+695	Zakończ dostosowywanie
+696	Przygotowywanie funkcji
+697	&Typ elementu
+698	Identyfikator produktu
+699	Pokaż skumulowane
+700	kod zakończenia
+701	Dalej
+702	Internet
+703	Dostęp do Internetu
+704	Anuluj
+705	Stambuł
+706	Izmir
+707	Importuj
+708	Procesor
+709	Damaszek
+710	Szanghaj
+711	Wodospad
+712	Intensywne przelotne opady
+713	Intensywny deszcz
+714	Sprawdź teraz
+715	Teraz odtwarzane
+716	Dokonano następujących wyborów:
+717	luty
+718	−1 min
+719	Zrzuty ekranu
+720	Zrzut ekranu (
+721	Nagrania dźwiękowe
+722	Nagranie
+723	dzień %1
+724	) nie ma filmów.
+725	. Zainstalowana wersja nie została zmieniona; szczegóły poniżej.
+726	%1 min temu
+727	%1 godz. temu
+728	&Nazwa
+729	&Rozmiar
+730	Ś&rednie ikony
+731	Ułóż okna &kaskadowo
+732	&Cofnij
+733	&Cofnij: 
+734	Kaskadowo
+735	&Cofnij
+736	&Cofnij: 
+737	Odśw&ież
+738	&Nowy

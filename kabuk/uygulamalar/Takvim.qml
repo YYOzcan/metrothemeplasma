@@ -46,7 +46,7 @@ Item {
         var l = bayramlar[String(d.getFullYear())] || []
         for (var i = 0; i < l.length; i++) {
             var b = new Date(d.getFullYear() + "-" + l[i][0] + "T12:00:00"), fark = Math.round((d - b) / 86400000)
-            if (fark >= 0 && fark < l[i][1]) return l[i][2] + " (" + (fark + 1) + ". gün)"
+            if (fark >= 0 && fark < l[i][1]) return l[i][2] + " (" + "%1. gün".replace("%1", fark + 1) + ")"
             if (fark === -1) return l[i][2] + " Arifesi"
         }
         return ""

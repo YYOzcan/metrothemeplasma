@@ -53,8 +53,8 @@ Item {
     function zaman(t) {
         if (!t || isNaN(t.getTime())) return ""
         var dk = Math.round((Date.now() - t.getTime()) / 60000)
-        if (dk < 60) return Math.max(1, dk) + " dakika önce"
-        if (dk < 24 * 60) return Math.round(dk / 60) + " saat önce"
+        if (dk < 60) return "%1 dakika önce".replace("%1", Math.max(1, dk))
+        if (dk < 24 * 60) return "%1 saat önce".replace("%1", Math.round(dk / 60))
         return new Date(t).toLocaleDateString(Qt.locale("tr_TR"), "d MMMM")
     }
     readonly property var manset: {

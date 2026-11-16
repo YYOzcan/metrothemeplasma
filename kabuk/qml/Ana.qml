@@ -180,7 +180,7 @@ QtObject {
         switch (a) {
         case "denetim": hepsiniKapat(); Sistem.calistir(ilkProgram(["metro-denetim", "systemsettings"])); break
         case "kisisellestirme": bilgisayarAyarlari("renk"); break
-        case "bilgi": hepsiniKapat(); Sistem.calistir(ilkProgram(["control 'Sistem ve Güvenlik/Sistem'", "kinfocenter kcm_about-distro", "systemsettings kcm_about-distro"])); break
+        case "bilgi": hepsiniKapat(); Sistem.calistir(ilkProgram(["control 'System and Security/System'", "kinfocenter kcm_about-distro", "systemsettings kcm_about-distro"])); break
         case "yardim": hepsiniKapat(); Sistem.calistir(ilkProgram(["khelpcenter", "xdg-open https://userbase.kde.org"])); break
         case "kisisellestir": bolme.ac("kisisellestir"); break
         case "kutucuklar": bolme.ac("kutucuklar"); break
@@ -191,11 +191,11 @@ QtObject {
         var konsol = ilkProgram(["konsole", "kgx", "kitty", "alacritty", "xterm"])
         switch (e) {
         // Windows uygulamaları (linux-explorer Denetim Masası sayfaları, linux-devmgmt) kuruluysa onlar
-        case "programlar": Sistem.calistir(ilkProgram(["control 'Programlar/Programlar ve Özellikler'", "plasma-discover --mode installed", "octopi", "pamac-manager", "systemsettings"])); break
+        case "programlar": Sistem.calistir(ilkProgram(["control 'Programs/Programs and Features'", "plasma-discover --mode installed", "octopi", "pamac-manager", "systemsettings"])); break
         case "mobility": Sistem.ayarAc("kcm_powerdevilprofilesconfig"); break
-        case "guc": Sistem.calistir(ilkProgram(["control 'Sistem ve Güvenlik/Güç Seçenekleri'", "systemsettings kcm_powerdevilprofilesconfig"])); break
+        case "guc": Sistem.calistir(ilkProgram(["control 'System and Security/Power Options'", "systemsettings kcm_powerdevilprofilesconfig"])); break
         case "olay": Sistem.calistir(ilkProgram(["ksystemlog", "gnome-logs", konsol + " -e journalctl -b"])); break
-        case "sistem": Sistem.calistir(ilkProgram(["control 'Sistem ve Güvenlik/Sistem'", "kinfocenter kcm_about-distro", "systemsettings kcm_about-distro"])); break
+        case "sistem": Sistem.calistir(ilkProgram(["control 'System and Security/System'", "kinfocenter kcm_about-distro", "systemsettings kcm_about-distro"])); break
         case "aygit": Sistem.calistir(ilkProgram(["devmgmt", "kinfocenter kcm_pci", "systemsettings"])); break
         case "ag": Sistem.ayarAc("kcm_networkmanagement"); break
         case "disk": Sistem.calistir(ilkProgram(["partitionmanager", "gnome-disks", "gparted"])); break
@@ -275,11 +275,11 @@ QtObject {
     }
     function ekranGoruntusu() {
         flas.parla()
-        var dizin = Dosya.ev + "/Resimler/Ekran Görüntüleri"
+        var dizin = Dosya.resimlerDizini + "/" + "Ekran Görüntüleri"
         var n = 1
-        while (Dosya.var(dizin + "/Ekran Görüntüsü (" + n + ").png")) n++
+        while (Dosya.var(dizin + "/" + "Ekran Görüntüsü (" + n + ").png")) n++
         Sistem.komutCiktisi("mkdir", ["-p", dizin])
-        Sistem.calistir("spectacle -b -n -f -o \"" + dizin + "/Ekran Görüntüsü (" + n + ").png\"")
+        Sistem.calistir("spectacle -b -n -f -o \"" + dizin + "/" + "Ekran Görüntüsü (" + n + ").png\"")
     }
 
     // ------------------------------------------------------------------ DBus / kısayollar

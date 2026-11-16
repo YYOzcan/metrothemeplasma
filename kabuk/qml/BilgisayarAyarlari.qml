@@ -565,7 +565,7 @@ Window {
             Bolum { text: "Windows" }
             Bilgi { etiket: "Sürüm"; deger: "Windows 8.1 (MetroThemePlasma, Plasma " + pen.kabuk("plasmashell --version 2>/dev/null | awk '{print $2}'") + ")" }
             Bilgi { etiket: "Etkinleştirme"; deger: "Windows etkinleştirildi" }
-            Baglanti { text: "Ek bilgi için Denetim Masası'nda Sistem'e gidin"; onTiklandi: Sistem.calistir("control 'Sistem ve Güvenlik/Sistem'") }
+            Baglanti { text: "Ek bilgi için Denetim Masası'nda Sistem'e gidin"; onTiklandi: Sistem.calistir("control 'System and Security/System'") }
         }
     }
     component Bilgi: Row {

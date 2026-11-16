@@ -1161,5 +1161,8 @@
  "%1 was %2.": "%1 %2.",
  "%1 GB (%2 GB usable)": "%1 GB (%2 GB kullanılabilir)",
  "%1-bit Operating System (%2)": "%1 bit İşletim Sistemi (%2)",
- "Users": "Kullanıcılar"
+ "Users": "Kullanıcılar",
+ "Lines and colors": "Çizgiler ve renkler",
+ "Flowers": "Çiçekler",
+ "Windows Default Themes (%1)": "Windows Varsayılan Temaları (%1)"
 }

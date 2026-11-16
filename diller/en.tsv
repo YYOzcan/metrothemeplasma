@@ -1,0 +1,733 @@
+1	 Eve
+2	 settings
+3	 minutes ago
+4	: choose what to do.
+5	 hours ago
+6	 page
+7	 completed
+8	 · Local account
+9	 items imported
+10	 items being imported...
+11	 items selected
+12	Closing %d apps and shutting down
+13	Closing %d apps and restarting
+14	Closing %d apps and signing out
+15	&Open:
+16	Net&work Connections
+17	&Large icons
+18	Date &modified
+19	Dis&k Management
+20	&Task Manager
+21	&View
+22	Sh&ut down
+23	Sh&ut down or sign out
+24	Personali&ze
+25	S&mall icons
+26	&Desktop
+27	Show &desktop icons
+28	Event &Viewer
+29	&Sign out
+30	S&leep
+31	&Restart
+32	&Run
+33	) and they'll be listed here by album.
+34	+ New event
+35	, PC goes to sleep after
+36	, turn off after
+37	Hide for 1 hour
+38	Closing 1 app and shutting down
+39	Closing 1 app and restarting
+40	Closing 1 app and signing out
+41	Hide for 3 hours
+42	32-bit Operating System
+43	64-bit Operating System, x64-based processor
+44	Hide for 8 hours
+45	&Search
+47	Name
+48	AeroThemePlasma (Windows 7) found: it can be upgraded to Windows 8.1. Your Windows 7 session stays as it is.
+49	AeroThemePlasma not found: Windows 8.1 will be installed clean.
+50	Upgrade and update from AeroThemePlasma (Windows 7) to Windows 8.1
+51	AeroThemePlasma's taskbar engine is missing: Plasma's taskbar will be used
+52	Africa
+53	Chords
+54	Alarm
+55	Alarm, timer and stopwatch
+56	Alarms
+57	Germany
+58	Buy
+59	America
+60	Home
+61	Home
+62	Antarctica
+64	Search
+65	December
+66	Search and apps
+67	Background
+68	Background color
+69	Arctic
+70	Asia
+71	Commemoration of Atatürk, Youth and Sports Day
+72	Athens
+73	Atlantic
+74	Europe
+75	Australia
+76	Month
+77	Settings
+78	Settings charm
+79	Open settings
+80	Device &Manager
+81	Devices
+82	Devices charm
+83	Devices and Share
+84	Details
+85	Hide details
+86	Show details
+87	Azerbaijan
+88	Open
+89	On
+89@HavaKutucugu.qml	Clear
+90	Show &open windows
+91	Network
+92	Networks
+93	August
+94	Do you want to allow the following program to make changes to this computer?
+95	Baku
+96	Barometer
+97	Basketball
+98	Baghdad
+99	No connection
+100	Connections
+101	Connecting…
+102	Connecting…
+103	Connected
+104	Not connected
+105	Start
+106	Start screen
+107	Pin to Start
+108	Unpin from Start
+109	Going to Start
+110	Show the Apps view automatically when I go to Start
+111	Pinning to Start
+112	Just start typing while you're on Start; results show up right away.
+113	Click the down arrow at the bottom left of Start, or press Ctrl+Tab.
+114	Right-click the Start button, or press Windows+X.
+115	You can get started
+116	Memory cards
+117	Memory card
+118	Beirut
+119	Computer Mana&gement
+120	Shows all icons in the notification area
+121	Play notification sounds
+122	Notifications
+123	Info
+124	PC
+125	PC name
+126	PC settings
+127	Change PC settings
+128	Applying your PC settings
+129	Windows logo and spinning dots while your PC starts (the initramfs is rebuilt; this can take a few minutes).
+130	PC info
+131	PC and devices
+132	Programs that make changes to your PC ask for your administrator password; don't allow programs you don't recognize.
+133	Rename PC
+134	What do you want your PC to do?
+135	After your PC is ready
+136	Don't turn off your PC
+137	Don't turn off your PC. This might take a while.
+138	Science & Technology
+139	Scientific
+140	Unknown album
+141	Do you want to allow the following program from an unknown publisher to make changes to this computer?
+142	Unknown program
+143	Unknown artist
+144	Unknown
+145	Once
+146	Type the name of a program, folder, document, or Internet resource, and Windows will open it for you.
+147	Finishing a few things
+148	United Kingdom
+149	Formats
+150	Right-click an empty area, choose Customize, then type a name in the space above the group.
+151	Brussels
+152	No apps match your search.
+153	These settings are edited in System Settings.
+154	Tap to choose what happens with this device.
+155	No photos or videos were found on this device.
+156	Hard drive on this PC
+157	This file couldn't be found.
+158	No Pen or Touch Input is available for this Display
+159	Configure this drive for backup
+160	Configure this drive for backup (File History)
+161	This app can't send content to other devices.
+162	This app is preventing you from signing out.
+163	This app can't print.
+164	This app is preventing shutdown.
+165	This app is preventing you from restarting.
+166	Today
+167	Cloudy
+168	Ice Pellets
+169	Ice Pellet Showers
+170	Region and language
+171	Pane
+172	Bucharest
+173	Large
+174	Turn live tile on
+175	Turn live tile off
+176	Caps Lock is on
+177	Sat
+178	Sa
+179	Fr
+180	Fri
+181	Friday
+182	Saturday
+183	Republic Day
+184	Co&ntrol Panel
+185	Show more tiles
+186	Later
+187	Pulse
+188	Democracy and National Unity Day
+189	Control Panel
+190	To continue, type an administrator password, and then click Yes.
+191	Language preferences
+192	Other
+193	More details
+194	Other accounts
+195	Freezing Rain
+196	Freezing Drizzle
+197	Accessories
+198	Freezing Fog
+199	File &Explorer
+200	File Explorer
+201	File History
+202	File origin:
+203	Open file location
+204	Files
+205	Getting files ready for installation
+206	Open folder to view files
+207	Open folder to view files (File Explorer)
+208	Rotate
+209	Exchange rates and economic news
+210	Currencies ›
+211	World
+212	For more information, go to System in Control Panel
+213	Additional power settings
+214	More options
+215	October
+216	Economy
+217	Display
+218	Screenshot
+219	Take and save a screenshot
+220	When the screen turns off
+221	Lock screen timeout
+222	Screen &resolution
+223	Missing:
+224	Labour and Solidarity Day
+225	Ease of Access
+226	Ease of Access
+227	Activation
+228	Event name
+229	No events
+230	Yes
+231	No action
+232	Action:
+233	September
+234	Education
+235	Mouse and touchpad
+236	Move your mouse to any corner
+237	Move your mouse to the upper-right or lower-right corner, or press Windows+C.
+238	Camera roll
+239	Finance
+240	Take photos and videos
+241	Photos
+242	Back to Photos
+243	Import photos and videos
+244	Import photos and videos (Photos)
+245	View your photos
+246	France
+247	Football
+248	&Browse...
+249	<u>E</u>nd task
+250	Advanced display settings
+251	Development
+252	General
+253	Wide
+254	Expand
+255	Back
+256	To go back and save your work, click Cancel and finish what you need to.
+257	Navigation
+258	Invalid input
+259	Show hidden icons
+260	Privacy
+261	Name group
+262	Naming groups
+263	Thunderstorm
+264	Thundersnow
+265	Thunderstorm with Rain
+266	Task Manager
+267	The year in the taskbar clock and calendar is shifted by this amount (e.g. -10:
+268	&Lock the taskbar
+269	Pin to taskbar
+270	Programs you pinned to the taskbar and Start menu, your desktop background and your personal files are kept.
+271	Unpin from taskbar
+272	Images, sounds and fonts come from your own copy of Windows 8.1; the repository contains no Microsoft files. Enter the path of the ISO file or install.wim.
+273	Visibility
+274	Show
+275	Browse
+276	Day
+277	Sunset
+278	Sunrise
+279	Current weather and forecasts
+280	Update and recovery
+281	Updates are installed with the system package manager.
+282	Sunny
+283	Security and devices
+284	Power
+285	P&ower Options
+286	Power and sleep
+287	Power and sleep settings
+289	Read the full story ›
+290	News
+291	Couldn't get the news. Check your Internet connection.
+292	News ›
+293	Light Ice Pellet Showers
+294	Light Freezing Rain
+295	Light Snow Showers
+296	Light Snow
+297	Light Sleet Showers
+298	Light Sleet
+299	Light Showers
+300	Light Rain
+301	Weekdays
+302	First day of week
+303	Weather
+304	Couldn't get the weather. Check your Internet connection.
+305	No
+306	June
+307	You haven't added any favorite sites yet.
+308	Every day
+309	Ask me every time
+310	Everywhere
+311	Search everywhere: Windows+S.
+312	Your account
+313	Calculator
+314	Create an account picture
+315	Change account picture
+316	Accounts
+317	Indian Ocean
+318	Feels like
+319	Never
+320	Nothing
+321	Keep nothing
+322	Take no action
+323	Nothing is playing
+324	Netherlands
+325	Speakers
+326	Welcome
+327	Quick Link menu
+328	Internet Explorer (desktop)
+329	Cairo
+330	Uninstall
+331	Pen and touch
+332	Kolkata
+333	Camera
+334	Make sure the camera is connected and isn't being used by another app.
+335	We can't find your camera
+336	Change camera
+337	Channel
+338	Off
+338@HavaKutucugu.qml	Overcast
+339	Close
+340	Shutdown blocked
+341	Shutting down
+342	Console messages are hidden at shutdown; as Plasma updates, Windows 8.1 updates itself too
+343	Blizzard
+344	Snow Showers
+345	Snow
+346	Sleet Showers
+347	Sleet
+348	Shuffle
+349	Mixer
+350	November
+351	Save
+352	Tap to save
+354	Lock screen
+355	Windows 8.1 sign-in screen with your lock screen picture and Start colors.
+356	Set as lock screen
+357	Change your lock screen, account picture and colors
+358	Lock
+359	Locking
+360	Clear personal info from my tiles
+361	Personal videos
+362	Watch your personal videos
+363	Personalize
+364	Personalization
+365	Open folder
+366	Collection
+367	Command &Prompt
+368	Command Prompt (&Admin)
+369	Stopwatch
+370	Jerusalem
+371	User Account Control
+372	User Account Control approval was not given
+373	Switch user
+374	Unavailable
+375	Feast of the Sacrifice
+376	Tiles
+377	Arranging tiles
+378	Right-click the tile and choose Resize.
+379	Drag and drop the tile. Drop it between two groups to create a new group.
+380	Corners and edges
+381	Small
+382	Cyprus
+383	Short time
+384	Short date
+385	Paste &shortcut
+386	Nicosia
+387	Lisbon
+388	London
+389	Headlines
+390	March
+391	Desktop
+392	Show my desktop background on Start
+393	Click the Desktop tile or press Windows+D.
+394	View on the desktop
+395	There's nothing to share from the desktop.
+396	Going to the desktop
+397	&Show the desktop
+398	May
+399	Store
+400	Hello
+401	Metro Shell
+402	MetroThemePlasma source (
+403	MetroThemePlasma is already installed: it will be updated and your settings will be kept.
+404	Moscow
+405	Music
+406	Your music collection is empty. Add songs to your Music folder (
+407	Listen to your music collection
+408	Reason:
+409	Humidity
+410	Almost ready
+411	Choose what to keep
+412	April
+413	January
+414	Verified publisher:
+415	Medium
+416	Automatic
+417	AutoPlay
+418	Choose AutoPlay defaults
+419	Make Windows 8.1 the default at sign-in
+420	MetroThemePlasma is preselected on the sign-in screen; the Windows 7 session stays in the list.
+421	Sign-in options
+422	When I sign in, go to the desktop instead of Start
+423	Signing out
+424	Sign out
+425	Sign out and choose the MetroThemePlasma (Wayland) session on the sign-in screen. The first time you sign in, Windows 8.1 greets you with \"Hello\". From then on, Windows 8.1 updates itself whenever Plasma updates.
+427	Brightness
+428	Password
+429	The password is incorrect. Try again.
+430	Partly Cloudy
+431	Pacific
+432	Share
+433	Share charm
+434	Sun
+435	Sunday
+436	Monday
+437	Th
+438	Show windows stac&ked
+440	Change the color of your window borders and taskbar.
+441	Show windows side by s&ide
+442	Thu
+443	Thursday
+444	On battery power
+445	Couldn't get market data. Check your Internet connection.
+446	When plugged in
+447	Program name:
+448	Program location:
+449	Programs and F&eatures
+450	Mo
+451	Mist
+452	Su
+453	Mon
+454	Ramadan Feast
+456	Color and appearance
+457	Color intensity
+458	Choose a picture
+459	There are no photos in your Pictures library.
+460	Riyadh
+461	Rome
+462	Wind
+463	S&ystem
+464	Tu
+465	Clock
+466	Time (empty: all day)
+467	Time zone
+468	Time and language
+469	Set time automatically
+470	Hourly Forecast
+471	Tue
+472	Tuesday
+473	Sell
+474	Find on page
+475	Right corners
+476	When I point to the upper-right or lower-right corner, show the charms
+477	Showers
+478	Close tabs
+479	Sound
+480	Sound Recorder
+481	No audio device
+482	Record sounds
+483	Sound, network, brightness, notifications and power: Windows+I.
+484	Mute
+485	Quiet hours
+486	Notifications aren't shown during quiet hours. Mute for one hour now:
+487	Select
+488	Clear selection
+489	Delete
+490	Al&ign icons to grid
+491	&Auto arrange icons
+492	Foggy
+493	System Tools
+494	System Settings
+495	System type
+496	Setting things up for you
+497	Slide show
+498	Sofia
+499	Upper-left corner or Windows+Tab; Alt+Tab shows all windows.
+500	Last 30 days
+501	When I click the upper-left corner, let me switch between my recent apps
+502	Sports
+503	Sports news
+504	Standard
+505	Standard and scientific calculations
+506	Time's up
+507	Edition
+508	Cannot divide by zero
+509	Favorites
+510	Add to favorites
+511	Remove from favorites
+512	Frequent
+513	S&ort by
+514	CBRT indicative rate (selling) ·
+515	Forecast
+516	Tehran
+517	Calendar
+518	Calendar and public holidays
+519	OK
+520	Date and time
+521	Change date and time settings...
+522	Change date and time formats
+523	Repeat
+524	Clear
+525	July
+526	Tape
+527	Tbilisi
+528	Blowing Snow
+529	All day
+530	Use AutoPlay for all media and devices
+531	All your apps
+532	Select all
+533	Clear all
+534	Turkey
+535	The latest news from Turkey and the world
+536	Click
+537	Charms
+538	Opening the charms
+539	USB DRIVE
+540	Choose what happens when you insert a USB drive or memory card; you can change this in PC settings > AutoPlay.
+541	UV index
+542	National Sovereignty and Children's Day
+543	App search
+544	Show app notifications
+545	Show app notifications on the lock screen
+546	Find and install apps
+547	App switching
+548	Apps
+549	Switching between apps
+550	Switch between apps
+551	List desktop apps first in the Apps view when it's sorted by category
+552	In the Apps view, right-click an app and choose Pin to Start.
+553	Getting your apps ready
+554	Drag down from the top edge of the app, or move the mouse to the top edge and click X.
+555	Notification settings by app
+556	Closing an app
+557	Sleep
+558	Compatibility check complete
+559	Checking compatibility
+560	Zoom out
+561	Long time
+562	Long date
+563	Airplane mode
+564	Defaults
+565	Warsaw
+566	Video
+567	There are no videos in your Videos folder (
+568	Vienna
+569	Accent color
+570	Browse the web
+571	Windows cannot find '%1'. Make sure you typed the name correctly, and then try again.
+572	Upgrade from Windows 7 (AeroThemePlasma) to Windows 8.1
+573	Windows 8.1 Setup
+574	Windows 8.1 boot screen
+575	Use the Windows 8.1 boot screen
+576	The Windows 8.1 files were already imported.
+577	Windows 8.1 installation media (ISO) is required.
+578	Choose the Windows 8.1 installation media
+579	Windows 8.1 sign-in screen
+580	Use the Windows 8.1 sign-in screen
+581	Windows 8.1 starts with its default layout; files in your user folder, such as Documents and Desktop, are kept.
+582	Applying Windows 8.1 defaults
+583	Windows 8.1 is installed
+584	Windows 8.1 couldn't be installed
+585	Upgrade to Windows 8.1
+586	Install Windows 8.1
+587	Windows Setup is moving your items
+588	Keep Windows settings, personal files and apps
+589	Windows is activated
+590	Press the Windows key or click the Start button on the taskbar.
+591	Installing Windows
+592	Upgrading Windows
+593	Shut Down Windows
+594	Learn about Windows
+595	The fastest way to learn Windows. Swipe right to browse the basics.
+596	Windows+E.
+597	Windows+L locks your PC.
+598	&Paste
+599	Zoom in
+600	PC screen only
+601	Only the display changes: the system clock, days and file dates stay as they are.
+602	Second screen only
+603	Keep personal files only
+604	Show Side by Side
+605	Project
+606	Projecting and printing are in Devices, sharing is in Share.
+607	Help
+608	Help+Tips
+609	Publisher:
+610	Print
+611	Typing
+612	Software Center
+613	Rain
+614	New
+615	New InPrivate tab
+616	New event ·
+617	Restart
+618	Restarting
+619	Resize
+620	Resizing
+621	Try again
+622	Refresh
+623	Patchy Freezing Drizzle
+624	Patchy Thundersnow
+625	Patchy Thunderstorm with Rain
+626	Patchy Light Snow
+627	Patchy Light Rain
+628	Patchy Snow
+629	Patchy Sleet
+630	Patchy Rain
+631	Patchy Heavy Snow
+632	Patchy Drizzle
+633	Shut down anyway
+634	Sign out anyway
+635	Restart anyway
+636	Redo
+637	Heavy Freezing Drizzle
+638	Heavy Snow
+639	Install
+640	When you click Install, you'll be asked for administrator permission (User Account Control). You can keep using your PC during setup.
+641	Ready to install
+642	Loading...
+643	Installed memory (RAM)
+644	Rising
+645	Play
+646	New Year's Day
+647	Shift the year:
+648	Victory Day
+649	Occasional Rain
+650	Occasional Heavy Rain
+651	Timer
+652	Bell
+653	by name
+654	alarm;clock;timer;stopwatch
+655	couldn't be started
+656	not found
+657	MMMM d
+658	dddd, MMMM d
+659	MMMM d, yyyy
+660	MMMM d, yyyy h:mm AP
+661	dddd, MMMM d, yyyy
+662	M/d/
+663	M/d/yyyy
+664	by most used
+665	finance;currency;exchange rate;dollar;euro;stocks
+666	news;headlines
+667	internet;web;browser;ie
+668	camera;webcam;photo
+669	by category
+670	libAeroQt is missing (AUR: libaero-qt-git): Dolphin will be used instead of File Explorer
+671	store;install apps;package
+672	music;song;album
+673	qmake6 is missing: About Windows (winver) won't be built
+674	sound;recording;microphone;recorder
+675	en-US,en;q=0.9
+676	en_US
+677	help;tips
+678	by date installed
+679	upgrade;setup;windows 8.1
+680	year
+681	We
+682	Run
+683	Wed
+684	Wednesday
+685	Drizzle
+686	Multimedia
+687	Mostly Sunny
+688	Removable Disk
+689	Removable drive
+690	Removable drives
+691	P&roperties
+692	Your previous Metro settings are backed up and Windows 8.1 defaults are restored. Your personal files aren't deleted.
+693	Customize
+694	Customize...
+695	Finish customizing
+696	Getting features ready
+697	Item &type
+698	Product ID
+699	Show Stacked
+700	exit code
+701	Next
+702	Internet
+703	Internet access
+704	Cancel
+705	Istanbul
+706	Izmir
+707	Import
+708	Processor
+709	Damascus
+710	Shanghai
+711	Waterfall
+712	Heavy Showers
+713	Heavy Rain
+714	Check now
+715	Now playing
+716	You've made these choices:
+717	February
+718	−1 min
+719	Screenshots
+720	Screenshot (
+721	Sound recordings
+722	Recording
+723	day %1
+724	).
+725	. The installed version wasn't changed; details below.
+726	%1 minutes ago
+727	%1 hours ago
+728	&Name
+729	&Size
+730	&Medium icons
+731	Casca&de windows
+732	&Undo
+733	&Undo 
+734	Cascade
+735	&Undo
+736	&Undo 
+737	R&efresh
+738	Ne&w

@@ -1,0 +1,95 @@
+#!/usr/bin/env python3
+"""MetroThemePlasma arayüz dili: sistem dilini seçer ve o dilin Plasma paketlerini yerine koyar.
+
+    metro-dil            # oturum başında (metro-oturum): dil değiştiyse uygula
+    metro-dil --zorla    # kurulumdan sonra: her durumda uygula
+    metro-dil de         # belirli bir dil (sınama)
+    metro-dil --goster   # seçilecek dili yaz
+
+Dil sırası: KDE Bölge ve Dil ayarı (plasma-localerc), LANGUAGE, LC_ALL, LC_MESSAGES, LANG. Desteklenmeyen
+dil -> İngilizce. Çevrilmiş kopyalar kurulumda üretilir (kur.sh, tools/dil_uygula.py):
+    ~/.local/share/metrothemeplasma/dil/<dil>/plasma/{plasmoids,shells,look-and-feel}/<kimlik>
+    ~/.local/share/metrothemeplasma/dil/<dil>/kabuk/{qml,uygulamalar}, uac/qml   (metro-kabuk ve metro-uac kendisi seçer)
+    ~/.local/share/metrothemeplasma/dil/<dil>.json                               (C++ metinleri)
+Etkin dil ~/.local/share/metrothemeplasma/dil/aktif dosyasına yazılır.
+"""
+import os
+import re
+import shutil
+import sys
+from pathlib import Path
+
+DILLER = ["tr", "en", "de", "fr", "es", "it", "pt_BR", "ru", "pl", "nl", "az"]
+DATA = Path(os.environ.get("XDG_DATA_HOME", Path.home() / ".local/share"))
+CFG = Path(os.environ.get("XDG_CONFIG_HOME", Path.home() / ".config"))
+DIL = DATA / "metrothemeplasma/dil"
+
+
+def dil_sec(diller):
+    for d in diller:
+        d = d.split(".")[0].split("@")[0]
+        if not d or d in ("C", "POSIX"):
+            continue
+        if d in DILLER:
+            return d
+        if d.startswith("pt_BR") or d == "pt":
+            return "pt_BR"
+        if d.split("_")[0] in DILLER:
+            return d.split("_")[0]
+    return "en"
+
+
+def sistem_dili():
+    diller = []
+    try:
+        rc = (CFG / "plasma-localerc").read_text()
+        m = re.search(r"^\[Translations\][^\[]*?^LANGUAGE=(.+)$", rc, re.M | re.S)
+        if m:
+            diller += m.group(1).strip().split(":")
+        m = re.search(r"^\[Formats\][^\[]*?^LANG=(.+)$", rc, re.M | re.S)
+        if m and not diller:
+            diller.append(m.group(1).strip())
+    except OSError:
+        pass
+    for d in ("LANGUAGE", "LC_ALL", "LC_MESSAGES", "LANG"):
+        if os.environ.get(d):
+            diller += os.environ[d].split(":")
+    return dil_sec(diller)
+
+
+def uygula(dil):
+    kaynak = DIL / dil / "plasma"
+    if not kaynak.is_dir():
+        return False
+    for tur in ("plasmoids", "shells", "look-and-feel"):
+        for paket in sorted((kaynak / tur).glob("*")) if (kaynak / tur).is_dir() else []:
+            hedef = DATA / "plasma" / tur / paket.name
+            gecici = hedef.with_name(hedef.name + ".metro-dil")
+            shutil.rmtree(gecici, ignore_errors=True)
+            shutil.copytree(paket, gecici, symlinks=True)
+            shutil.rmtree(hedef, ignore_errors=True)
+            gecici.rename(hedef)
+    (DIL / "aktif").write_text(dil + "\n")
+    return True
+
+
+def main():
+    arg = [a for a in sys.argv[1:] if not a.startswith("--")]
+    dil = arg[0] if arg else sistem_dili()
+    if "--goster" in sys.argv:
+        print(dil)
+        return
+    if dil not in DILLER or not (DIL / dil).is_dir():
+        dil = "en" if (DIL / "en").is_dir() else "tr"
+    try:
+        aktif = (DIL / "aktif").read_text().strip()
+    except OSError:
+        aktif = ""
+    if aktif == dil and "--zorla" not in sys.argv:
+        return
+    if uygula(dil):
+        print("Windows 8.1 arayüz dili:", dil)
+
+
+if __name__ == "__main__":
+    main()

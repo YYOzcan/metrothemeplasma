@@ -10,6 +10,7 @@
 // önce klasörler) menüde gösterilmez; yalnız özellik olarak korunur.
 
 #include "viewpropertiesmenu.h"
+#include "../../../ortak/metroceviri.h"
 
 #include <QActionGroup>
 #include <QApplication>
@@ -25,9 +26,9 @@ ViewPropertiesMenu::ViewPropertiesMenu(QObject *parent)
     // ---- simge boyutu (Plasma iconSize dizini: 1=32, 2=48, 4=96 px; Windows küçük/orta/büyük)
     m_iconSize = new QActionGroup(this);
     m_iconSize->setExclusive(true);
-    const QList<QPair<int, QString>> boyutlar{{4, QStringLiteral("&Büyük simgeler")},
-                                              {2, QStringLiteral("O&rta boyutlu simgeler")},
-                                              {1, QStringLiteral("&Küçük simgeler")}};
+    const QList<QPair<int, QString>> boyutlar{{4, mtr(QStringLiteral("&Büyük simgeler"))},
+                                              {2, mtr(QStringLiteral("O&rta boyutlu simgeler"))},
+                                              {1, mtr(QStringLiteral("&Küçük simgeler"))}};
     for (const auto &[deger, ad] : boyutlar) {
         QAction *action = m_menu->addAction(ad);
         action->setCheckable(true);
@@ -40,30 +41,30 @@ ViewPropertiesMenu::ViewPropertiesMenu(QObject *parent)
     });
 
     m_menu->addSeparator();
-    m_otomatik = m_menu->addAction(QStringLiteral("Simgeleri o&tomatik düzenle"));
+    m_otomatik = m_menu->addAction(mtr(QStringLiteral("Simgeleri o&tomatik düzenle")));
     m_otomatik->setCheckable(true);
     connect(m_otomatik, &QAction::triggered, this, [this](bool acik) {
         m_sortModeValue = acik ? int(KDirModel::Name) : -1;
         Q_EMIT sortModeChanged();
     });
     // Plasma simgeleri her zaman kılavuza oturtur: Windows'taki gibi işaretli durur
-    m_kilavuz = m_menu->addAction(QStringLiteral("Simgeleri kılavuz çizgisine hi&zala"));
+    m_kilavuz = m_menu->addAction(mtr(QStringLiteral("Simgeleri kılavuz çizgisine hi&zala")));
     m_kilavuz->setCheckable(true);
     m_kilavuz->setChecked(true);
     connect(m_kilavuz, &QAction::triggered, m_kilavuz, [this] { m_kilavuz->setChecked(true); });
 
     m_menu->addSeparator();
-    m_simgeler = m_menu->addAction(QStringLiteral("&Masaüstü simgelerini göster"));
+    m_simgeler = m_menu->addAction(mtr(QStringLiteral("&Masaüstü simgelerini göster")));
     m_simgeler->setCheckable(true);
     m_simgeler->setChecked(true);
     connect(m_simgeler, &QAction::triggered, this, &ViewPropertiesMenu::showIconsChanged);
 
     // ---- Sıralama ölçütü: Windows'ta işaretsiz; otomatik düzen kapalıyken bir kez sıralar
-    m_sortMenu = new QMenu(QStringLiteral("Sıralama &ölçütü"));
-    const QList<QPair<int, QString>> olcutler{{int(KDirModel::Name), QStringLiteral("&Ad")},
-                                              {int(KDirModel::Size), QStringLiteral("&Boyut")},
-                                              {int(KDirModel::Type), QStringLiteral("Öğe &türü")},
-                                              {int(KDirModel::ModifiedTime), QStringLiteral("&Değiştirme tarihi")}};
+    m_sortMenu = new QMenu(mtr(QStringLiteral("Sıralama &ölçütü")));
+    const QList<QPair<int, QString>> olcutler{{int(KDirModel::Name), mtr(QStringLiteral("&Ad"))},
+                                              {int(KDirModel::Size), mtr(QStringLiteral("&Boyut"))},
+                                              {int(KDirModel::Type), mtr(QStringLiteral("Öğe &türü"))},
+                                              {int(KDirModel::ModifiedTime), mtr(QStringLiteral("&Değiştirme tarihi"))}};
     for (const auto &[deger, ad] : olcutler) {
         QAction *action = m_sortMenu->addAction(ad);
         connect(action, &QAction::triggered, this, [this, deger] { Q_EMIT sortRequested(deger); });

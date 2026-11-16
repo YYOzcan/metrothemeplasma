@@ -1,0 +1,733 @@
+1	 (veille)
+2	 : paramètres
+3	 minutes
+4	 : choisissez l'action à effectuer.
+5	 heures
+6	 : page
+7	 terminé
+8	 · Compte local
+9	 éléments importés
+10	 éléments en cours d'importation...
+11	 éléments sélectionnés
+12	Fermeture de %d applications et arrêt
+13	Fermeture de %d applications et redémarrage
+14	Fermeture de %d applications et déconnexion
+15	&Ouvrir :
+16	Connexions ré&seau
+17	&Grandes icônes
+18	&Modifié le
+19	Gestion du dis&que
+20	Gestionnaire des &tâches
+21	&Affichage
+22	&Arrêter
+23	&Arrêter ou se déconnecter
+24	Per&sonnaliser
+25	&Petites icônes
+26	&Bureau
+27	Afficher les icônes du &Bureau
+28	&Observateur d'événements
+29	Se &déconnecter
+30	&Veille
+31	&Redémarrer
+32	E&xécuter
+33	) pour les voir ici, classés par album.
+34	+ Nouvel événement
+35	, mettre le PC en veille après
+36	, désactiver après
+37	Masquer pendant 1 heure
+38	Fermeture d'1 application et arrêt
+39	Fermeture d'1 application et redémarrage
+40	Fermeture d'1 application et déconnexion
+41	Masquer pendant 3 heures
+42	Système d'exploitation 32 bits
+43	Système d'exploitation 64 bits, processeur x64
+44	Masquer pendant 8 heures
+45	&Rechercher
+47	Nom
+48	AeroThemePlasma (Windows 7) détecté : une mise à niveau vers Windows 8.1 est possible. Votre session Windows 7 reste inchangée.
+49	AeroThemePlasma introuvable : Windows 8.1 sera installé en mode nouvelle installation.
+50	Mise à niveau et mise à jour d'AeroThemePlasma (Windows 7) vers Windows 8.1
+51	Le moteur de barre des tâches d'AeroThemePlasma est absent : la barre des tâches de Plasma sera utilisée
+52	Afrique
+53	Accords
+54	Alarme
+55	Alarme, minuteur et chronomètre
+56	Alarmes
+57	Allemagne
+58	Achat
+59	Amérique
+60	Accueil
+61	Accueil
+62	Antarctique
+64	Rechercher
+65	décembre
+66	Recherche et applications
+67	Arrière-plan
+68	Couleur d'arrière-plan
+69	Arctique
+70	Asie
+71	Commémoration d'Atatürk, fête de la Jeunesse et des Sports
+72	Athènes
+73	Atlantique
+74	Europe
+75	Australie
+76	Mois
+77	Paramètres
+78	Icône Paramètres
+79	Ouvrir les paramètres
+80	&Gestionnaire de périphériques
+81	Périphériques
+82	Icône Périphériques
+83	Périphériques et Partager
+84	Détails
+85	Masquer les détails
+86	Afficher les détails
+87	Azerbaïdjan
+88	Ouvrir
+89	Activé
+89@HavaKutucugu.qml	Dégagé
+90	Afficher les fenêtres &ouvertes
+91	Réseau
+92	Réseaux
+93	août
+94	Voulez-vous autoriser le programme suivant à apporter des modifications à cet ordinateur ?
+95	Bakou
+96	Baromètre
+97	Basket-ball
+98	Bagdad
+99	Aucune connexion
+100	Connexions
+101	Connexion…
+102	Connexion…
+103	Connecté
+104	Non connecté
+105	Accueil
+106	Écran d'accueil
+107	Épingler à l'écran d'accueil
+108	Désépingler de l'écran d'accueil
+109	Accès à l'écran d'accueil
+110	Afficher automatiquement la vue Applications lorsque j'accède à l'écran d'accueil
+111	Épinglage à l'écran d'accueil
+112	Commencez simplement à taper sur l'écran d'accueil ; les résultats s'affichent immédiatement.
+113	Cliquez sur la flèche vers le bas en bas à gauche de l'écran d'accueil, ou appuyez sur Ctrl+Tab.
+114	Cliquez avec le bouton droit sur le bouton Démarrer, ou appuyez sur Windows+X.
+115	Vous pouvez commencer
+116	Cartes mémoire
+117	Carte mémoire
+118	Beyrouth
+119	Gestion de l'ordi&nateur
+120	Affiche toutes les icônes de la zone de notification
+121	Émettre des sons de notification
+122	Notifications
+123	Infos
+124	PC
+125	Nom du PC
+126	Paramètres du PC
+127	Modifier les paramètres du PC
+128	Application de vos paramètres du PC
+129	Logo Windows et points qui tournent au démarrage du PC (l'initramfs est reconstruit ; cela peut prendre quelques minutes).
+130	Informations sur le PC
+131	PC et périphériques
+132	Les programmes qui modifient votre PC demandent votre mot de passe administrateur ; n'autorisez pas les programmes que vous ne connaissez pas.
+133	Renommer le PC
+134	Que voulez-vous que le PC fasse ?
+135	Une fois votre PC prêt
+136	N'éteignez pas votre PC
+137	N'éteignez pas votre PC. Cette opération peut prendre un certain temps.
+138	Science et technologie
+139	Scientifique
+140	Album inconnu
+141	Voulez-vous autoriser le programme suivant provenant d'un éditeur inconnu à apporter des modifications à cet ordinateur ?
+142	Programme inconnu
+143	Artiste inconnu
+144	Inconnu
+145	Une fois
+146	Entrez le nom d'un programme, dossier, document ou ressource Internet, et Windows l'ouvrira pour vous.
+147	Finalisation de quelques opérations
+148	Royaume-Uni
+149	Formats
+150	Cliquez avec le bouton droit sur une zone vide, choisissez Personnaliser, puis tapez un nom au-dessus du groupe.
+151	Bruxelles
+152	Aucune application ne correspond à votre recherche.
+153	Ces paramètres se modifient dans les Paramètres système.
+154	Appuyez pour choisir l'action à effectuer pour ce périphérique.
+155	Aucune photo ni vidéo n'a été trouvée sur ce périphérique.
+156	Disque dur de ce PC
+157	Ce fichier est introuvable.
+158	La fonctionnalité d'entrée tactile ou avec un stylet n'est pas disponible sur cet écran
+159	Configurer ce lecteur pour la sauvegarde
+160	Configurer ce lecteur pour la sauvegarde (Historique des fichiers)
+161	Cette application ne peut pas envoyer de contenu à d'autres périphériques.
+162	Cette application vous empêche de vous déconnecter.
+163	Cette application ne peut pas imprimer.
+164	Cette application empêche l'arrêt.
+165	Cette application vous empêche de redémarrer.
+166	Aujourd'hui
+167	Nuageux
+168	Granules de glace
+169	Averses de granules de glace
+170	Région et langue
+171	Volet
+172	Bucarest
+173	Grande
+174	Activer la vignette dynamique
+175	Désactiver la vignette dynamique
+176	Verr. Maj est activé
+177	sam.
+178	Sa
+179	Ve
+180	ven.
+181	vendredi
+182	samedi
+183	Fête de la République
+184	Panneau de config&uration
+185	Afficher plus de vignettes
+186	Plus tard
+187	Pulsation
+188	Journée de la démocratie et de l'unité nationale
+189	Panneau de configuration
+190	Pour continuer, entrez un mot de passe administrateur, puis cliquez sur Oui.
+191	Préférences linguistiques
+192	Autre
+193	Plus de détails
+194	Autres comptes
+195	Pluie verglaçante
+196	Bruine verglaçante
+197	Accessoires
+198	Brouillard givrant
+199	&Explorateur de fichiers
+200	Explorateur de fichiers
+201	Historique des fichiers
+202	Source du fichier :
+203	Ouvrir l'emplacement du fichier
+204	Fichiers
+205	Préparation des fichiers pour l'installation
+206	Ouvrir le dossier et afficher les fichiers
+207	Ouvrir le dossier et afficher les fichiers (Explorateur de fichiers)
+208	Faire pivoter
+209	Taux de change et actualité économique
+210	Devises ›
+211	Monde
+212	Pour plus d'informations, accédez à Système dans le Panneau de configuration
+213	Paramètres d'alimentation supplémentaires
+214	Plus d'options
+215	octobre
+216	Économie
+217	Affichage
+218	Capture d'écran
+219	Prendre et enregistrer une capture d'écran
+220	Lorsque l'écran s'éteint
+221	Délai de l'écran de verrouillage
+222	Résolution d'é&cran
+223	Manquant :
+224	Fête du Travail et de la Solidarité
+225	Options d'ergonomie
+226	Options d'ergonomie
+227	Activation
+228	Nom de l'événement
+229	Aucun événement
+230	Oui
+231	Aucune action
+232	Action :
+233	septembre
+234	Éducation
+235	Souris et pavé tactile
+236	Placez la souris dans un coin
+237	Placez la souris dans le coin supérieur droit ou inférieur droit, ou appuyez sur Windows+C.
+238	Pellicule
+239	Finance
+240	Prendre des photos et des vidéos
+241	Photos
+242	Retour à Photos
+243	Importer des photos et des vidéos
+244	Importer des photos et des vidéos (Photos)
+245	Afficher vos photos
+246	France
+247	Football
+248	&Parcourir...
+249	<u>F</u>in de tâche
+250	Paramètres d'affichage avancés
+251	Développement
+252	Général
+253	Large
+254	Développer
+255	Précédent
+256	Pour revenir en arrière et enregistrer votre travail, cliquez sur Annuler et terminez ce que vous devez faire.
+257	Navigation
+258	Entrée non valide
+259	Afficher les icônes cachées
+260	Confidentialité
+261	Nommer le groupe
+262	Nommer les groupes
+263	Orage
+264	Orage de neige
+265	Orage avec pluie
+266	Gestionnaire des tâches
+267	L'année affichée dans l'horloge et le calendrier de la barre des tâches est décalée de cette valeur (ex. -10 :
+268	Verrouiller la &barre des tâches
+269	Épingler à la barre des tâches
+270	Les programmes épinglés à la barre des tâches et au menu Démarrer, l'arrière-plan du Bureau et vos fichiers personnels sont conservés.
+271	Détacher de la barre des tâches
+272	Les images, sons et polices proviennent de votre propre copie de Windows 8.1 ; le dépôt ne contient aucun fichier Microsoft. Entrez le chemin du fichier ISO ou de install.wim.
+273	Visibilité
+274	Afficher
+275	Parcourir
+276	Jour
+277	Coucher du soleil
+278	Lever du soleil
+279	Météo actuelle et prévisions
+280	Mise à jour et récupération
+281	Les mises à jour sont installées avec le gestionnaire de paquets du système.
+282	Ensoleillé
+283	Sécurité et périphériques
+284	Marche/Arrêt
+285	&Options d'alimentation
+286	Alimentation et mise en veille
+287	Paramètres d'alimentation et de mise en veille
+289	Lire l'article complet ›
+290	Actualités
+291	Impossible d'obtenir les actualités. Vérifiez votre connexion Internet.
+292	Actualités ›
+293	Faibles averses de granules de glace
+294	Faible pluie verglaçante
+295	Faibles averses de neige
+296	Faibles chutes de neige
+297	Faibles averses de neige fondue
+298	Faible neige fondue
+299	Faibles averses
+300	Pluie faible
+301	Jours de semaine
+302	Premier jour de la semaine
+303	Météo
+304	Impossible d'obtenir la météo. Vérifiez votre connexion Internet.
+305	Non
+306	juin
+307	Vous n'avez encore ajouté aucun site favori.
+308	Tous les jours
+309	Me demander à chaque fois
+310	Partout
+311	Rechercher partout : Windows+S.
+312	Votre compte
+313	Calculatrice
+314	Créer un avatar
+315	Modifier l'avatar
+316	Comptes
+317	Océan Indien
+318	Ressenti
+319	Jamais
+320	Rien
+321	Ne rien conserver
+322	Ne rien faire
+323	Aucune lecture en cours
+324	Pays-Bas
+325	Haut-parleurs
+326	Bienvenue
+327	Menu Lien rapide
+328	Internet Explorer (Bureau)
+329	Le Caire
+330	Désinstaller
+331	Stylet et fonction tactile
+332	Calcutta
+333	Appareil photo
+334	Vérifiez que l'appareil photo est connecté et qu'il n'est pas utilisé par une autre application.
+335	Nous ne trouvons pas votre appareil photo
+336	Changer d'appareil photo
+337	Canal
+338	Désactivé
+338@HavaKutucugu.qml	Couvert
+339	Fermer
+340	Arrêt bloqué
+341	Arrêt en cours
+342	Les messages de la console sont masqués à l'arrêt ; à chaque mise à jour de Plasma, Windows 8.1 se met à jour automatiquement
+343	Blizzard
+344	Averses de neige
+345	Neige
+346	Averses de neige fondue
+347	Neige fondue
+348	Lecture aléatoire
+349	Mélangeur
+350	novembre
+351	Enregistrer
+352	Appuyez pour enregistrer
+354	Écran de verrouillage
+355	Écran de connexion Windows 8.1 avec l'image de votre écran de verrouillage et les couleurs de l'écran d'accueil.
+356	Définir comme écran de verrouillage
+357	Modifier l'écran de verrouillage, l'avatar et les couleurs
+358	Verrouiller
+359	Verrouillage
+360	Effacer les informations personnelles de mes vignettes
+361	Vidéos personnelles
+362	Regarder vos vidéos personnelles
+363	Personnaliser
+364	Personnalisation
+365	Ouvrir le dossier
+366	Collection
+367	Invite de &commandes
+368	Invite de commandes (&admin)
+369	Chronomètre
+370	Jérusalem
+371	Contrôle de compte d'utilisateur
+372	L'approbation du Contrôle de compte d'utilisateur n'a pas été donnée
+373	Changer d'utilisateur
+374	Non disponible
+375	Fête du Sacrifice
+376	Vignettes
+377	Organisation des vignettes
+378	Cliquez avec le bouton droit sur la vignette et choisissez Redimensionner.
+379	Faites glisser la vignette. Déposez-la entre deux groupes pour créer un nouveau groupe.
+380	Coins et bords
+381	Petite
+382	Chypre
+383	Heure (courte)
+384	Date (courte)
+385	Coller le &raccourci
+386	Nicosie
+387	Lisbonne
+388	Londres
+389	À la une
+390	mars
+391	Bureau
+392	Afficher l'arrière-plan du Bureau sur l'écran d'accueil
+393	Cliquez sur la vignette Bureau ou appuyez sur Windows+D.
+394	Afficher sur le Bureau
+395	Il n'y a rien à partager depuis le Bureau.
+396	Accès au Bureau
+397	Affic&her le Bureau
+398	mai
+399	Windows Store
+400	Bonjour
+401	Shell Metro
+402	Source de MetroThemePlasma (
+403	MetroThemePlasma est déjà installé : il sera mis à jour et vos paramètres seront conservés.
+404	Moscou
+405	Musique
+406	Votre collection musicale est vide. Ajoutez des chansons à votre dossier Musique (
+407	Écouter votre collection musicale
+408	Raison :
+409	Humidité
+410	Presque terminé
+411	Choisissez ce que vous voulez conserver
+412	avril
+413	janvier
+414	Éditeur vérifié :
+415	Moyenne
+416	Automatique
+417	Exécution automatique
+418	Choisir les paramètres par défaut de l'exécution automatique
+419	Définir Windows 8.1 par défaut à la connexion
+420	MetroThemePlasma est présélectionné sur l'écran de connexion ; la session Windows 7 reste dans la liste.
+421	Options de connexion
+422	Accéder au Bureau au lieu de l'écran d'accueil lorsque je me connecte
+423	Déconnexion
+424	Se déconnecter
+425	Déconnectez-vous et choisissez la session MetroThemePlasma (Wayland) sur l'écran de connexion. Lors de votre première connexion, Windows 8.1 vous accueille avec \"Bonjour\". Ensuite, Windows 8.1 se met à jour automatiquement à chaque mise à jour de Plasma.
+427	Luminosité
+428	Mot de passe
+429	Le mot de passe est incorrect. Réessayez.
+430	Partiellement nuageux
+431	Pacifique
+432	Partager
+433	Icône Partager
+434	dim.
+435	dimanche
+436	lundi
+437	Je
+438	Afficher les fenêtres &empilées
+440	Modifiez la couleur des bordures de fenêtre et de la barre des tâches.
+441	Afficher les fenêtres côte à &côte
+442	jeu.
+443	jeudi
+444	Sur batterie
+445	Impossible d'obtenir les données du marché. Vérifiez votre connexion Internet.
+446	Sur secteur
+447	Nom du programme :
+448	Emplacement du programme :
+449	Programmes et &fonctionnalités
+450	Lu
+451	Brume
+452	Di
+453	lun.
+454	Fête de la fin du Ramadan
+456	Couleur et apparence
+457	Intensité des couleurs
+458	Choisir une image
+459	Votre bibliothèque Images ne contient aucune photo.
+460	Riyad
+461	Rome
+462	Vent
+463	S&ystème
+464	Ma
+465	Horloge
+466	Heure (vide : toute la journée)
+467	Fuseau horaire
+468	Heure et langue
+469	Régler l'heure automatiquement
+470	Prévisions horaires
+471	mar.
+472	mardi
+473	Vente
+474	Rechercher dans la page
+475	Coins droits
+476	Afficher les icônes lorsque je pointe vers le coin supérieur droit ou inférieur droit
+477	Averses
+478	Fermer les onglets
+479	Son
+480	Magnétophone
+481	Aucun périphérique audio
+482	Enregistrer des sons
+483	Son, réseau, luminosité, notifications et marche/arrêt : Windows+I.
+484	Muet
+485	Heures calmes
+486	Les notifications ne s'affichent pas pendant les heures calmes. Couper le son pendant une heure :
+487	Sélectionner
+488	Effacer la sélection
+489	Supprimer
+490	&Aligner les icônes sur la grille
+491	&Organisation automatique des icônes
+492	Brouillard
+493	Outils système
+494	Paramètres système
+495	Type du système
+496	Configuration de vos paramètres
+497	Diaporama
+498	Sofia
+499	Coin supérieur gauche ou Windows+Tab ; Alt+Tab affiche toutes les fenêtres.
+500	30 derniers jours
+501	Me permettre de basculer entre mes applications récentes en cliquant dans le coin supérieur gauche
+502	Sports
+503	Actualité sportive
+504	Standard
+505	Calculs standard et scientifiques
+506	Temps écoulé
+507	Édition
+508	Impossible de diviser par zéro
+509	Favoris
+510	Ajouter aux favoris
+511	Supprimer des favoris
+512	Fréquents
+513	&Trier par
+514	Cours indicatif de la CBRT (vente) ·
+515	Prévisions
+516	Téhéran
+517	Calendrier
+518	Calendrier et jours fériés
+519	OK
+520	Date et heure
+521	Modifier les paramètres de date et d'heure...
+522	Modifier les formats de date et d'heure
+523	Répéter
+524	Effacer
+525	juillet
+526	Bande
+527	Tbilissi
+528	Poudrerie
+529	Toute la journée
+530	Utiliser l'exécution automatique pour tous les médias et périphériques
+531	Toutes vos applications
+532	Sélectionner tout
+533	Effacer tout
+534	Turquie
+535	Les dernières actualités de Turquie et du monde
+536	Clic
+537	Icônes
+538	Ouverture des icônes
+539	LECTEUR USB
+540	Choisissez ce qui se passe lorsque vous insérez un lecteur USB ou une carte mémoire ; vous pouvez le modifier dans Paramètres du PC > Exécution automatique.
+541	Indice UV
+542	Fête de la souveraineté nationale et des enfants
+543	Recherche d'applications
+544	Afficher les notifications des applications
+545	Afficher les notifications des applications sur l'écran de verrouillage
+546	Rechercher et installer des applications
+547	Basculement entre applications
+548	Applications
+549	Basculer entre les applications
+550	Basculer entre les applications
+551	Afficher d'abord les applications de bureau dans la vue Applications lorsqu'elle est triée par catégorie
+552	Dans la vue Applications, cliquez avec le bouton droit sur une application et choisissez Épingler à l'écran d'accueil.
+553	Préparation de vos applications
+554	Faites glisser l'application vers le bas depuis le bord supérieur, ou placez la souris en haut et cliquez sur X.
+555	Paramètres de notification par application
+556	Fermeture d'une application
+557	Veille
+558	Vérification de la compatibilité terminée
+559	Vérification de la compatibilité
+560	Zoom arrière
+561	Heure (longue)
+562	Date (longue)
+563	Mode Avion
+564	Valeurs par défaut
+565	Varsovie
+566	Vidéo
+567	Votre dossier Vidéos (
+568	Vienne
+569	Couleur d'accentuation
+570	Naviguer sur le Web
+571	Windows ne trouve pas « %1 ». Vérifiez que le nom est correct et réessayez.
+572	Mise à niveau de Windows 7 (AeroThemePlasma) vers Windows 8.1
+573	Installation de Windows 8.1
+574	Écran de démarrage de Windows 8.1
+575	Utiliser l'écran de démarrage de Windows 8.1
+576	Les fichiers Windows 8.1 ont déjà été importés.
+577	Le support d'installation de Windows 8.1 (ISO) est requis.
+578	Choisir le support d'installation de Windows 8.1
+579	Écran de connexion de Windows 8.1
+580	Utiliser l'écran de connexion de Windows 8.1
+581	Windows 8.1 démarre avec sa disposition par défaut ; les fichiers de votre dossier utilisateur, comme Documents et Bureau, sont conservés.
+582	Application des paramètres par défaut de Windows 8.1
+583	Windows 8.1 est installé
+584	Impossible d'installer Windows 8.1
+585	Mettre à niveau vers Windows 8.1
+586	Installer Windows 8.1
+587	Le programme d'installation de Windows déplace vos éléments
+588	Conserver les paramètres Windows, les fichiers personnels et les applications
+589	Windows est activé
+590	Appuyez sur la touche Windows ou cliquez sur le bouton Démarrer dans la barre des tâches.
+591	Installation de Windows
+592	Mise à niveau de Windows
+593	Arrêter Windows
+594	Découvrir Windows
+595	Le moyen le plus rapide de découvrir Windows. Faites défiler vers la droite pour parcourir les notions de base.
+596	Windows+E.
+597	Windows+L verrouille votre PC.
+598	C&oller
+599	Zoom avant
+600	Écran du PC uniquement
+601	Seul l'affichage change : l'horloge système, les jours et les dates des fichiers restent inchangés.
+602	Deuxième écran uniquement
+603	Conserver uniquement les fichiers personnels
+604	Afficher côte à côte
+605	Projeter
+606	La projection et l'impression se trouvent dans Périphériques, le partage dans Partager.
+607	Aide
+608	Aide et conseils
+609	Éditeur :
+610	Imprimer
+611	Saisie
+612	Software Center
+613	Pluie
+614	Nouveau
+615	Nouvel onglet InPrivate
+616	Nouvel événement ·
+617	Redémarrer
+618	Redémarrage
+619	Redimensionner
+620	Redimensionnement
+621	Réessayer
+622	Actualis&er
+623	Bruine verglaçante éparse
+624	Orages de neige épars
+625	Orages épars avec pluie
+626	Faibles chutes de neige éparses
+627	Pluie faible éparse
+628	Chutes de neige éparses
+629	Neige fondue éparse
+630	Pluie éparse
+631	Fortes chutes de neige éparses
+632	Bruine éparse
+633	Arrêter quand même
+634	Se déconnecter quand même
+635	Redémarrer quand même
+636	Rétablir
+637	Forte bruine verglaçante
+638	Fortes chutes de neige
+639	Installer
+640	Lorsque vous cliquez sur Installer, une autorisation d'administrateur vous est demandée (Contrôle de compte d'utilisateur). Vous pouvez continuer à utiliser votre PC pendant l'installation.
+641	Prêt pour l'installation
+642	Chargement...
+643	Mémoire installée (RAM)
+644	Montée
+645	Lire
+646	Jour de l'An
+647	Décaler l'année :
+648	Fête de la Victoire
+649	Pluie intermittente
+650	Fortes pluies intermittentes
+651	Minuteur
+652	Sonnerie
+653	par nom
+654	alarme;réveil;minuteur;chronomètre
+655	n'a pas pu démarrer
+656	introuvable
+657	d MMMM
+658	dddd d MMMM
+659	d MMMM yyyy
+660	d MMMM yyyy HH:mm
+661	dddd d MMMM yyyy
+662	dd/MM/
+663	dd/MM/yyyy
+664	par fréquence d'utilisation
+665	finance;devises;taux de change;dollar;euro;bourse
+666	actualités;infos;news
+667	internet;web;navigateur;ie
+668	appareil photo;webcam;photo;caméra
+669	par catégorie
+670	libAeroQt est absent (AUR : libaero-qt-git) : Dolphin sera utilisé à la place de l'Explorateur de fichiers
+671	store;installer des applications;paquet
+672	musique;chanson;album
+673	qmake6 est absent : À propos de Windows (winver) ne sera pas compilé
+674	son;enregistrement;microphone;magnétophone
+675	fr-FR,fr;q=0.9,en;q=0.6
+676	fr_FR
+677	aide;conseils
+678	par date d'installation
+679	mise à niveau;installation;windows 8.1
+680	année
+681	Me
+682	Exécuter
+683	mer.
+684	mercredi
+685	Bruine
+686	Multimédia
+687	Généralement ensoleillé
+688	Disque amovible
+689	Lecteur amovible
+690	Lecteurs amovibles
+691	P&ropriétés
+692	Vos paramètres Metro précédents sont sauvegardés et les valeurs par défaut de Windows 8.1 sont rétablies. Vos fichiers personnels ne sont pas supprimés.
+693	Personnaliser
+694	Personnaliser...
+695	Terminer la personnalisation
+696	Préparation des fonctionnalités
+697	Type d'é&lément
+698	ID de produit
+699	Afficher empilées
+700	code de sortie
+701	Suivant
+702	Internet
+703	Accès à Internet
+704	Annuler
+705	Istanbul
+706	Izmir
+707	Importer
+708	Processeur
+709	Damas
+710	Shanghai
+711	Cascade
+712	Fortes averses
+713	Forte pluie
+714	Vérifier maintenant
+715	En cours de lecture
+716	Vous avez fait les choix suivants :
+717	février
+718	−1 min
+719	Captures d'écran
+720	Capture d'écran (
+721	Enregistrements audio
+722	Enregistrement
+723	jour %1
+724	) ne contient aucune vidéo.
+725	. La version installée n'a pas été modifiée ; détails ci-dessous.
+726	il y a %1 minutes
+727	il y a %1 heures
+728	&Nom
+729	&Taille
+730	Icônes &moyennes
+731	&Cascade
+732	&Annuler
+733	&Annuler 
+734	Cascade
+735	&Annuler
+736	&Annuler 
+737	Actualis&er
+738	&Nouveau

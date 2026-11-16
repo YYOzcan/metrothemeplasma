@@ -121,6 +121,19 @@ uygulamalar, "Yine de kapat" ve "İptal". Kapanışta metin konsoluna "The syste
 logind duyuruları kapalı). Görev çubuğu saatinde yıl isteğe bağlı kaydırılarak gösterilebilir
 (sağ tık > Yapılandır > Yılı kaydır; yalnızca görüntü, sistem saati değişmez).
 
+## Diller
+
+Arayüz Türkçe ve 10 dilde: English, Deutsch, Français, Español, Italiano, Português (Brasil), Русский, Polski,
+Nederlands, Azərbaycan dili. Dili sistem seçer: her oturum açılışında `metro-dil`, KDE'nin Bölge ve Dil ayarına
+(yoksa `LANGUAGE`/`LANG`) bakar; desteklenmeyen dillerde İngilizce kullanılır. Açılış ve oturum açma ekranları
+`/etc/locale.conf`'taki sistem dilini kullanır.
+
+- Çeviriler `diller/<dil>.tsv` dosyalarında (numara, sekme, çeviri); kaynak metinler `diller/kaynak.tsv`
+  (`python3 -I tools/dil_cikar.py` toplar). Terimler Windows 8.1'in o dildeki arayüzünden.
+- Kurulum her dilin kopyasını üretir (`tools/dil_uygula.py`); C++ metinleri `ortak/metroceviri.h` ile çevrilir.
+- Dosya Gezgini, Denetim Masası ve Aygıt Yöneticisi Türkçe sistemde Türkçe, diğer dillerde özgün İngilizceleriyle derlenir.
+- Kalan Türkçe metinleri görmek: `python3 -I tools/dil_uygula.py rapor <dil> <çevrilmiş dizin>`.
+
 ## Kendiliğinden güncelleme
 
 `sudo bash kur.sh --sistem` bir pacman kancası da kurar (`/etc/pacman.d/hooks/91-metro-guncelle.hook`):

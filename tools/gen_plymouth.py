@@ -116,8 +116,14 @@ def main(win, cikti, arka="#180053"):
     fontlar = win / "Windows/Fonts"
     # LogonUI durum yazısı 20 pt Segoe UI Light = 26,67 px (96 DPI); 4 kat büyük çizilir, betik küçültür
     # (görüntü yüksekliği yazı boyunun 1,5 katı: 1080p/%100'de 40 px)
-    yazi("Kapatılıyor", fontlar, 107).save(cikti / "kapat-kapat.png")
-    yazi("Yeniden başlatılıyor", fontlar, 107).save(cikti / "kapat-yeniden.png")
+    # yazılar sistemin dilinde (açılış/kapanış ekranı oturumdan bağımsız): diller/<dil>.tsv
+    import sys as _sys
+    _sys.path.insert(0, str(Path(__file__).resolve().parent))
+    from dil_ortak import sistem_dili
+    from dil_uygula import yukle
+    sozluk, _ = yukle(sistem_dili())
+    yazi(sozluk.get("Kapatılıyor", "Kapatılıyor"), fontlar, 107).save(cikti / "kapat-kapat.png")
+    yazi(sozluk.get("Yeniden başlatılıyor", "Yeniden başlatılıyor"), fontlar, 107).save(cikti / "kapat-yeniden.png")
     h = arka.lstrip("#")
     r, g, b = (int(h[i:i + 2], 16) / 255 for i in (0, 2, 4))
     (cikti / "renk.script").write_text(f"global.arka_r = {r:.4f};\nglobal.arka_g = {g:.4f};\nglobal.arka_b = {b:.4f};\n"

@@ -45,7 +45,7 @@ Item {
         eksikler = e; uyarilar = u
         if (!winVar) {
             var l = []
-            ;[Dosya.ev + "/İndirilenler", Dosya.ev + "/Downloads", Dosya.ev + "/Masaüstü", Dosya.ev].forEach(function (d) {
+            ;[Yardimci.kitaplik("indirilen"), Dosya.ev + "/Downloads", Yardimci.kitaplik("masaustu"), Dosya.ev].forEach(function (d) {
                 Yardimci.dosyalar(d, ["*.iso", "*.ISO"]).forEach(function (f) { if (/8\.1|win.*8|windows/i.test(f.ad)) l.push(f.yol) })
             })
             if (l.length && !iso) iso = l[0]

@@ -1,4 +1,5 @@
 #include "kabuk.h"
+#include "../../ortak/metroceviri.h"
 
 #include <KGlobalAccel>
 #include <QAction>
@@ -18,9 +19,9 @@ Kabuk::Kabuk(QObject *parent)
 
     // Windows tuşu tek başına (KWin 6.8: yalnız değiştirici tuş kısayolları KGlobalAccel'de "Meta") + Ctrl+Esc.
     // Windows'ta değiştirilemez; kayıtlı eski değer (yalnız Ctrl+Esc) varsa ezilir.
-    connect(kisayol(QStringLiteral("baslangic"), QStringLiteral("Başlangıç ekranı"), {QKeySequence(Qt::Key_Meta), Qt::CTRL | Qt::Key_Escape}, true),
+    connect(kisayol(QStringLiteral("baslangic"), mtr(QStringLiteral("Başlangıç ekranı")), {QKeySequence(Qt::Key_Meta), Qt::CTRL | Qt::Key_Escape}, true),
             &QAction::triggered, this, &Kabuk::Baslangic);
-    connect(kisayol(QStringLiteral("tilsimlar"), QStringLiteral("Tılsımlar"), {Qt::META | Qt::Key_C}),
+    connect(kisayol(QStringLiteral("tilsimlar"), mtr(QStringLiteral("Tılsımlar")), {Qt::META | Qt::Key_C}),
             &QAction::triggered, this, &Kabuk::Tilsimlar);
     connect(kisayol(QStringLiteral("ara"), QStringLiteral("Her yerde ara"), {Qt::META | Qt::Key_S, Qt::META | Qt::Key_Q}),
             &QAction::triggered, this, [this] { Ara(QString()); });
@@ -28,23 +29,23 @@ Kabuk::Kabuk(QObject *parent)
             &QAction::triggered, this, [this] { Ara(QStringLiteral("dosyalar")); });
     connect(kisayol(QStringLiteral("ara-ayarlar"), QStringLiteral("Ayarlarda ara"), {Qt::META | Qt::Key_W}),
             &QAction::triggered, this, [this] { Ara(QStringLiteral("ayarlar")); });
-    connect(kisayol(QStringLiteral("ayarlar"), QStringLiteral("Ayarlar tılsımı"), {Qt::META | Qt::Key_I}),
+    connect(kisayol(QStringLiteral("ayarlar"), mtr(QStringLiteral("Ayarlar tılsımı")), {Qt::META | Qt::Key_I}),
             &QAction::triggered, this, &Kabuk::Ayarlar);
-    connect(kisayol(QStringLiteral("aygitlar"), QStringLiteral("Aygıtlar tılsımı"), {Qt::META | Qt::Key_K}),
+    connect(kisayol(QStringLiteral("aygitlar"), mtr(QStringLiteral("Aygıtlar tılsımı")), {Qt::META | Qt::Key_K}),
             &QAction::triggered, this, &Kabuk::Aygitlar);
-    connect(kisayol(QStringLiteral("paylas"), QStringLiteral("Paylaş tılsımı"), {Qt::META | Qt::Key_H}),
+    connect(kisayol(QStringLiteral("paylas"), mtr(QStringLiteral("Paylaş tılsımı")), {Qt::META | Qt::Key_H}),
             &QAction::triggered, this, &Kabuk::Paylas);
-    connect(kisayol(QStringLiteral("guc-menusu"), QStringLiteral("Hızlı bağlantı menüsü"), {Qt::META | Qt::Key_X}),
+    connect(kisayol(QStringLiteral("guc-menusu"), mtr(QStringLiteral("Hızlı bağlantı menüsü")), {Qt::META | Qt::Key_X}),
             &QAction::triggered, this, [this] { GucMenusu(-1, -1); });
-    connect(kisayol(QStringLiteral("gecis"), QStringLiteral("Uygulamalar arasında geçiş yap"), {Qt::META | Qt::Key_Tab}),
+    connect(kisayol(QStringLiteral("gecis"), mtr(QStringLiteral("Uygulamalar arasında geçiş yap")), {Qt::META | Qt::Key_Tab}),
             &QAction::triggered, this, &Kabuk::Gecis);
     connect(kisayol(QStringLiteral("dosya-gezgini"), QStringLiteral("Dosya Gezgini"), {Qt::META | Qt::Key_E}),
             &QAction::triggered, this, [this] { Q_EMIT gezginIste(); });
-    connect(kisayol(QStringLiteral("calistir"), QStringLiteral("Çalıştır"), {Qt::META | Qt::Key_R}),
+    connect(kisayol(QStringLiteral("calistir"), mtr(QStringLiteral("Çalıştır")), {Qt::META | Qt::Key_R}),
             &QAction::triggered, this, [this] { Q_EMIT calistirIste(); });
-    connect(kisayol(QStringLiteral("gorev-yoneticisi"), QStringLiteral("Görev Yöneticisi"), {Qt::CTRL | Qt::SHIFT | Qt::Key_Escape}),
+    connect(kisayol(QStringLiteral("gorev-yoneticisi"), mtr(QStringLiteral("Görev Yöneticisi")), {Qt::CTRL | Qt::SHIFT | Qt::Key_Escape}),
             &QAction::triggered, this, [this] { Q_EMIT gorevYoneticisiIste(); });
-    connect(kisayol(QStringLiteral("ekran-goruntusu"), QStringLiteral("Ekran görüntüsü al ve kaydet"), {Qt::META | Qt::Key_Print}),
+    connect(kisayol(QStringLiteral("ekran-goruntusu"), mtr(QStringLiteral("Ekran görüntüsü al ve kaydet")), {Qt::META | Qt::Key_Print}),
             &QAction::triggered, this, &Kabuk::EkranGoruntusu);
 }
 
@@ -53,7 +54,7 @@ QAction *Kabuk::kisayol(const QString &ad, const QString &metin, const QList<QKe
     auto *a = new QAction(metin, this);
     a->setObjectName(ad);
     a->setProperty("componentName", QStringLiteral("metro-kabuk"));
-    a->setProperty("componentDisplayName", QStringLiteral("Metro Kabuğu"));
+    a->setProperty("componentDisplayName", mtr(QStringLiteral("Metro Kabuğu")));
     KGlobalAccel::self()->setDefaultShortcut(a, tuslar);
     if (!KGlobalAccel::self()->setShortcut(a, tuslar, zorla ? KGlobalAccel::NoAutoloading : KGlobalAccel::Autoloading))
         qWarning() << "kısayol alınamadı (başka bileşende):" << ad << tuslar;

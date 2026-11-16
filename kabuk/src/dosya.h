@@ -1,5 +1,6 @@
 #pragma once
 #include <QObject>
+#include <QStandardPaths>
 #include <QString>
 #include <QVariant>
 
@@ -10,11 +11,13 @@ class Dosya : public QObject
     Q_PROPERTY(QString yapilandirma READ yapilandirma CONSTANT)
     Q_PROPERTY(QString veri READ veri CONSTANT)
     Q_PROPERTY(QString ev READ ev CONSTANT)
+    Q_PROPERTY(QString resimlerDizini READ resimlerDizini CONSTANT)   // XDG Resimler (sistem dilinde)
 public:
     using QObject::QObject;
     QString yapilandirma() const;   // ~/.config/metrothemeplasma
     QString veri() const;           // ~/.local/share/metrothemeplasma
     QString ev() const;
+    QString resimlerDizini() const { return QStandardPaths::writableLocation(QStandardPaths::PicturesLocation); }
     Q_INVOKABLE QString oku(const QString &yol) const;
     Q_INVOKABLE bool yaz(const QString &yol, const QString &icerik) const;
     Q_INVOKABLE bool var(const QString &yol) const;
