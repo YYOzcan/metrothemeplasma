@@ -256,6 +256,16 @@ else
     echo "   (derlenemedi; Plasma'nın sistem tepsisi kullanılır)"
 fi
 
+echo "==> Windows 8.1 menüleri (Qt stil eklentisi) derleniyor"
+# Kvantum Metro'nun üstüne menüleri msstyles MENU değerleriyle çizen QProxyStyle; yalnız Metro oturumunda
+# (QT_PLUGIN_PATH=$MT/eklenti), profil widgetStyle=metro yazar
+if $CMAKE -S stil -B build/stil -G Ninja -DCMAKE_BUILD_TYPE=Release >/dev/null 2>&1 && ninja -C build/stil >/dev/null 2>&1; then
+    install -Dm755 build/stil/metrostil.so "$MT/eklenti/styles/metrostil.so"
+else
+    rm -f "$MT/eklenti/styles/metrostil.so"
+    echo "   (derlenemedi; menüler Kvantum Metro ile çizilir)"
+fi
+
 echo "==> Windows 8.1 görev çubuğu düğmeleri (ATP SevenTasks çatalı) derleniyor"
 rm -f "$MT/eklenti/plasma/applets/io.github.yyozcan.metrogorevler.so"
 if [[ -d /usr/lib/qt6/qml/aeroshell/taskmanager ]] \

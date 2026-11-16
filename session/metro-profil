@@ -101,6 +101,9 @@ def gercek_varliklar(spec):
     if (imlec / "cursors/default").exists():
         spec.setdefault("kcminputrc", {"keys": {}, "groups": {}})
         spec["kcminputrc"]["keys"]["Mouse"] = {"cursorTheme": "Windows 8.1 Aero", "cursorSize": "32"}
+    # Windows 8.1 menüleri (Qt stil eklentisi "metro" = Kvantum Metro + msstyles MENU); yalnız kuruluysa
+    if (DATA / "metrothemeplasma/eklenti/styles/metrostil.so").exists():
+        spec["kdeglobals"]["keys"].setdefault("KDE", {})["widgetStyle"] = "metro"
     if (DATA / "sounds/Windows 8.1/index.theme").exists():
         spec["kdeglobals"]["keys"].setdefault("Sounds", {}).update({"Theme": "Windows 8.1", "Enable": "true"})
     # Windows 8.1 Dosya Gezgini (linux-explorer) kuruluysa: Win+E ve klasörler onunla açılır
