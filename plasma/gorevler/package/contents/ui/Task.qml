@@ -1389,7 +1389,7 @@ TaskManagerApplet.SmartLauncherItem { }
                 Badge {
                     id: badge
                     visible: task.smartLauncherItem && task.smartLauncherItem.countVisible
-                    number: task.smartLauncherItem.count
+                    number: task.smartLauncherItem ? task.smartLauncherItem.count : 0
                     anchors.top: parent.top
                     anchors.right: parent.right
                     anchors.rightMargin: (tasksRoot.height <= 30) ? (-Kirigami.Units.largeSpacing + (label.visible ? Kirigami.Units.smallSpacing : 0)) : -Kirigami.Units.smallSpacing
