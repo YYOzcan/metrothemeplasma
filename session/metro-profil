@@ -298,6 +298,12 @@ def masaustu_menusu():
     grup = "ActionPlugins][0][RightButton;NoModifier"
     # Metro kapsayıcısı kuruluysa menünün tamamı onun (Ekran çözünürlüğü ve Kişiselleştir dahil)
     baglam = DATA / "metrothemeplasma/eklenti/plasma/containmentactions/io.github.yyozcan.metrobaglam.so"
+    # görev çubuğu (panel, ActionPlugins 1): Windows 8.1 görev çubuğu menüsü
+    gorev = baglam.parent / "io.github.yyozcan.metrogorevcubugu.so"
+    if gorev.exists():
+        kc.set("ActionPlugins][1", "RightButton;NoModifier", "io.github.yyozcan.metrogorevcubugu")
+    elif kc.get("ActionPlugins][1", "RightButton;NoModifier") == "io.github.yyozcan.metrogorevcubugu":
+        kc.set("ActionPlugins][1", "RightButton;NoModifier", "org.kde.contextmenu")
     if (DATA / "plasma/plasmoids/io.github.yyozcan.metrokapsayici/metadata.json").exists() and baglam.exists():
         kc.set("ActionPlugins][0", "RightButton;NoModifier", "io.github.yyozcan.metrobaglam")
         acik = {"_context"}

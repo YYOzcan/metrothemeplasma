@@ -2491,6 +2491,15 @@ void FolderModel::pasteShortcut()
     KIO::FileUndoManager::self()->recordCopyJob(job);
 }
 
+QString FolderModel::programYolu(const QString &ad) const
+{
+    // ~/.local/bin oturumun PATH'inde olmayabilir (Denetim Masası "control" oraya kurulur)
+    QString yol = QStandardPaths::findExecutable(ad);
+    if (yol.isEmpty())
+        yol = QStandardPaths::findExecutable(ad, {QDir::homePath() + QStringLiteral("/.local/bin")});
+    return yol;
+}
+
 void FolderModel::calistir(const QString &program, const QStringList &args)
 {
     auto *job = new KIO::CommandLauncherJob(program, args, this);

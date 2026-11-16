@@ -37,6 +37,9 @@ public Q_SLOTS:
     Q_SCRIPTABLE void YenidenYukle();
     Q_SCRIPTABLE void IlkOturum();
     Q_SCRIPTABLE void OtomatikKullanPaneli(const QString &yol);
+    Q_SCRIPTABLE void GorevYoneticisi();                      // görev çubuğu menüsü
+    Q_SCRIPTABLE void PencereDuzeni(const QString &tur);      // basamak | ustuste | yanyana | geri
+    Q_SCRIPTABLE void PencereDuzeniKaydet(const QString &json) { m_oncekiDuzen = json; }  // KWin betiğinden
     Q_SCRIPTABLE void KapatmaEngeli(const QString &tur);      // sınama: engelleme ekranını göster   // sınama: bu dizin için Otomatik Kullan paneli                 // "Merhaba" ilk oturum animasyonunu oynat
     Q_SCRIPTABLE bool BaslangicAcik() const { return m_baslangicAcik; }
 
@@ -69,6 +72,7 @@ Q_SIGNALS:
     void kapatmaEngeliSinaIste(const QString &tur);
 
 private:
+    QString m_oncekiDuzen = QStringLiteral("[]");
     QAction *kisayol(const QString &ad, const QString &metin, const QList<QKeySequence> &tuslar, bool zorla = false);
     bool m_baslangicAcik = false;
 };

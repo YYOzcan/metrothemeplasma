@@ -732,8 +732,9 @@ PlasmaExtras.Menu {
     PlasmaExtras.MenuItem {
         property QtObject configureAction: null
 
-        enabled: configureAction && configureAction.enabled
-        visible: configureAction && configureAction.visible
+        // Windows 8.1 atlama listesinde "Yapılandır" yok
+        enabled: false
+        visible: false
 
         text: configureAction ? configureAction.text : ""
         icon: configureAction ? configureAction.icon : ""
@@ -746,8 +747,8 @@ PlasmaExtras.Menu {
     PlasmaExtras.MenuItem {
         property QtObject editModeAction: null
 
-        enabled: editModeAction && editModeAction.enabled
-        visible: editModeAction && editModeAction.visible
+        enabled: false
+        visible: false
 
         text: editModeAction ? editModeAction.text : ""
         icon: editModeAction ? editModeAction.icon : ""

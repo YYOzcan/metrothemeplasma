@@ -125,6 +125,10 @@ if [[ "${1:-}" == "--sistem" ]]; then
     install -Dm644 session/metro-sessiz-kapanis.service /etc/systemd/system/metro-sessiz-kapanis.service
     # SDDM kapanınca Plymouth gelene dek bir an görünen konsol boş ve imleçsiz olsun
     install -Dm644 session/metro-kapanis-konsol.service /etc/systemd/system/metro-kapanis-konsol.service
+    # açılış: Plymouth -> SDDM geçişinde konsol görünmesin (yalnız Plymouth kuruluysa)
+    if command -v plymouth >/dev/null 2>&1 && systemctl cat sddm.service >/dev/null 2>&1; then
+        install -Dm644 session/sddm-plymouth.conf /etc/systemd/system/sddm.service.d/zz-metrothemeplasma-plymouth.conf
+    fi
     systemctl daemon-reload; systemctl reenable metro-kapanis-konsol.service 2>/dev/null || true
     systemctl daemon-reload; systemctl reenable metro-sessiz-kapanis.service 2>/dev/null || true
     systemctl restart metro-sessiz-kapanis.service 2>/dev/null || true
@@ -197,6 +201,7 @@ if [[ "${1:-}" == "--kaldir" ]]; then
     echo "              /usr/local/share/fonts/metrothemeplasma /usr/local/bin/metro-guncelle-hook \\"
     echo "              /etc/pacman.d/hooks/91-metro-guncelle.hook /etc/metrothemeplasma.conf \\"
     echo "              /etc/systemd/system/metro-sessiz-kapanis.service /etc/systemd/system/metro-kapanis-konsol.service"
+    echo "              /etc/systemd/system/sddm.service.d/zz-metrothemeplasma-plymouth.conf"
     echo "              (önce: sudo systemctl disable metro-sessiz-kapanis metro-kapanis-konsol)"
     exit 0
 fi
@@ -289,6 +294,7 @@ if $CMAKE -S plasma/masaustu -B build/masaustu -G Ninja -DCMAKE_BUILD_TYPE=Relea
     cp -r build/masaustu/bin/io/github/yyozcan/metrokapsayici/folder "$MT/qml/io/github/yyozcan/metrokapsayici/"
     kopyala plasma/masaustu/package "$DATA/plasma/plasmoids/io.github.yyozcan.metrokapsayici"
     install -Dm755 build/masaustu/bin/io.github.yyozcan.metrobaglam.so "$MT/eklenti/plasma/containmentactions/io.github.yyozcan.metrobaglam.so"
+    install -Dm755 build/masaustu/bin/io.github.yyozcan.metrogorevcubugu.so "$MT/eklenti/plasma/containmentactions/io.github.yyozcan.metrogorevcubugu.so"
     # çeviriler: ATP'nin Türkçe kataloğu varsa o, yoksa Plasma'nın Klasör Görünümü kataloğu
     for mo in /usr/share/locale/*/LC_MESSAGES/plasma_applet_org.kde.desktopcontainment.mo \
               /usr/share/locale/*/LC_MESSAGES/plasma_applet_io.gitgud.wackyideas.desktopcontainment.mo; do
@@ -300,6 +306,7 @@ if $CMAKE -S plasma/masaustu -B build/masaustu -G Ninja -DCMAKE_BUILD_TYPE=Relea
 else
     rm -rf "$DATA/plasma/plasmoids/io.github.yyozcan.metrokapsayici"
     rm -f "$MT/eklenti/plasma/containmentactions/io.github.yyozcan.metrobaglam.so"
+    rm -f "$MT/eklenti/plasma/containmentactions/io.github.yyozcan.metrogorevcubugu.so"
     echo "   (derlenemedi; Plasma'nın Klasör Görünümü kullanılır)"
 fi
 
@@ -448,9 +455,10 @@ for w in build/wallpapers/*/; do kopyala "$w" "$DATA/wallpapers/$(basename "$w")
 for p in plasma/plasmoids/*/; do kopyala "$p" "$DATA/plasma/plasmoids/$(basename "$p")"; done
 kopyala plasma/shells/io.github.yyozcan.metroshell "$DATA/plasma/shells/io.github.yyozcan.metroshell"
 # yeni masaüstleri Metro kapsayıcısıyla açılır (yalnız derlendiyse)
-# (sağ tıkta yalnız masaüstünün Windows 8.1 menüsü; panelinki değişmez)
+# (sağ tıkta masaüstünün ve görev çubuğunun Windows 8.1 menüleri)
 [[ $KAPSAYICI = 1 ]] && sed -i -e 's/^Containment=org.kde.plasma.folder$/Containment=io.github.yyozcan.metrokapsayici/' \
     -e '0,/^RightButton;NoModifier=org.kde.contextmenu$/s//RightButton;NoModifier=io.github.yyozcan.metrobaglam/' \
+    -e 's/^RightButton;NoModifier=org.kde.contextmenu$/RightButton;NoModifier=io.github.yyozcan.metrogorevcubugu/' \
     "$DATA/plasma/shells/io.github.yyozcan.metroshell/contents/defaults"
 kopyala plasma/look-and-feel/io.github.yyozcan.metro "$DATA/plasma/look-and-feel/io.github.yyozcan.metro"
 # görünüm-ve-his düzeni = kabuk düzeni (tek kaynak)

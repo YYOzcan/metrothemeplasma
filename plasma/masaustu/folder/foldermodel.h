@@ -279,6 +279,7 @@ public:
     Q_INVOKABLE void refresh();
     Q_INVOKABLE void pasteShortcut();
     Q_INVOKABLE void calistir(const QString &program, const QStringList &args = {});
+    Q_INVOKABLE QString programYolu(const QString &ad) const;
     Q_INVOKABLE void createFolder();
 
     bool screenUsed();

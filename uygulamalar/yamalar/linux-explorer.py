@@ -146,3 +146,109 @@ ImageDraw.Draw(cubuk).line([(0, 30), (30, 30)], fill=(218, 219, 220, 255))
 cubuk.save("assets/images/commandbar.png")
 kutu(11, 24, (229, 243, 255, 255), (204, 232, 255, 255)).save("assets/images/commandhover.png")
 kutu(11, 24, (204, 232, 255, 255), (153, 209, 255, 255)).save("assets/images/commandpress.png")
+
+# Kişiselleştirme: Metro oturumunda Plasma renk şemaları yerine Windows 8.1'in varsayılan temaları
+# (Windows, Çizgiler ve renkler, Çiçekler; themeui.dll.mui 2013/2113/2112); küçük resim duvar kâğıdından,
+# tıklayınca masaüstü arka planı o temanınkine geçer (Metro renkleri değişmez)
+p = Path("src/ui/control/pages/PersonalizationPage.h")
+s = p.read_text()
+a = '''        // Normal foreground
+        QColor  text;
+    };'''
+assert a in s, "Scheme"
+s = s.replace(a, '''        // Normal foreground
+        QColor  text;
+        // MetroThemePlasma: Windows 8.1 temasının duvar kâğıtları (boşsa renk şeması)
+        QStringList resimler;
+    };''')
+p.write_text(s)
+
+p = Path("src/ui/control/pages/PersonalizationPage.cpp")
+s = p.read_text()
+a = '''QList<PersonalizationPage::Scheme> PersonalizationPage::gatherSchemes()
+{'''
+assert a in s, "gatherSchemes"
+s = s.replace(a, '''static bool metroOturumu()
+{
+    return qEnvironmentVariableIsSet("METROTHEMEPLASMA_SESSION");
+}
+
+static QString metroAyarlari()
+{
+    return QStandardPaths::writableLocation(QStandardPaths::GenericConfigLocation)
+        + QStringLiteral("/metrothemeplasma/ayarlar.ini");
+}
+
+QList<PersonalizationPage::Scheme> PersonalizationPage::gatherSchemes()
+{
+    if (metroOturumu()) {
+        QList<Scheme> l;
+        const QString kok = QStandardPaths::locate(QStandardPaths::GenericDataLocation,
+                                                   QStringLiteral("metrothemeplasma/win/Windows/Web/Wallpaper"),
+                                                   QStandardPaths::LocateDirectory);
+        const QList<QPair<QString, QString>> temalar{{QStringLiteral("Windows"), QStringLiteral("Windows")},
+                                                     {QStringLiteral("Theme1"), QStringLiteral("Çizgiler ve renkler")},
+                                                     {QStringLiteral("Theme2"), QStringLiteral("Çiçekler")}};
+        for (const auto &[dizin, ad] : temalar) {
+            QDir d(kok + QLatin1Char('/') + dizin);
+            QStringList resimler;
+            for (const QString &f : d.entryList({QStringLiteral("*.jpg")}, QDir::Files, QDir::Name))
+                resimler << d.filePath(f);
+            if (resimler.isEmpty())
+                continue;
+            Scheme sc;
+            sc.id = QStringLiteral("metro:") + dizin;
+            sc.name = ad;
+            sc.resimler = resimler;
+            l << sc;
+        }
+        return l;
+    }
+''')
+a = '''QString PersonalizationPage::currentSchemeId()
+{'''
+assert a in s, "currentSchemeId"
+s = s.replace(a, a + '''
+    if (metroOturumu())
+        return QSettings(metroAyarlari(), QSettings::IniFormat)
+            .value(QStringLiteral("Kisisellestirme/tema"), QStringLiteral("metro:Windows")).toString();
+''')
+a = '''QPixmap PersonalizationPage::swatchPixmap(const Scheme &scheme) const
+{
+    const int swatchWidth = 116;
+    const int swatchHeight = 78;'''
+assert a in s, "swatchPixmap"
+s = s.replace(a, a + '''
+    if (!scheme.resimler.isEmpty()) {
+        // Windows 8.1 tema küçük resmi: temanın ilk duvar kâğıdı, ince gri çerçeve
+        QPixmap pm(swatchWidth, swatchHeight);
+        pm.fill(Qt::transparent);
+        QPainter p(&pm);
+        p.setRenderHint(QPainter::SmoothPixmapTransform);
+        const QImage im = QImage(scheme.resimler.first())
+            .scaled(swatchWidth - 2, swatchHeight - 2, Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation);
+        p.drawImage(QRect(1, 1, swatchWidth - 2, swatchHeight - 2), im,
+                    QRect((im.width() - swatchWidth + 2) / 2, (im.height() - swatchHeight + 2) / 2, swatchWidth - 2, swatchHeight - 2));
+        p.setPen(QColor("#7F7F7F"));
+        p.drawRect(QRectF(0.5, 0.5, swatchWidth - 1, swatchHeight - 1));
+        return pm;
+    }''')
+a = '''    const Scheme &s = m_schemes[index];
+    // plasma-apply-colorscheme writes the user's own config; no polkit needed'''
+assert a in s, "applyScheme"
+s = s.replace(a, '''    const Scheme &s = m_schemes[index];
+    if (!s.resimler.isEmpty()) {
+        QProcess::startDetached(QStringLiteral("plasma-apply-wallpaperimage"), {s.resimler.first()});
+        QSettings(metroAyarlari(), QSettings::IniFormat).setValue(QStringLiteral("Kisisellestirme/tema"), s.id);
+        m_currentId = s.id;
+        refreshHighlight();
+        return;
+    }
+    // plasma-apply-colorscheme writes the user's own config; no polkit needed''')
+a = '''    addHeading(QStringLiteral("Aero Themes (%1)").arg(m_schemes.size()));'''
+assert a in s, "heading"
+s = s.replace(a, '''    if (metroOturumu())
+        addHeading(QStringLiteral("Windows Varsayılan Temaları (%1)").arg(m_schemes.size()));
+    else
+        addHeading(QStringLiteral("Aero Themes (%1)").arg(m_schemes.size()));''')
+p.write_text(s)

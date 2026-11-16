@@ -3,6 +3,12 @@
 #include <KGlobalAccel>
 #include <QAction>
 #include <QDBusConnection>
+#include <QDBusInterface>
+#include <QDBusReply>
+#include <QDir>
+#include <QFile>
+#include <QStandardPaths>
+#include <QTimer>
 #include <QDebug>
 
 Kabuk::Kabuk(QObject *parent)
@@ -77,4 +83,80 @@ void Kabuk::BaslangicaSabitle(const QString &yol) { Q_EMIT sabitleIste(yol); }
 void Kabuk::IlkOturum() { Q_EMIT ilkOturumIste(); }
 void Kabuk::OtomatikKullanPaneli(const QString &yol) { Q_EMIT otomatikPanelSinaIste(yol); }
 void Kabuk::KapatmaEngeli(const QString &tur) { Q_EMIT kapatmaEngeliSinaIste(tur); }
+void Kabuk::GorevYoneticisi() { Q_EMIT gorevYoneticisiIste(); }
+
+// Windows görev çubuğu menüsü: Pencereleri basamakla / üst üste göster / yan yana göster (user32 CascadeWindows,
+// TileWindows) ve "Geri Al". KWin betiğiyle: etkin ekranın çalışma alanında, bu masaüstündeki küçültülmemiş
+// normal pencereler; önceki konumlar betik içinde (workspace üzerinde) saklanır.
+void Kabuk::PencereDuzeni(const QString &tur)
+{
+    static const char *betik = R"JS(
+const tur = "%1";
+const ekran = workspace.activeScreen;
+const alan = workspace.clientArea(KWin.MaximizeArea, ekran, workspace.currentDesktop);
+const pen = workspace.stackingOrder.filter(w => w.normalWindow && !w.minimized && !w.skipTaskbar
+    && w.moveable && w.resizeable && w.output === ekran
+    && (w.onAllDesktops || w.desktops.indexOf(workspace.currentDesktop) >= 0));
+if (tur === "geri") {
+    const eski = %2;
+    for (const w of workspace.stackingOrder) {
+        const k = eski.find(e => e.id === String(w.internalId));
+        if (k) w.frameGeometry = { x: k.x, y: k.y, width: k.width, height: k.height };
+    }
+} else if (pen.length) {
+    // önceki konumlar metro-kabuk'ta saklanır ("Geri Al")
+    callDBus("io.github.yyozcan.MetroKabuk", "/Kabuk", "io.github.yyozcan.MetroKabuk", "PencereDuzeniKaydet",
+             JSON.stringify(pen.map(w => ({ id: String(w.internalId), x: w.frameGeometry.x, y: w.frameGeometry.y,
+                                             width: w.frameGeometry.width, height: w.frameGeometry.height }))));
+    const n = pen.length;
+    const yerlestir = (w, x, y, g, y2) => {
+        w.setMaximize(false, false);
+        w.frameGeometry = { x: Math.round(x), y: Math.round(y), width: Math.round(g), height: Math.round(y2) };
+    };
+    if (tur === "basamak") {
+        // en alttaki pencere sol üstte, etkin pencere en önde; her adım başlık çubuğu yüksekliği kadar
+        const adim = 30;
+        const g = Math.max(320, alan.width * 0.6), y = Math.max(240, alan.height * 0.6);
+        const sigan = Math.max(1, Math.floor(Math.min((alan.width - g) / adim, (alan.height - y) / adim)) + 1);
+        pen.forEach((w, i) => yerlestir(w, alan.x + (i % sigan) * adim, alan.y + (i % sigan) * adim, g, y));
+    } else {
+        // TileWindows: üst üste = satırlar, yan yana = sütunlar; 3'ten çoksa ızgara
+        const yatay = tur === "ustuste";
+        const ana = n <= 3 ? n : Math.ceil(Math.sqrt(n));
+        const yan = Math.ceil(n / ana);
+        pen.forEach((w, i) => {
+            const a = i % ana, b = Math.floor(i / ana);
+            const sonSutun = b === yan - 1 ? n - b * ana : ana;
+            if (yatay) {
+                const h = alan.height / Math.min(ana, n), gw = alan.width / yan;
+                yerlestir(w, alan.x + b * gw, alan.y + a * (alan.height / sonSutun), gw, alan.height / sonSutun);
+            } else {
+                const gw = alan.width / sonSutun, h = alan.height / yan;
+                yerlestir(w, alan.x + a * gw, alan.y + b * h, gw, h);
+            }
+        });
+    }
+}
+)JS";
+    const QString dizin = QStandardPaths::writableLocation(QStandardPaths::RuntimeLocation);
+    const QString yol = dizin + QStringLiteral("/metro-pencere-duzeni.js");
+    QFile f(yol);
+    if (!f.open(QIODevice::WriteOnly | QIODevice::Truncate))
+        return;
+    f.write(QString::fromUtf8(betik).arg(tur, m_oncekiDuzen).toUtf8());
+    f.close();
+    const QString ad = QStringLiteral("metro-pencere-duzeni");
+    QDBusInterface kwin(QStringLiteral("org.kde.KWin"), QStringLiteral("/Scripting"), QStringLiteral("org.kde.kwin.Scripting"));
+    kwin.call(QStringLiteral("unloadScript"), ad);
+    const QDBusReply<int> kimlik = kwin.call(QStringLiteral("loadScript"), yol, ad);
+    if (!kimlik.isValid() || kimlik.value() < 0)
+        return;
+    QDBusInterface calis(QStringLiteral("org.kde.KWin"), QStringLiteral("/Scripting/Script%1").arg(kimlik.value()),
+                         QStringLiteral("org.kde.kwin.Script"));
+    calis.call(QStringLiteral("run"));
+    QTimer::singleShot(2000, this, [ad] {
+        QDBusInterface k(QStringLiteral("org.kde.KWin"), QStringLiteral("/Scripting"), QStringLiteral("org.kde.kwin.Scripting"));
+        k.call(QStringLiteral("unloadScript"), ad);
+    });
+}
 void Kabuk::YenidenYukle() { Q_EMIT yenidenYukleIste(); }

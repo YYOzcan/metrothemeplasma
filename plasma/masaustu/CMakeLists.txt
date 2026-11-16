@@ -25,3 +25,10 @@ add_subdirectory(folder)
 add_library(io.github.yyozcan.metrobaglam MODULE baglam/metrobaglam.cpp)
 target_link_libraries(io.github.yyozcan.metrobaglam Plasma::Plasma KF6::CoreAddons)
 set_target_properties(io.github.yyozcan.metrobaglam PROPERTIES PREFIX "")
+
+# görev çubuğu (panel) sağ tık eylemi: Windows 8.1 görev çubuğu menüsü
+find_package(KF6WindowSystem REQUIRED)
+find_package(Qt6 REQUIRED COMPONENTS DBus)
+add_library(io.github.yyozcan.metrogorevcubugu MODULE baglam/metrogorevcubugu.cpp)
+target_link_libraries(io.github.yyozcan.metrogorevcubugu Plasma::Plasma KF6::CoreAddons KF6::WindowSystem Qt6::DBus)
+set_target_properties(io.github.yyozcan.metrogorevcubugu PROPERTIES PREFIX "")

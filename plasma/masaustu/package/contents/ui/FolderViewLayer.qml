@@ -406,7 +406,15 @@ FocusScope {
         id: kisisellestir
         text: "&Kişiselleştir"
         icon.name: "preferences-desktop-theme"
-        onTriggered: Plasmoid.containment.configureRequested(Plasmoid)
+        // Windows: Denetim Masası > Kişiselleştirme (linux-explorer); yoksa Plasma masaüstü ayarları
+        onTriggered: {
+            const control = folderView.model.programYolu("control");
+            if (control) {
+                folderView.model.calistir(control, ["Görünüm ve Kişiselleştirme/Kişiselleştirme"]);
+            } else {
+                Plasmoid.containment.configureRequested(Plasmoid);
+            }
+        }
     }
     PlasmaCore.Action {
         id: actionSeparator

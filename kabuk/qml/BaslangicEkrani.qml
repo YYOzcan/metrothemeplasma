@@ -84,12 +84,18 @@ Window {
                 pen.surukle(hedef.x, hedef.y)
                 sinamaBirak.restart()
             }
+            else if (SinamaKip === "cubuk") pen.bosCubuk()
+            else if (SinamaKip === "tekSecim") {
+                for (var k2 = 0; k2 < kutucuklar.count; k2++) if (kutucuklar.get(k2).tur === "uygulama") { kutucuklar.setProperty(k2, "secili", true); break }
+                pen.secimCubugu()
+            }
             else if (SinamaKip === "menu" || SinamaKip === "secim") {
                 var i = 0
                 for (var k = 0; k < kutucuklar.count; k++) if (kutucuklar.get(k).tur === "uygulama") { i = k; break }
                 var t = kutucuklar.get(i)
                 kutucuklar.setProperty(i, "secili", true)
                 if (SinamaKip === "secim" && i + 1 < kutucuklar.count) kutucuklar.setProperty(i + 1, "secili", true)
+                if (SinamaKip === "secim") pen.secimCubugu()
                 if (SinamaKip === "menu") {
                     var p = izgara.mapToItem(icerik, t.x + t.w / 2, t.y + t.h / 2)
                     menu.ac(p.x, p.y, pen.kutucukMenusu(i))
@@ -362,6 +368,7 @@ Window {
     onSatirChanged: if (kutucuklar.count) yerlestir()
 
     function secimiTemizle() {
+        uygCubugu.kapat()
         for (var i = 0; i < kutucuklar.count; i++) if (kutucuklar.get(i).secili) kutucuklar.setProperty(i, "secili", false)
     }
     function kutucukBul(tur, kimlik) {
@@ -568,10 +575,11 @@ Window {
                     width: kaydirici.contentWidth; height: kaydirici.height
                     acceptedButtons: Qt.LeftButton | Qt.RightButton
                     onClicked: mouse => {
+                        var acikti = uygCubugu.acik && uygCubugu.bos
                         pen.secimiTemizle()
                         if (mouse.button === Qt.RightButton) {
-                            var p = mapToItem(icerik, mouse.x, mouse.y)
-                            menu.ac(p.x, p.y, [{ metin: pen.ozellestir ? "Özelleştirmeyi bitir" : "Özelleştir", eylem: function () { pen.ozellestir = !pen.ozellestir } }])
+                            // Windows 8.1: boş alana sağ tık alttan "Özelleştir" uygulama çubuğunu açar/kapatır
+                            if (!acikti) pen.bosCubuk()
                         } else if (pen.ozellestir) {
                             pen.ozellestir = false
                         }
@@ -684,7 +692,14 @@ Window {
                                 }
                                 ana.kutucukCalistir(model.tur, model.kimlik)
                             }
-                            onSagTiklandi: (gx, gy) => {
+                            onSagTiklandi: (gx, gy, ctrl) => {
+                                // Windows 8.1 Update: Ctrl+sağ tık çoklu seçim ve alttan uygulama çubuğu
+                                if (ctrl && !pen.ozellestir) {
+                                    menu.kapat()
+                                    kutucuklar.setProperty(index, "secili", !model.secili)
+                                    pen.secimCubugu()
+                                    return
+                                }
                                 pen.secimiTemizle()
                                 kutucuklar.setProperty(index, "secili", true)
                                 var p = icerik.mapFromItem(null, gx, gy)
@@ -848,6 +863,32 @@ Window {
             }
         }
 
+        // ---- Windows 8.1 Başlangıç uygulama çubuğu (alt, 88 px, vurgu renginde; PVL ile kayar)
+        Item {
+            id: uygCubugu
+            property bool acik: false
+            property bool bos: false          // boş alan çubuğu (yalnız "Özelleştir")
+            property var sol: []
+            property var sag: []
+            function ac(s1, s2, b) { sol = s1; sag = s2; bos = b; acik = true }
+            function kapat() { acik = false }
+            width: parent.width; height: 88
+            y: acik ? parent.height - height : parent.height
+            visible: y < parent.height
+            z: 60
+            Behavior on y { NumberAnimation { duration: 367; easing.type: Easing.Bezier; easing.bezierCurve: pen.tema.pvl } }
+            Rectangle { anchors.fill: parent; color: pen.tema.vurgu }
+            MouseArea { anchors.fill: parent; acceptedButtons: Qt.LeftButton | Qt.RightButton }
+            Row {
+                x: 20; y: 6
+                Repeater { model: uygCubugu.sol; delegate: CubukDugmesi {} }
+            }
+            Row {
+                anchors.right: parent.right; anchors.rightMargin: 20; y: 6
+                Repeater { model: uygCubugu.sag; delegate: CubukDugmesi {} }
+            }
+        }
+
         MetroMenu { id: menu }
 
         Keys.onPressed: event => {
@@ -859,6 +900,7 @@ Window {
             }
             if (event.key === Qt.Key_Escape) {
                 if (menu.acik) menu.kapat()
+                else if (uygCubugu.acik) pen.secimiTemizle()
                 else if (pen.uzak) pen.uzaklas(false)
                 else if (pen.sayfa === 1 && uygulamalarGorunumu.uzak) uygulamalarGorunumu.uzak = false
                 else if (pen.ozellestir) pen.ozellestir = false
@@ -922,4 +964,70 @@ Window {
         return l
     }
 
+
+    // ------------------------------------------------------------------ uygulama çubuğu komutları
+    readonly property var cubukGlifleri: ({
+        "Başlangıç ekranından ayır": "\uE196", "Görev çubuğuna sabitle": "\uE141", "Görev çubuğundan ayır": "\uE196",
+        "Kaldır": "\uE107", "Yeniden boyutlandır": "\uE1D9", "Canlı kutucuğu kapat": "\uE117", "Canlı kutucuğu aç": "\uE117",
+        "Dosya konumunu aç": "\uE188"
+    })
+    function bosCubuk() {
+        uygCubugu.ac([{ glif: "\uE104", metin: pen.ozellestir ? "Özelleştirmeyi bitir" : "Özelleştir",
+                        eylem: function () { pen.ozellestir = !pen.ozellestir; uygCubugu.kapat() } }], [], true)
+    }
+    function secimCubugu() {
+        var s = []
+        for (var i = 0; i < kutucuklar.count; i++) if (kutucuklar.get(i).secili) s.push(i)
+        if (!s.length) { uygCubugu.kapat(); return }
+        var sol
+        if (s.length === 1) {
+            // tek kutucuk: sağ tık menüsündeki komutlar düğme olarak
+            sol = kutucukMenusu(s[0]).map(function (o) {
+                return { glif: pen.cubukGlifleri[o.metin] || "\uE10C", metin: o.metin, alt: o.alt, eylem: o.eylem }
+            })
+        } else {
+            sol = [{ glif: "\uE196", metin: "Başlangıç ekranından ayır", eylem: function () {
+                for (var j = s.length - 1; j >= 0; j--) pen.ayir(s[j])
+                pen.secimiTemizle()
+            } }]
+        }
+        uygCubugu.ac(sol, [{ glif: "\uE1C5", metin: "Seçimi temizle", eylem: function () { pen.secimiTemizle() } }], false)
+    }
+
+    // Windows 8 uygulama çubuğu düğmesi: 40 px daire içinde Segoe UI Symbol glifi, altında etiket
+    component CubukDugmesi: Item {
+        id: cd
+        required property var modelData
+        width: Math.max(100, et.implicitWidth + 16); height: 76
+        Rectangle {
+            width: 40; height: 40; radius: 20
+            anchors.horizontalCenter: parent.horizontalCenter; y: 6
+            color: cm.pressed ? "white" : (cm.containsMouse ? Qt.rgba(1, 1, 1, 0.15) : "transparent")
+            border.color: "white"; border.width: 2
+            Text {
+                anchors.centerIn: parent
+                text: cd.modelData.glif; font.family: "Segoe UI Symbol"; font.pixelSize: 18
+                color: cm.pressed ? pen.tema.vurgu : "white"
+            }
+        }
+        Text {
+            id: et
+            anchors.horizontalCenter: parent.horizontalCenter; y: 52
+            text: cd.modelData.metin; color: "white"
+            font.family: "Segoe UI"; font.pixelSize: 12
+        }
+        MouseArea {
+            id: cm; anchors.fill: parent; hoverEnabled: true
+            onClicked: {
+                if (cd.modelData.alt) {
+                    // Yeniden boyutlandır: düğmenin üstünde açılan menü
+                    var p = cd.mapToItem(icerik, 0, -4)
+                    menu.ac(p.x, p.y, cd.modelData.alt, true)
+                    return
+                }
+                cd.modelData.eylem()
+                if (!uygCubugu.bos) pen.secimiTemizle()
+            }
+        }
+    }
 }

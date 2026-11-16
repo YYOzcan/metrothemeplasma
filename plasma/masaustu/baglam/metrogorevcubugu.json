@@ -1,0 +1,7 @@
+{
+    "KPlugin": {
+        "Name": "Windows 8.1 görev çubuğu menüsü",
+        "Description": "Pencereleri basamakla/üst üste/yan yana, Masaüstünü göster, Görev Yöneticisi, Görev çubuğunu kilitle, Özellikler"
+    },
+    "X-Plasma-HasConfigurationInterface": false
+}

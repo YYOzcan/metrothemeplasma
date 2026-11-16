@@ -16,7 +16,7 @@ Item {
     property real girisAci: 0            // oturum açılışında döner kapı açısı (derece)
     readonly property real girisE: tema.pvlDeger(giris)
     signal tiklandi()
-    signal sagTiklandi(real x, real y)
+    signal sagTiklandi(real x, real y, bool ctrl)
     signal surukleBasla(real x, real y)
     signal surukle(real x, real y)
     signal surukleBitti()
@@ -265,7 +265,7 @@ Item {
             if (tasindi) { k.surukleBitti(); tasindi = false; return }
             if (mouse.button === Qt.RightButton) {
                 var p = mapToItem(null, mouse.x, mouse.y)
-                k.sagTiklandi(p.x, p.y)
+                k.sagTiklandi(p.x, p.y, (mouse.modifiers & Qt.ControlModifier) !== 0)
             } else if (containsMouse) {
                 k.tiklandi()
             }

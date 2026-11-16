@@ -61,16 +61,24 @@ PlasmoidItem {
         signal exited(string cmd, int exitCode, int exitStatus, string stdout, string stderr)
     }
 
-    Plasmoid.contextualActions: [
-        PlasmaCore.Action {
-            text: i18n("Task Manager")
-            icon.name: "ksysguardd"
-            onTriggered: {
-                menu_executable.exec("kstart ksysguard");
-
+    // Windows 8.1: görev çubuğunun boş yerindeki menü panelin sağ tık eyleminden gelir
+    // (io.github.yyozcan.metrogorevcubugu); "Yapılandır" ve "Alternatifler" Windows'ta yoktur
+    function windowsMenusu() {
+        for (const ad of ["configure", "alternatives"]) {
+            const a = Plasmoid.internalAction(ad);
+            if (a && a.enabled) {
+                a.enabled = false;
             }
         }
-    ]
+    }
+    Connections {
+        target: Plasmoid.internalAction("configure")
+        function onChanged() { windowsMenusu(); }
+    }
+    Connections {
+        target: Plasmoid.internalAction("alternatives")
+        function onChanged() { windowsMenusu(); }
+    }
 
     NotificationManager.Notifications {
         id: historyModel
@@ -609,6 +617,7 @@ PlasmoidItem {
 
     Component.onCompleted: {
         TaskTools.taskManagerInstanceCount += 1;
+        windowsMenusu();
         tasks.requestLayout.connect(iconGeometryTimer.restart);
         //tasks.windowsHovered.connect(backend.windowsHovered);
         //tasks.activateWindowView.connect(backend.activateWindowView);
