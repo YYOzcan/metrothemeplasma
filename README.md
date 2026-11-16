@@ -111,7 +111,11 @@ linux-explorer'ın içindedir; Windows'taki gibi `control` komutu onu açar.
 
 Windows 7 gibi yumuşak geçişler: oturum açılınca masaüstü siyahtan belirir; kapatırken önce Windows 8.1
 "Kapatılıyor" ekranı belirir, ekran siyaha kararır ve Windows logolu kapanış ekranı siyahtan belirir.
-Kapanışta metin konsoluna "The system will power off/reboot now!" yazılmaz (`metro-sessiz-kapanis.service`,
+Durum ekranları ("Kapatılıyor", "Yeniden başlatılıyor", "Oturum kapatılıyor", "Hoş geldiniz") Windows 8.1
+LogonUI'nin ölçüsündedir (authui.dll StatusMessageStyle: 40 rp halka, 10 rp aralık, 20 pt Segoe UI Light) ve
+oturum içinde, oturum açma ekranında ve Plymouth'ta aynıdır. Bir uygulama (ör. kaydedilmemiş belge) kapatmayı
+reddederse Windows 8.1'in "N uygulama kapatılıyor ve bilgisayar kapatılıyor" ekranı açılır: engelleyen
+uygulamalar, "Yine de kapat" ve "İptal". Kapanışta metin konsoluna "The system will power off/reboot now!" yazılmaz (`metro-sessiz-kapanis.service`,
 logind duyuruları kapalı). Görev çubuğu saatinde yıl isteğe bağlı kaydırılarak gösterilebilir
 (sağ tık > Yapılandır > Yılı kaydır; yalnızca görüntü, sistem saati değişmez).
 

@@ -72,17 +72,20 @@ void Sistem::kilitle()
 
 void Sistem::oturumuKapat()
 {
+    kapanisIzle(QStringLiteral("oturum"));
     // karşılayıcı Windows 8 "Oturum kapatılıyor" ekranını gösterip onaysız kapatır (kabuk logout/)
     cagir(QStringLiteral("org.kde.LogoutPrompt"), QStringLiteral("/LogoutPrompt"), QStringLiteral("org.kde.LogoutPrompt"), QStringLiteral("promptLogout"));
 }
 
 void Sistem::kapat()
 {
+    kapanisIzle(QStringLiteral("kapat"));
     cagir(QStringLiteral("org.kde.LogoutPrompt"), QStringLiteral("/LogoutPrompt"), QStringLiteral("org.kde.LogoutPrompt"), QStringLiteral("promptShutDown"));
 }
 
 void Sistem::yenidenBaslat()
 {
+    kapanisIzle(QStringLiteral("yeniden"));
     cagir(QStringLiteral("org.kde.LogoutPrompt"), QStringLiteral("/LogoutPrompt"), QStringLiteral("org.kde.LogoutPrompt"), QStringLiteral("promptReboot"));
 }
 
@@ -185,4 +188,57 @@ QString Sistem::komutCiktisi(const QString &program, const QStringList &arg, int
 bool Sistem::programVar(const QString &ad) const
 {
     return !QStandardPaths::findExecutable(ad).isEmpty();
+}
+
+// ------------------------------------------------------------------ kapatma engeli (BSDR)
+// ksmserver'ın isShuttingDown durumu izlenir: kapatma başlar (true) ve oturum hâlâ açıkken biterse (false)
+// bir uygulama kapatmayı reddetmiştir; açık kalan pencereler engelleyen uygulamalardır.
+void Sistem::kapanisIzle(const QString &tur)
+{
+    m_kapanisTur = tur;
+    m_kapanisBasladi = false;
+    m_kapanisSayac = 0;
+    m_iptalOnay = 0;
+    if (!m_kapanisZaman.isActive()) {
+        m_kapanisZaman.setInterval(300);
+        disconnect(&m_kapanisZaman, nullptr, this, nullptr);
+        connect(&m_kapanisZaman, &QTimer::timeout, this, [this] {
+            // kısa zaman aşımı: kapanış sırasında meşgul ksmserver kabuğu dondurmasın
+            auto m = QDBusMessage::createMethodCall(QStringLiteral("org.kde.ksmserver"), QStringLiteral("/KSMServer"),
+                                                    QStringLiteral("org.kde.KSMServerInterface"), QStringLiteral("isShuttingDown"));
+            QDBusReply<bool> r = QDBusConnection::sessionBus().call(m, QDBus::Block, 250);
+            ++m_kapanisSayac;
+            // kapatma hiç başlamadıysa (kullanıcı vazgeçti) ya da çok uzun sürdüyse izlemeyi bırak
+            if ((!m_kapanisBasladi && m_kapanisSayac > 200) || m_kapanisSayac > 600) {
+                m_kapanisZaman.stop();
+                return;
+            }
+            // ksmserver yanıt vermiyorsa (kapanışın son anında sonlanmış olabilir) iptal sayılmaz
+            if (!r.isValid())
+                return;
+            if (r.value()) {
+                m_kapanisBasladi = true;
+                m_iptalOnay = 0;
+            } else if (m_kapanisBasladi && ++m_iptalOnay >= 2) {   // art arda iki "hayır": gerçekten iptal
+                // iptal: Windows 8 durum ekranını (çıkış karşılayıcısı) kapat, engelleme ekranını göster
+                m_kapanisZaman.stop();
+                QProcess::startDetached(QStringLiteral("pkill"), {QStringLiteral("-x"), QStringLiteral("ksmserver-logout-greeter")});
+                Q_EMIT kapanisIptal(m_kapanisTur);
+                return;
+            }
+        });
+    }
+    m_kapanisZaman.start();
+}
+
+void Sistem::zorlaKapat(const QString &tur)
+{
+    // Windows'taki "Yine de kapat": uygulamaların onayı beklenmez
+    if (tur == QLatin1String("oturum")) {
+        QProcess::startDetached(QStringLiteral("sh"), {QStringLiteral("-c"),
+            QStringLiteral("loginctl terminate-session \"$(loginctl show-user \"$USER\" -p Display --value)\"")});
+        return;
+    }
+    cagir(QStringLiteral("org.freedesktop.login1"), QStringLiteral("/org/freedesktop/login1"), QStringLiteral("org.freedesktop.login1.Manager"),
+          tur == QLatin1String("yeniden") ? QStringLiteral("Reboot") : QStringLiteral("PowerOff"), {true}, true);
 }

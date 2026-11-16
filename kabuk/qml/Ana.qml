@@ -17,6 +17,12 @@ QtObject {
     property GorevYoneticisi gorevYoneticisi: GorevYoneticisi { ana: ana }
     property IlkOturum ilkOturum: IlkOturum { tema: ana.tema }
     property OtomatikPanel otomatikPanel: OtomatikPanel { tema: ana.tema }
+    // bir uygulama kapatmayı reddedince Windows 8.1 engelleme ekranı
+    property KapatmaEngeli kapatmaEngeli: KapatmaEngeli { tema: ana.tema }
+    property Connections kapanisBaglanti: Connections {
+        target: Sistem
+        function onKapanisIptal(tur) { ana.hepsiniKapat(); ana.kapatmaEngeli.ac(tur) }
+    }
     property Connections otomatikBaglanti: Connections {
         target: OtomatikKullan
         function onPanelIste(a) { ana.otomatikPanel.ac(a) }
@@ -305,6 +311,7 @@ QtObject {
         function onCalistirIste() { ana.hizliEylem("calistir") }
         function onGezginIste() { ana.hizliEylem("gezgin") }
         function onIlkOturumIste() { ana.ilkOturumOynat() }
+        function onKapatmaEngeliSinaIste(tur) { ana.kapatmaEngeli.ac(tur || "kapat") }
         function onOtomatikPanelSinaIste(yol) { ana.otomatikPanel.ac({ udi: "", yol: yol, ad: "USB SÜRÜCÜ", tur: "cikarilabilir", simge: "drive-removable-media-usb" }) }
         function onAraMetinIste(metin) { ana.aramaAc(metin, "") }
         function onGorevYoneticisiIste() { ana.hizliEylem("gorev") }

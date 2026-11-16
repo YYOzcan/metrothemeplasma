@@ -28,6 +28,9 @@ public:
     int klavyeDuzeni() const { return m_duzen; }
 
     Q_INVOKABLE void kilitle();
+    // Windows 8.1 "uygulamalar kapatmayı engelliyor" (BSDR): kapatma/yeniden başlatma/oturum kapatma iptal
+    // olursa (bir uygulama kaydedilmemiş iş yüzünden reddederse) kapanisIptal(tur) yayılır
+    Q_INVOKABLE void zorlaKapat(const QString &tur);    // "Yine de kapat": uygulamaları beklemeden
     Q_INVOKABLE void oturumuKapat();
     Q_INVOKABLE void kapat();
     Q_INVOKABLE void yenidenBaslat();
@@ -42,6 +45,7 @@ public:
     Q_INVOKABLE bool programVar(const QString &ad) const;
 
 Q_SIGNALS:
+    void kapanisIptal(const QString &tur);   // kapat | yeniden | oturum
     void avatarDegisti();
     void bildirimDegisti();
     void klavyeDegisti();
@@ -50,6 +54,12 @@ private Q_SLOTS:
     void klavyeOku();
 
 private:
+    void kapanisIzle(const QString &tur);
+    QTimer m_kapanisZaman;
+    QString m_kapanisTur;
+    bool m_kapanisBasladi = false;
+    int m_kapanisSayac = 0;
+    int m_iptalOnay = 0;
     uint m_gizlemeCerez = 0;
     QTimer m_gizlemeZamanlayici;
     QDateTime *m_bitis = nullptr;
