@@ -1,0 +1,86 @@
+diff --git a/kabuk/qml/Ana.qml b/kabuk/qml/Ana.qml
+index 084387d..8839229 100644
+--- a/kabuk/qml/Ana.qml
++++ b/kabuk/qml/Ana.qml
+@@ -180,7 +180,7 @@ QtObject {
+         switch (a) {
+         case "denetim": hepsiniKapat(); Sistem.calistir(ilkProgram(["metro-denetim", "systemsettings"])); break
+         case "kisisellestirme": bilgisayarAyarlari("renk"); break
+-        case "bilgi": hepsiniKapat(); Sistem.calistir(ilkProgram(["control 'Sistem ve Güvenlik/Sistem'", "kinfocenter kcm_about-distro", "systemsettings kcm_about-distro"])); break
++        case "bilgi": hepsiniKapat(); Sistem.calistir(ilkProgram(["control 'System and Security/System'", "kinfocenter kcm_about-distro", "systemsettings kcm_about-distro"])); break
+         case "yardim": hepsiniKapat(); Sistem.calistir(ilkProgram(["khelpcenter", "xdg-open https://userbase.kde.org"])); break
+         case "kisisellestir": bolme.ac("kisisellestir"); break
+         case "kutucuklar": bolme.ac("kutucuklar"); break
+@@ -191,11 +191,11 @@ QtObject {
+         var konsol = ilkProgram(["konsole", "kgx", "kitty", "alacritty", "xterm"])
+         switch (e) {
+         // Windows uygulamaları (linux-explorer Denetim Masası sayfaları, linux-devmgmt) kuruluysa onlar
+-        case "programlar": Sistem.calistir(ilkProgram(["control 'Programlar/Programlar ve Özellikler'", "plasma-discover --mode installed", "octopi", "pamac-manager", "systemsettings"])); break
++        case "programlar": Sistem.calistir(ilkProgram(["control 'Programs/Programs and Features'", "plasma-discover --mode installed", "octopi", "pamac-manager", "systemsettings"])); break
+         case "mobility": Sistem.ayarAc("kcm_powerdevilprofilesconfig"); break
+-        case "guc": Sistem.calistir(ilkProgram(["control 'Sistem ve Güvenlik/Güç Seçenekleri'", "systemsettings kcm_powerdevilprofilesconfig"])); break
++        case "guc": Sistem.calistir(ilkProgram(["control 'System and Security/Power Options'", "systemsettings kcm_powerdevilprofilesconfig"])); break
+         case "olay": Sistem.calistir(ilkProgram(["ksystemlog", "gnome-logs", konsol + " -e journalctl -b"])); break
+-        case "sistem": Sistem.calistir(ilkProgram(["control 'Sistem ve Güvenlik/Sistem'", "kinfocenter kcm_about-distro", "systemsettings kcm_about-distro"])); break
++        case "sistem": Sistem.calistir(ilkProgram(["control 'System and Security/System'", "kinfocenter kcm_about-distro", "systemsettings kcm_about-distro"])); break
+         case "aygit": Sistem.calistir(ilkProgram(["devmgmt", "kinfocenter kcm_pci", "systemsettings"])); break
+         case "ag": Sistem.ayarAc("kcm_networkmanagement"); break
+         case "disk": Sistem.calistir(ilkProgram(["partitionmanager", "gnome-disks", "gparted"])); break
+diff --git a/kabuk/qml/BilgisayarAyarlari.qml b/kabuk/qml/BilgisayarAyarlari.qml
+index bf72ff1..71fb7cb 100644
+--- a/kabuk/qml/BilgisayarAyarlari.qml
++++ b/kabuk/qml/BilgisayarAyarlari.qml
+@@ -565,7 +565,7 @@ Window {
+             Bolum { text: "Windows" }
+             Bilgi { etiket: "Sürüm"; deger: "Windows 8.1 (MetroThemePlasma, Plasma " + pen.kabuk("plasmashell --version 2>/dev/null | awk '{print $2}'") + ")" }
+             Bilgi { etiket: "Etkinleştirme"; deger: "Windows etkinleştirildi" }
+-            Baglanti { text: "Ek bilgi için Denetim Masası'nda Sistem'e gidin"; onTiklandi: Sistem.calistir("control 'Sistem ve Güvenlik/Sistem'") }
++            Baglanti { text: "Ek bilgi için Denetim Masası'nda Sistem'e gidin"; onTiklandi: Sistem.calistir("control 'System and Security/System'") }
+         }
+     }
+     component Bilgi: Row {
+diff --git a/plasma/masaustu/package/contents/ui/FolderViewLayer.qml b/plasma/masaustu/package/contents/ui/FolderViewLayer.qml
+index 2c071e6..eaec4df 100644
+--- a/plasma/masaustu/package/contents/ui/FolderViewLayer.qml
++++ b/plasma/masaustu/package/contents/ui/FolderViewLayer.qml
+@@ -410,7 +410,7 @@ FocusScope {
+         onTriggered: {
+             const control = folderView.model.programYolu("control");
+             if (control) {
+-                folderView.model.calistir(control, ["Görünüm ve Kişiselleştirme/Kişiselleştirme"]);
++                folderView.model.calistir(control, ["Appearance and Personalization/Personalization"]);
+             } else {
+                 Plasmoid.containment.configureRequested(Plasmoid);
+             }
+diff --git a/uygulamalar/yamalar/linux-explorer.py b/uygulamalar/yamalar/linux-explorer.py
+index 5c4f147..24c1d4f 100644
+--- a/uygulamalar/yamalar/linux-explorer.py
++++ b/uygulamalar/yamalar/linux-explorer.py
+@@ -252,3 +252,27 @@ s = s.replace(a, '''    if (metroOturumu())
+     else
+         addHeading(QStringLiteral("Aero Themes (%1)").arg(m_schemes.size()));''')
+ p.write_text(s)
++
++# Denetim Masası: Metro'nun açtığı sayfalar dilden bağımsız İngilizce yollarla da bulunsun
++# (control 'System and Security/System'); fromLatin1 satırlarını sözlük çevirmez
++p = Path("src/ui/control/ControlPanelView.cpp")
++s = p.read_text()
++a = '''QString View::resolvePath(const QString &path)
++{
++    if (path.isEmpty())
++        return QString();
++'''
++assert a in s, "resolvePath"
++s = s.replace(a, a + '''
++    static const QHash<QString, PageId> metroYollari = {
++        {QString::fromLatin1("System and Security/System"), PageId::System},
++        {QString::fromLatin1("System and Security/Power Options"), PageId::PowerOptions},
++        {QString::fromLatin1("Programs/Programs and Features"), PageId::ProgramsFeatures},
++        {QString::fromLatin1("Appearance and Personalization/Personalization"), PageId::Personalization},
++    };
++    if (metroYollari.contains(path))
++        return PageRegistry::pathFor(metroYollari.value(path));
++''')
++if "#include <QHash>" not in s:
++    s = s.replace('#include "ui/control/ControlPanelView.h"', '#include "ui/control/ControlPanelView.h"\n#include <QHash>', 1)
++p.write_text(s)
