@@ -28,6 +28,8 @@ Depoda hiçbir Microsoft dosyası yoktur. Bütün görseller, sesler, yazı tipl
 | Ses/parlaklık ekran göstergesi (sol üst, vurgu renginde dikey çubuk) | — |
 | Pencere çerçevesi (Aurorae "Metro"; ortalı başlık, DWM düğme atlası), otomatik renklendirme | aero.msstyles DWMWindow atlası |
 | Kvantum teması (düğmeler, kaydırma çubukları, sekmeler, menüler …), renk şeması | aero.msstyles |
+| Uygulama menüleri: simge oluğu, vurgu, onay zemini, ölçüler (Qt stili `metro`, Kvantum üstüne) | aero.msstyles MENU |
+| Masaüstü sağ tık menüsü: Görünüm, Sıralama ölçütü, Yenile, Yapıştır, Kısayol yapıştır, Yeni, Ekran çözünürlüğü, Kişiselleştir (AeroThemePlasma masaüstü kapsayıcısı çatalı) | shell32.dll.mui MENU 215 |
 | Kilit ekranı (perde + saat, oturum açma, "Parola yanlış. Yeniden deneyin.") | authui.dll metinleri, Web/Screen |
 | SDDM oturum açma ekranı, "Hoş geldiniz" açılışı, "Oturum kapatılıyor/Kapatılıyor" ekranları, Windows'u Kapat (Alt+F4) | — |
 | Plymouth açılış ekranı: Windows logosu + dönen noktalar (WinRT ProgressRing anahtar kareleri) | bootres.dll |

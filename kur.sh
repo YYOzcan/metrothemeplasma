@@ -280,6 +280,29 @@ else
     echo "   (AeroThemePlasma'nın aeroshell.taskmanager modülü yok ya da derlenemedi; Plasma'nın görev çubuğu kullanılır)"
 fi
 
+echo "==> Windows 8.1 masaüstü (ATP masaüstü kapsayıcısı çatalı; Windows 8.1 sağ tık menüsü) derleniyor"
+KAPSAYICI=0
+rm -rf "$MT/qml/io/github/yyozcan/metrokapsayici"
+if $CMAKE -S plasma/masaustu -B build/masaustu -G Ninja -DCMAKE_BUILD_TYPE=Release >/dev/null 2>&1 \
+   && ninja -C build/masaustu >/dev/null 2>&1; then
+    mkdir -p "$MT/qml/io/github/yyozcan/metrokapsayici"
+    cp -r build/masaustu/bin/io/github/yyozcan/metrokapsayici/folder "$MT/qml/io/github/yyozcan/metrokapsayici/"
+    kopyala plasma/masaustu/package "$DATA/plasma/plasmoids/io.github.yyozcan.metrokapsayici"
+    install -Dm755 build/masaustu/bin/io.github.yyozcan.metrobaglam.so "$MT/eklenti/plasma/containmentactions/io.github.yyozcan.metrobaglam.so"
+    # çeviriler: ATP'nin Türkçe kataloğu varsa o, yoksa Plasma'nın Klasör Görünümü kataloğu
+    for mo in /usr/share/locale/*/LC_MESSAGES/plasma_applet_org.kde.desktopcontainment.mo \
+              /usr/share/locale/*/LC_MESSAGES/plasma_applet_io.gitgud.wackyideas.desktopcontainment.mo; do
+        [[ -f $mo ]] || continue
+        dil=$(basename "$(dirname "$(dirname "$mo")")")
+        install -Dm644 "$mo" "$DATA/locale/$dil/LC_MESSAGES/plasma_applet_io.github.yyozcan.metrokapsayici.mo"
+    done
+    KAPSAYICI=1
+else
+    rm -rf "$DATA/plasma/plasmoids/io.github.yyozcan.metrokapsayici"
+    rm -f "$MT/eklenti/plasma/containmentactions/io.github.yyozcan.metrobaglam.so"
+    echo "   (derlenemedi; Plasma'nın Klasör Görünümü kullanılır)"
+fi
+
 # çatallanan ATP uygulamacıklarının çevirileri (çeviri alanı uygulamacık kimliğiyle değişti)
 for es in "seventasks:metrogorevler" "systemtray:metrotepsi" "notifications:metrobildirim"; do
     for mo in /usr/share/locale/*/LC_MESSAGES/plasma_applet_io.gitgud.wackyideas.${es%%:*}.mo; do
@@ -412,7 +435,8 @@ echo "==> Kuruluyor ($DATA, $CFG)"
 kopyala build/varlik "$MT/varlik"
 kopyala kabuk/qml "$MT/kabuk/qml"
 kopyala kabuk/uygulamalar "$MT/kabuk/uygulamalar"
-kopyala plasma/qml "$MT/qml"
+# yalnız kendi alt dizinlerini yenile: derlenen QML modülleri (metrotepsi, metrokapsayici) de $MT/qml'de
+for q in plasma/qml/*; do kopyala "$q" "$MT/qml/$(basename "$q")"; done
 kopyala build/aurorae/Metro "$DATA/aurorae/themes/Metro"
 kopyala build/kvantum/Metro "$CFG/Kvantum/Metro"
 kopyala build/desktoptheme/Metro "$DATA/plasma/desktoptheme/Metro"
@@ -423,6 +447,11 @@ kopyala "build/sounds/Windows 8.1" "$DATA/sounds/Windows 8.1"
 for w in build/wallpapers/*/; do kopyala "$w" "$DATA/wallpapers/$(basename "$w")"; done
 for p in plasma/plasmoids/*/; do kopyala "$p" "$DATA/plasma/plasmoids/$(basename "$p")"; done
 kopyala plasma/shells/io.github.yyozcan.metroshell "$DATA/plasma/shells/io.github.yyozcan.metroshell"
+# yeni masaüstleri Metro kapsayıcısıyla açılır (yalnız derlendiyse)
+# (sağ tıkta yalnız masaüstünün Windows 8.1 menüsü; panelinki değişmez)
+[[ $KAPSAYICI = 1 ]] && sed -i -e 's/^Containment=org.kde.plasma.folder$/Containment=io.github.yyozcan.metrokapsayici/' \
+    -e '0,/^RightButton;NoModifier=org.kde.contextmenu$/s//RightButton;NoModifier=io.github.yyozcan.metrobaglam/' \
+    "$DATA/plasma/shells/io.github.yyozcan.metroshell/contents/defaults"
 kopyala plasma/look-and-feel/io.github.yyozcan.metro "$DATA/plasma/look-and-feel/io.github.yyozcan.metro"
 # görünüm-ve-his düzeni = kabuk düzeni (tek kaynak)
 install -Dm644 plasma/shells/io.github.yyozcan.metroshell/contents/layout.js \

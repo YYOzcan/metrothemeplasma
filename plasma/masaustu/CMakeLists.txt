@@ -1,0 +1,27 @@
+# MetroThemePlasma — Windows 8.1 masaüstü kapsayıcısı. AeroThemePlasma'nın io.gitgud.wackyideas.desktopcontainment
+# çatalından (o da Plasma'nın Klasör Görünümü'nden) çatallanmıştır; sağ tık menüsü Windows 8.1 düzeninde
+# (shell32.dll.mui MENU 215 metinleri). QML modülü io.github.yyozcan.metrokapsayici.folder.
+cmake_minimum_required(VERSION 3.16)
+project(metrokapsayici)
+set(CMAKE_CXX_STANDARD 20)
+find_package(ECM 6.0.0 REQUIRED NO_MODULE)
+set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH})
+set(CMAKE_AUTOMOC ON)
+include(KDEInstallDirs)
+include(KDECMakeSettings)
+include(KDECompilerSettings NO_POLICY_SCOPE)
+include(ECMQmlModule)
+include(ECMQtDeclareLoggingCategory)
+remove_definitions(-DQT_NO_CAST_FROM_ASCII -DQT_NO_CAST_TO_ASCII -DQT_NO_CAST_FROM_BYTEARRAY)
+find_package(Qt6 REQUIRED COMPONENTS Core Gui Qml Quick Widgets)
+find_package(KF6 REQUIRED COMPONENTS CoreAddons KIO I18n ConfigWidgets Notifications XmlGui)
+find_package(Plasma REQUIRED)
+find_package(PlasmaQuick REQUIRED)
+find_package(PlasmaActivities REQUIRED)
+add_definitions(-DTRANSLATION_DOMAIN=\"plasma_applet_io.github.yyozcan.metrokapsayici\")
+add_subdirectory(folder)
+
+# masaüstü sağ tık eylemi (yalnız kapsayıcının menüsü)
+add_library(io.github.yyozcan.metrobaglam MODULE baglam/metrobaglam.cpp)
+target_link_libraries(io.github.yyozcan.metrobaglam Plasma::Plasma KF6::CoreAddons)
+set_target_properties(io.github.yyozcan.metrobaglam PROPERTIES PREFIX "")

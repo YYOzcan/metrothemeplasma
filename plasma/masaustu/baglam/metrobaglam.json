@@ -1,0 +1,7 @@
+{
+    "KPlugin": {
+        "Name": "Windows 8.1 masaüstü menüsü",
+        "Description": "Yalnız masaüstünün kendi bağlam menüsü (MetroThemePlasma)"
+    },
+    "X-Plasma-HasConfigurationInterface": false
+}

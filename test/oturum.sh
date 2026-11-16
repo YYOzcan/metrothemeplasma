@@ -3,7 +3,9 @@
 #   bash test/oturum.sh <çıktı dizini> "<komut; komut; ...>"
 # ortam: ONCESI="<komut>" oturumdan önce çalışır
 # komutlar: foto | bekle <sn> | calistir <program...> | kabuk <DBus yöntemi [arg]> | sh <kabuk komutu>
+#           tikla <x> <y> [sol|sag|yok]  (sahte girdi; yalnız bu iç içe KWin'e)
 set -u
+KOK="$(cd "$(dirname "$0")/.." && pwd)"
 CIKTI="$1"; KOMUTLAR="$2"
 mkdir -p "$CIKTI"
 export XDG_RUNTIME_DIR=/run/user/$(id -u)/mt
@@ -27,7 +29,7 @@ export QT_PLUGIN_PATH="$HOME/.local/share/metrothemeplasma/eklenti"
 # ONCESI: oturumdan önce yalıtılmış yapılandırmada çalışacak komut (ör. yükseltme sınaması)
 [ -n "${ONCESI:-}" ] && bash -c "$ONCESI" >> "$CIKTI/profil.log" 2>&1
 dbus-run-session -- bash -c "
-  kwin_wayland --virtual --width 1920 --height 1080 --socket mt-0 --no-lockscreen >\"$CIKTI/kwin.log\" 2>&1 &
+  KWIN_WAYLAND_NO_PERMISSION_CHECKS=1 kwin_wayland --virtual --width 1920 --height 1080 --socket mt-0 --no-lockscreen >\"$CIKTI/kwin.log\" 2>&1 &
   for i in \$(seq 50); do [ -S \"$XDG_RUNTIME_DIR/mt-0\" ] && break; sleep 0.1; done
   export WAYLAND_DISPLAY=mt-0 QT_QPA_PLATFORM=wayland
   kbuildsycoca6 >/dev/null 2>&1
@@ -47,6 +49,7 @@ dbus-run-session -- bash -c "
       bekle*) sleep \${k#bekle } ;;
       calistir*) \${k#calistir } >>\"$CIKTI/uygulama.log\" 2>&1 & ;;
       kabuk*) qdbus6 io.github.yyozcan.MetroKabuk /Kabuk io.github.yyozcan.MetroKabuk.\${k#kabuk } >/dev/null 2>&1 || echo \"dbus hata: \$k\" >> \"$CIKTI/kabuk.log\" ;;
+      tikla*) METRO_SINAMA_GIRDI=1 \"$KOK/build/girdi/tikla\" \${k#tikla } >>\"$CIKTI/sh.log\" 2>&1 ;;
       sh*) bash -c \"\${k#sh }\" >>\"$CIKTI/sh.log\" 2>&1 ;;
     esac
   done
