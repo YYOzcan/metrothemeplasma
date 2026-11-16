@@ -1,0 +1,15 @@
+# MetroThemePlasma: kapanırken oturum açma ekranı (SDDM) kapandıktan sonra Windows 8.1 kapanış ekranı
+# (Plymouth) gelene dek bir an görünen metin konsolu boş kalsın: ekranı sil, imleci gizle.
+[Unit]
+Description=MetroThemePlasma: kapanışta konsolu gizle
+DefaultDependencies=no
+After=display-manager.service
+Before=plymouth-poweroff.service plymouth-reboot.service plymouth-halt.service plymouth-kexec.service
+Before=systemd-poweroff.service systemd-reboot.service systemd-halt.service systemd-kexec.service
+
+[Service]
+Type=oneshot
+ExecStart=/bin/sh -c 'for t in /dev/tty1 /dev/tty2 /dev/tty3 /dev/tty4 /dev/tty5 /dev/tty6 /dev/tty7; do [ -c "$t" ] && printf "\\033[?25l\\033[2J\\033[H" > "$t" 2>/dev/null; done; true'
+
+[Install]
+WantedBy=poweroff.target reboot.target halt.target kexec.target

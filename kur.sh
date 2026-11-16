@@ -123,6 +123,9 @@ if [[ "${1:-}" == "--sistem" ]]; then
     install -Dm644 session/metrothemeplasma.desktop /usr/share/wayland-sessions/metrothemeplasma.desktop
     # kapanışta konsola "The system will reboot now!" yazılmasın
     install -Dm644 session/metro-sessiz-kapanis.service /etc/systemd/system/metro-sessiz-kapanis.service
+    # SDDM kapanınca Plymouth gelene dek bir an görünen konsol boş ve imleçsiz olsun
+    install -Dm644 session/metro-kapanis-konsol.service /etc/systemd/system/metro-kapanis-konsol.service
+    systemctl daemon-reload; systemctl reenable metro-kapanis-konsol.service 2>/dev/null || true
     systemctl daemon-reload; systemctl reenable metro-sessiz-kapanis.service 2>/dev/null || true
     systemctl restart metro-sessiz-kapanis.service 2>/dev/null || true
     # Plasma/Qt/KDE güncellenince kendiliğinden yeniden derle ve kur (pacman kancası; ATP'ninkinden sonra çalışır)
@@ -158,7 +161,11 @@ if [[ "${1:-}" == "--sistem" ]]; then
     fi
     chmod -R a+rX "$T"
     echo "Oturum kuruldu: SDDM'de 'MetroThemePlasma (Wayland)' seçilebilir."
-    echo "Windows 8.1 oturum açma ekranı kuruldu (etkin değil). Etkinleştirmek için:  sudo bash $0 --sddm-metro"
+    if grep -qs '^Current=metrothemeplasma$' /etc/sddm.conf.d/zz-metrothemeplasma.conf; then
+        echo "Windows 8.1 oturum açma ekranı güncellendi (etkin)."
+    else
+        echo "Windows 8.1 oturum açma ekranı kuruldu (etkin değil). Etkinleştirmek için:  sudo bash $0 --sddm-metro"
+    fi
     exit 0
 fi
 
@@ -189,7 +196,8 @@ if [[ "${1:-}" == "--kaldir" ]]; then
     echo "              /usr/share/sddm/themes/metrothemeplasma /etc/sddm.conf.d/zz-metrothemeplasma.conf \\"
     echo "              /usr/local/share/fonts/metrothemeplasma /usr/local/bin/metro-guncelle-hook \\"
     echo "              /etc/pacman.d/hooks/91-metro-guncelle.hook /etc/metrothemeplasma.conf \\"
-    echo "              /etc/systemd/system/metro-sessiz-kapanis.service  (önce: sudo systemctl disable metro-sessiz-kapanis)"
+    echo "              /etc/systemd/system/metro-sessiz-kapanis.service /etc/systemd/system/metro-kapanis-konsol.service"
+    echo "              (önce: sudo systemctl disable metro-sessiz-kapanis metro-kapanis-konsol)"
     exit 0
 fi
 

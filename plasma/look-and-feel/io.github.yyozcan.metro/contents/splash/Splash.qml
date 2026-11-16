@@ -18,16 +18,18 @@ Rectangle {
         property string arkaPlan: "#180053"
     }
 
+    // Windows 8.1 LogonUI durum satırı (authui.dll StatusMessageStyle): halka 40×40 rp (üstten 5 rp,
+    // sağında 10 rp), yazı 20 pt Segoe UI Light (üstten 4 rp); grup ekranın ortasında
     Row {
         id: icerik
         anchors.centerIn: parent
-        spacing: 18
-        IlerlemeHalkasi { anchors.verticalCenter: parent.verticalCenter; boyut: 40 }
+        spacing: 10
+        Item { width: 40; height: 45; IlerlemeHalkasi { y: 5; boyut: 40 } }
         Text {
-            anchors.verticalCenter: parent.verticalCenter
+            topPadding: 4
             text: "Hoş geldiniz"
             color: "white"
-            font.family: "Segoe UI"; font.weight: 300; font.pixelSize: 36
+            font.family: "Segoe UI"; font.weight: 300; font.pointSize: 20
         }
     }
     onStageChanged: {

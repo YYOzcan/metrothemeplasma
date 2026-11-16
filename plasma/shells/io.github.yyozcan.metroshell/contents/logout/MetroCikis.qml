@@ -43,17 +43,16 @@ Item {
         durum = d
         calistir.restart()
     }
-    // Windows 7 gibi: durum ekranı belirir, bir süre kalır, ekran siyaha kararır, işlem o zaman başlar
-    // (kapanış ekranı da siyahtan belirdiği için geçiş kesintisizdir)
+    // Windows 8.1: masaüstünden LogonUI rengine yumuşak geçiş, ardından kapatma hemen başlar; durum ekranı
+    // uygulamalar kapanırken ekranda kalır (KWin kapanana dek), sonra Plymouth aynı ekranı sürdürür
     Timer {
         id: calistir
-        interval: 1300
+        interval: 400
         running: root.durum !== ""
         onTriggered: karar.start()
     }
     SequentialAnimation {
         id: karar
-        NumberAnimation { target: siyah; property: "opacity"; to: 1; duration: 650; easing.type: Easing.InOutQuad }
         ScriptAction {
             script: {
                 if (root.durum === "oturum") oturum.requestLogout(0)
@@ -73,16 +72,18 @@ Item {
         color: renk.arkaPlan
         opacity: 0
         onVisibleChanged: if (visible) belir.restart()
-        NumberAnimation { id: belir; target: durumEkrani; property: "opacity"; from: 0; to: 1; duration: 450; easing.type: Easing.OutQuad }
+        NumberAnimation { id: belir; target: durumEkrani; property: "opacity"; from: 0; to: 1; duration: 300; easing.type: Easing.OutQuad }
+        // Windows 8.1 LogonUI durum satırı (authui.dll StatusMessageStyle): halka 40×40 rp (üstten 5 rp,
+        // sağında 10 rp), yazı 20 pt Segoe UI Light (üstten 4 rp); Plymouth kapanış ekranı aynı ölçüde
         Row {
             anchors.centerIn: parent
-            spacing: 18
-            IlerlemeHalkasi { anchors.verticalCenter: parent.verticalCenter; boyut: 40 }
+            spacing: 10
+            Item { width: 40; height: 45; IlerlemeHalkasi { y: 5; boyut: 40 } }
             Text {
-                anchors.verticalCenter: parent.verticalCenter
+                topPadding: 4
                 text: root.metin
                 color: "white"
-                font.family: "Segoe UI"; font.weight: 300; font.pixelSize: 36
+                font.family: "Segoe UI"; font.weight: 300; font.pointSize: 20
             }
         }
     }
@@ -148,8 +149,6 @@ Item {
             }
         }
     }
-    // siyaha kararma (en üstte)
-    Rectangle { id: siyah; anchors.fill: parent; color: "black"; opacity: 0; visible: opacity > 0; z: 100 }
     Component.onCompleted: if (root.durum !== "") belir.restart()
     Keys.onEscapePressed: if (root.durum === "") root.cancelRequested()
 }

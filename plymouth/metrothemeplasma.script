@@ -4,7 +4,7 @@
 # Kapanış : Başlangıç zemin rengi, ortada dönen noktalar ve "Kapatılıyor" / "Yeniden başlatılıyor"
 #
 # Ekran önce simpledrm üzerinde çizilir; asıl sürücü yüklenince çözünürlük değişebilir: yerleşim her
-# karede denetlenir. (global.arka_r/g/b bu dosyanın başına kurulumda eklenir.)
+# karede denetlenir. (global.arka_r/g/b ve global.olcek bu dosyanın başına kurulumda eklenir.)
 
 mod = Plymouth.GetMode();
 global.kapanis = (mod == "shutdown" || mod == "reboot");
@@ -37,17 +37,26 @@ fun yerlestir() {
         global.halka[i] = global.halka_ham[i].Scale(cap, cap);
 
     if (global.kapanis) {
-        yh = Math.Int(h / 20);                    # yazı satır yüksekliği
+        # Windows 8.1 LogonUI durum satırı (authui.dll StatusMessageStyle), oturumdaki çıkış ekranıyla aynı:
+        # halka 40 rp (üstten 5 rp), 10 rp aralık, yazı 20 pt Light (üstten 4 rp); grup ortada.
+        # rp = Plasma ölçeği (kurulumda global.olcek olarak yazılır)
+        s = global.olcek;
+        if (s < 0.5) s = 1;
+        cap = Math.Int(40 * s);
+        for (i = 0; i < global.KARE; i++)
+            global.halka[i] = global.halka_ham[i].Scale(cap, cap);
+        yh = Math.Int(40 * s);                    # yazı görüntüsü = yazı boyu × 1,5
         yw = Math.Int(global.yazi_ham.GetWidth() * yh / global.yazi_ham.GetHeight());
-        toplam = cap + Math.Int(cap * 0.5) + yw;
+        toplam = cap + Math.Int(10 * s) + yw;
         x0 = Math.Int((w - toplam) / 2);
+        y0 = Math.Int((h - 45 * s) / 2);
         global.h_sprite = Sprite(global.halka[0]);
         global.h_sprite.SetX(x0);
-        global.h_sprite.SetY(Math.Int(h / 2 - cap / 2));
+        global.h_sprite.SetY(y0 + Math.Int(5 * s));
         global.h_sprite.SetZ(2);
         global.y_sprite = Sprite(global.yazi_ham.Scale(yw, yh));
-        global.y_sprite.SetX(x0 + cap + Math.Int(cap * 0.5));
-        global.y_sprite.SetY(Math.Int(h / 2 - yh * 0.42));
+        global.y_sprite.SetX(x0 + cap + Math.Int(10 * s));
+        global.y_sprite.SetY(y0 + Math.Int(4 * s));
         global.y_sprite.SetZ(2);
         global.y_sprite.SetOpacity(global.solgun);
         global.h_sprite.SetOpacity(global.solgun);
@@ -84,7 +93,8 @@ fun guncelle() {
         yerlestir();
     global.sayac++;
     if (global.solgun < 1) {
-        if (global.kapanis) global.solgun += 0.025; else global.solgun += 0.033;
+        # kapanış: oturumdaki durum ekranının devamı, kısa geçiş (~0,3 sn); açılış: logo ~0,6 sn'de belirir
+        if (global.kapanis) global.solgun += 0.067; else global.solgun += 0.033;
         if (global.solgun > 1) global.solgun = 1;
         f = global.solgun;
         if (global.kapanis) {

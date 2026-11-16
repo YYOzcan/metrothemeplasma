@@ -78,6 +78,23 @@ def yazi(metin, yol, px=72):
     return im
 
 
+def plasma_olcegi():
+    """Plasma'nın ekran ölçeği (kwinoutputconfig.json; laptoplarda çoğu zaman 1,25): kapanış ekranı oturumdaki
+    çıkış ekranıyla aynı boyutta çizilsin."""
+    import json
+    import os
+    yol = Path(os.environ.get("XDG_CONFIG_HOME") or Path.home() / ".config") / "kwinoutputconfig.json"
+    try:
+        for bolum in json.loads(yol.read_text()):
+            if bolum.get("name") == "outputs":
+                for c in bolum.get("data", []):
+                    if c.get("scale"):
+                        return float(c["scale"])
+    except (OSError, ValueError):
+        pass
+    return 1.0
+
+
 def main(win, cikti, arka="#180053"):
     win, cikti = Path(win), Path(cikti)
     cikti.mkdir(parents=True, exist_ok=True)
@@ -97,11 +114,14 @@ def main(win, cikti, arka="#180053"):
     for k in range(KARE):
         halka(k * SURE / KARE).save(cikti / f"halka-{k:03d}.png")
     fontlar = win / "Windows/Fonts"
-    yazi("Kapatılıyor", fontlar).save(cikti / "kapat-kapat.png")
-    yazi("Yeniden başlatılıyor", fontlar).save(cikti / "kapat-yeniden.png")
+    # LogonUI durum yazısı 20 pt Segoe UI Light = 26,67 px (96 DPI); 4 kat büyük çizilir, betik küçültür
+    # (görüntü yüksekliği yazı boyunun 1,5 katı: 1080p/%100'de 40 px)
+    yazi("Kapatılıyor", fontlar, 107).save(cikti / "kapat-kapat.png")
+    yazi("Yeniden başlatılıyor", fontlar, 107).save(cikti / "kapat-yeniden.png")
     h = arka.lstrip("#")
     r, g, b = (int(h[i:i + 2], 16) / 255 for i in (0, 2, 4))
-    (cikti / "renk.script").write_text(f"global.arka_r = {r:.4f};\nglobal.arka_g = {g:.4f};\nglobal.arka_b = {b:.4f};\n")
+    (cikti / "renk.script").write_text(f"global.arka_r = {r:.4f};\nglobal.arka_g = {g:.4f};\nglobal.arka_b = {b:.4f};\n"
+                                       f"global.olcek = {plasma_olcegi():.3f};\n")
     kaynak = Path(__file__).resolve().parent.parent / "plymouth"
     betik = (kaynak / "metrothemeplasma.script").read_text()
     # Plymouth betiği başka dosya içe aktaramaz: renk sabitleri betiğin başına yazılır

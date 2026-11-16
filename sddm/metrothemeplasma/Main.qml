@@ -251,11 +251,12 @@ Rectangle {
                         MouseArea { id: tamamMa; anchors.fill: parent; hoverEnabled: true; onClicked: tamam.kapat() }
                     }
                 }
+                // LogonUI "Status" (kullanıcı kutucuğuyla): halka 40 rp (üstten 5), 10 rp aralık, 20 pt Light (üstten 4)
                 Row {
                     visible: root.bekliyor
-                    spacing: 12
-                    Halka { boyut: 28; calisiyor: root.bekliyor }
-                    Text { anchors.verticalCenter: parent.verticalCenter; text: "Hoş geldiniz"; color: "white"; font.family: "Segoe UI"; font.weight: 300; font.pixelSize: 22 }
+                    spacing: 10
+                    Item { width: 40; height: 45; Halka { y: 5; boyut: 40; calisiyor: root.bekliyor } }
+                    Text { topPadding: 4; text: "Hoş geldiniz"; color: "white"; font.family: "Segoe UI"; font.weight: 300; font.pointSize: 20 }
                 }
             }
         }
@@ -383,13 +384,35 @@ Rectangle {
                             onClicked: {
                                 gucMenu.visible = false
                                 if (parent.modelData[1] === 0) sddm.suspend()
-                                else if (parent.modelData[1] === 1) sddm.powerOff()
-                                else sddm.reboot()
+                                else root.kapanisBaslat(parent.modelData[1] === 1 ? "kapat" : "yeniden")
                             }
                         }
                     }
                 }
             }
+        }
+    }
+
+    // ------------------------------------------------------------------ kapanış durum ekranı
+    // Windows 8.1: oturum açma ekranından kapatınca da LogonUI durum ekranı ("Kapatılıyor" /
+    // "Yeniden başlatılıyor"); halka 40 rp, 10 rp aralık, 20 pt Light — Plymouth kapanış ekranıyla aynı
+    property string kapanis: ""
+    function kapanisBaslat(t) { kapanis = t; kapanisZamani.restart() }
+    Timer { id: kapanisZamani; interval: 700; onTriggered: { if (root.kapanis === "kapat") sddm.powerOff(); else sddm.reboot() } }
+    Rectangle {
+        anchors.fill: parent
+        z: 1000
+        visible: root.kapanis !== ""
+        color: root.color
+        opacity: visible ? 1 : 0
+        Behavior on opacity { NumberAnimation { duration: 250 } }
+        MouseArea { anchors.fill: parent; hoverEnabled: true }
+        Row {
+            anchors.centerIn: parent
+            spacing: 10
+            Item { width: 40; height: 45; Halka { y: 5; boyut: 40; calisiyor: root.kapanis !== "" } }
+            Text { topPadding: 4; text: root.kapanis === "yeniden" ? "Yeniden başlatılıyor" : "Kapatılıyor"
+                   color: "white"; font.family: "Segoe UI"; font.weight: 300; font.pointSize: 20 }
         }
     }
 
@@ -440,5 +463,7 @@ Rectangle {
 
     // sınama: theme.conf'ta sinama=1 ise perde kendiliğinden kalkar (test/sddm.sh)
     Timer { interval: 1200; running: config.sinama === "1" || config.sinama === 1; onTriggered: root.perdeyiKaldir() }
+    // sınama: sinama=kapanis kapanış durum ekranını gösterir (test kipinde sddm.powerOff hiçbir şey yapmaz)
+    Timer { interval: 1500; running: config.sinama === "kapanis"; onTriggered: root.kapanisBaslat("kapat") }
     Component.onCompleted: root.forceActiveFocus()
 }
